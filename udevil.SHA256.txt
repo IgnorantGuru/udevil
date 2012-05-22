@@ -1,0 +1,61 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+udevil Authentication Instructions
+
+
+  Each version of udevil is distributed with a file named
+  udevil-x.x.x.SHA256.asc (where x.x.x is the current version number) which is
+  used to authenticate distributed files.
+
+
+Why Authenticate?
+
+  Verifying the authenticity of downloaded files prior to installation is
+  important to ensure that your download is not corrupt and that no one has
+  tampered with the server holding the files.
+
+
+1) If you don't already have IgnorantGuru's CURRENT key on your keyring:
+
+  gpg --keyserver keys.gnupg.net --recv-keys 0x7977070A723C6CCB696C0B0227A5AC5A01937621
+    (if you receive an error, try again)
+    
+  Also visually verify that the given fingerprint matches the one shown here:
+    http://igurublog.wordpress.com/contact-ignorantguru/
+
+2) Download one or more files (the first is required):
+
+   udevil-x.x.x.SHA256.asc
+   udevil-x.x.x.tar.xz
+   udevil-x.x.x-installer.sh
+   udevil_x.x.x-1_all.deb
+
+
+3) Check signature and files:
+
+   gpg -d udevil-x.x.x.SHA256.asc | sha256sum --check
+
+   This should report a good signature and an OK for each file present:  
+
+     gpg: Signature made <SIGNATURE DATE> using DSA key ID 01937621    <--
+ --> udevil-x.x.x.tar.xz: OK
+ --> udevil-x.x.x-installer.sh: OK
+ --> udevil_x.x.x-1_all.deb: OK
+ --> gpg: Good signature from IgnorantGuru <EMAIL>
+     gpg: WARNING: This key is not certified with a trusted signature!
+     gpg:          There is no indication that the signature belongs to the owner.
+     sha256sum: WARNING: x lines are improperly formatted
+
+   If "BAD signature" or the wrong key ID is reported, or if FAILED appears
+   next to any file you plan to use, DO NOT USE the file.  A "key is not
+   certified" warning (shown above) is normal and can be safely ignored if
+   you visually verified the key fingerprint in step 1.
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iF4EAREIAAYFAk+3phoACgkQJ6WsWgGTdiEQ/AEA9NCKksakYILuUMIagRgaq/5G
+IRdtwXi3R0kXAJ6F4EgA/R2a2UrvhTR48XchJZShfZhraOH+hXsQS8EGPCslJLsJ
+=+5aq
+-----END PGP SIGNATURE-----

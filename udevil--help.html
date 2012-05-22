@@ -1,0 +1,63 @@
+<html><body>
+<pre>
+$ udevil --help
+
+udevil version 0.2.0
+Mounts and unmounts devices without password, shows device info, monitors
+device changes.  Emulates udisks1/2 command line usage and udisks1 output.
+Usage: udevil [OPTIONS] COMMAND [COMMAND-OPTIONS] [COMMAND-ARGUMENTS]
+OPTIONS:
+    --verbose                                   print details
+    --quiet                                     minimal output
+MOUNT  -  Mounts DEVICE to mount point DIR with MOUNT-OPTIONS:
+    udevil mount|--mount [MOUNT-OPTIONS] [[-b|--block-device] DEVICE] [DIR]
+    MOUNT-OPTIONS:
+    -t|--types|--filesystem-type|--mount-fstype TYPE    (see man mount)
+    -o|--options|--mount-options OPT,...                (see man mount)
+    --no-user-interaction                       ignored (for compatibility)
+    EXAMPLES:
+    udevil mount /dev/sdd1
+    udevil mount -o ro,noatime /dev/sdd1
+    udevil mount -o ro,noatime /dev/sdd1 /media/custom
+    udevil mount /tmp/example.iso                    # ISO file
+    udevil mount ftp://sys.domain                    # ftp site - requires
+                                                       ftpfs or curlftpfs
+    udevil mount ftp://user:pass@sys.domain/share    # ftp share with
+                                                       user and password
+    udevil mount ftp://user:pass@sys.domain:21/share # ftp share with
+                                                       port, user and password
+    udevil mount -t ftpfs sys.domain                 # ftp site with ftpfs
+    udevil mount -t curlftpfs sys.domain             # ftp site with curl
+    udevil mount -t curlftpfs user:pass@sys.domain   # ftp site with curl u/p
+    udevil mount nfs://sys.domain:/share             # nfs share
+    udevil mount sys.domain:/share                   # nfs share
+    udevil mount smb://sys.domain/share              # samba share
+    udevil mount smb://user:pass@10.0.0.1:50/share   # samba share w/ u/p/port
+    udevil mount //sys.domain/share                  # samba share
+UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:
+    udevil umount|unmount|--unmount|--umount [UNMOUNT-OPTIONS] 
+                                              {[-b|--block-device] DEVICE}|DIR
+    UNMOUNT-OPTIONS:
+    -l                                          lazy unmount (see man umount)
+    -f                                          force unmount (see man umount)
+    --no-user-interaction                       ignored (for compatibility)
+    EXAMPLES: udevil umount /dev/sdd1
+              udevil umount /media/disk
+              udevil umount -l /media/disk
+              udevil umount /tmp/example.iso
+INFO  -  Show information about DEVICE emulating udisks v1 output:
+    udevil info|--show-info|--info [-b|--block-device] DEVICE
+    EXAMPLE:  udevil info /dev/sdd1
+MONITOR  -  Display device events emulating udisks v1 output:
+    udevil monitor|--monitor
+    EXAMPLE:  udevil monitor
+CLEAN  -  Remove unmounted udevil-created mount dirs in media dirs
+    udevil clean
+HELP  -  Show this help
+    udevil help|--help|-h
+
+<a href="http://ignorantguru.github.com/udevil/">http://ignorantguru.github.com/udevil/</a>  See <a href="udevil.conf.txt">/etc/udevil/udevil.conf</a> for config.
+<!-- For automounting with udevil run '<a href="http://igurublog.wordpress.com/downloads/script-devmon/">devmon --help</a>' -->
+
+</pre>
+</body></html>

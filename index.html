@@ -1,74 +1,242 @@
-<!DOCTYPE html>
 <html>
+<head>
+	<title>udevil Homepage</title>
+	<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /> --> 
+</head>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Udevil : alpha version - for early testing" />
+<body>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<center>
+<h2><a href="http://ignorantguru.github.com/udevil/" border=0>udevil Homepage</a></h2>
 
-    <title>Udevil</title>
-  </head>
+<br><br>
+<table cellspacing="0" cellpadding="10" align="center" width="80%" border=2>
+ <tr> 
+	<td>
 
-  <body>
+<br>
+udevil is a new command line Linux program which mounts and unmounts removable devices without a password, shows device info, and monitors device changes.  It can also mount ISO files and nfs://, smb://, and ftp:// URLs.
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/IgnorantGuru/udevil">View on GitHub</a>
+<p>udevil is highly configurable, requires no daemon running, and doesn't depend on udisks, gvfs, or fuse, just udev.  To use it, just prefix a normal mount command with 'udevil'.  udevil can also replace udisks in SpaceFM and devmon.&nbsp;&nbsp;<a href="#highlights">read more</a>
 
-          <h1 id="project_title">Udevil</h1>
-          <h2 id="project_tagline">alpha version - for early testing</h2>
+<p><b>IMPORTANT</b>  THIS RELEASE IS FOR INITIAL TESTING PURPOSES ONLY - USE AT YOUR OWN RISK.  Please test this version of udevil carefully before relying on its behavior.
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/IgnorantGuru/udevil/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/IgnorantGuru/udevil/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+<br><br>
+<h3>Links</h3>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+<ul>
+	<li><a href="https://github.com/IgnorantGuru/udevil/tree/master/packages">Downloads</a> - To save a file on Github, click on its filename and click 'View Raw'
+	<li><a href="news.html">News</a> - The latest news on udevil development and releases
+	<li><a href="udevil--help.html">Usage</a> and <a href="udevil.conf.txt">udevil.conf</a> - How to use and configure udevil
+	<li><a href="https://github.com/IgnorantGuru/udevil/issues">Report Issues</a>
+	<li><a href="http://igurublog.wordpress.com/">IgnorantGuru's Blog</a> - Author's blog contains news and update info
+</ul>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h3>Packages</h3>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<center>
+<table border=1 cellpadding="5" width="80%">
+<tr>
+	<th>Distro</th>
+	<th>Packages &amp; Repositories*</th>
+</tr>
 
-<h3>Designer Templates</h3>
+<tr>
+<td valign="top"><b>Arch Linux</b></td>
+<td>
+	Arch Linux's AUR will soon include <a href="http://aur.archlinux.org/packages.php?O=0&K=udevil&do_Search=Go">udevil-git</a>
+</td>
+</tr>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<tr>
+<td valign="top"><b><a name="deb">Debian-based</a></b></td>
+<td>
+	<p>deb packages are available in <a href="https://github.com/IgnorantGuru/udevil/tree/master/packages">Downloads</a> (to save a file, click on its filename and click 'View Raw'), and are also available in <a href="http://igurublog.wordpress.com/downloads/ppa/">the author's PPA</a>.  These convenience deb packages contain the source code and will build and install udevil automatically on most Debian-based distros.  $TMPDIR (usually /tmp) must NOT be mounted noexec for the installation.
 
-<h3>Rather Drive Stick?</h3>
+	<p><b>Or</b> easily build your own deb package from source using the instructions in the <a href="https://github.com/IgnorantGuru/udevil/blob/master/README">README</a> file.
+</td>
+</tr>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<tr>
+<td valign="top"><b><i>Other</i></b></td>
+<td>
+	A <a href="#installer">self-extracting installer</a> is available, <b>or</b> use one of the manual build methods in the <a href="https://github.com/IgnorantGuru/udevil/blob/master/README">README</a>.
+</td>
+</tr>
+</table>
+<br>
+<p>NOTE: Also see <a href="#post">Post Installation</a> steps below.
+</center>
 
-<h3>Authors and Contributors</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<h3><a name="highlights">Highlights</a></h3>
+<ul>
+    <li>Lightweight -  Written in C with libudev and glib - no dependency on udisks or gvfs
+    <li>Users can specify custom mount points and mount options
+    <li>Optional user mounting of nfs://, smb://, and ftp:// network URLs with support for username, password, port, and any other configured options
+    <li>Optional user mounting of image files (ISO, etc)
+    <li>Uses mount's existing command line usage - just prefix your mount command with 'udevil'.  Also supports udisks v1 and v2 command line usage
+    <li>Flexible - Admins can easily adjust allowed users, groups, fstypes, devices, and networks, and set default mount options and allowed mount options for each fstype, with exceptions for special users
+    <li>Extensible - Allows admins to use additional custom authentication and notification scripts
+    <li>Secure - Designed to limit user actions to only what you want enabled, plus easily log all system-wide uses of udevil
+    <li>Detailed errors and verbose commands for quick troubleshooting
+    <li>Works as <a href="http://ignorantguru.github.com/spacefm/">SpaceFM</a>'s mount/unmount command, replacing need for pmount or udisks
+    <li>SOON:  Will work as a udisks replacement for the <a href="http://igurublog.wordpress.com/downloads/script-devmon/">devmon</a> automounting daemon and mount utility
+</ul>
 
-<h3>Support or Contact</h3>
+<h3>Limitations</h3>
+<ul>
+	<li>udevil does not currently handle encrypted devices automatically
+</ul>
+<br>
+<hr>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Udevil maintained by <a href="https://github.com/IgnorantGuru">IgnorantGuru</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
 
-    
+<a name="installer">&nbsp;</a>
+<p><h3>Installer</h3>
 
-  </body>
-</html>
+<p>A self-extracting installer is available in <a href="https://github.com/IgnorantGuru/udevil/tree/master/packages">Downloads</a>.  The installer MUST be run in a terminal.  It automatically builds and installs, and should work with any recent distro.  Run it like this:
+<p>
+<table bgcolor="#d0d4d7" width="100%" border="1"><tr><td><pre><font color="#000000">bash udevil-x.x.x-installer.sh
+
+# or to see options:
+
+bash udevil-x.x.x-installer.sh --help
+</font></pre></td></tr></table>
+
+<p>The installer requires the build dependencies listed in the <a href="https://github.com/IgnorantGuru/udevil/blob/master/README">README</a> file.  Build dependencies include:  (package names may vary on your distro)
+<blockquote><i>libglib2.0-0 libglib2.0-dev libudev0 (>=143) libudev-dev autotools-dev build-essential fakeroot intltool pkg-config</i></blockquote>
+
+<p>If any dependencies are missing, examine the error, install missing packages, and try again.
+
+<p>To reinstall or upgrade, just run the latest installer again.<BR>
+
+<p>For easy manual build instructions please see the <a href="https://github.com/IgnorantGuru/udevil/blob/master/README">README</a> file.
+
+<p>To authenticate downloads see <a href="http://ignorantguru.github.com/udevil/udevil.SHA256.txt">authentication instructions</a>.
+
+<p>NOTE: Also see <a href="#post">Post Installation</a> steps below.
+
+<hr>
+
+
+<a name="post">&nbsp;</a>
+<p><h3>Post Installation</h3>
+
+<b>Kernel Polling</b>
+
+<p>You may need to enable kernel polling for device media to be detected by udevil.  See the <a href="#polling">Enable Kernel Polling</a> section below.
+
+<p><b>Set SUID</b>
+
+<p>After installing udevil, /usr/bin/udevil should have the suid bit already set.  If not, set it like this:
+<pre>
+    sudo chown root:root /usr/bin/udevil
+    sudo chmod u+s,go-s,ugo+x /usr/bin/udevil
+    ls -l /usr/bin/udevil
+        -rwsr-xr-x 1 root root 226625 May 22 08:13 /usr/bin/udevil
+</pre>
+
+OR, to restrict execution of udevil to the 'plugdev' group only:
+<pre>
+    sudo chown root:plugdev /usr/bin/udevil
+    sudo chmod u+s,go-s,o-x /usr/bin/udevil
+    ls -l /usr/bin/udevil
+        -rwsr-xr-- 1 root plugdev 226625 May 22 08:13 /usr/bin/udevil
+</pre>
+
+OR, if you don't want to use udevil for mounting, you can unset suid:
+<pre>
+    sudo chown root:root /usr/bin/udevil
+    sudo chmod ugo-s,ugo+x /usr/bin/udevil
+    ls -l /usr/bin/udevil
+        -rwxr-xr-x 1 root root 226625 May 22 08:13 /usr/bin/udevil
+</pre>
+You can also limit users and groups by editing <a href="udevil.conf.txt">/etc/udevil/udevil.conf</a>
+
+<p><b>Networks and Files</b>
+
+<P>By default, /etc/udevil/udevil.conf is set to allow only normal fileystems to be mounted, with mounting of networks and files disallowed.  To allow networks and files to be mounted, in <a href="udevil.conf.txt">/etc/udevil/udevil.conf</a> set:
+<pre>
+    allowed_types = $KNOWN_FILESYSTEMS, smbfs, nfs, ftpfs, curlftpfs, file
+</pre>
+
+<p><b>FTP Support</b>
+
+<p>To mount 'ftp://' URLs with udevil, you also need <a href="http://linuxconfig.org/mount-remote-ftp-directory-host-locally-into-linux-filesystem">curlftpfs</a> or <a href="http://www.techrepublic.com/article/mount-ftp-volumes-locally-with-ftpfs/5031896">ftpfs</a> installed.
+
+<p><b>NTFS-3G</b>
+
+<p>If you want mount and udevil to use ntfs-3g to mount ntfs filesystems:
+<pre>
+    sudo ln -s /sbin/mount.ntfs-3g /sbin/mount.ntfs
+</pre>
+
+<hr>
+
+<a name="polling">&nbsp;</a>
+<p><h3>Enable Kernel Polling</h3>
+
+<p>You may need to enable kernel polling for device media to be detected by udevil.  For example, if you insert a CD and udevil's monitor command doesn't report a change to the device, or udevil doesn't see a filesystem on the device, this is a symptom that kernel polling is not enabled.
+
+<p>Kernel polling is a new feature of the Linux kernel and udev, so most distros don't yet have it enabled. Even if you are using udisks, enabling kernel polling is recommended to eliminate the need for udisks to do userspace polling. Kernel polling also corrects a common issue where the eject button on a drive won't respond with the newer udev.
+
+<p>To use kernel polling, your Linux kernel needs to be <b>2.6.38 or newer</b>, and udev must be <b>version 173</b> or newer.
+
+<p>You can deterime if kernel polling is enabled by running these commands:
+<pre>
+    cat /sys/module/block/parameters/events_dfl_poll_msecs
+    cat /sys/block/sr0/events_poll_msecs
+</pre>
+
+If you get 0 or -1 from those commands, then it's probably disabled.
+
+<p><b>To enable kernel polling temporarily</b>, enable common polling for the block module:
+<pre>
+    sudo bash -c 'echo 2000 > /sys/module/block/parameters/events_dfl_poll_msecs'
+</pre>
+
+Any number between 2000 and 5000 (milliseconds) should be reasonable - the higher 5000 means poll every 5 seconds, which is less overhead but a little slower.
+
+<p><b>OR</b> you can enable polling just for a single device like this (/dev/sr0 in this example):
+<pre>
+    sudo bash -c 'echo 2000 > /sys/block/sr0/events_poll_msecs'
+</pre>
+
+The change should be immediate - media will be detected and the eject button on the drive should work normally again.  However, the above changes will be lost when you reboot.
+
+<p><b>To make polling permanent</b> (survives a reboot), add one of the above commands to your <b>/etc/rc.local</b> file (anywhere before the 'exit' line in that file), like this (without the sudo):
+<pre>
+    echo 2000 > /sys/module/block/parameters/events_dfl_poll_msecs
+</pre>
+
+<b>OR</b> you can pass this option to the kernel boot command line in grub:
+<blockquote>
+    <i>block.events_dfl_poll_msecs=2000</i>
+</blockquote>
+
+References:<br>
+<a href="http://www.mail-archive.com/lfs-dev@linuxfromscratch.org/msg15714.html">linuxfromscratch.org/msg15714.html</a><br>
+<a href="http://blogs.gentoo.org/mgorny/2011/06/20/uam-can-now-mount-cds-and-dvds/">uam-can-now-mount-cds-and-dvds</a><br>
+<a href="https://bugs.archlinux.org/task/25609">bugs.archlinux.org</a><br>
+
+
+</td></tr></table>
+<br><br><br>
+<table cellspacing="0" cellpadding="0" align="center" width="75%">
+ <tr> 
+	<td>
+		<div align="left"><i>Updated 2012-05-19</i></div>
+	</td>
+	<td>
+		<div align="right"><a href="http://igurublog.wordpress.com/contact-ignorantguru/">Contact</a></div>
+	</td>
+</tr></table>
+
+
+
+<br>
+</center>
+</body></html>
