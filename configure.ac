@@ -1,0 +1,126 @@
+AC_PREREQ(2.52)
+
+AC_INIT(src/udevil.c)
+AM_CONFIG_HEADER(config.h)
+AC_CONFIG_SRCDIR(src)
+AM_INIT_AUTOMAKE(udevil, 0.2.0)
+
+AC_PROG_INTLTOOL([0.21])
+
+AM_MAINTAINER_MODE
+AC_ISC_POSIX
+AC_HEADER_STDC
+AM_PROG_LIBTOOL
+AC_PROG_INSTALL
+
+AC_DEFINE_UNQUOTED(UDEVIL_VERSION, "$VERSION", [udevil version])
+
+
+dnl linker optimizations
+AC_MSG_CHECKING([whether $LD accepts --as-needed])
+case `$LD --as-needed -v 2>&1 </dev/null` in
+*GNU* | *'with BFD'*)
+  LDFLAGS="$LDFLAGS -Wl,--as-needed"
+  AC_MSG_RESULT([yes])
+  ;;
+*)
+  AC_MSG_RESULT([no])
+  ;;
+esac
+AC_MSG_CHECKING([whether $LD accepts -O1])
+case `$LD -O1 -v 2>&1 </dev/null` in
+*GNU* | *'with BFD'*)
+  LDFLAGS="$LDFLAGS -Wl,-O1"
+  AC_MSG_RESULT([yes])
+  ;;
+*)
+  AC_MSG_RESULT([no])
+  ;;
+esac
+AC_MSG_CHECKING([whether $LD accepts -Bsymbolic-functions])
+case `$LD -Bsymbolic-functions -v 2>&1 </dev/null` in
+*GNU* | *'with BFD'*)
+  LDFLAGS="$LDFLAGS -Wl,-Bsymbolic-functions"
+  AC_MSG_RESULT([yes])
+  ;;
+*)                                                                              
+  AC_MSG_RESULT([no])
+  ;;
+esac
+
+dnl advanced compiler tweaking
+CPPFLAGS="$CPPFLAGS -fstrict-aliasing -fmessage-length=0"
+
+
+# program paths
+AC_ARG_WITH(mount-prog, 
+	AC_HELP_STRING([--with-mount-prog=PATH], [Path to mount program (default: /bin/mount)]),
+	AC_DEFINE_UNQUOTED(MOUNTPROG, "$withval", [path to mount]),
+	AC_DEFINE_UNQUOTED(MOUNTPROG, "/bin/mount", [path to mount]))
+AC_ARG_WITH(umount-prog, 
+	AC_HELP_STRING([--with-umount-prog=PATH], [Path to umount program (default: /bin/umount)]),
+	AC_DEFINE_UNQUOTED(UMOUNTPROG, "$withval", [path to umount]),
+	AC_DEFINE_UNQUOTED(UMOUNTPROG, "/bin/umount", [path to umount]))
+AC_ARG_WITH(losetup-prog, 
+	AC_HELP_STRING([--with-losetup-prog=PATH], [Path to losetup program (default: /sbin/losetup)]),
+	AC_DEFINE_UNQUOTED(LOSETUPPROG, "$withval", [path to losetup]),
+	AC_DEFINE_UNQUOTED(LOSETUPPROG, "/sbin/losetup", [path to losetup]))
+
+
+# check for libs    gobject-2.0 gmodule-2.0 gthread-2.0
+dnl Check for glib 2.0
+PKG_CHECK_MODULES(GLIB, [glib-2.0], , [
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+
+You must install GLib 2.0 development headers (eg libglib2.0-dev) to build.
+
+If you have these installed already you may need to install pkg-config so
+I can find them.
+])])
+AC_SUBST(GLIB_CFLAGS)
+AC_SUBST(GLIB_LIBS)
+GLIB_GENMARSHAL=`pkg-config --variable=glib_genmarshal glib-2.0`
+AC_SUBST(GLIB_GENMARSHAL)
+
+dnl Check udev support
+PKG_CHECK_MODULES(LIBUDEV, [libudev >= 143], , [
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+
+You must install libudev development headers (eg libudev-dev) to build.
+
+If you have these installed already you may need to install pkg-config so
+I can find them.
+])])
+AC_SUBST(LIBUDEV_CFLAGS)
+AC_SUBST(LIBUDEV_LIBS)
+
+
+GETTEXT_PACKAGE="udevil"
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package])
+AM_GLIB_GNU_GETTEXT
+
+
+AC_OUTPUT([
+Makefile
+po/Makefile.in
+man/Makefile
+etc/Makefile
+src/Makefile
+])
+
+
+echo
+echo udevil....................................... : Version $VERSION ALPHA TEST
+echo
+echo Linux device support......................... : libudev
+echo
+echo Installation Prefix.......................... : $prefix
+echo "      The binary will be installed as $prefix/bin/udevil"
+echo
+echo 'Homepage: http://ignorantguru.github.com/udevil/'
+echo
+echo
+

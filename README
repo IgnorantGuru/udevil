@@ -1,0 +1,329 @@
+README for udevil v0.2.0 ALPHA TEST VERSION
+
+
+THIS RELEASE IS FOR INITIAL TESTING PURPOSES ONLY - USE AT YOUR OWN RISK.
+Please test functions carefully before relying on them.
+
+
+For updates and instructions visit:
+    http://ignorantguru.github.com/udevil/
+    http://ignorantguru.github.com/udevil/news.html
+
+
+CONTENTS
+
+    DESCRIPTION
+    PACKAGES
+    INSTALLER
+    BUILD
+    BUILD NEXT
+    CREATE DEB PACKAGE
+    POST INSTALL
+        Kernel Polling
+        Set SUID
+        Networks and Files
+        FTP Support
+        NTFS-3G
+    ENABLE KERNEL POLLING
+    UNINSTALL
+    TRANSLATIONS
+    LICENSE
+
+
+DESCRIPTION
+
+    Mounts and unmounts optical and removable devices without a password (set
+    suid), shows device info, monitors device changes.  Emulates mount's and
+    udisks's command line usage and udisks v1's output.
+
+    Run 'udevil --help' for usage.  See /etc/udevil/udevil.conf for config.
+        http://ignorantguru.github.com/udevil/udevil--help.html
+        http://ignorantguru.github.com/udevil/udevil.conf.txt
+
+
+PACKAGES
+
+
+    Arch's AUR will soon include udevil-git:
+        http://aur.archlinux.org/packages.php?O=0&K=udevil&do_Search=Go
+
+    Debian-based deb packages are provided in Downloads:
+        (to save a file, click on its filename and click 'View Raw'):
+        https://github.com/IgnorantGuru/udevil/tree/master/packages
+
+        and are also available in the author's PPA:
+            http://igurublog.wordpress.com/downloads/ppa/
+
+        These convenience deb packages contain the source code and will build
+        and install udevil automatically on most Debian-based distros.
+        $TMPDIR (usually /tmp) must NOT be mounted noexec for the installation.
+        Or see CREATE DEB PACKAGE below to easily build a binary package.
+
+        For signatures and SHA256 sums see
+            http://ignorantguru.github.com/udevil/udevil.SHA256.txt
+
+    Other:  See INSTALLER below
+
+    NOTE: See POST INSTALL section below for post-installation steps.
+
+
+INSTALLER
+
+    A self-extracting installer is available (udevil-x.x.x-installer.sh):
+        https://github.com/IgnorantGuru/udevil/tree/master/packages
+            (To save a file, click on its filename and click 'View Raw')
+
+    The installer requires the build dependencies listed below in BUILD.  If
+    any dependencies are missing, examine the error, install missing packages,
+    and try again.
+
+    The installer MUST be run in a terminal.  It automatically builds and
+    installs.  Run it like this:
+
+        bash udevil-x.x.x-installer.sh
+
+    or to see options:
+
+        bash udevil-x.x.x-installer.sh --help
+
+    To reinstall or upgrade, just run the latest installer again.
+
+    NOTE: See POST INSTALL section below for post-installation steps.
+
+
+BUILD
+
+    1)  Install required build dependencies (below are Debian package names -
+        packages names on your distro may vary but should be similar):
+
+            libglib2.0-0 libglib2.0-dev libudev0 (>=143) libudev-dev
+            autotools-dev build-essential fakeroot intltool pkg-config
+
+        configure will report anything missing when you run it as shown below.
+
+    2)  Use these commands to download the udevil tarball and build:
+
+        # Download & Extract
+        mkdir /tmp/udevil-build && cd /tmp/udevil-build
+        wget -O udevil.tar.gz https://github.com/IgnorantGuru/udevil/tarball/master
+        tar xzf udevil.tar.gz
+        cd IgnorantGuru-udevil-*
+
+        # Build & Install
+        ./configure
+        make
+        sudo make install
+
+        # Remove Temporary Files
+        cd / && rm -rf /tmp/udevil-build
+
+    NOTE: If configure reports missing dependencies, install them and run
+    configure again before proceeding to make.
+
+    NOTE: See POST INSTALL section below for post-installation steps.
+
+
+BUILD NEXT
+
+    The git 'next' branch of udevil is a work in progress which eventually
+    becomes the next release version.  The next build is less stable in
+    general, and functions may be incomplete.  To build from this branch,
+    install the required build dependencies listed above in BUILD, then:
+
+    # Download & Extract
+    mkdir /tmp/udevil-next && cd /tmp/udevil-next
+    wget -O udevil-next.tar.gz https://github.com/IgnorantGuru/udevil/tarball/next
+    tar xzf udevil-next.tar.gz
+    cd IgnorantGuru-udevil-*
+
+    # Build, & Install
+    ./autogen.sh   # pass desired configure options (if any) here to autogen.sh
+    make
+    sudo make install
+
+    # Remove Temporary Files
+    cd / && rm -rf /tmp/udevil-next
+
+
+CREATE DEB PACKAGE
+
+    To build a deb file of udevil on your Debian-based distro:
+
+    1)  Install build dependencies (see BUILD section above) plus 'debhelper'.
+
+    2)  Use these commands to download and extract the SpaceFM tarball:
+
+        mkdir /tmp/udevil-build && cd /tmp/udevil-build
+        # Note: you can change "master" to "next" if you want the next branch:
+        wget -O udevil.tar.gz https://github.com/IgnorantGuru/udevil/tarball/master
+        tar xzf udevil.tar.gz
+        cd IgnorantGuru-udevil-*
+
+    3)  Build package:  (the package files will appear in the parent directory)
+
+        dpkg-buildpackage -b -uc
+        cd .. && rm -rf IgnorantGuru-udevil-* udevil.tar.gz
+
+    4)  To install the package you built:
+
+        dpkg -i udevil*.deb
+
+
+POST INSTALL
+
+    Kernel Polling
+    --------------
+
+    You may need to enable kernel polling for device media to be detected by
+    udevil.  See ENABLE KERNEL POLLING section below.
+
+
+    Set SUID
+    --------
+
+    After installing udevil, /usr/bin/udevil should have the suid bit already
+    set.  If not, set it like this:
+
+        sudo chown root:root /usr/bin/udevil
+        sudo chmod u+s,go-s,ugo+x /usr/bin/udevil
+        ls -l /usr/bin/udevil
+            -rwsr-xr-x 1 root root 226625 May 22 08:13 /usr/bin/udevil
+
+    OR, to restrict execution of udevil to the 'plugdev' group only:
+
+        sudo chown root:plugdev /usr/bin/udevil
+        sudo chmod u+s,go-s,o-x /usr/bin/udevil
+        ls -l /usr/bin/udevil
+            -rwsr-xr-- 1 root plugdev 226625 May 22 08:13 /usr/bin/udevil
+
+    OR, if you don't want to use udevil for mounting, you can unset suid:
+        sudo chown root:root /usr/bin/udevil
+        sudo chmod ugo-s,ugo+x /usr/bin/udevil
+        ls -l /usr/bin/udevil
+            -rwxr-xr-x 1 root root 226625 May 22 08:13 /usr/bin/udevil
+
+    You can also limit users and groups by editing /etc/udevil/udevil.conf
+
+
+    Networks and Files
+    ------------------
+
+    By default, /etc/udevil/udevil.conf is set to allow only normal fileystems
+    to be mounted, with mounting of networks and files disallowed.  To allow
+    networks and files to be mounted, in /etc/udevil/udevil.conf set:
+
+        allowed_types = $KNOWN_FILESYSTEMS, smbfs, nfs, ftpfs, curlftpfs, file
+
+
+    FTP Support
+    -----------
+
+    To mount 'ftp://' URLs with udevil, you also need curlftpfs installed:
+    http://linuxconfig.org/mount-remote-ftp-directory-host-locally-into-linux-filesystem
+
+    OR you need the ftpfs kernel module:
+    http://www.techrepublic.com/article/mount-ftp-volumes-locally-with-ftpfs/5031896
+
+
+    NTFS-3G
+    -------
+
+    If you want mount and udevil to use ntfs-3g to mount ntfs filesystems:
+
+        sudo ln -s /sbin/mount.ntfs-3g /sbin/mount.ntfs
+
+
+ENABLE KERNEL POLLING
+
+    You may need to enable kernel polling for device media to be detected by
+    udevil.  For example, if you insert a CD and udevil's monitor command
+    doesn't report a change to the device, or udevil doesn't see a filesystem
+    on the device, this is a symptom that kernel polling is not enabled.
+
+    Kernel polling is a new feature of the Linux kernel and udev, so most
+    distros don't yet have it enabled. Even if you are using udisks, enabling
+    kernel polling is recommended to eliminate the need for udisks to do
+    userspace polling. Kernel polling also corrects a common issue where the
+    eject button on a drive won't respond with the newer udev.
+
+    To use kernel polling, your Linux kernel needs to be 2.6.38 or newer, and
+    udev must be version 173 or newer.
+
+    TO DETERIME IF KERNEL POLLING IS ENABLED, run these commands:
+
+        cat /sys/module/block/parameters/events_dfl_poll_msecs
+        cat /sys/block/sr0/events_poll_msecs
+
+    If you get 0 or -1 from those commands, then it's probably disabled.
+
+    TO ENABLE KERNEL POLLING TEMPORARILY, enable common polling for the block
+    module:
+
+        sudo bash -c 'echo 2000 > /sys/module/block/parameters/events_dfl_poll_msecs'
+
+    Any number between 2000 and 5000 (milliseconds) should be reasonable - the
+    higher 5000 means poll every 5 seconds, which is less overhead but a little
+    slower.
+
+    OR you can enable polling just for a single device like this (/dev/sr0 in
+    this example):
+
+        sudo bash -c 'echo 2000 > /sys/block/sr0/events_poll_msecs'
+
+    The change should be immediate - media will be detected and the eject
+    button on the drive should work normally again. However, the above changes
+    will be lost when you reboot.
+
+    TO MAKE POLLING PERMANENT (survives a reboot), add one of the above
+    commands to your /etc/rc.local file (anywhere before the 'exit' line in
+    that file), like this (without the sudo):
+
+        echo 2000 > /sys/module/block/parameters/events_dfl_poll_msecs
+
+    OR you can pass this option to the kernel boot command line in grub:
+
+        block.events_dfl_poll_msecs=2000
+
+    References:
+    http://www.mail-archive.com/lfs-dev@linuxfromscratch.org/msg15714.html
+    http://blogs.gentoo.org/mgorny/2011/06/20/uam-can-now-mount-cds-and-dvds/
+    https://bugs.archlinux.org/task/25609
+
+
+UNINSTALL
+
+    If you installed from a package, use your package manager to remove udevil.
+    Otherwise, extract the tarball and enter the directory containing
+    configure:
+
+        # first run configure with your original options if needed:
+        ./configure
+        sudo make uninstall
+        # Note: /etc/udevil/ is not automatically removed
+
+
+TRANSLATIONS
+
+    udevil is not yet ready for translators - please check back soon.
+
+
+LICENSE
+
+    udevil - Copyright (C) 2012   GPL3
+
+    This program is free software; you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation; either version 3 of the License, or (at your
+    option) any later version.
+
+    USE AT YOUR OWN RISK.  This program is distributed in the hope that it
+    will be useful, but WITHOUT ANY WARRANTY; without even the implied
+    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+    the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not,  write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+    See COPYING file.
+

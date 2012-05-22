@@ -1,0 +1,8 @@
+IgnorantGuru <ignorantguru@gmx.com>  http://igurublog.wordpress.com/
+
+Source code taken from other projects:
+ * spacefm       (udev support)
+ * mount         (secure realpath)
+ * udisks 1.0.4  (device info functions - modified)
+ * pmount 0.99   (physical tty test function - modified)
+

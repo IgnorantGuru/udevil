@@ -1,0 +1,35 @@
+#! /bin/sh
+set -e
+
+case "$1" in
+    configure)
+        [ -e /media ] || mkdir /media
+
+    # confine udevil execution to plugdev group members?
+    if (( 0 )); then
+        for prog in /usr/bin/udevil; do
+            if ! dpkg-statoverride --list $prog > /dev/null; then
+                    if ! getent group plugdev > /dev/null; then
+                        addgroup --quiet --system plugdev || true
+                    fi
+                    chown root:plugdev $prog
+                    chmod 4754 $prog
+            fi
+        done
+    else
+        chmod 4755 /usr/bin/udevil
+    fi
+        ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0
