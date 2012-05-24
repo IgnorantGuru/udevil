@@ -1,3 +1,5 @@
-0.2.0   2012-05-19:
+0.2.1
+    log error msgs when parsing network url
+0.2.0   2012-05-22:
     initial test release
 

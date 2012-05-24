@@ -2225,22 +2225,22 @@ static int parse_network_url( const char* url, const char* fstype,
     {
         if ( !strcmp( nm->fstype, "nfs" ) && strcmp( fstype, "nfs" ) )
         {
-            printf( "udevil: error: invalid type '%s' for NFS share - must be 'nfs'\n",
-                                                                fstype );
+            wlog( "udevil: error: invalid type '%s' for NFS share - must be 'nfs'\n",
+                                                                fstype, 2 );
             bad_type = TRUE;
         }
         else if ( !strcmp( nm->fstype, "smbfs" ) && strcmp( fstype, "smbfs" ) )
         {
-            printf( "udevil: error: invalid type '%s' for SMB share - must be 'smbfs'\n",
-                                                                fstype );
+            wlog( "udevil: error: invalid type '%s' for SMB share - must be 'smbfs'\n",
+                                                                fstype, 2 );
             bad_type = TRUE;
         }
         else if ( !strcmp( nm->fstype, "ftpfs" ) || !strcmp( nm->fstype, "curlftpfs" ) )
         {
             if ( strcmp( fstype, "ftpfs" ) && strcmp( fstype, "curlftpfs" ) )
             {
-                printf( "udevil: error: invalid type '%s' for FTP share - must be 'ftpfs' or 'curlftpfs'\n",
-                                                                    fstype );
+                wlog( "udevil: error: invalid type '%s' for FTP share - must be 'ftpfs' or 'curlftpfs'\n",
+                                                                    fstype, 2 );
                 bad_type = TRUE;
             }
             else
@@ -2258,7 +2258,7 @@ static int parse_network_url( const char* url, const char* fstype,
                 || ( nm->pass && strchr( nm->pass, ' ' ) )
                 || ( nm->port && strchr( nm->port, ' ' ) ) )
         {
-            printf( "udevil: error: invalid network url\n", fstype );
+            wlog( "udevil: error: invalid network url\n", fstype, 2 );
             bad_type = TRUE;
         }
     }
@@ -2270,13 +2270,13 @@ static int parse_network_url( const char* url, const char* fstype,
         {
             if ( !( nm->ip = get_ip( nm->host ) ) || ( nm->ip && nm->ip[0] == '\0' ) )
             {
-                printf( "udevil: error: lookup host '%s' failed\n", nm->host );
+                wlog( "udevil: error: lookup host '%s' failed\n", nm->host, 2 );
                 g_free( nm->host );
                 nm->host = NULL;
             }
         }
         else
-            printf( "udevil: error: '%s' is not a recognized network url\n", url );
+            wlog( "udevil: error: '%s' is not a recognized network url\n", url, 2 );
     }
 
     if ( ret == 0 || !nm->host || bad_type )

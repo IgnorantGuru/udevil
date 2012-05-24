@@ -1,4 +1,4 @@
-README for udevil v0.2.0 ALPHA TEST VERSION
+README for udevil v0.2.0+ ALPHA TEST VERSION
 
 
 THIS RELEASE IS FOR INITIAL TESTING PURPOSES ONLY - USE AT YOUR OWN RISK.
@@ -44,8 +44,8 @@ DESCRIPTION
 PACKAGES
 
 
-    Arch's AUR will soon include udevil-git:
-        http://aur.archlinux.org/packages.php?O=0&K=udevil&do_Search=Go
+    Arch's AUR includes udevil-git:
+        https://aur.archlinux.org/packages.php?ID=59463
 
     Debian-based deb packages are provided in Downloads:
         (to save a file, click on its filename and click 'View Raw'):
