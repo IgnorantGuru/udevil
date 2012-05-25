@@ -34,7 +34,8 @@ DESCRIPTION
 
     Mounts and unmounts optical and removable devices without a password (set
     suid), shows device info, monitors device changes.  Emulates mount's and
-    udisks's command line usage and udisks v1's output.
+    udisks's command line usage and udisks v1's output.  Includes the devmon
+    automounting daemon.
 
     Run 'udevil --help' for usage.  See /etc/udevil/udevil.conf for config.
         http://ignorantguru.github.com/udevil/udevil--help.html
@@ -99,6 +100,8 @@ BUILD
             libglib2.0-0 libglib2.0-dev libudev0 (>=143) libudev-dev
             autotools-dev build-essential fakeroot intltool pkg-config
 
+        Also recommended if using devmon: eject zenity
+        
         configure will report anything missing when you run it as shown below.
 
     2)  Use these commands to download the udevil tarball and build:

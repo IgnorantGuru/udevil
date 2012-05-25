@@ -128,7 +128,7 @@ void parse_mounts( gboolean report )
     gchar **lines;
     GError *error;
     guint n;
-//printf("\n@@@@@@@@@@@@@ parse_mounts %s\n\n", report ? "TRUE" : "FALSE" );
+//fprintf( stderr, "\n@@@@@@@@@@@@@ parse_mounts %s\n\n", report ? "TRUE" : "FALSE" );
     contents = NULL;
     lines = NULL;
 
@@ -219,7 +219,7 @@ void parse_mounts( gboolean report )
     }
     g_free( contents );
     g_strfreev( lines );
-//printf("\nLINES DONE\n\n");
+//fprintf( stderr, "\nLINES DONE\n\n");
     // translate each mount points list to string
     gchar *points, *old_points;
     GList* m;
@@ -240,7 +240,7 @@ void parse_mounts( gboolean report )
         g_list_free( devmount->mounts );
         devmount->mounts = NULL;
         devmount->mount_points = points;
-//printf( "translate %d:%d %s\n", devmount->major, devmount->minor, points );
+//fprintf( stderr, "translate %d:%d %s\n", devmount->major, devmount->minor, points );
     }
 
     // compare old and new lists
@@ -252,16 +252,16 @@ void parse_mounts( gboolean report )
         for ( l = newmounts; l; l = l->next )
         {
             devmount = (devmount_t*)l->data;
-//printf("finding %d:%d\n", devmount->major, devmount->minor );
+//fprintf( stderr, "finding %d:%d\n", devmount->major, devmount->minor );
             found = g_list_find_custom( devmounts, (gconstpointer)devmount,
                                                     (GCompareFunc)cmp_devmounts );
-            if ( found )
+            if ( found && found->data )
             {
-//printf("    found\n");
+//fprintf( stderr, "    found\n");
                 if ( !g_strcmp0( ((devmount_t*)found->data)->mount_points,
                                                         devmount->mount_points ) )
                 {
-//printf("    freed\n");
+//fprintf( stderr, "        freed\n");
                     // no change to mount points, so remove from old list
                     devmount = (devmount_t*)found->data;
                     g_free( devmount->mount_points );
@@ -272,7 +272,7 @@ void parse_mounts( gboolean report )
             else
             {
                 // new mount
-//printf("    new mount %d:%d\n", devmount->major, devmount->minor );
+//fprintf( stderr, "    new mount %d:%d\n", devmount->major, devmount->minor );
                 dev = makedev( devmount->major, devmount->minor );
                 udevice = udev_device_new_from_devnum( udev, 'b', dev );
                 if ( udevice )
@@ -280,12 +280,12 @@ void parse_mounts( gboolean report )
             }
         }
     }
-//printf( "\nREMAINING\n\n");
+//fprintf( stderr, "\nREMAINING\n\n");
     // any remaining devices in old list have changed mount status
     for ( l = devmounts; l; l = l->next )
     {
         devmount = (devmount_t*)l->data;
-//printf("remain %d:%d\n", devmount->major, devmount->minor );
+//fprintf( stderr, "remain %d:%d\n", devmount->major, devmount->minor );
         if ( report )
         {
             dev = makedev( devmount->major, devmount->minor );
@@ -313,6 +313,7 @@ void parse_mounts( gboolean report )
                 {
                     char* bdev = g_path_get_basename( devnode );
                     printf( "changed:     /org/freedesktop/UDisks/devices/%s\n", bdev );
+                    fflush( stdout );
                     g_free( bdev );
                     g_free( devnode );
                 }
@@ -333,8 +334,11 @@ static void free_devmounts()
     for ( l = devmounts; l; l = l->next )
     {
         devmount = (devmount_t*)l->data;
-        g_free( devmount->mount_points );
-        g_slice_free( devmount_t, devmount );
+        if ( devmount )
+        {
+            g_free( devmount->mount_points );
+            g_slice_free( devmount_t, devmount );
+        }
     }
     g_list_free( devmounts );
     devmounts = NULL;
@@ -432,6 +436,8 @@ if ( !( cond & G_IO_NVAL ) )
             else if ( !strcmp( action, "move" ) )
                 printf( "moved:     /org/freedesktop/UDisks/devices/%s\n", bdev );
             g_free( bdev );
+            fflush( stdout );
+            fflush( stderr );
         }
         g_free( devnode );
         udev_device_unref( udevice );
@@ -3157,7 +3163,7 @@ _get_type:
         if ( mount_knows( type == MOUNT_NET ? netmount->url : data->device_file ) )
         {
             // mount knows (in fstab) so mount as normal user with only specified opts
-            wlog( "udevil: '%s' is known to mount - running mount as normal user\n",
+            wlog( "udevil: %s is known to mount - running mount as normal user\n",
                                                             data->device_file, 1 );
             if ( data->fstype )
                 wlog( "udevil: warning: fstype ignored for device in fstab (or specify mount point)\n",
@@ -3605,6 +3611,8 @@ static int command_info( CommandData* data )
     device_free( device );
     udev_device_unref( udevice );
     udev_unref( udev );
+    fflush( stdout );
+    fflush( stderr );
     return ret;
 }
 
@@ -3805,7 +3813,7 @@ static void show_help()
     printf( "    udevil help|--help|-h\n" );
     printf( "\n" );
     printf( "http://ignorantguru.github.com/udevil/  See /etc/udevil/udevil.conf for config.\n" );
-    //printf( "For automounting with udevil run 'devmon --help'\n" );
+    printf( "For automounting with udevil run 'devmon --help'\n" );
 
     printf( "\n" );
 }

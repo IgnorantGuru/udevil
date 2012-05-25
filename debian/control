@@ -12,8 +12,10 @@ Package: udevil
 Architecture: any
 Depends: libc6, libglib2.0-0, libudev0 (>=143)
 Recommends: 
-Suggests: 
-Conflicts: 
+Suggests: eject
+Conflicts: devmon
+Provides: devmon
 Description: Mounts and unmounts optical and removable devices without a
- password (set suid), shows device info, monitors device changes.
+ password (set suid), shows device info, monitors device changes.  Includes the
+ devmon automounting script.
 

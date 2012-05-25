@@ -2,6 +2,8 @@ noinst_PROGRAMS = udevil
 
 udevil_SOURCES = udevil.c device-info.c realpath.c
 
+bin_SCRIPTS = devmon
+
 INSTALL_DIR = $(DESTDIR)/$(prefix)/bin
 INSTALL_SRC = $(top_builddir)/src
 
