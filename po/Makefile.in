@@ -19,7 +19,7 @@
 
 GETTEXT_PACKAGE = udevil
 PACKAGE = udevil
-VERSION = 0.2.0+
+VERSION = 0.2.1
 
 SHELL = /bin/bash
 
