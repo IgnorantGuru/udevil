@@ -22,6 +22,26 @@
 
 <!-- --------------------------------------------------------------------- -->
 <br><hr>
+<big><b>0.2.1 released</b></big><br>
+2012-May-25
+
+<p>0.2.1 adds an updated version of the devmon automounting daemon, which is now distributed with udevil.  If you already have a devmon package installed, remove it before installing or upgrading udevil.  The udevil packages for Debian and Arch now provide and conflict with 'devmon'.
+
+<p>devmon 1.1.0 adds support for udevil, udisks2, and pmount.  devmon's new requirements:
+<pre>Requires:    udevil bash>=4        Also Recommended: eject zenity
+Optional:    udisks v1 may be substituted for udevil
+             If udevil is not set suid, udisks v1/v2 or pmount is required
+</pre>
+
+Note that devmon cannot be used with udisks v2 or pmount alone.  udevil or udisks v1 is required for device monitoring.  For devmon mounting, udevil does not need to be run suid if pmount, udisks v1, or udisks v2 is installed.
+
+<p>devmon's help page is still located <a href="http://igurublog.wordpress.com/downloads/script-devmon/">here</a>.
+<br><br>
+
+
+
+<!-- --------------------------------------------------------------------- -->
+<br><hr>
 <big><b>0.2.0 initial release</b></big><br>
 2012-May-22
 
