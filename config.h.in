@@ -93,3 +93,12 @@
 
 /* Version number of package */
 #undef VERSION
+
+/* File offset bits */
+#undef _FILE_OFFSET_BITS
+
+/* Whether to enable large file support */
+#undef _LARGEFILE64_SOURCE
+
+/* Whether to enable large file support */
+#undef _LARGEFILE_SOURCE

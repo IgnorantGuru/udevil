@@ -12413,6 +12413,19 @@ fi
 
 
 
+#dnl Large file support
+CPPFLAGS="$CPPFLAGS -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_REENTRANT -D_FILE_OFFSET_BITS=64"
+
+$as_echo "#define _LARGEFILE64_SOURCE 1" >>confdefs.h
+
+
+$as_echo "#define _FILE_OFFSET_BITS 64" >>confdefs.h
+
+
+$as_echo "#define _LARGEFILE_SOURCE 1" >>confdefs.h
+
+
+
 GETTEXT_PACKAGE="udevil"
 
 

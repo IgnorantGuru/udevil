@@ -777,6 +777,7 @@ static char* parse_config()
         conf_path = g_strdup_printf( "/etc/udevil/udevil.conf" );
         file = fopen( conf_path, "r" );
     }
+    drop_privileges( 0 );  // file is open now so drop priv
     if ( file )
     {
         int lc = 0;
@@ -876,7 +877,9 @@ static char* parse_config()
             g_free( var );
             g_free( value );
         }
+        restore_privileges();
         fclose( file );
+        drop_privileges( 0 );
     }
     else
     {
@@ -1106,7 +1109,6 @@ static void dump_log()
 
     // clean expired log entries
     const char* daystr;
-    struct stat statbuf;
     if ( daystr = read_config( "log_keep_days", NULL ) )
     {
         guint days = atoi( daystr );
@@ -1361,7 +1363,7 @@ static gboolean get_realpath( char** path )
 {
     char res_path[PATH_MAX];
 
-    if ( !path || !*path || !( *path && *path[0] == '/' ) )
+    if ( !path || !*path || !( *path && *path[0] != '\0' ) )
     {
         if ( path )
         {
@@ -1371,7 +1373,7 @@ static gboolean get_realpath( char** path )
         return FALSE;
     }
 
-    if ( realpath( *path, res_path ) )
+    if ( realpath( *path, res_path ) && res_path[0] == '/' )
     {
         g_free( *path );
         *path = g_strdup( res_path );
@@ -2311,7 +2313,7 @@ static int command_mount( CommandData* data )
         MOUNT_NET,
         MOUNT_FILE
     };
-    struct stat statbuf;
+    struct stat64 statbuf;
     char* str;
     char* parent_dir;
     char* fstype;
@@ -2331,7 +2333,7 @@ static int command_mount( CommandData* data )
         return 1;
     }
 
-    //////////////// get device from label or uuid first
+    //////////////// -U -L get device from label or uuid first
 
 _get_type:
     // first argument ?
@@ -2366,15 +2368,26 @@ _get_type:
         while ( g_str_has_suffix( data->device_file, "/" )
                                                 && data->device_file[1] != '\0' )
             data->device_file[ strlen( data->device_file ) - 1] = '\0';
-        if ( data->device_file[0] != '/' )
+
+        // pre-canonical stat to produce more apt error
+        if ( stat64( data->device_file, &statbuf ) != 0 )
         {
-            wlog( "udevil: error: relative argument '%s' not permitted\n",
-                                                            data->device_file, 2 );
+            str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+                                        data->device_file, g_strerror( errno ) );
+            wlog( str, NULL, 2 );
+            g_free ( str );
+            return 1;
+        }
+
+        // canonicalize device_file & resolve relative paths
+        if ( !get_realpath( &data->device_file ) )
+        {
+            wlog( "udevil: error: cannot canonicalize device path\n", NULL, 2 );
             return 1;
         }
 
         // stat
-        if ( stat( data->device_file, &statbuf ) != 0 )
+        if ( stat64( data->device_file, &statbuf ) != 0 )
         {
             str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
                                         data->device_file, g_strerror( errno ) );
@@ -2433,11 +2446,6 @@ _get_type:
         else
         {
             // unmounting a file
-            if ( !get_realpath( &data->device_file ) )
-            {
-                wlog( "udevil: error: cannot canonicalize file path\n", NULL, 2 );
-                return 1;
-            }
             if ( str = get_loop_from_file( data->device_file ) )
             {
                 // unmounting a file attached to loop
@@ -2473,7 +2481,7 @@ _get_type:
                 g_free( data->device_file );
                 data->device_file = str;
 
-                if ( stat( data->device_file, &statbuf ) == 0
+                if ( stat64( data->device_file, &statbuf ) == 0
                             && statbuf.st_rdev != 0 && S_ISBLK( statbuf.st_mode )
                             && g_str_has_prefix( data->device_file, "/dev/loop" ) )
                 {
@@ -2492,13 +2500,6 @@ _get_type:
         }
     }
 
-    // canonicalize device_file
-    if ( type != MOUNT_NET && !get_realpath( &data->device_file ) )
-    {
-        wlog( "udevil: error: cannot canonicalize device path\n", NULL, 2 );
-        return 1;
-    }
-
     // get fstype and device info
     if ( type == MOUNT_NET )
     {
@@ -2506,7 +2507,7 @@ _get_type:
     }
     else if ( type == MOUNT_FILE )
     {
-        if ( stat( data->device_file, &statbuf ) != 0 )
+        if ( stat64( data->device_file, &statbuf ) != 0 )
         {
             str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
                                     data->device_file, g_strerror( errno ) );
@@ -2531,7 +2532,7 @@ _get_type:
             goto _finish;
         }
 
-        if ( stat( data->device_file, &statbuf ) != 0 )
+        if ( stat64( data->device_file, &statbuf ) != 0 )
         {
             str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
                                     data->device_file, g_strerror( errno ) );
@@ -2673,18 +2674,11 @@ _get_type:
         while ( ( g_str_has_suffix( data->point, "/" ) && data->point[1] != '\0' )
                     || g_str_has_suffix( data->point, " " ) )
             data->point[ strlen( data->point ) - 1] = '\0';
-        if ( data->point[0] != '/' )
-        {
-            wlog( "udevil: error: relative argument '%s' not permitted\n",
-                                                            data->point, 2 );
-            ret = 1;
-            goto _finish;
-        }
     
         // canonicalize
-        if ( stat( data->point, &statbuf ) == 0 )
+        if ( stat64( data->point, &statbuf ) == 0 )
         {
-            if ( data->point[0] != '/' || !get_realpath( &data->point ) )
+            if ( !get_realpath( &data->point ) )
             {
                 wlog( "udevil: error: cannot canonicalize mount point path\n", NULL, 2 );
                 
@@ -2703,12 +2697,6 @@ _get_type:
             }
             // canonicalize parent
             parent_dir = g_path_get_dirname( data->point );
-            if ( !( parent_dir && parent_dir[0] == '/' ) )
-            {
-                wlog( "udevil: error: invalid mount point path\n", NULL, 2 );
-                ret = 1;
-                goto _finish;
-            }
             if ( !get_realpath( &parent_dir ) )
             {
                 wlog( "udevil: error: cannot canonicalize mount point path\n", NULL, 2 );
@@ -2720,7 +2708,7 @@ _get_type:
             data->point = g_build_filename( parent_dir, str, NULL );
             g_free( str );
             g_free( parent_dir );
-            if ( stat( data->point, &statbuf ) == 0 && !get_realpath( &data->point ) )
+            if ( stat64( data->point, &statbuf ) == 0 && !get_realpath( &data->point ) )
             {
                 wlog( "udevil: error: cannot canonicalize mount point path\n", NULL, 2 );
                 ret = 1;
@@ -2942,8 +2930,8 @@ _get_type:
         {
             // remove mount point if udevil created
             str = g_build_filename( data->point, ".udevil-mount-point", NULL );
-            restore_privileges();  // needed for stat
-            if ( stat( str, &statbuf ) == 0 && statbuf.st_uid == 0 )
+            restore_privileges();  // needed for stat and rm
+            if ( stat64( str, &statbuf ) == 0 && statbuf.st_uid == 0 )
             {
                 // .udevil-mount-point exists and is root-owned
                 unlink ( str );
@@ -3841,10 +3829,14 @@ while ( environ[i] )
 printf("\n-----------------------\n");
 */
 
+//printf( "R=%d:%d E=%d:%d\n", getuid(), getgid(), geteuid(), getegid() );
 
     // read config
     if ( !( config_msg = parse_config() ) )
         return 1;
+
+    drop_privileges( 0 );
+//printf( "R=%d:%d E=%d:%d\n", getuid(), getgid(), geteuid(), getegid() );
 
     // defaults
     str = read_config( "mount_program", NULL );
@@ -3859,6 +3851,7 @@ printf("\n-----------------------\n");
     if ( !str )
     {
         // find losetup
+        restore_privileges();
         if ( stat( LOSETUPPROG, &statbuf ) == 0 )
             config = g_list_prepend( config, g_strdup_printf( "losetup_program=%s",
                                                                 LOSETUPPROG ) );
@@ -3871,12 +3864,8 @@ printf("\n-----------------------\n");
         else
             config = g_list_prepend( config, g_strdup_printf( "losetup_program=%s",
                                                                 LOSETUPPROG ) );
+        drop_privileges( 0 );
     }
-
-
-//printf( "R=%d:%d E=%d:%d\n", getuid(), getgid(), geteuid(), getegid() );
-    drop_privileges( 0 );
-//printf( "R=%d:%d E=%d:%d\n", getuid(), getgid(), geteuid(), getegid() );
 
 
     // log
