@@ -1,7 +1,7 @@
-0.2.2
+0.2.2   2012-05-26:
     build with large file support for stat64 files >2GB on 32 bit fixes #1
     accept relative arguments on command line
-0.2.1
+0.2.1   2012-05-25:
     log error msgs when parsing network url
     added devmon 1.1.0 automounting script to udevil distribution
 0.2.0   2012-05-22:
