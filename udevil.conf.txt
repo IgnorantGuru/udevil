@@ -95,6 +95,9 @@ allowed_groups = *
 # nfs and ftpfs mounts, use these two lines:
 # allowed_media_dirs_nfs   = /media/network, /media, /run/media/$USER
 # allowed_media_dirs_ftpfs = /media/network, /media, /run/media/$USER
+# NOTE: If you want only the user who mounted a device to have access to it
+# and be allowed to unmount it, specify /run/media/$USER as the first
+# allowed media directory.
 # IMPORTANT:  If an allowed file is mounted to a media directory, the user may
 # be permitted to unmount its associated loop device even though internal.
 # INCLUDING /MNT HERE IS NOT RECOMMENDED.  ALL ALLOWED MEDIA DIRECTORIES
@@ -257,6 +260,7 @@ mount_point_mode_ftpfs =
 # mount_program   = /bin/mount
 # umount_program  = /bin/umount
 # losetup_program = /sbin/losetup
+# setfacl_program = /usr/bin/setfacl
 
 
 # validate_exec specifies a program or script which provides additional

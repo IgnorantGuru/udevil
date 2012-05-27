@@ -22,6 +22,21 @@
 
 <!-- --------------------------------------------------------------------- -->
 <br><hr>
+<big><b>0.2.3 released</b></big><br>
+2012-May-27
+
+<p>
+<ul>
+<li>udevil now creates the directory /run/media/$USER automatically on demand if it is the default allowed media directory, or if the user specifies it as a mount point.  This is due to the fact that /run/media isn't a permanent directory.  /media is still the default in udevil.conf.  If you want only the user who mounted a device to have access to it and be allowed to unmount it, specify /run/media/$USER as the first directory in allowed_media_dirs.
+<li>The option --with-setfacl-prog=PATH has been added to configure to allow specifying a custom location for setfacl (used by udevil to set permissions on /run/media/$USER).  You can also specify the location in udevil.conf as setfacl_program=PATH.  If setfacl isn't available or fails, udevil will fall back to 'rwxr-x-r-x' permissions on /run/media/$USER.
+<li>The Arch Linux udevil-git AUR package now should not overwrite udevil.conf, creating pacorig or pacsave instead.
+<li>Note that when upgrading, the suid bit will be reset on /usr/bin/udevil (even if you unset it).  This change may be prevented in a future release, but for now if you're using udevil without suid, remember to unset it again after upgrading.
+<br><br>
+
+
+
+<!-- --------------------------------------------------------------------- -->
+<br><hr>
 <big><b>0.2.2 released</b></big><br>
 2012-May-26
 
