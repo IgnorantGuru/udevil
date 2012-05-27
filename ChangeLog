@@ -1,3 +1,6 @@
+0.2.3   2012-05-27:
+    create /run/media/$USER on demand; add configure --with-setfacl-prog
+    corrected Arch Linux udevil-git AUR package overwriting udevil.conf
 0.2.2   2012-05-26:
     build with large file support for stat64 files >2GB on 32 bit fixes #1
     accept relative arguments on command line

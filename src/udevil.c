@@ -1981,6 +1981,55 @@ static gboolean valid_mount_path( const char* path, char** errmsg )
     return !msg;
 }
 
+static gboolean create_run_media()
+{
+    char* str;
+    gboolean ret = FALSE;
+    
+    // create /run/media/$USER
+    char* run_media = g_build_filename( "/run/media", g_get_user_name(), NULL );
+    restore_privileges();
+    wlog( "udevil: mkdir %s\n", run_media, 0 );
+    mkdir( "/run/media", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+    chown( "/run/media", 0, 0 );
+    mkdir( run_media, S_IRWXU );
+    chown( run_media, 0, 0 );
+    // set acl   /usr/bin/setfacl -m u:$USER:rx /run/media/$USER
+    gchar *argv[5] = { NULL };
+    int a = 0;
+    argv[a++] = g_strdup( read_config( "setfacl_program", NULL ) );
+    argv[a++] = g_strdup( "-m" );
+    argv[a++] = g_strdup_printf( "u:%s:rx", g_get_user_name() );
+    argv[a++] = g_strdup( run_media );
+    str = g_strdup_printf( "udevil: %s -m u:%s:rx %s\n",
+                            read_config( "setfacl_program", NULL ),
+                            g_get_user_name(), run_media );
+    wlog( str, NULL, 0 );
+    g_free( str );
+    if ( !g_spawn_sync( NULL, argv, NULL,
+                        0, //G_SPAWN_STDERR_TO_DEV_NULL,
+                        NULL, NULL, NULL, NULL, NULL, NULL ) )
+        wlog( "udevil: warning: unable to run setfacl (%s)\n",
+                            read_config( "setfacl_program", NULL ), 1 );
+    drop_privileges( 0 );
+    // test
+    if ( g_file_test( run_media, G_FILE_TEST_IS_DIR ) &&
+                    g_access( run_media, R_OK | X_OK ) != 0 )
+    {
+        // setfacl apparently failed so fallback to normal permissions
+        wlog( "udevil: warning: setfacl on %s failed, falling back to 'rwxr-xr-x'\n",
+                                                            run_media, 1 );
+        restore_privileges();
+        chmod( run_media, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+        drop_privileges( 0 );
+    }
+    if ( g_file_test( run_media, G_FILE_TEST_IS_DIR ) &&
+                g_access( run_media, R_OK | X_OK ) == 0 )
+        ret = TRUE;
+    g_free( run_media );
+    return ret;
+}
+
 static char* get_default_mount_dir( const char* type )
 {
     char* list = NULL;
@@ -1992,6 +2041,7 @@ static char* get_default_mount_dir( const char* type )
     if ( !( list = read_config( "allowed_media_dirs", type ) ) )
         return NULL;
 
+    char* run_media = g_build_filename( "/run/media", g_get_user_name(), NULL );
     while ( list && list[0] )
     {
         if ( comma = strchr( list, ',' ) )
@@ -2010,14 +2060,25 @@ static char* get_default_mount_dir( const char* type )
         if ( selement[0] != '/' )
             continue;
         if ( !strchr( selement, '*' ) && !strchr( selement, '?' ) &&
-                                g_file_test( selement, G_FILE_TEST_IS_DIR ) )
+                                g_file_test( selement, G_FILE_TEST_IS_DIR ) &&
+                                g_access( selement, R_OK | X_OK ) == 0 )
         {
             str = g_strdup( selement );
             g_free( element );
+            g_free( run_media );
             return str;
+        }
+        else if ( !g_strcmp0( selement, run_media ) )
+        {
+            if ( create_run_media() )
+            {
+                g_free( element );
+                return run_media;
+            }
         }
         g_free( element );
     }
+    g_free( run_media );
     return NULL;
 }
 
@@ -2695,8 +2756,18 @@ _get_type:
                 ret = 1;
                 goto _finish;
             }
-            // canonicalize parent
+            // get parent dir
             parent_dir = g_path_get_dirname( data->point );
+            // create parent dir /run/media/$USER ?
+            char* run_media = g_build_filename( "/run/media", g_get_user_name(), NULL );
+            if ( !g_strcmp0( parent_dir, run_media ) &&
+                    validate_in_list( "allowed_media_dirs", fstype, parent_dir ) &&
+                    !g_file_test( parent_dir, G_FILE_TEST_EXISTS ) )
+            {
+                create_run_media();
+            }
+            g_free( run_media );
+            // canonicalize parent
             if ( !get_realpath( &parent_dir ) )
             {
                 wlog( "udevil: error: cannot canonicalize mount point path\n", NULL, 2 );
@@ -3272,7 +3343,7 @@ _get_type:
         char* mount_dir = get_default_mount_dir( fstype );
         if ( !mount_dir )
         {
-            wlog( "udevil: error: no existing directory in allowed_media_dirs\n",
+            wlog( "udevil: error: no valid existing directory in allowed_media_dirs\n",
                                                                         NULL, 2 );
             ret = 1;
             goto _finish;
@@ -3847,6 +3918,10 @@ printf("\n-----------------------\n");
     if ( !str )
         config = g_list_prepend( config, g_strdup_printf( "umount_program=%s",
                                                             UMOUNTPROG ) );
+    str = read_config( "setfacl_program", NULL );
+    if ( !str )
+        config = g_list_prepend( config, g_strdup_printf( "setfacl_program=%s",
+                                                            SETFACLPROG ) );
     str = read_config( "losetup_program", NULL );
     if ( !str )
     {

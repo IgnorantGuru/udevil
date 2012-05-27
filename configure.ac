@@ -3,7 +3,7 @@ AC_PREREQ(2.52)
 AC_INIT(src/udevil.c)
 AM_CONFIG_HEADER(config.h)
 AC_CONFIG_SRCDIR(src)
-AM_INIT_AUTOMAKE(udevil, 0.2.2)
+AM_INIT_AUTOMAKE(udevil, 0.2.3)
 
 AC_PROG_INTLTOOL([0.21])
 
@@ -57,14 +57,22 @@ AC_ARG_WITH(mount-prog,
 	AC_HELP_STRING([--with-mount-prog=PATH], [Path to mount program (default: /bin/mount)]),
 	AC_DEFINE_UNQUOTED(MOUNTPROG, "$withval", [path to mount]),
 	AC_DEFINE_UNQUOTED(MOUNTPROG, "/bin/mount", [path to mount]))
+mountprog="$withval"
 AC_ARG_WITH(umount-prog, 
 	AC_HELP_STRING([--with-umount-prog=PATH], [Path to umount program (default: /bin/umount)]),
 	AC_DEFINE_UNQUOTED(UMOUNTPROG, "$withval", [path to umount]),
 	AC_DEFINE_UNQUOTED(UMOUNTPROG, "/bin/umount", [path to umount]))
+umountprog="$withval"
 AC_ARG_WITH(losetup-prog, 
 	AC_HELP_STRING([--with-losetup-prog=PATH], [Path to losetup program (default: /sbin/losetup)]),
 	AC_DEFINE_UNQUOTED(LOSETUPPROG, "$withval", [path to losetup]),
 	AC_DEFINE_UNQUOTED(LOSETUPPROG, "/sbin/losetup", [path to losetup]))
+losetupprog="$withval"
+AC_ARG_WITH(setfacl-prog, 
+	AC_HELP_STRING([--with-setfacl-prog=PATH], [Path to setfacl program (default: /usr/bin/setfacl)]),
+	AC_DEFINE_UNQUOTED(SETFACLPROG, "$withval", [path to setfacl]),
+	AC_DEFINE_UNQUOTED(SETFACLPROG, "/usr/bin/setfacl", [path to setfacl]))
+setfaclprog="$withval"
 
 
 # check for libs    gobject-2.0 gmodule-2.0 gthread-2.0
@@ -123,11 +131,30 @@ echo
 echo udevil....................................... : Version $VERSION ALPHA TEST
 echo
 echo Linux device support......................... : libudev
+if test x"$mountprog" != x""; then
+echo mount program................................ : $mountprog
+else
+echo mount program................................ : /bin/mount
+fi
+if test x"$umountprog" != x""; then
+echo umount program............................... : $umountprog
+else
+echo umount program............................... : /bin/umount
+fi
+if test x"$losetupprog" != x""; then
+echo losetup program.............................. : $losetupprog
+else
+echo losetup program.............................. : /sbin/losetup
+fi
+if test x"$setfaclprog" != x""; then
+echo setfacl program.............................. : $setfaclprog
+else
+echo setfacl program.............................. : /usr/bin/setfacl
+fi
 echo
 echo Installation Prefix.......................... : $prefix
 echo "      The binary will be installed as $prefix/bin/udevil"
 echo
 echo 'Homepage: http://ignorantguru.github.com/udevil/'
-echo
 echo
 

@@ -798,6 +798,7 @@ enable_libtool_lock
 with_mount_prog
 with_umount_prog
 with_losetup_prog
+with_setfacl_prog
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1456,6 +1457,8 @@ Optional Packages:
   --with-umount-prog=PATH Path to umount program (default: /bin/umount)
   --with-losetup-prog=PATH
                           Path to losetup program (default: /sbin/losetup)
+  --with-setfacl-prog=PATH
+                          Path to setfacl program (default: /usr/bin/setfacl)
 
 Some influential environment variables:
   CC          C compiler command
@@ -2727,7 +2730,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=udevil
- VERSION=0.2.2
+ VERSION=0.2.3
 
 
 cat >>confdefs.h <<_ACEOF
@@ -12071,6 +12074,7 @@ _ACEOF
 
 fi
 
+mountprog="$withval"
 
 # Check whether --with-umount-prog was given.
 if test "${with_umount_prog+set}" = set; then :
@@ -12087,6 +12091,7 @@ _ACEOF
 
 fi
 
+umountprog="$withval"
 
 # Check whether --with-losetup-prog was given.
 if test "${with_losetup_prog+set}" = set; then :
@@ -12103,6 +12108,24 @@ _ACEOF
 
 fi
 
+losetupprog="$withval"
+
+# Check whether --with-setfacl-prog was given.
+if test "${with_setfacl_prog+set}" = set; then :
+  withval=$with_setfacl_prog;
+cat >>confdefs.h <<_ACEOF
+#define SETFACLPROG "$withval"
+_ACEOF
+
+else
+
+cat >>confdefs.h <<_ACEOF
+#define SETFACLPROG "/usr/bin/setfacl"
+_ACEOF
+
+fi
+
+setfaclprog="$withval"
 
 
 # check for libs    gobject-2.0 gmodule-2.0 gthread-2.0
@@ -15557,11 +15580,30 @@ echo
 echo udevil....................................... : Version $VERSION ALPHA TEST
 echo
 echo Linux device support......................... : libudev
+if test x"$mountprog" != x""; then
+echo mount program................................ : $mountprog
+else
+echo mount program................................ : /bin/mount
+fi
+if test x"$umountprog" != x""; then
+echo umount program............................... : $umountprog
+else
+echo umount program............................... : /bin/umount
+fi
+if test x"$losetupprog" != x""; then
+echo losetup program.............................. : $losetupprog
+else
+echo losetup program.............................. : /sbin/losetup
+fi
+if test x"$setfaclprog" != x""; then
+echo setfacl program.............................. : $setfaclprog
+else
+echo setfacl program.............................. : /usr/bin/setfacl
+fi
 echo
 echo Installation Prefix.......................... : $prefix
 echo "      The binary will be installed as $prefix/bin/udevil"
 echo
 echo 'Homepage: http://ignorantguru.github.com/udevil/'
-echo
 echo
 
