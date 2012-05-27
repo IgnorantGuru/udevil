@@ -31,7 +31,8 @@
 <li>The option --with-setfacl-prog=PATH has been added to configure to allow specifying a custom location for setfacl (used by udevil to set permissions on /run/media/$USER).  You can also specify the location in udevil.conf as setfacl_program=PATH.  If setfacl isn't available or fails, udevil will fall back to 'rwxr-x-r-x' permissions on /run/media/$USER.
 <li>The Arch Linux udevil-git AUR package now should not overwrite udevil.conf, creating pacorig or pacsave instead.
 <li>Note that when upgrading, the suid bit will be reset on /usr/bin/udevil (even if you unset it).  This change may be prevented in a future release, but for now if you're using udevil without suid, remember to unset it again after upgrading.
-<br><br>
+</ul>
+<br>
 
 
 
