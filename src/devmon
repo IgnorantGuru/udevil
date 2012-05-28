@@ -15,7 +15,7 @@ defaultmountoptions="noexec,nosuid,nodev,noatime"
 help()
 {
 	cat << EOF
-devmon version 1.1.0  (distributed with udevil)
+devmon version 1.1.1  (distributed with udevil)
 Automounts and unmounts optical and removable drives
 Requires:    udevil bash>=4        Also Recommended: eject zenity
 Optional:    udisks v1 may be substituted for udevil
@@ -1104,6 +1104,16 @@ while ps -p $COPROC_PID &>/dev/null; do
 		esac
     elif [ "$event" = "removed" ]; then
 		eval unset devmounted${devpath#/dev/}
+		# unmount if removed device is still mounted
+		grep -qs "^${devpath} " /proc/mounts &> /dev/null
+		mounterr=$?
+		if [ $mounterr -ne 0 ]; then
+			grep -qs "^${devpath} " /etc/mtab &> /dev/null
+			mounterr=$?
+		fi
+		if [ $mounterr -eq 0 ]; then
+			unmountdev $devpath
+		fi
 		# exec-on-remove
 		if (( execorx != 0 )); then
 			if ( ! ignoredevice "$devpath" ); then
@@ -1118,6 +1128,8 @@ done
 exit
 
 # CHANGELOG
+# For changes after version 1.1.0, see udevil ChangeLog
+#
 # 1.1.0: added support for udevil, udisks2, pmount
 # 1.0.5: --exec-on-unmount now executes only once per unmount
 # 1.0.4: added --exec-on-unmount, --exec-on-remove
