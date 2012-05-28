@@ -4012,7 +4012,8 @@ printf("\n-----------------------\n");
         wlog( str, NULL, 0 );
         g_free( str );
     }
-    if ( config_msg )
+    if ( config_msg && strcmp( config_msg,
+                                "udevil: read config /etc/udevil/udevil.conf\n" ) )
         wlog( config_msg, NULL, strstr( config_msg, "warning:" ) ? 1 : 0 );
     g_free( config_msg );
 
