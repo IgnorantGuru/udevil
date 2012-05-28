@@ -1,6 +1,7 @@
 0.2.3+
     allow unmount removed devices
     [devmon 1.1.1] unmount removed devices if mounted
+    mounted messages to stdout instead of stderr
 0.2.3   2012-05-27:
     create /run/media/$USER on demand; add configure --with-setfacl-prog
     corrected Arch Linux udevil-git AUR package overwriting udevil.conf

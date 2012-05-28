@@ -3302,7 +3302,7 @@ _get_type:
                 else
                     str = g_strdup_printf( "Mounted %s\n",
                             type == MOUNT_NET ? netmount->url : data->device_file );
-                wlog( str, NULL, 1 );
+                wlog( str, NULL, -1 );
                 
                 // success_exec
                 if ( !ret )
@@ -3556,7 +3556,7 @@ _get_type:
         str = g_strdup_printf( "Mounted %s at %s\n",
                     type == MOUNT_NET ? netmount->url : data->device_file,
                     point );
-        wlog( str, NULL, 1 );
+        wlog( str, NULL, -1 );
         g_free( str );
         
         // success_exec
@@ -3826,7 +3826,7 @@ static int command_monitor()
     signal(SIGTERM, command_monitor_finalize );
     signal(SIGINT,  command_monitor_finalize );
 
-    wlog( "Monitoring activity from the disks daemon. Press Ctrl+C to cancel.\n", NULL, 1 );
+    wlog( "Monitoring activity from the disks daemon. Press Ctrl+C to cancel.\n", NULL, -1 );
 
     // main loop
     GMainLoop *main_loop = g_main_loop_new( NULL, FALSE );
