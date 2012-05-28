@@ -304,37 +304,37 @@ udisks1=`which udisks`
 udisks2=`which udisksctl`
 pmount=`which pmount`
 
-if [ "$udevil" != "" ]; then
+if [ "$udevil" != "" ] && [ -x "$udevil" ]; then
 	info_cmd="$udevil"
-elif [ "$udisks1" != "" ]; then
+elif [ "$udisks1" != "" ] && [ -x "$udisks1" ]; then
 	info_cmd="$udisks1"
 else
-	echo "WARNING: devmon can't find udevil or udisks v1 for device monitoring" 1>&2
+	echo "WARNING: devmon can't run udevil or udisks v1 for device monitoring" 1>&2
 	info_cmd="udevil"
 fi
 
-if [ "$udevil" != "" ]; then
+if [ "$udevil" != "" ] && [ -x "$udevil" ]; then
 	if [ -u "$udevil" ] || [ "$(whoami)" = "root" ]; then
 		mount_cmd="$udevil"
 	fi
 fi
 
-if [ "$mount_cmd" = "" ] && [ "$udisks1" != "" ]; then
-	mount_cmd="$udisks1"
-fi
-
-if [ "$mount_cmd" = "" ] && [ "$udisks2" != "" ]; then
-	mount_cmd="$udisks2"
-fi
-
-if [ "$mount_cmd" = "" ] && [ "$pmount" != "" ]; then
+if [ "$mount_cmd" = "" ] && [ "$pmount" != "" ] && [ -x "$pmount" ]; then
 	if [ -u "$pmount" ] || [ "$(whoami)" = "root" ]; then
 		mount_cmd="$pmount"
 	fi
 fi
 
+if [ "$mount_cmd" = "" ] && [ "$udisks1" != "" ] && [ -x "$udisks1" ]; then
+	mount_cmd="$udisks1"
+fi
+
+if [ "$mount_cmd" = "" ] && [ "$udisks2" != "" ] && [ -x "$udisks2" ]; then
+	mount_cmd="$udisks2"
+fi
+
 if [ "$mount_cmd" = "" ]; then
-	echo "WARNING: devmon can't run udevil, udisks, or pmount for mounting" 1>&2
+	echo "WARNING: devmon can't run udevil, pmount, or udisks for mounting" 1>&2
 	mount_cmd="udevil"
 fi
 
