@@ -22,6 +22,24 @@
 
 <!-- --------------------------------------------------------------------- -->
 <br><hr>
+<big><b>0.2.4 released</b></big><br>
+2012-May-28
+
+<p>
+<ul>
+<li>udevil can now unmount qualified removed devices (in case a device is not unmounted before being unplugged)
+<li>devmon 1.1.1 will attempt to unmount a device if removed and still in listed mtab
+<li>devmon 1.1.1 will use pmount if installed before reverting to udisks (as udisks is more likely to fail due to 'not authorized' errors and configuration problems)
+<li>'Mounted at...' messages are now written to stdout instead of stderr
+<li>the <a href="udevil.conf.txt">default udevil.conf</a> now mounts iso9660 & udf with the 'ro' option to prevent read-only warnings from mount
+<li>udevil no longer logs 'read config' unless it reads a user-specific conf file (udevil-user-USERNAME.conf)
+</ul>
+<br>
+
+
+
+<!-- --------------------------------------------------------------------- -->
+<br><hr>
 <big><b>0.2.3 released</b></big><br>
 2012-May-27
 

@@ -17,9 +17,9 @@
 <br>
 udevil is a new command line Linux program which mounts and unmounts removable devices without a password, shows device info, and monitors device changes.  It can also mount ISO files and nfs://, smb://, and ftp:// URLs.
 
-<p>udevil is highly configurable, requires no daemon running, and doesn't depend on udisks, gvfs, fuse, policykit, etc. - just udev.  To use it, just prefix a normal mount command with 'udevil'.  udevil can also replace udisks in the <a href="http://ignorantguru.github.com/spacefm/">SpaceFM</a> file manager and the <a href="http://igurublog.wordpress.com/downloads/script-devmon/">devmon</a> automounting daemon (devmon is included with udevil).&nbsp;&nbsp;<a href="#highlights">read more</a>
+<p>udevil is highly configurable, requires no daemon running, and depends only on udev and glib - NO udisks, gvfs, fuse, policykit, etc. (although it can coexist with any of these).  To use it, just prefix a normal mount command with 'udevil'.  udevil can also replace udisks in the <a href="http://ignorantguru.github.com/spacefm/">SpaceFM</a> file manager and the <a href="http://igurublog.wordpress.com/downloads/script-devmon/">devmon</a> automounting daemon (devmon is included with udevil).&nbsp;&nbsp;<a href="#highlights">read more</a>
 
-<p><b>IMPORTANT</b>  THIS RELEASE IS FOR INITIAL TESTING PURPOSES ONLY - USE AT YOUR OWN RISK.  Please test this version of udevil carefully before relying on its behavior.
+<p><b>IMPORTANT</b>  THIS RELEASE IS FOR TESTING PURPOSES - USE AT YOUR OWN RISK.  Please test this version of udevil carefully before relying on its behavior.
 
 <br><br>
 <h3>Links</h3>
@@ -171,9 +171,12 @@ You can also limit users and groups by editing <a href="udevil.conf.txt">/etc/ud
 
 <p><b>NTFS-3G</b>
 
-<p>If you want mount and udevil to use ntfs-3g to mount ntfs filesystems:
+<p>If ntfs filesystems aren't mounted writable, you may need to configure your system to mount ntfs with ntfs-3g (on some distros this is already done).  For example:
 <pre>
     sudo ln -s /sbin/mount.ntfs-3g /sbin/mount.ntfs
+
+    # OR if mount.ntfs-3g is located in /usr/bin:
+    sudo ln -s /usr/bin/mount.ntfs-3g /usr/bin/mount.ntfs
 </pre>
 
 <hr>
