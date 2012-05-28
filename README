@@ -1,4 +1,4 @@
-README for udevil v0.2.3 ALPHA TEST VERSION
+README for udevil v0.2.3+ ALPHA TEST VERSION
 
 
 THIS RELEASE IS FOR INITIAL TESTING PURPOSES ONLY - USE AT YOUR OWN RISK.
@@ -231,9 +231,14 @@ POST INSTALL
     NTFS-3G
     -------
 
-    If you want mount and udevil to use ntfs-3g to mount ntfs filesystems:
+    If ntfs filesystems aren't mounted writable, you may need to configure your
+    system to mount ntfs with ntfs-3g (on some distros this is already done).
+    For example:
 
         sudo ln -s /sbin/mount.ntfs-3g /sbin/mount.ntfs
+
+        # OR if mount.ntfs-3g is located in /usr/bin:
+        sudo ln -s /usr/bin/mount.ntfs-3g /usr/bin/mount.ntfs
 
 
 ENABLE KERNEL POLLING
