@@ -1,3 +1,5 @@
+0.2.3+
+    allow unmount removed devices
 0.2.3   2012-05-27:
     create /run/media/$USER on demand; add configure --with-setfacl-prog
     corrected Arch Linux udevil-git AUR package overwriting udevil.conf

@@ -1522,7 +1522,8 @@ static char* get_file_from_loop( const char* device_file )
     return ret;
 }
 
-static gboolean device_is_mounted_mtab( const char* device_file, char** mount_point )
+static gboolean device_is_mounted_mtab( const char* device_file, char** mount_point,
+                                                                char** fstype )
 {
     gchar *contents;
     gchar **lines;
@@ -1533,7 +1534,7 @@ static gboolean device_is_mounted_mtab( const char* device_file, char** mount_po
     char* file;
     gchar encoded_file[PATH_MAX];
     gchar encoded_point[PATH_MAX];
-
+    gchar fs_type[PATH_MAX];
 
     if ( !device_file )
         return FALSE;
@@ -1557,9 +1558,10 @@ static gboolean device_is_mounted_mtab( const char* device_file, char** mount_po
             continue;
 
         if ( sscanf( lines[n],
-                  "%s %s ",
+                  "%s %s %s",
                   encoded_file,
-                  encoded_point ) != 2 )
+                  encoded_point,
+                  fs_type ) != 3 )
         {
             g_warning ("Error parsing mtab line '%s'", lines[n]);
             continue;
@@ -1570,6 +1572,8 @@ static gboolean device_is_mounted_mtab( const char* device_file, char** mount_po
         {
             if ( mount_point )
                 *mount_point = g_strcompress( encoded_point );
+            if ( fstype )
+                *fstype = g_strdup( fs_type );
             ret = TRUE;
             break;
         }
@@ -2372,12 +2376,13 @@ static int command_mount( CommandData* data )
     enum {
         MOUNT_BLOCK,
         MOUNT_NET,
-        MOUNT_FILE
+        MOUNT_FILE,
+        MOUNT_MISSING
     };
     struct stat64 statbuf;
     char* str;
     char* parent_dir;
-    char* fstype;
+    char* fstype = NULL;
     char* options = NULL;
     char* point = NULL;
     device_t *device = NULL;
@@ -2433,42 +2438,49 @@ _get_type:
         // pre-canonical stat to produce more apt error
         if ( stat64( data->device_file, &statbuf ) != 0 )
         {
-            str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
-                                        data->device_file, g_strerror( errno ) );
-            wlog( str, NULL, 2 );
-            g_free ( str );
-            return 1;
-        }
-
-        // canonicalize device_file & resolve relative paths
-        if ( !get_realpath( &data->device_file ) )
-        {
-            wlog( "udevil: error: cannot canonicalize device path\n", NULL, 2 );
-            return 1;
-        }
-
-        // stat
-        if ( stat64( data->device_file, &statbuf ) != 0 )
-        {
-            str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
-                                        data->device_file, g_strerror( errno ) );
-            wlog( str, NULL, 2 );
-            g_free ( str );
-            return 1;
-        }
-        else if ( statbuf.st_rdev == 0 || !S_ISBLK( statbuf.st_mode ) )
-        {
-            // not a block device
-            if ( !S_ISREG( statbuf.st_mode ) && !S_ISDIR( statbuf.st_mode ) )
+            if ( data->cmd_type == CMD_UNMOUNT )
+                type = MOUNT_MISSING;
+            else
             {
-                wlog( "udevil: error: '%s' is not a regular file or directory\n",
-                                                        data->device_file, 2 );
+                str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+                                            data->device_file, g_strerror( errno ) );
+                wlog( str, NULL, 2 );
+                g_free ( str );
                 return 1;
             }
-            type = MOUNT_FILE;
         }
         else
-            type = MOUNT_BLOCK;
+        {
+            // canonicalize device_file & resolve relative paths
+            if ( !get_realpath( &data->device_file ) )
+            {
+                wlog( "udevil: error: cannot canonicalize device path\n", NULL, 2 );
+                return 1;
+            }
+
+            // stat
+            if ( stat64( data->device_file, &statbuf ) != 0 )
+            {
+                str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+                                            data->device_file, g_strerror( errno ) );
+                wlog( str, NULL, 2 );
+                g_free ( str );
+                return 1;
+            }
+            else if ( statbuf.st_rdev == 0 || !S_ISBLK( statbuf.st_mode ) )
+            {
+                // not a block device
+                if ( !S_ISREG( statbuf.st_mode ) && !S_ISDIR( statbuf.st_mode ) )
+                {
+                    wlog( "udevil: error: '%s' is not a regular file or directory\n",
+                                                            data->device_file, 2 );
+                    return 1;
+                }
+                type = MOUNT_FILE;
+            }
+            else
+                type = MOUNT_BLOCK;
+        }
     }
 
     // determine device from unmount point
@@ -2530,7 +2542,7 @@ _get_type:
                     g_free( str );
                     return 2;
                 }
-                if ( !device_is_mounted_mtab( str, &data->point ) )
+                if ( !device_is_mounted_mtab( str, &data->point, NULL ) )
                 {
                     wlog( "udevil: error: cannot find '%s' mounted in mtab\n",
                                                             str, 2 );
@@ -2581,6 +2593,50 @@ _get_type:
             fstype = g_strdup( data->fstype );
         else
             fstype = g_strdup( "file" );
+    }
+    else if ( type == MOUNT_MISSING )
+    {
+        // canonicalize parent
+        parent_dir = g_path_get_dirname( data->device_file );
+        if ( !get_realpath( &parent_dir ) )
+        {
+            wlog( "udevil: error: cannot canonicalize path\n", NULL, 2 );
+            ret = 1;
+            goto _finish;
+        }
+        str = g_path_get_basename( data->device_file );
+        g_free( data->device_file );
+        data->device_file = g_build_filename( parent_dir, str, NULL );
+        g_free( str );
+        g_free( parent_dir );
+
+        // confirm realpath missing as root
+        restore_privileges();
+        if ( g_file_test( data->device_file, G_FILE_TEST_EXISTS ) )
+        {
+            // file is not really missing but user can't stat
+            drop_privileges( 0 );
+            wlog( "udevil: error: invalid path '%s'\n", data->device_file, 2 );
+            ret = 1;
+            goto _finish;
+        }
+        drop_privileges( 0 );
+        
+        // get fstype
+        if ( !device_is_mounted_mtab( data->device_file, NULL, &fstype ) )
+        {
+            wlog( "udevil: error: cannot find '%s' mounted in mtab\n",
+                                                        data->device_file, 2 );
+            ret = 1;
+            goto _finish;
+        }
+        else if ( !( fstype && fstype[0] != '\0' ) )
+        {
+            wlog( "udevil: error: cannot find device %s fstype in mtab\n",
+                                                        data->device_file, 2 );
+            ret = 1;
+            goto _finish;
+        }
     }
     else
     {
@@ -2713,7 +2769,7 @@ _get_type:
             // no block device mount point found so look in mtab
             if ( !( device_is_mounted_mtab(
                         type == MOUNT_NET ? netmount->url : data->device_file,
-                         &data->point )
+                         &data->point, NULL )
                                 && data->point && data->point[0] == '/' ) )
             {
                 if ( device && !device->device_is_mounted )
@@ -2786,11 +2842,10 @@ _get_type:
                 goto _finish;
             }
         }
-
         // is parent dir an allowed media dir?
         parent_dir = g_path_get_dirname( data->point );
-        if ( parent_dir[0] != '/' || !validate_in_list( "allowed_media_dirs", fstype,
-                                                                parent_dir ) )
+        if ( !parent_dir || parent_dir[0] != '/' || 
+                !validate_in_list( "allowed_media_dirs", fstype, parent_dir ) )
         {
             wlog( "udevil: denied: '%s' is not an allowed media directory\n",
                                                                 parent_dir, 2 );
@@ -2800,7 +2855,7 @@ _get_type:
         }
         g_free( parent_dir );
     }
-    
+
     // test fstype
     if ( fstype && strchr( fstype, ',' ) )
     {
@@ -2878,7 +2933,7 @@ _get_type:
             goto _finish;
         }
     }
-    else if ( type == MOUNT_BLOCK )
+    else if ( type == MOUNT_BLOCK || type == MOUNT_MISSING )
     {
         if ( !validate_in_list( "allowed_devices", fstype, data->device_file ) )
         {
@@ -3210,7 +3265,7 @@ _get_type:
             ret = 2;
             goto _finish;
         }
-        if ( type == MOUNT_NET && device_is_mounted_mtab( netmount->url, NULL ) )
+        if ( type == MOUNT_NET && device_is_mounted_mtab( netmount->url, NULL, NULL ) )
         {
             wlog( "udevil: denied: %s is already mounted (or specify mount point)\n",
                                                             netmount->url, 2 );
@@ -3238,7 +3293,7 @@ _get_type:
             {
                 if ( device_is_mounted_mtab(
                         type == MOUNT_NET ? netmount->url : data->device_file,
-                        &str ) )
+                                                                &str, NULL ) )
                 {
                     str = g_strdup_printf( "Mounted %s at %s\n",
                             type == MOUNT_NET ? netmount->url : data->device_file,
