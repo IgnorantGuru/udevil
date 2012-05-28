@@ -4,6 +4,7 @@
     mounted messages to stdout instead of stderr
     [devmon 1.1.1] use pmount ahead of udisks; test executables
     do not log read default config location
+    udevil.conf: iso9660 & udf add ro to prevent mount read-only warning
 0.2.3   2012-05-27:
     create /run/media/$USER on demand; add configure --with-setfacl-prog
     corrected Arch Linux udevil-git AUR package overwriting udevil.conf
