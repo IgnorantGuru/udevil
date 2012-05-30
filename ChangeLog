@@ -1,4 +1,7 @@
-0.2.3+
+0.2.5   2012-05-30:
+    correct make check error in po (affects debian build package)
+    correct debian postinst error
+0.2.4   2012-05-28:
     allow unmount removed devices
     [devmon 1.1.1] unmount removed devices if mounted
     mounted messages to stdout instead of stderr
