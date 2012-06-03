@@ -3259,7 +3259,14 @@ _get_type:
         if ( type == MOUNT_FILE && !g_file_test( data->device_file, G_FILE_TEST_IS_DIR )
                             && ( str = get_loop_from_file( data->device_file ) ) )
         {
-            wlog( "udevil: denied: file %s is already mounted (or specify mount point)\n",
+            if ( device_is_mounted_mtab( str, &point, NULL ) )
+            {
+                g_free( str );
+                str = g_strdup_printf( "udevil: denied: file %s is already mounted at %s (or specify mount point)\n", data->device_file, point );
+                wlog( str, NULL, 2 );
+            }
+            else
+                wlog( "udevil: denied: file %s is already mounted (or specify mount point)\n",
                                                             data->device_file, 2 );
             g_free( str );
             ret = 2;
@@ -3269,7 +3276,6 @@ _get_type:
         {
             wlog( "udevil: denied: %s is already mounted (or specify mount point)\n",
                                                             netmount->url, 2 );
-            g_free( str );
             ret = 2;
             goto _finish;
         }
@@ -3303,6 +3309,7 @@ _get_type:
                     str = g_strdup_printf( "Mounted %s\n",
                             type == MOUNT_NET ? netmount->url : data->device_file );
                 wlog( str, NULL, -1 );
+                g_free( str );
                 
                 // success_exec
                 if ( !ret )

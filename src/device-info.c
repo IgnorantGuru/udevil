@@ -769,6 +769,8 @@ void info_device_properties( device_t *device )
     {
          media_available = TRUE;
     }
+    else if ( g_str_has_prefix( device->devnode, "/dev/loop" ) )
+        media_available = FALSE;
     else if ( device->device_is_removable )
     {
         gboolean is_cd, is_floppy;
@@ -1297,6 +1299,8 @@ gboolean device_get_info( device_t *device, GList* devmounts )
     device->device_is_system_internal = info_is_system_internal( device );
     device->mount_points = info_mount_points( device, devmounts );
     device->device_is_mounted = ( device->mount_points != NULL );
+    if ( device->device_is_mounted )
+        device->device_is_media_available = TRUE;
     info_partition_table( device );
     info_partition( device );
     info_optical_disc( device );
