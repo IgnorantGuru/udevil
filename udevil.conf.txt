@@ -21,7 +21,7 @@
 ##############################################################################
 
 
-# To log all uses of udevil, set log_file to a filename:
+# To log all uses of udevil, set log_file to a file path:
 # log_file = /var/log/udevil.log
 
 # Approximate number of days to retain log entries (0=forever, max=60):
