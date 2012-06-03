@@ -18,8 +18,6 @@
 // intltool
 #include <glib/gi18n.h>
 
-// use mount's realpath
-#include "realpath.h"
 
 
 typedef struct device_t  {

@@ -1,5 +1,5 @@
 /*
- * realpath.c -- canonicalize pathname by removing symlinks
+ * canonicalize.c -- canonicalize pathname by removing symlinks
  * Copyright (C) 1993 Rick Sladkey <jrs@world.std.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -11,53 +11,30 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library Public License for more details.
+ *
  */
-
-#define resolve_symlinks
 
 /*
  * This routine is part of libc.  We include it nevertheless,
  * since the libc version has some security flaws.
+ *
+ * TODO: use canonicalize_file_name() when exist in glibc
  */
-
-/*
-  This file was taken from the source code for mount.
-*/
-
-#include <limits.h>		/* for PATH_MAX */
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
 #include <stdio.h>
-#include "realpath.h"
-#include <glib/gi18n.h>
+#include <string.h>
+#include <ctype.h>
+#include <unistd.h>
+#include <errno.h>
+#include <stdlib.h>
 
-#define MAX_READLINKS 32
+#include "canonicalize.h"
 
+#ifndef MAXSYMLINKS
+# define MAXSYMLINKS 256
+#endif
 
-/* A small malloc extension, from mount */
-
-void *
-xmalloc (size_t size) {
-  void *t;
-  
-  if (size == 0)
-    return NULL;
-  
-  t = malloc(size);
-  if(! t) 
-    {
-      fprintf(stderr, _("Error: out of memory\n"));
-      exit(5);			/* Memory allocation error */
-    }
-  return t;
-}
-
-
-
-char *
-private_realpath(const char *path, char *resolved_path, int maxreslth) {
+static char *
+myrealpath(const char *path, char *resolved_path, int maxreslth) {
 	int readlinks = 0;
 	char *npath;
 	char link_path[PATH_MAX+1];
@@ -68,17 +45,14 @@ private_realpath(const char *path, char *resolved_path, int maxreslth) {
 
 	/* If it's a relative pathname use getcwd for starters. */
 	if (*path != '/') {
-	  if (!getcwd(npath, maxreslth-2)) {
-	    //g_warning("realpath: could not get current directory: %s",
-	    //  strerror(errno) );
-	    return NULL;
-	  }
-	  npath += strlen(npath);
-	  if (npath[-1] != '/')
-	    *npath++ = '/';
+		if (!getcwd(npath, maxreslth-2))
+			return NULL;
+		npath += strlen(npath);
+		if (npath[-1] != '/')
+			*npath++ = '/';
 	} else {
-	  *npath++ = '/';
-	  path++;
+		*npath++ = '/';
+		path++;
 	}
 
 	/* Expand each slash-separated pathname component. */
@@ -112,7 +86,7 @@ private_realpath(const char *path, char *resolved_path, int maxreslth) {
 		}
 
 		/* Protect against infinite loops. */
-		if (readlinks++ > MAX_READLINKS) {
+		if (readlinks++ > MAXSYMLINKS) {
 			errno = ELOOP;
 			goto err;
 		}
@@ -125,8 +99,8 @@ private_realpath(const char *path, char *resolved_path, int maxreslth) {
 			if (errno != EINVAL)
 				goto err;
 		} else {
-#ifdef resolve_symlinks		/* Richard Gooch dislikes sl resolution */
 			int m;
+			char *newbuf;
 
 			/* Note: readlink doesn't add the null byte. */
 			link_path[n] = '\0';
@@ -140,13 +114,13 @@ private_realpath(const char *path, char *resolved_path, int maxreslth) {
 
 			/* Insert symlink contents into path. */
 			m = strlen(path);
-			if (buf)
-				free(buf);
-			buf = xmalloc(m + n + 1);
-			memcpy(buf, link_path, n);
-			memcpy(buf + n, path, m + 1);
-			path = buf;
-#endif
+			newbuf = malloc(m + n + 1);
+			if (!newbuf)
+				goto err;
+			memcpy(newbuf, link_path, n);
+			memcpy(newbuf + n, path, m + 1);
+			free(buf);
+			path = buf = newbuf;
 		}
 		*npath++ = '/';
 	}
@@ -156,12 +130,76 @@ private_realpath(const char *path, char *resolved_path, int maxreslth) {
 	/* Make sure it's null terminated. */
 	*npath = '\0';
 
-	if (buf)
-		free(buf);
+	free(buf);
 	return resolved_path;
 
  err:
-	if (buf)
-		free(buf);
+	free(buf);
 	return NULL;
 }
+
+/*
+ * Converts private "dm-N" names to "/dev/mapper/<name>"
+ *
+ * Since 2.6.29 (patch 784aae735d9b0bba3f8b9faef4c8b30df3bf0128) kernel sysfs
+ * provides the real DM device names in /sys/block/<ptname>/dm/name
+ */
+char *
+canonicalize_dm_name(const char *ptname)
+{
+	FILE	*f;
+	size_t	sz;
+	char	path[256], name[256], *res = NULL;
+
+	snprintf(path, sizeof(path), "/sys/block/%s/dm/name", ptname);
+	if (!(f = fopen(path, "r")))
+		return NULL;
+
+	/* read "<name>\n" from sysfs */
+	if (fgets(name, sizeof(name), f) && (sz = strlen(name)) > 1) {
+		name[sz - 1] = '\0';
+		snprintf(path, sizeof(path), "/dev/mapper/%s", name);
+		res = strdup(path);
+	}
+	fclose(f);
+	return res;
+}
+
+char *
+canonicalize_path(const char *path)
+{
+	char canonical[PATH_MAX+2];
+	char *p;
+
+	if (path == NULL)
+		return NULL;
+
+	if (!myrealpath(path, canonical, PATH_MAX+1))
+		return strdup(path);
+
+
+	p = strrchr(canonical, '/');
+	if (p && strncmp(p, "/dm-", 4) == 0 && isdigit(*(p + 4))) {
+		p = canonicalize_dm_name(p+1);
+		if (p)
+			return p;
+	}
+
+	return strdup(canonical);
+}
+
+
+#ifdef TEST_PROGRAM_CANONICALIZE
+int main(int argc, char **argv)
+{
+	if (argc < 2) {
+		fprintf(stderr, "usage: %s <device>\n", argv[0]);
+		exit(EXIT_FAILURE);
+	}
+
+	fprintf(stdout, "orig: %s\n", argv[1]);
+	fprintf(stdout, "real: %s\n", canonicalize_path(argv[1]));
+
+	exit(EXIT_SUCCESS);
+}
+#endif

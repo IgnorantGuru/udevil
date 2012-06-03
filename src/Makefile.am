@@ -1,6 +1,6 @@
 noinst_PROGRAMS = udevil
 
-udevil_SOURCES = udevil.c device-info.c realpath.c
+udevil_SOURCES = udevil.c device-info.c canonicalize.c
 
 bin_SCRIPTS = devmon
 

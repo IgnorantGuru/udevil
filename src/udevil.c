@@ -51,8 +51,8 @@
 // intltool
 #include <glib/gi18n.h>
 
-// use mount's realpath
-#include "realpath.h"
+// use mount's more secure version of realpath
+#include "canonicalize.h"
 
 #include "device-info.h"
 
@@ -1361,8 +1361,6 @@ static char* get_ip( const char* hostname )
 
 static gboolean get_realpath( char** path )
 {
-    char res_path[PATH_MAX];
-
     if ( !path || !*path || !( *path && *path[0] != '\0' ) )
     {
         if ( path )
@@ -1373,10 +1371,17 @@ static gboolean get_realpath( char** path )
         return FALSE;
     }
 
-    if ( realpath( *path, res_path ) && res_path[0] == '/' )
+    char* res = canonicalize_path( *path );
+    if ( res && res[0] != '/' )
+    {
+        g_free( res );
+        res = NULL;
+    }
+
+    if ( res )
     {
         g_free( *path );
-        *path = g_strdup( res_path );
+        *path = res;
         return TRUE;
     }
     else

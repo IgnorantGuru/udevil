@@ -65,7 +65,7 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am_udevil_OBJECTS = udevil-udevil.$(OBJEXT) \
-	udevil-device-info.$(OBJEXT) udevil-realpath.$(OBJEXT)
+	udevil-device-info.$(OBJEXT) udevil-canonicalize.$(OBJEXT)
 udevil_OBJECTS = $(am_udevil_OBJECTS)
 am__DEPENDENCIES_1 =
 udevil_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -276,7 +276,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-udevil_SOURCES = udevil.c device-info.c realpath.c
+udevil_SOURCES = udevil.c device-info.c canonicalize.c
 bin_SCRIPTS = devmon
 INSTALL_DIR = $(DESTDIR)/$(prefix)/bin
 INSTALL_SRC = $(top_builddir)/src
@@ -378,8 +378,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udevil-canonicalize.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udevil-device-info.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udevil-realpath.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udevil-udevil.Po@am__quote@
 
 .c.o:
@@ -431,19 +431,19 @@ udevil-device-info.obj: device-info.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(udevil_CFLAGS) $(CFLAGS) -c -o udevil-device-info.obj `if test -f 'device-info.c'; then $(CYGPATH_W) 'device-info.c'; else $(CYGPATH_W) '$(srcdir)/device-info.c'; fi`
 
-udevil-realpath.o: realpath.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(udevil_CFLAGS) $(CFLAGS) -MT udevil-realpath.o -MD -MP -MF $(DEPDIR)/udevil-realpath.Tpo -c -o udevil-realpath.o `test -f 'realpath.c' || echo '$(srcdir)/'`realpath.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/udevil-realpath.Tpo $(DEPDIR)/udevil-realpath.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='realpath.c' object='udevil-realpath.o' libtool=no @AMDEPBACKSLASH@
+udevil-canonicalize.o: canonicalize.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(udevil_CFLAGS) $(CFLAGS) -MT udevil-canonicalize.o -MD -MP -MF $(DEPDIR)/udevil-canonicalize.Tpo -c -o udevil-canonicalize.o `test -f 'canonicalize.c' || echo '$(srcdir)/'`canonicalize.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/udevil-canonicalize.Tpo $(DEPDIR)/udevil-canonicalize.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='canonicalize.c' object='udevil-canonicalize.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(udevil_CFLAGS) $(CFLAGS) -c -o udevil-realpath.o `test -f 'realpath.c' || echo '$(srcdir)/'`realpath.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(udevil_CFLAGS) $(CFLAGS) -c -o udevil-canonicalize.o `test -f 'canonicalize.c' || echo '$(srcdir)/'`canonicalize.c
 
-udevil-realpath.obj: realpath.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(udevil_CFLAGS) $(CFLAGS) -MT udevil-realpath.obj -MD -MP -MF $(DEPDIR)/udevil-realpath.Tpo -c -o udevil-realpath.obj `if test -f 'realpath.c'; then $(CYGPATH_W) 'realpath.c'; else $(CYGPATH_W) '$(srcdir)/realpath.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/udevil-realpath.Tpo $(DEPDIR)/udevil-realpath.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='realpath.c' object='udevil-realpath.obj' libtool=no @AMDEPBACKSLASH@
+udevil-canonicalize.obj: canonicalize.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(udevil_CFLAGS) $(CFLAGS) -MT udevil-canonicalize.obj -MD -MP -MF $(DEPDIR)/udevil-canonicalize.Tpo -c -o udevil-canonicalize.obj `if test -f 'canonicalize.c'; then $(CYGPATH_W) 'canonicalize.c'; else $(CYGPATH_W) '$(srcdir)/canonicalize.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/udevil-canonicalize.Tpo $(DEPDIR)/udevil-canonicalize.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='canonicalize.c' object='udevil-canonicalize.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(udevil_CFLAGS) $(CFLAGS) -c -o udevil-realpath.obj `if test -f 'realpath.c'; then $(CYGPATH_W) 'realpath.c'; else $(CYGPATH_W) '$(srcdir)/realpath.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(udevil_CFLAGS) $(CFLAGS) -c -o udevil-canonicalize.obj `if test -f 'canonicalize.c'; then $(CYGPATH_W) 'canonicalize.c'; else $(CYGPATH_W) '$(srcdir)/canonicalize.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
