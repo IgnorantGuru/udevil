@@ -21,6 +21,18 @@
 
 
 <!-- --------------------------------------------------------------------- -->
+<br><hr><a name="0.2.7"></a>
+<big><b>0.2.7 released</b></big><br>
+2012-Jun-04
+
+<p>With this update, udevil first tries to mount or unmount devices as the current user earlier under some conditions (such as no mount point specified).  For example, this helps udevil to unmount an optical drive when the media has already been removed (if the device is in fstab).  This means that for devices in fstab, settings in udevil.conf have no effect (since it is like the user running mount or umount directly without udevil).  The comments in the default udevil.conf have been updated to reflect this.
+
+<p>This change also affects how udevil responds when the root user runs it.  root can now unmount any device, and can mount devices in fstab, regardless of udevil.conf settings.  In other cases the root user is still limited by udevil.conf.  (Limitations on the root user in udevil.conf provide no security as the root user can do anything anyway, but allow the admin to set safer uses for the root user using udevil, to prevent accidental use as root.)
+<br><br>
+
+
+
+<!-- --------------------------------------------------------------------- -->
 <br><hr><a name="0.2.6"></a>
 <big><b>0.2.6 released</b></big><br>
 2012-Jun-03
