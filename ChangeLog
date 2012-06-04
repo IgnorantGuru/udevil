@@ -1,4 +1,6 @@
-0.2.6+
+0.2.7+
+
+0.2.7   2012-06-04:
     try u/mount as current user early; clean all mount points on unmount
 0.2.6   2012-06-03:
     replace realpath.c with canonicalize.c
