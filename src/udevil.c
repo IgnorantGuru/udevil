@@ -61,6 +61,8 @@
 #define ALLOWED_TYPES "$KNOWN_FILESYSTEMS,smbfs,nfs,ftpfs,curlftpfs,file"
 #define MAX_LOG_DAYS 60   // don't set this too high
 
+static int command_clean();
+
 int verbose = 1;
 char* logfile = NULL;
 char* logmem = NULL;
@@ -1804,6 +1806,69 @@ static int exec_program( const char* var, const char* msg, gboolean show_error,
     return exit_status;
 }
 
+static int try_umount( const char* device_file, gboolean force, gboolean lazy )
+{
+    // setup command
+    int status = 0;
+    int exit_status = 1;
+    gchar *argv[6] = { NULL };
+    char* sstdout = NULL;
+    char* sstderr = NULL;
+    
+    int a = 0;
+    argv[a++] = g_strdup( read_config( "umount_program", NULL ) );
+    if ( !argv[0] )
+        return 1;
+    if ( verbose == 0 )
+        argv[a++] = g_strdup( "-v" );
+    if ( force )
+        argv[a++] = g_strdup( "-f" );
+    if ( lazy )
+        argv[a++] = g_strdup( "-l" );    
+    argv[a++] = g_strdup( device_file );
+    char* allarg = g_strjoinv( " ", argv );
+
+    // insurance
+    drop_privileges( 0 );
+
+    // log
+    wlog( "udevil: trying umount as current user\n", NULL, 0 );
+    wlog( "USER: %s\n", allarg, 0 );
+    g_free( allarg );
+    
+    // run
+    if ( g_spawn_sync( NULL, argv, NULL, 0, NULL, NULL, &sstdout, &sstderr, &status, NULL ) )
+    {
+        if ( status && WIFEXITED( status ) )
+            exit_status = WEXITSTATUS( status );
+        else
+            exit_status = 0;
+    }
+    else
+        wlog( "udevil: warning: unable to run umount (%s)\n",
+                                    read_config( "umount_program", NULL ), 1 );
+
+    if ( exit_status )
+    {
+        char* str = g_strdup_printf( "      umount exit status = %d\n", exit_status );
+        wlog( str, NULL, 0 );
+        g_free( str );
+        g_free( sstdout );
+        g_free( sstderr );
+        return 1;
+    }
+
+    // success - show output
+    wlog( "udevil: success running umount as current user\n", NULL, 1 );
+    if ( sstderr )
+        fprintf( stderr, sstderr );
+    if ( sstdout )
+        fprintf( stdout, sstdout );
+    g_free( sstdout );
+    g_free( sstderr );
+    return 0;
+}
+
 static int umount_path( const char* path, gboolean force, gboolean lazy )
 {
     // setup command
@@ -2488,6 +2553,77 @@ _get_type:
         }
     }
 
+    // try normal user u/mount early
+    if ( !data->point )
+    {
+        if ( data->cmd_type == CMD_UNMOUNT )
+        {
+            ret = try_umount( type == MOUNT_NET ? netmount->url : data->device_file,
+                                                        data->force, data->lazy );
+            if ( ret == 0 )
+            {
+                // success_exec
+                str = g_strdup_printf( "%s unmounted %s", g_get_user_name(),
+                                type == MOUNT_NET ? netmount->url : data->device_file );
+                exec_program( "success_rootexec", str, FALSE, TRUE );
+                exec_program( "success_exec", str, FALSE, FALSE );
+                g_free( str );
+                if ( orig_euid == 0 )
+                    command_clean();
+                return 0;
+            }
+        }
+        else if ( data->cmd_type == CMD_MOUNT
+                        && !( data->options && strstr( data->options, "remount" ) ) )
+        {
+            if ( mount_knows( type == MOUNT_NET ? netmount->url : data->device_file ) )
+            {
+                // mount knows (in fstab) so mount as normal user with only specified opts
+                wlog( "udevil: %s is known to mount - running mount as current user\n",
+                            type == MOUNT_NET ? netmount->url : data->device_file, 1 );
+                if ( data->fstype )
+                    wlog( "udevil: warning: fstype ignored for device in fstab (or specify mount point)\n",
+                                                                            NULL, 1 );
+                if ( data->options )
+                    wlog( "udevil: warning: options ignored for device in fstab (or specify mount point)\n",
+                                                                            NULL, 1 );
+
+                ret = mount_device( type == MOUNT_NET ? netmount->url : data->device_file,
+                                                            NULL, NULL, NULL, FALSE );
+                // print
+                if ( !ret )
+                {
+                    if ( device_is_mounted_mtab(
+                            type == MOUNT_NET ? netmount->url : data->device_file,
+                                                                    &str, NULL ) )
+                    {
+                        str = g_strdup_printf( "Mounted %s at %s\n",
+                                type == MOUNT_NET ? netmount->url : data->device_file,
+                                str );
+                    }
+                    else
+                        str = g_strdup_printf( "Mounted %s\n",
+                                type == MOUNT_NET ? netmount->url : data->device_file );
+                    wlog( str, NULL, -1 );
+                    g_free( str );
+                    
+                    // success_exec
+                    if ( !ret )
+                    {
+                        str = g_strdup_printf( "%s mounted %s (in fstab)",
+                                    g_get_user_name(),
+                                    type == MOUNT_NET ? netmount->url : data->device_file );
+                        exec_program( "success_rootexec", str, FALSE, TRUE );
+                        exec_program( "success_exec", str, FALSE, FALSE );
+                        g_free( str );
+                    }
+                }
+                return ret;
+            }
+        }
+        ret = 0;
+    }
+
     // determine device from unmount point
     if ( data->cmd_type == CMD_UNMOUNT && type == MOUNT_FILE )
     {
@@ -2579,6 +2715,7 @@ _get_type:
     }
 
     // get fstype and device info
+    ret = 0;
     if ( type == MOUNT_NET )
     {
         fstype = g_strdup( netmount->fstype );
@@ -3059,24 +3196,16 @@ _get_type:
         if ( data->point && !( ret = umount_path( data->point, data->force,
                                                                 data->lazy ) ) )
         {
-            // remove mount point if udevil created
-            str = g_build_filename( data->point, ".udevil-mount-point", NULL );
-            restore_privileges();  // needed for stat and rm
-            if ( stat64( str, &statbuf ) == 0 && statbuf.st_uid == 0 )
-            {
-                // .udevil-mount-point exists and is root-owned
-                unlink ( str );
-                rmdir( data->point );
-            }
-            g_free( str );
-            drop_privileges( 0 );
-
             // success_exec
             str = g_strdup_printf( "%s unmounted %s", g_get_user_name(),
                                                         data->point );
             exec_program( "success_rootexec", str, FALSE, TRUE );
             exec_program( "success_exec", str, FALSE, FALSE );
             g_free( str );
+
+            // cleanup mount points
+            if ( orig_euid == 0 )
+                command_clean();
         }
         goto _finish;
     }
@@ -3288,8 +3417,8 @@ _get_type:
         if ( mount_knows( type == MOUNT_NET ? netmount->url : data->device_file ) )
         {
             // mount knows (in fstab) so mount as normal user with only specified opts
-            wlog( "udevil: %s is known to mount - running mount as normal user\n",
-                                                            data->device_file, 1 );
+            wlog( "udevil: %s is known to mount - running mount as current user\n",
+                            type == MOUNT_NET ? netmount->url : data->device_file, 1 );
             if ( data->fstype )
                 wlog( "udevil: warning: fstype ignored for device in fstab (or specify mount point)\n",
                                                                         NULL, 1 );
