@@ -33,7 +33,7 @@ log_keep_days = 10
 # network filesystems may be un/mounted.
 # It may also include the 'file' keyword, indicating that the user is allowed
 # to mount files (eg an ISO file).  The $KNOWN_FILESYSTEMS variable may
-# be included to include common filesystems as well as those listed in
+# be included to include common local filesystems as well as those listed in
 # /etc/filesystems and /proc/filesystems.
 # allowed_types_USERNAME, if present, is used to override allowed_types for
 # the specific user 'USERNAME'.  For example, to allow user 'jim' to mount
@@ -41,7 +41,7 @@ log_keep_days = 10
 # allowed_types_jim = vfat
 # Setting allowed_types = * does NOT allow all types, as this is a security
 # risk, but does allow all recognized types.
-# allowed_types = $KNOWN_FILESYSTEMS, smbfs, nfs, ftpfs, curlftpfs, file
+# allowed_types = $KNOWN_FILESYSTEMS, file, cifs, smbfs, nfs, curlftpfs, ftpfs, sshfs
 allowed_types = $KNOWN_FILESYSTEMS
 
 
@@ -155,19 +155,19 @@ forbidden_devices =
 
 
 # allowed_networks determines what hosts may be un/mounted by udevil users when
-# using nfs, smbfs, ftpfs, and curlftpfs.  Hosts may be specified using
-# a hostname (eg myserver.com) or IP address (192.168.1.100).
+# using nfs, cifs, smbfs, curlftpfs, ftpfs, or sshfs.  Hosts may be specified
+# using a hostname (eg myserver.com) or IP address (192.168.1.100).
 # Wildcards may be used in hostnames and IP addresses, but CIDR notation 
 # (192.168.1.0/16) is NOT supported.  IP v6 is supported.  For example:
 # allowed_networks = 127.0.0.1, 192.168.1.*, 10.0.0.*, localmachine, *.okay.com
 # Or, to prevent un/mounting of any network shares, set:
 # allowed_networks =
 # allowed_networks_FSTYPE, if present, is used to override allowed_networks
-# when mounting or unmounting a specific network fstype (eg nfs, smbfs, ftpfs,
+# when mounting or unmounting a specific network fstype (eg nfs, cifs, sshfs,
 # curlftpfs).  For example, to limit nfs and samba shares to only local
 # networks, use these two lines:
 # allowed_networks_nfs = 192.168.1.*, 10.0.0.*
-# allowed_networks_smbfs = 192.168.1.*, 10.0.0.*
+# allowed_networks_cifs = 192.168.1.*, 10.0.0.*
 allowed_networks = *
 
 
@@ -204,10 +204,10 @@ forbidden_files =
 # Note:  When a device is present in /etc/fstab, and the user does not specify
 # a mount point, the device is mounted with normal user permissions using
 # the fstab entry, without these options.
-# The variables $USER, $UID, and $GID are changed to the user's username, UID,
-# and GID.
 # default_options_FSTYPE, if present, is used to override default_options
 # when mounting a specific fstype (eg ext2, nfs).
+# The variables $USER, $UID, and $GID are changed to the user's username, UID,
+# and GID.
 # FOR GOOD SECURITY, default_options SHOULD ALWAYS INCLUDE: nosuid,noexec,nodev
 # WARNING:  OPTIONS PRESENT OR MISSING CAN CAUSE SERIOUS SECURITY PROBLEMS.
 default_options           = nosuid, noexec, nodev, noatime
@@ -218,6 +218,9 @@ default_options_udf       = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID, 
 default_options_vfat      = nosuid, noexec, nodev, noatime, fmask=0022, dmask=0022, uid=$UID, gid=$GID
 default_options_msdos     = nosuid, noexec, nodev, noatime, fmask=0022, dmask=0022, uid=$UID, gid=$GID
 default_options_umsdos    = nosuid, noexec, nodev, noatime, fmask=0022, dmask=0022, uid=$UID, gid=$GID
+default_options_cifs      = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID, utf8
+default_options_smbfs     = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID, utf8
+default_options_sshfs     = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID, nonempty, allow_other
 default_options_curlftpfs = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID, nonempty, allow_other
 default_options_ftpfs     = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID
 
@@ -228,11 +231,15 @@ default_options_ftpfs     = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID
 # here, an error will result.  Wildcards may be used.
 # allowed_options_FSTYPE, if present, is used to override allowed_options
 # when mounting a specific fstype (eg ext2, nfs).
+# The variables $USER, $UID, and $GID are changed to the user's username, UID,
+# and GID.
 # If you want to forbid remounts, remove 'remount' from here.
 # WARNING:  OPTIONS HERE CAN CAUSE SERIOUS SECURITY PROBLEMS - CHOOSE CAREFULLY
 allowed_options           = nosuid, noexec, nodev, noatime, fmask=0022, dmask=0022, uid=$UID, gid=$GID, ro, rw, remount
 allowed_options_nfs       = nosuid, noexec, nodev, noatime, ro, rw, remount, port=*, rsize=*, wsize=*, hard, proto=*, timeo=*, retrans=*
-allowed_options_smbfs     = nosuid, noexec, nodev, noatime, ro, rw, remount, port=*, user=*, username=*, pass=*, password=*, guest, uid=$UID, gid=$GID, credentials=*
+allowed_options_cifs     = nosuid, noexec, nodev, noatime, ro, rw, remount, port=*, user=*, username=*, pass=*, password=*, guest, uid=$UID, gid=$GID, credentials=*, utf8
+allowed_options_smbfs     = nosuid, noexec, nodev, noatime, ro, rw, remount, port=*, user=*, username=*, pass=*, password=*, guest, uid=$UID, gid=$GID, credentials=*, utf8
+allowed_options_sshfs     = nosuid, noexec, nodev, noatime, ro, rw, uid=$UID, gid=$GID, nonempty, allow_other, idmap=user, BatchMode=yes
 allowed_options_curlftpfs = nosuid, noexec, nodev, noatime, ro, rw, uid=$UID, gid=$GID, nonempty, allow_other
 allowed_options_ftpfs     = nosuid, noexec, nodev, noatime, ro, rw, port=*, user=*, pass=*, ip=*, root=*, uid=$UID, gid=$GID
 
@@ -245,7 +252,8 @@ allowed_options_ftpfs     = nosuid, noexec, nodev, noatime, ro, rw, port=*, user
 # when mounting a specific fstype (eg ext2, nfs).
 # NOT SETTING A MODE CAN HAVE SECURITY IMPLICATIONS FOR SOME FSTYPES
 mount_point_mode = 0755
-# don't set a mode for curlftpfs:
+# don't set a mode for some types:
+mount_point_mode_sshfs =
 mount_point_mode_curlftpfs =
 mount_point_mode_ftpfs =
 

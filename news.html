@@ -21,8 +21,23 @@
 
 
 <!-- --------------------------------------------------------------------- -->
+<br><hr><a name="0.2.8"></a>
+<big><b><a href="#0.2.8">0.2.8 released</a></b></big><br>
+2012-Jun-15
+
+<ul>
+<li>udevil can now mount ssh:// URLs if sshfs is installed
+<li>smb:// URLs are now mounted with fstype cifs by default instead of smbfs.  If upgrading, you may need to add cifs to allowed_fstypes in udevil.conf.  If you prefer smbfs, use smbfs:// or specify -t smbfs
+<li>A problem which caused a 'denied' message when adding mount option uid= to the command line has been corrected
+<li>the default <a href="udevil.conf.txt">udevil.conf</a> has been updated, adding sshfs options and adding utf8 to cifs 
+</ul>
+<br><br>
+
+
+
+<!-- --------------------------------------------------------------------- -->
 <br><hr><a name="0.2.7"></a>
-<big><b>0.2.7 released</b></big><br>
+<big><b><a href="#0.2.7">0.2.7 released</a></b></big><br>
 2012-Jun-04
 
 <p>With this update, udevil first tries to mount or unmount devices as the current user earlier under some conditions (such as no mount point specified).  For example, this helps udevil to unmount an optical drive when the media has already been removed (if the device is in fstab).  This means that for devices in fstab, settings in udevil.conf have no effect (since it is like the user running mount or umount directly without udevil).  The comments in the default udevil.conf have been updated to reflect this.
