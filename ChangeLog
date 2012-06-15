@@ -1,5 +1,8 @@
-0.2.7+
-
+0.2.8
+    ssh:// support
+    use cifs by default instead of smbfs
+    fix denied when passing mount option uid= on command line
+    updated default udevil.conf
 0.2.7   2012-06-04:
     try u/mount as current user early; clean all mount points on unmount
 0.2.6   2012-06-03:

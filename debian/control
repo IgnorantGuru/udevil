@@ -12,10 +12,10 @@ Package: udevil
 Architecture: any
 Depends: libc6, libglib2.0-0, libudev0 (>=143)
 Recommends: 
-Suggests: eject
+Suggests: eject cifs-utils curlftpfs sshfs
 Conflicts: devmon
 Provides: devmon
-Description: Mounts and unmounts optical and removable devices without a
- password (set suid), shows device info, monitors device changes.  Includes the
- devmon automounting script.
+Description: Mounts and unmounts removable devices and networks without a
+ password (set suid), shows device info, monitors device changes.  Includes
+ the devmon automounting script.
 
