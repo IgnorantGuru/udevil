@@ -63,8 +63,8 @@ PACKAGES
         For signatures and SHA256 sums see
             http://ignorantguru.github.com/udevil/udevil.SHA256.txt
 
-    Gentoo ebuild available:
-        http://git.overlays.gentoo.org/gitweb/?p=user/Armageddon.git;a=tree;f=sys-apps/udevil;
+    Gentoo's portage tree includes udevil:
+        http://packages.gentoo.org/package/sys-apps/udevil
 
     Other:  See INSTALLER below
 
