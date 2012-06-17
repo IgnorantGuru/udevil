@@ -2,4 +2,4 @@
 # Please keep this file in alphabetical order.
 [encoding: UTF-8]
 src/udevil.c
-src/realpath.c
+src/canonicalize.c
