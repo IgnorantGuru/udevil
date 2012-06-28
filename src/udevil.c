@@ -4227,6 +4227,13 @@ printf("\n-----------------------\n");
         else
             arg_next = NULL;
 
+        if ( ( arg && !g_utf8_validate( arg, -1, NULL ) ) ||
+                        ( arg_next && !g_utf8_validate( arg_next, -1, NULL ) ) )
+        {
+            wlog( "udevil: error: argument is not valid UTF-8\n", NULL, 2 );
+            goto _exit;
+        }
+        
         switch ( data->cmd_type )
         {
             case CMD_UNSET:
