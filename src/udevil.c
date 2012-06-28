@@ -2516,6 +2516,9 @@ _get_type:
         {
             if ( data->cmd_type == CMD_UNMOUNT )
                 type = MOUNT_MISSING;
+            else if ( !g_strcmp0( data->device_file, "tmpfs" ) || 
+                                    !g_strcmp0( data->device_file, "ramfs" ) )
+                type = MOUNT_FILE;
             else
             {
                 str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
@@ -2640,7 +2643,7 @@ _get_type:
             data->device_file = NULL;
             if ( path_is_mounted_block( data->point, &data->device_file )
                             && data->device_file && data->device_file[0] != '\0' )
-                    type = MOUNT_BLOCK;
+                type = MOUNT_BLOCK;
             else
             {
                 g_free( data->device_file );
@@ -2653,7 +2656,9 @@ _get_type:
                             && data->device_file && data->device_file[0] != '\0'
                             && !g_file_test( data->device_file, G_FILE_TEST_IS_DIR ) )
                 {
-                    goto _get_type;
+                    if ( g_strcmp0( data->device_file, "tmpfs" ) &&
+                                        g_strcmp0( data->device_file, "ramfs" ) )
+                        goto _get_type;
                 }
                 else
                 {
@@ -2728,19 +2733,25 @@ _get_type:
     }
     else if ( type == MOUNT_FILE )
     {
-        if ( stat64( data->device_file, &statbuf ) != 0 )
-        {
-            str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
-                                    data->device_file, g_strerror( errno ) );
-            wlog( str, NULL, 2 );
-            g_free( str );
-            ret = 1;
-            goto _finish;
-        }
-        if ( data->fstype && data->fstype[0] != '\0' )
-            fstype = g_strdup( data->fstype );
+        if ( !g_strcmp0( data->device_file, "tmpfs" ) ||
+                                    !g_strcmp0( data->device_file, "ramfs" ) )
+            fstype = g_strdup( data->device_file );
         else
-            fstype = g_strdup( "file" );
+        {
+            if ( stat64( data->device_file, &statbuf ) != 0 )
+            {
+                str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+                                        data->device_file, g_strerror( errno ) );
+                wlog( str, NULL, 2 );
+                g_free( str );
+                ret = 1;
+                goto _finish;
+            }
+            if ( data->fstype && data->fstype[0] != '\0' )
+                fstype = g_strdup( data->fstype );
+            else
+                fstype = g_strdup( "file" );
+        }
     }
     else if ( type == MOUNT_MISSING )
     {
@@ -3110,7 +3121,9 @@ _get_type:
                 ret = 2;
                 goto _finish;
             }
-            if ( g_access( data->device_file, R_OK ) != 0 )
+            if ( g_strcmp0( data->device_file, "tmpfs" ) &&
+                                        g_strcmp0( data->device_file, "ramfs" ) &&
+                                        g_access( data->device_file, R_OK ) != 0 )
             {
                 wlog( "udevil: denied: you don't have read permission for file '%s'\n",
                                                                 data->device_file, 2 );

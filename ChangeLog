@@ -1,3 +1,5 @@
+0.2.8+
+    users can mount/umount tmpfs and ramfs if in allowed_types; updated conf
 0.2.8
     ssh:// support
     use cifs by default instead of smbfs
