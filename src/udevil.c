@@ -1998,11 +1998,12 @@ static gboolean mount_knows( const char* device_file )
 {
     int status = 0;
     int exit_status = 1;
-    gchar *argv[4] = { NULL };
+    gchar *argv[5] = { NULL };
     int a = 0;
     argv[a++] = g_strdup( read_config( "mount_program", NULL ) );
     if ( !argv[0] )
         return FALSE;
+    argv[a++] = g_strdup( "-n" );  // required by parted magic
     argv[a++] = g_strdup( "--fake" );
     argv[a++] = g_strdup( device_file );
 
