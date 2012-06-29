@@ -58,7 +58,7 @@
 
 
 #define ALLOWED_OPTIONS "nosuid,noexec,nodev,user=$USER,uid=$UID,gid=$GID"
-#define ALLOWED_TYPES "$KNOWN_FILESYSTEMS,smbfs,nfs,ftpfs,curlftpfs,file"
+#define ALLOWED_TYPES "$KNOWN_FILESYSTEMS,smbfs,cifs,nfs,ftpfs,curlftpfs,sshfs,file,tmpfs,ramfs"
 #define MAX_LOG_DAYS 60   // don't set this too high
 
 static int command_clean();
