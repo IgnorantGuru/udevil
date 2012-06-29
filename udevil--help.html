@@ -2,7 +2,7 @@
 <pre>
 $ udevil --help
 
-udevil version 0.2.8
+udevil version 0.2.9+
 Mounts and unmounts devices without password, shows device info, monitors
 device changes.  Emulates udisks1/2 command line usage and udisks1 output.
 Usage: udevil [OPTIONS] COMMAND [COMMAND-OPTIONS] [COMMAND-ARGUMENTS]
@@ -38,6 +38,7 @@ MOUNT  -  Mounts DEVICE to mount point DIR with MOUNT-OPTIONS:
     udevil mount ssh://user@sys.domain               # sshfs with user - 
                                                        requires sshfs
     udevil mount -t sshfs user@sys.domain            # sshfs with user
+    udevil mount tmpfs                               # make a ram drive
 UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:
     udevil umount|unmount|--unmount|--umount [UNMOUNT-OPTIONS] 
                                               {[-b|--block-device] DEVICE}|DIR

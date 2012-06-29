@@ -29,6 +29,9 @@
 <pre>    default_options_tmpfs = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID
     default_options_ramfs = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID</pre>
 
+To make a ram drive:
+<pre>    udevil mount tmpfs</pre>
+
 A problem with building a udevil deb package has been corrected, and a problem where mounting with udevil in Parted Magic caused double mtab entries to be added has been corrected.
 
 <p>This update changes some default and allowed options for nfs, cifs, and smbfs in the default <a href="udevil.conf.txt">udevil.conf</a>.
