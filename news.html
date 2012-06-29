@@ -21,6 +21,22 @@
 
 
 <!-- --------------------------------------------------------------------- -->
+<br><hr><a name="0.2.9"></a>
+<big><b><a href="#0.2.9">0.2.9 released</a></b></big><br>
+2012-Jun-29
+
+<p>udevil can now mount and unmount tmpfs and ramfs filesystems, treating them like removable drives.  To allow this you need to add tmpfs or ramfs to udevil.conf's allowed_types.  Also, see the new default <a href="udevil.conf.txt">udevil.conf</a> and add these lines:
+<pre>    default_options_tmpfs = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID
+    default_options_ramfs = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID</pre>
+
+A problem with building a udevil deb package has been corrected, and a problem where mounting with udevil in Parted Magic caused double mtab entries to be added has been corrected.
+
+<p>This update changes some default and allowed options for nfs, cifs, and smbfs in the default <a href="udevil.conf.txt">udevil.conf</a>.
+<br><br>
+
+
+
+<!-- --------------------------------------------------------------------- -->
 <br><hr><a name="0.2.8-gentoo"></a>
 <big><b><a href="#0.2.8-gentoo">udevil now in Gentoo's portage tree</a></b></big><br>
 2012-Jun-17
