@@ -4076,6 +4076,7 @@ static void show_help()
     printf( "    udevil mount ssh://user@sys.domain               # sshfs with user - \n" );
     printf( "                                                       requires sshfs\n" );
     printf( "    udevil mount -t sshfs user@sys.domain            # sshfs with user\n" );
+    printf( "    udevil mount tmpfs                               # make a ram drive\n" );
     printf( "UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:\n" );
     printf( "    udevil umount|unmount|--unmount|--umount [UNMOUNT-OPTIONS] \n" );
     printf( "                                              {[-b|--block-device] DEVICE}|DIR\n" );
