@@ -1,3 +1,5 @@
+0.2.9+
+
 0.2.9   2012-06-29:
     fixed POTFILES.in to correct build deb problem #2
     users can mount/umount tmpfs and ramfs if in allowed_types; updated conf
