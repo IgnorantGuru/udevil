@@ -3279,13 +3279,13 @@ _get_type:
             if ( netmount->user )
             {
                 str = net_opts;
-                net_opts = g_strdup_printf( "%s,user='%s'", str, netmount->user );
+                net_opts = g_strdup_printf( "%s,user=%s", str, netmount->user );
                 g_free( str );
             }
             if ( netmount->pass )
             {
                 str = net_opts;
-                net_opts = g_strdup_printf( "%s,pass='%s'", str, netmount->pass );
+                net_opts = g_strdup_printf( "%s,pass=\"%s\"", str, netmount->pass );
                 g_free( str );
             }
             if ( netmount->port )
@@ -3297,7 +3297,7 @@ _get_type:
             if ( netmount->path && strcmp( netmount->path, "/" ) )
             {
                 str = net_opts;
-                net_opts = g_strdup_printf( "%s,root='%s'", str, netmount->path );
+                net_opts = g_strdup_printf( "%s,root=\"%s\"", str, netmount->path );
                 g_free( str );
             }
         }
@@ -3312,13 +3312,13 @@ _get_type:
             if ( netmount->user )
             {
                 str = net_opts;
-                net_opts = g_strdup_printf( "%s,user='%s'", str, netmount->user );
+                net_opts = g_strdup_printf( "%s,user=%s", str, netmount->user );
                 g_free( str );
             }
             if ( netmount->pass )
             {
                 str = net_opts;
-                net_opts = g_strdup_printf( "%s,password='%s'", str, netmount->pass );
+                net_opts = g_strdup_printf( "%s,password=\"%s\"", str, netmount->pass );
                 g_free( str );
             }
             if ( netmount->port )

@@ -44,6 +44,8 @@ DESCRIPTION
 
 PACKAGES
 
+    antiX-12 base & full will include udevil (currently available in testing):
+        http://sourceforge.net/projects/antix-linux/
 
     Arch's AUR includes udevil-git:
         https://aur.archlinux.org/packages.php?ID=59463
@@ -65,6 +67,9 @@ PACKAGES
 
     Gentoo's portage tree includes udevil:
         http://packages.gentoo.org/package/sys-apps/udevil
+
+    Parted Magic includes SpaceFM with udevil as its default file manager:
+        http://partedmagic.com/doku.php
 
     Other:  See INSTALLER below
 
