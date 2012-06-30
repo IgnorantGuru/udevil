@@ -2801,21 +2801,12 @@ _get_type:
     else
     {
         // block device - get info
-        udev = udev_new();
-        if ( udev == NULL )
-        {
-            wlog( "udevil: error: error initializing libudev\n", NULL, 2 );
-            ret = 1;
-            goto _finish;
-        }
-
         if ( stat64( data->device_file, &statbuf ) != 0 )
         {
             str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
                                     data->device_file, g_strerror( errno ) );
             wlog( str, NULL, 2 );
             g_free( str );
-            udev_unref( udev );
             ret = 1;
             goto _finish;
         }
@@ -2823,7 +2814,14 @@ _get_type:
         {
             wlog( "udevil: error: %s is not a block device\n",
                                                         data->device_file, 2 );
-            udev_unref( udev );
+            ret = 1;
+            goto _finish;
+        }
+        
+        udev = udev_new();
+        if ( udev == NULL )
+        {
+            wlog( "udevil: error: error initializing libudev\n", NULL, 2 );
             ret = 1;
             goto _finish;
         }
