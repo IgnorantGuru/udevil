@@ -3654,8 +3654,7 @@ _get_type:
         if ( mkdir( point, S_IRWXU ) != 0 )
         {
             drop_privileges( 0 );
-            str = g_strdup_printf( "udevil: error: mkdir '%s' as user %s failed\n", point,
-                                                            g_get_user_name() );
+            str = g_strdup_printf( "udevil: error: mkdir '%s' failed\n", point );
             wlog( str, NULL, 2 );
             g_free( str );
             ret = 1;
