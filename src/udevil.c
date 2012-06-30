@@ -2854,9 +2854,15 @@ _get_type:
         {
             // user specified fstype
             if ( !strcmp( data->fstype, "nfs" ) || !strcmp( data->fstype, "smbfs" )
-                                                 || !strcmp( data->fstype, "file" ) )
+                                             || !strcmp( data->fstype, "cifs" )
+                                             || !strcmp( data->fstype, "ftpfs" )
+                                             || !strcmp( data->fstype, "curlftpfs" )
+                                             || !strcmp( data->fstype, "sshfs" )
+                                             || !strcmp( data->fstype, "tmpfs" )
+                                             || !strcmp( data->fstype, "ramfs" )
+                                             || !strcmp( data->fstype, "file" ) )
             {
-                wlog( "udevil: error: invalid type '%s' for block device\n",
+                wlog( "udevil: error: type %s is invalid for block device\n",
                                                                     data->fstype, 2 );
                 ret = 1;
                 goto _finish;
