@@ -2450,6 +2450,7 @@ static int command_mount( CommandData* data )
     };
     struct stat64 statbuf;
     char* str;
+    char* str2;
     char* parent_dir;
     char* fstype = NULL;
     char* options = NULL;
@@ -3608,7 +3609,34 @@ _get_type:
                 str = "ftp";
 
             if ( netmount->host && g_utf8_validate( netmount->host, -1, NULL ) )
-                mname = g_strdup_printf( "%s-%s", str, netmount->host );
+            {
+                parent_dir = NULL;
+                if ( netmount->path )
+                {
+                    parent_dir = replace_string( netmount->path, "/", "-", FALSE );
+                    g_strstrip( parent_dir );
+                    while ( g_str_has_suffix( parent_dir, "-" ) )
+                        parent_dir[ strlen( parent_dir ) - 1] = '\0';
+                    while ( g_str_has_prefix( parent_dir, "-" ) )
+                    {
+                        str2 = parent_dir;
+                        parent_dir = g_strdup( str2 + 1 );
+                        g_free( str2 );
+                    }
+                    if ( parent_dir[0] == '\0' 
+                                        || !g_utf8_validate( parent_dir, -1, NULL )
+                                        || strlen( parent_dir ) > 30 )
+                    {
+                        g_free( parent_dir );
+                        parent_dir = NULL;
+                    }
+                }
+                if ( parent_dir )
+                    mname = g_strdup_printf( "%s-%s-%s", str, netmount->host, parent_dir );
+                else
+                    mname = g_strdup_printf( "%s-%s", str, netmount->host );
+                g_free( parent_dir );
+            }
             else
                 mname = g_strdup( str );
         }
