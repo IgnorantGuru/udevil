@@ -18,7 +18,7 @@ udevil is a command line Linux program which mounts and unmounts removable devic
 
 <p>udevil is highly configurable, requires no daemon running, and depends only on udev and glib - NO udisks, gvfs, fuse, policykit, etc. (although it can coexist with any of these).  To use it, just prefix a normal mount command with 'udevil'.  udevil can also replace udisks in the <a href="http://ignorantguru.github.com/spacefm/">SpaceFM</a> file manager and the <a href="http://igurublog.wordpress.com/downloads/script-devmon/">devmon</a> automounting daemon (devmon is included with udevil).&nbsp;&nbsp;<a href="#highlights">read more</a>
 
-<p><b>IMPORTANT</b>  THIS IS A TEST RELEASE - USE AT YOUR OWN RISK.  Please test this version of udevil carefully before relying on its behavior.
+<p>THIS IS A TEST RELEASE - USE AT YOUR OWN RISK.  Please test this version of udevil carefully before relying on its behavior.
 
 <br><br>
 <h3>Links</h3>
@@ -94,7 +94,7 @@ udevil is a command line Linux program which mounts and unmounts removable devic
 <ul>
     <li>Lightweight -  Written in C with libudev and glib - no dependency on udisks or gvfs
     <li>Users can specify custom mount points and mount options
-    <li>Optional user mounting of nfs://, smb://, and ftp:// network URLs with support for username, password, port, and any other configured options
+    <li>Optional user mounting of nfs://, smb://, ftp://, and ssh:// network URLs with support for username, password, port, and any other configured options
     <li>Optional user mounting of image files (ISO, etc)
     <li>Uses mount's existing command line usage - just prefix your mount command with 'udevil'.  Also supports udisks v1 and v2 command line usage
     <li>Flexible - Admins can easily adjust allowed users, groups, fstypes, devices, and networks, and set default mount options and allowed mount options for each fstype, with exceptions for special users
@@ -254,7 +254,7 @@ References:<br>
 <table cellspacing="0" cellpadding="0" align="center" width="75%">
  <tr> 
 	<td>
-		<div align="left"><i>Updated 2012-06-30</i></div>
+		<div align="left"><i>Updated 2012-07-13</i></div>
 	</td>
 	<td>
 		<div align="right"><a href="http://igurublog.wordpress.com/contact-ignorantguru/">Contact</a></div>
