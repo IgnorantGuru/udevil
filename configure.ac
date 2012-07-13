@@ -3,7 +3,7 @@ AC_PREREQ(2.52)
 AC_INIT(src/udevil.c)
 AM_CONFIG_HEADER(config.h)
 AC_CONFIG_SRCDIR(src)
-AM_INIT_AUTOMAKE(udevil, 0.2.9+)
+AM_INIT_AUTOMAKE(udevil, 0.3.0)
 
 AC_PROG_INTLTOOL([0.21])
 
@@ -128,7 +128,7 @@ src/Makefile
 
 
 echo
-echo udevil....................................... : Version $VERSION ALPHA TEST
+echo udevil....................................... : Version $VERSION BETA TEST
 echo
 echo Linux device support......................... : libudev
 if test x"$mountprog" != x""; then
