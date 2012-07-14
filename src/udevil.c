@@ -2386,13 +2386,12 @@ static int parse_network_url( const char* url, const char* fstype,
         else if ( !g_strcmp0( nm->fstype, "ftpfs" ) )
             nm->url = g_strdup( "none" );
         else if ( !g_strcmp0( nm->fstype, "sshfs" ) )
-            nm->url = g_strdup_printf( "sshfs#%s%s%s%s%s:%s%s",
+            nm->url = g_strdup_printf( "sshfs#%s%s%s%s%s:%s",
                             nm->user ? nm->user : "",
                             nm->pass ? ":" : "",
                             nm->pass ? nm->pass : "",
                             nm->user || nm->pass ? "@" : "",
                             nm->host,
-                            nm->port ? nm->port : "",
                             nm->path ? nm->path : "/" );
         else
             nm->url = g_strdup( trim_url );
@@ -3316,6 +3315,12 @@ _get_type:
                 net_opts = g_strdup_printf( "%s,user=%s", str, netmount->user );
                 g_free( str );
             }
+            else
+            {
+                str = net_opts;
+                net_opts = g_strdup_printf( "%s,guest", str );
+                g_free( str );
+            }                
             if ( netmount->pass )
             {
                 str = net_opts;
@@ -3328,6 +3333,11 @@ _get_type:
                 net_opts = g_strdup_printf( "%s,port=%s", str, netmount->port );
                 g_free( str );
             }
+        }
+        else if ( !strcmp( fstype, "sshfs" ) )
+        {
+            if ( netmount->port )
+                net_opts = g_strdup_printf( "port=%s", netmount->port );
         }
         if ( net_opts && net_opts[0] != '\0' )
         {
