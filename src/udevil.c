@@ -2416,10 +2416,10 @@ static int parse_network_url( const char* url, const char* fstype,
             nm->url = g_strdup( "none" );
         else if ( !g_strcmp0( nm->fstype, "sshfs" ) )
             nm->url = g_strdup_printf( "sshfs#%s%s%s%s%s:%s",
-                            nm->user ? nm->user : "",
+                            nm->user ? nm->user : g_get_user_name(),
                             nm->pass ? ":" : "",
                             nm->pass ? nm->pass : "",
-                            nm->user || nm->pass ? "@" : "",
+                            "@",   //nm->user || nm->pass ? "@" : "",
                             nm->host,
                             nm->path ? nm->path : "/" );
         else
