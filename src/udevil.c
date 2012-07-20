@@ -3339,19 +3339,8 @@ _get_type:
         }
         else if ( !strcmp( fstype, "smbfs" ) || !strcmp( fstype, "cifs" ) )
         {
-            net_opts = g_strdup( "" );
-            if ( netmount->user )
-            {
-                str = net_opts;
-                net_opts = g_strdup_printf( "%s,user=%s", str, netmount->user );
-                g_free( str );
-            }
-            else
-            {
-                str = net_opts;
-                net_opts = g_strdup_printf( "%s,guest", str );
-                g_free( str );
-            }                
+            net_opts = g_strdup_printf( "%s,user=%s", str, 
+                            netmount->user ? netmount->user : g_get_user_name() );
             if ( netmount->pass )
             {
                 str = net_opts;
@@ -3753,7 +3742,23 @@ _get_type:
 
     // mount
     if ( type == MOUNT_NET )
-        ret = mount_device( netmount->url, fstype, options, point, TRUE );
+    {
+        ret = -1;
+        if ( ( !strcmp( fstype, "smbfs" ) || !strcmp( fstype, "cifs" ) )
+                    && !netmount->pass
+                    && validate_in_list( "allowed_options", fstype, "guest" ) )
+        {
+            // try cifs as guest first
+            wlog( "udevil: trying %s as guest\n", fstype, 1 );
+            str = g_strdup_printf( "%s,guest", options ? options : "" );
+            ret = mount_device( netmount->url, fstype, str, point, TRUE );
+            g_free( str );
+            if ( ret != 0 )
+                wlog( "udevil: trying %s as non-guest\n", fstype, 1 );
+        }
+        if ( ret != 0 )
+            ret = mount_device( netmount->url, fstype, options, point, TRUE );
+    }
     else
         ret = mount_device( data->device_file,
                             g_strcmp0( fstype, "file" ) ? fstype : NULL,
