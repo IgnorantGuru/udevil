@@ -75,7 +75,8 @@ enum {
     CMD_UNMOUNT,
     CMD_MONITOR,
     CMD_INFO,
-    CMD_CLEAN
+    CMD_CLEAN,
+    CMD_REMOVE
 };
 
 typedef struct
@@ -1732,11 +1733,39 @@ static gboolean path_is_mounted_block( const char* path, char** device_file )
                 udev_device_unref( udevice );
             }
             udev_unref( udev );
+            udev = NULL;
         }
         else
             *device_file = NULL;
     }
     return ret;
+}
+
+static int root_write_to_file( const char* path, const char* data )
+{
+    FILE *f;
+    size_t expected, actual;
+    
+    if ( !( data && data[0] != '\0' ) )
+        return 1;
+    restore_privileges();
+    f = fopen( path, "w" );
+    drop_privileges( 0 );
+    if ( !f )
+    {
+        wlog( "udevil: error: could not open %s\n", path, 2 );
+        return 1;
+    }
+    expected = sizeof( char ) * strlen( data );
+    actual = fwrite( data, sizeof( char ), strlen( data ), f );
+    if( actual != expected )
+    {
+        fclose( f );
+        wlog( "udevil: error: error writing to %s\n", path, 2 );
+        return 1;
+    }
+    fclose( f );
+    return 0;
 }
 
 static int exec_program( const char* var, const char* msg, gboolean show_error,
@@ -2832,6 +2861,7 @@ _get_type:
             wlog( "udevil: error: no udev device for device %s\n",
                                                         data->device_file, 2 );
             udev_unref( udev );
+            udev = NULL;
             ret = 1;
             goto _finish;
         }
@@ -2845,6 +2875,7 @@ _get_type:
         }
         udev_device_unref( udevice );
         udev_unref( udev );
+        udev = NULL;
         if ( ret != 0 )
             goto _finish;
 
@@ -3797,6 +3828,297 @@ _finish:
     return ret;
 }
 
+static int command_remove( CommandData* data )
+{
+    struct stat statbuf;
+    struct udev_device  *udevice;
+    const char* device_file = data->device_file;
+    char* str;
+    int ret = 0;
+    
+    // got root?
+    if ( orig_euid != 0 )
+    {
+        wlog( "udevil: error: udevil was not run suid root\n", NULL, 2 );
+        wlog( "        To correct this problem: sudo chmod +s /usr/bin/udevil\n", NULL, 2 );
+        return 1;
+    }
+
+    if ( !device_file || ( device_file && device_file[0] == '\0' ) )
+    {
+        wlog( "udevil: error: remove requires DEVICE argument\n", NULL, 2 );
+        return 1;
+    }
+
+    if ( stat( device_file, &statbuf ) != 0 )
+    {
+        str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+                                    device_file, g_strerror( errno ) );
+        wlog( str, NULL, 2 );
+        g_free( str );
+        return 1;
+    }
+    if ( statbuf.st_rdev == 0 || !S_ISBLK( statbuf.st_mode ) )
+    {
+        wlog( "udevil: error: %s is not a block device\n", device_file, 2 );
+        return 1;
+    }
+
+    udev = udev_new();
+    if ( udev == NULL )
+    {
+        wlog( "udevil: error: error initializing libudev\n", NULL, 2 );
+        return 1;
+    }
+
+    udevice = udev_device_new_from_devnum( udev, 'b', statbuf.st_rdev );
+    if ( udevice == NULL )
+    {
+        wlog( "udevil: error: no udev device for device %s\n", device_file, 2 );
+        udev_unref( udev );
+        udev = NULL;
+        return 1;
+    }
+
+    device_t *device = device_alloc( udevice );
+    if ( !device_get_info( device, devmounts ) )
+    {
+        wlog( "udevil: error: unable to get device info\n", NULL, 2 );
+        udev_device_unref( udevice );
+        udev_unref( udev );
+        udev = NULL;
+        device_free( device );
+        return 1;
+    }
+
+    // is device internal ?
+    gboolean skip_driver = FALSE;
+    if ( device->device_is_system_internal )
+    {
+        wlog( "udevil: warning: device %s is an internal device - not unbinding driver\n",
+                                                        data->device_file, 1 );
+        skip_driver = TRUE;
+    }
+
+    if ( !skip_driver
+          && strcmp( device->drive_connection_interface, "ata_serial_esata" )
+          && strcmp( device->drive_connection_interface, "sdio" )
+          && strcmp( device->drive_connection_interface, "usb" )
+          && strcmp( device->drive_connection_interface, "firewire" ) )
+    {
+        wlog( "udevil: warning: interface is not usb, firewire, sdio, esata - not unbinding driver\n",
+                                                        data->device_file, 1 );
+        skip_driver = TRUE;
+    }
+
+    // allowed
+    if ( !validate_in_list( "allowed_devices", device->id_type, data->device_file ) )
+    {
+        wlog( "udevil: denied: device %s is not an allowed device\n",
+                                                        data->device_file, 2 );
+        return 2;
+    }
+    if ( validate_in_list( "forbidden_devices", device->id_type, data->device_file ) )
+    {
+        wlog( "udevil: denied: device %s is a forbidden device\n",
+                                                        data->device_file, 2 );
+        return 2;
+    }
+
+    // unmount all partitions on this device - contains code from pmount-jjk
+    GDir *partdir;
+    const char* filename;
+    char* partdirname;
+    char* path;
+    char* host_path;
+    CommandData* data2;
+    int result, n;
+    
+    // get host device
+    //printf("native_path=%s\n", device->native_path );
+    host_path = g_strdup( udev_device_get_property_value( udevice,
+                                                    "UDISKS_PARTITION_SLAVE") );
+    if ( !host_path )
+    {
+        // not all partitions have UDISKS_PARTITION_* - or this is full device?
+        host_path = g_strdup( device->native_path );
+        path = g_build_filename( host_path, "partition", NULL );
+        if ( g_file_test( path, G_FILE_TEST_EXISTS ) )
+        {
+            // is a partition so determine host
+            for ( n = strlen( host_path ) - 1; n >= 0 && host_path[n] != '/'; n-- )
+                host_path[n] = '\0';
+            host_path[n] = '\0';
+        }
+        else
+        {
+            // looks like a full device, unmount device if mounted
+            if ( device_is_mounted_mtab( device->devnode, NULL, NULL ) )
+            {
+                wlog( "udevil: unmount %s\n", device->devnode, 1 );
+                data2 = g_slice_new0( CommandData );
+                data2->cmd_type = CMD_UNMOUNT;
+                data2->device_file = g_strdup( device->devnode );
+                data2->point = NULL;
+                data2->fstype = NULL;
+                data2->options = NULL;
+                data2->label = NULL;
+                data2->uuid = NULL;
+                data2->force = data->force;
+                data2->lazy = data->lazy;
+                result = command_mount( data2 );
+                free_command_data( data2 );
+
+                if( result != 0 )
+                {
+                    g_free( path );
+                    g_free( host_path );
+                    return 1;
+                }
+            }
+        }
+        g_free( path );
+    }
+    udev_device_unref( udevice );
+    udev_unref( udev );
+    udev = NULL;
+    device_free( device );
+
+    // read partitions in host_path
+    //printf("host_path=%s\n", host_path );
+    partdir = g_dir_open( host_path, 0, NULL );
+    if( !partdir )
+    {
+        wlog( "udevil: error: unable to access dir %s\n", host_path, 2 );
+        g_free( host_path );
+        return 1;
+    }
+    while( ( filename = g_dir_read_name( partdir ) ) != NULL )
+    {
+        if ( !strcmp( filename, "." ) || !strcmp( filename, ".." ) )
+            continue;
+        
+        /* construct /sys/block/<device>/<partition>/dev */
+        partdirname = g_build_filename( host_path, filename, "dev", NULL );
+
+        /* make sure it is a device, i.e has a file dev */
+        if( 0 != stat( partdirname, &statbuf ) )
+        {
+            g_free( partdirname );
+            continue;
+        }
+        g_free( partdirname );
+        /* must be a file */
+        if( !S_ISREG( statbuf.st_mode ) )
+            continue;
+
+        /* construct /dev/<partition> */
+        path = g_strdup_printf( "/dev/%s", filename );
+        wlog( "udevil: examining partition %s\n", path, 0 );
+        
+        while( device_is_mounted_mtab( path, NULL, NULL ) )
+        {
+            // unmount partition
+            wlog( "udevil: unmount partition %s\n", path, 1 );
+            data2 = g_slice_new0( CommandData );
+            data2->cmd_type = CMD_UNMOUNT;
+            data2->device_file = g_strdup( path );
+            data2->point = NULL;
+            data2->fstype = NULL;
+            data2->options = NULL;
+            data2->label = NULL;
+            data2->uuid = NULL;
+            data2->force = data->force;
+            data2->lazy = data->lazy;
+            result = command_mount( data2 );
+            free_command_data( data2 );
+
+            if( result != 0 )
+            {
+                g_free( path );
+                g_free( host_path );
+                g_dir_close( partdir );
+                return 1;
+            }
+        }
+        g_free( path );
+    }
+    g_dir_close( partdir );
+
+    // flush buffers
+    sync();
+        
+    if ( skip_driver )
+    {
+        g_free( host_path );
+        return 0;
+    }
+    
+    // stop device - contains code from pmount-jjk
+    char *c;
+    FILE *f;
+    path = NULL;
+    
+    // now extract the part we want, up to the grand-parent of the host
+    // e.g: /sys/devices/pci0000:00/0000:00:06.0/usb1/1-2
+    while ( c = strrchr( host_path, '/' ) )
+    {
+        // end the string there, to move back
+        *c = 0;
+        // found the host part?
+        if ( !strncmp( c + 1, "host", 4 ) )
+            break;
+    }
+    if ( c == NULL )
+    {
+        wlog( "udevil: error: unable to find host for %s\n", host_path, 2 );
+        goto _remove_error;
+    }
+    // we need to move back one more time
+    if ( NULL == ( c = strrchr( host_path, '/' ) ) )
+    {
+        wlog( "udevil: error: unable to find host for %s\n", host_path, 2 );
+        goto _remove_error;
+    }
+    // end the string there
+    *c = 0;
+
+    // now we need the last component, aka the bus id
+    if ( NULL == ( c = strrchr( host_path, '/' ) ) )
+    {
+        wlog( "udevil: error: unable to find last component for %s\n", host_path, 2 );
+        goto _remove_error;
+    }
+    // move up, so this points to the name only, e.g. 1-2
+    ++c;
+
+    // unbind driver: write the bus id to <device>/driver/unbind
+    path = g_build_filename( host_path, "driver", "unbind", NULL );
+    if ( root_write_to_file( path, c ) )
+        goto _remove_error;
+    g_free( path );
+
+    // suspend device. step 1: write "0" to <device>/power/autosuspend
+    path = g_build_filename( host_path, "power", "autosuspend", NULL );
+    if ( g_file_test( path, G_FILE_TEST_EXISTS ) && root_write_to_file( path, "0" ) )
+        goto _remove_error;
+    g_free( path );
+
+    // step 2: write "auto" to <device>/power/control
+    path = g_build_filename( host_path, "power", "control", NULL );
+    if ( g_file_test( path, G_FILE_TEST_EXISTS ) && root_write_to_file( path, "auto" ) )
+        goto _remove_error;
+    g_free( path );    
+
+    wlog( "Stopped device %s\n", host_path, -1 );
+    g_free( host_path );
+    return 0;
+_remove_error:
+    g_free( path );
+    g_free( host_path );
+    return 1;
+}
+
 static int command_clean()
 {
     char* list = NULL;
@@ -3914,6 +4236,7 @@ static int command_info( CommandData* data )
     {
         wlog( "udevil: error: no udev device for device %s\n", device_file, 2 );
         udev_unref( udev );
+        udev = NULL;
         return 1;
     }
 
@@ -3934,6 +4257,7 @@ static int command_info( CommandData* data )
     device_free( device );
     udev_device_unref( udevice );
     udev_unref( udev );
+    udev = NULL;
     fflush( stdout );
     fflush( stderr );
     return ret;
@@ -4129,6 +4453,14 @@ static void show_help()
     printf( "              udevil umount /media/disk\n" );
     printf( "              udevil umount -l /media/disk\n" );
     printf( "              udevil umount /tmp/example.iso\n" );
+    printf( "REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe\n" );
+    printf( "           removal (sync, stop, unbind driver, and power off):\n" );
+    printf( "    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n" );
+    printf( "    OPTIONS:\n" );
+    printf( "    -l                                          lazy unmount (see man umount)\n" );
+    printf( "    -f                                          force unmount (see man umount)\n" );
+    printf( "    --no-user-interaction                       ignored (for compatibility)\n" );
+    printf( "    EXAMPLE: udevil remove /dev/sdd\n" );
     printf( "INFO  -  Show information about DEVICE emulating udisks v1 output:\n" );
     printf( "    udevil info|--show-info|--info [-b|--block-device] DEVICE\n" );
     printf( "    EXAMPLE:  udevil info /dev/sdd1\n" );
@@ -4327,6 +4659,16 @@ printf("\n-----------------------\n");
                         ac += next_inc;
                     }
                 }
+                else if ( !strcmp( arg, "remove" ) || !strcmp( arg, "--remove" )
+                                                   || !strcmp( arg, "--detach" ) )
+                {
+                    data->cmd_type = CMD_REMOVE;
+                    if ( arg_next )
+                    {
+                        data->device_file = g_strdup( arg_next );
+                        ac += next_inc;
+                    }
+                }
                 else if ( !strcmp( arg, "--verbose" ) )
                     verbose = 0;
                 else if ( !strcmp( arg, "--quiet" ) )
@@ -4414,6 +4756,7 @@ printf("\n-----------------------\n");
                 }
                 break;
             case CMD_UNMOUNT:
+            case CMD_REMOVE:
                 if ( !strcmp( arg, "-b" ) || !strcmp( arg, "--block-device" ) )
                 {
                     if ( !arg_next )
@@ -4546,6 +4889,9 @@ printf("\n-----------------------\n");
             dump_log();
             drop_privileges( 1 );
             ret = command_info( data );
+            break;
+        case CMD_REMOVE:
+            ret = command_remove( data );
             break;
         default:
             dump_log();
