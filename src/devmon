@@ -15,7 +15,7 @@ defaultmountoptions="noexec,nosuid,nodev,noatime"
 help()
 {
 	cat << EOF
-devmon version 1.1.1  (distributed with udevil)
+devmon version 1.1.2  (distributed with udevil)
 Automounts and unmounts optical and removable drives
 Requires:    udevil bash>=4        Also Recommended: eject zenity
 Optional:    udisks v1 may be substituted for udevil
@@ -1113,6 +1113,10 @@ while ps -p $COPROC_PID &>/dev/null; do
 		fi
 		if [ $mounterr -eq 0 ]; then
 			unmountdev $devpath
+		elif [ "$mount_cmd" = "$udevil" ]; then
+			# remove mount point of removed device which was unmounted by other
+			echo "devmon: $udevil clean"
+			$udevil clean
 		fi
 		# exec-on-remove
 		if (( execorx != 0 )); then
