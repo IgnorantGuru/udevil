@@ -1,0 +1,5 @@
+2012-07-21 IgnorantGuru <ignorantguru@gmx.com>
+
+    * udevil.pot:  Tested.  To generate udevil.pot use: intltool-update --pot
+    * POTFILES.in: Updated.
+

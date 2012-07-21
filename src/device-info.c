@@ -1308,7 +1308,7 @@ gboolean device_get_info( device_t *device, GList* devmounts )
 }
 
 char* device_show_info( device_t *device )
-{
+{   // no translate
     gchar* line[140];
     int i = 0;
 

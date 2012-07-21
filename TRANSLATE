@@ -1,0 +1,79 @@
+TRANSLATIONS
+
+Translating udevil doesn't require any special tools - just a text editor.
+To create a translation of udevil for your language, follow these steps.
+
+1)  Install build dependencies listed in README, download the udevil
+    source code tarball, and extract it.
+
+2)  Open a terminal and enter the source code subdirectory 'po'
+
+3)  Generate a udevil.pot file:
+
+        intltool-update --pot
+
+4)  Create a .po file for your language.  This example uses French (fr) -
+    change 'fr' in the examples below to your language code:
+
+        cp udevil.pot fr.po   # create a new po file
+
+5)  Open fr.po in your text editor.  Complete the comments at the top - for
+    example, change "FIRST AUTHOR <EMAIL@ADDRESS>, YEAR." to your name, email
+    address, and the current year.  Be sure to set charset=UTF-8 in the
+    Content-Type line.
+
+6)  Translate each msgid into the corresponding msgstr.  (The program poedit
+    has also been suggested as a convenient way to edit po files.)
+
+7)  Open po/LINGUAS in your text editor and add a line for your language code.
+
+8)  cd into the directory containing configure and run make normally:
+
+        cd ..
+        ./configure
+        make
+
+    If necessary, correct any syntax errors or warnings produced by make
+    relating to your .po file and run make again.
+
+9)  Test your translation by installing and running udevil:
+
+        sudo make install
+        udevil --help
+
+    To start udevil with a particular locale:
+
+        LANG=fr_FR.utf8 udevil --help
+
+10) Once translations are the way you want them, release your translated .po
+    file:
+
+    If you are familiar with github, you can clone the udevil repo and do a
+    pull request.  https://help.github.com/articles/using-pull-requests/
+
+    OR, add the .po file to a public gist https://gist.github.com/ or host
+    it elsewhere, then open a new issue asking for your file to be merged into
+    the source:  https://github.com/IgnorantGuru/udevil/issues/new
+
+    OR, email your .po file:  http://igurublog.wordpress.com/contact-ignorantguru/
+
+11) Translated strings will change occassionally as new udevil versions are
+    released.  To update your translation:
+
+    Generate a udevil.pot file:
+
+        intltool-update --pot
+
+    Then merge the new strings with the already translated ones:
+
+        intltool-update --dist fr
+
+    OR, if you don’t want to overwrite fr.po initially, you can merge into a
+    new test file:
+
+        intltool-update --dist --output-file=fr-test.po fr
+
+    Then complete any missing or fuzzy translations in the .po file, and repeat
+    steps 8 through 11.
+
+

@@ -12459,6 +12459,9 @@ cat >>confdefs.h <<_ACEOF
 _ACEOF
 
 
+#ALL_LINGUAS="af ar da ca cs de es et eu fa fi fr gl he hr hu id it ja ko lt ml ms nb nl nn pl ps pt pt_BR ru sk sl sv tr uk ur ur_PK vi zh_CN zh_TW"
+ALL_LINGUAS=""
+
    for ac_header in locale.h
 do :
   ac_fn_c_check_header_mongrel "$LINENO" "locale.h" "ac_cv_header_locale_h" "$ac_includes_default"

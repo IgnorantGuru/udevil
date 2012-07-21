@@ -316,7 +316,8 @@ UNINSTALL
 
 TRANSLATIONS
 
-    udevil is not yet ready for translators - please check back soon.
+    Adding or updating a translation of udevil doesn't require any special
+    tools, just a text editor.  For instructions, see the TRANSLATE file.
 
 
 LICENSE

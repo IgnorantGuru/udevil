@@ -45,11 +45,11 @@
 // wildcards
 #include <fnmatch.h>
 
-// ac config
-#include "config.h"
-
 // intltool
 #include <glib/gi18n.h>
+
+// ac config
+#include "config.h"
 
 // use mount's more secure version of realpath
 #include "canonicalize.h"
@@ -76,6 +76,7 @@ enum {
     CMD_MONITOR,
     CMD_INFO,
     CMD_CLEAN,
+
     CMD_REMOVE
 };
 
@@ -112,7 +113,8 @@ GList* config = NULL;
 
 /* ************************************************************************
  * udev & mount monitors
- * ************************************************************************ */
+ * *****************************************************
+******************* */
 
 gint cmp_devmounts( devmount_t *a, devmount_t *b )
 {
@@ -138,7 +140,8 @@ void parse_mounts( gboolean report )
     error = NULL;
     if (!g_file_get_contents ("/proc/self/mountinfo", &contents, NULL, &error))
     {
-        g_warning ("Error reading /proc/self/mountinfo: %s", error->message);
+        // no translate
+        g_warning ( "Error reading /proc/self/mountinfo: %s", error->message);
         g_error_free (error);
         return;
     }
@@ -175,6 +178,7 @@ void parse_mounts( gboolean report )
                   encoded_root,
                   encoded_mount_point ) != 6 )
         {
+            // no translate
             g_warning ("Error reading /proc/self/mountinfo: Error parsing line '%s'", lines[n]);
             continue;
         }
@@ -315,6 +319,7 @@ void parse_mounts( gboolean report )
                 if ( devnode )
                 {
                     char* bdev = g_path_get_basename( devnode );
+                    // no translate
                     printf( "changed:     /org/freedesktop/UDisks/devices/%s\n", bdev );
                     fflush( stdout );
                     g_free( bdev );
@@ -430,6 +435,7 @@ if ( !( cond & G_IO_NVAL ) )
         {
             // print action
             char* bdev = g_path_get_basename( devnode );
+            // no translate
             if ( !strcmp( action, "add" ) )
                 printf( "added:     /org/freedesktop/UDisks/devices/%s\n", bdev );
             else if ( !strcmp( action, "remove" ) )
@@ -597,7 +603,7 @@ void drop_privileges( int permanent )
 
     return;
 _drop_abort:
-    printf( "udevil: error: unable to drop priviledges - please report this problem\n" );
+    printf( _("udevil: error 1: unable to drop priviledges - please report this problem\n") );
     abort();
 }
 
@@ -789,13 +795,13 @@ static char* parse_config()
             lc++;
             if ( !g_utf8_validate( line, -1, NULL ) )
             {
-                fprintf( stderr, "udevil: error: %s line %d is not valid UTF-8\n", conf_path, lc );
+                fprintf( stderr, _("udevil: error 2: %s line %d is not valid UTF-8\n"), conf_path, lc );
                 fclose( file );
                 return NULL;
             }
             if ( !g_str_has_suffix( line, "\n" ) )
             {
-                fprintf( stderr, "udevil: error: %s line %d is too long\n", conf_path, lc );
+                fprintf( stderr, _("udevil: error 3: %s line %d is too long\n"), conf_path, lc );
                 fclose( file );
                 return NULL;
             }
@@ -805,7 +811,7 @@ static char* parse_config()
                 continue;
             if ( !( equal = strchr( line, '=' ) ) )
             {
-                fprintf( stderr, "udevil: error: %s line %d syntax error:\n", conf_path, lc );
+                fprintf( stderr, _("udevil: error 4: %s line %d syntax error:\n"), conf_path, lc );
                 fprintf( stderr, "               %s\n", line );
                 fclose( file );
                 return NULL;
@@ -818,14 +824,14 @@ static char* parse_config()
             g_strstrip( value );
             if ( var[0] == '\0' )
             {
-                fprintf( stderr, "udevil: error: %s line %d syntax error:\n", conf_path, lc );
+                fprintf( stderr, _("udevil: error 5: %s line %d syntax error:\n"), conf_path, lc );
                 fprintf( stderr, "               %s\n", line );
                 fclose( file );
                 return NULL;
             }
             if ( read_config( var, NULL ) )
             {
-                fprintf( stderr, "udevil: error: %s line %d duplicate assignment:\n",
+                fprintf( stderr, _("udevil: error 6: %s line %d duplicate assignment:\n"),
                                                                 conf_path, lc );
                 fprintf( stderr, "               %s\n", line );
                 fclose( file );
@@ -888,7 +894,7 @@ static char* parse_config()
     }
     else
     {
-        msg = g_strdup_printf( "udevil: warning: /etc/udevil/udevil.conf could not be read\n" );
+        msg = g_strdup_printf( _("udevil: warning 7: /etc/udevil/udevil.conf could not be read\n") );
         g_free( conf_path );
         conf_path = NULL;
     }
@@ -898,7 +904,7 @@ static char* parse_config()
 
     if ( conf_path )
     {
-        msg = g_strdup_printf( "udevil: read config %s\n", conf_path );
+        msg = g_strdup_printf( _("udevil: read config %s\n"), conf_path );
         g_free( conf_path );
     }
     return msg;
@@ -1137,7 +1143,7 @@ static void dump_log()
             fail = TRUE;
     }
     if ( !file || fail )
-        fprintf( stderr, "udevil: error: failed writing to log file '%s'\n", logfile );
+        fprintf( stderr, _("udevil: error 8: failed writing to log file '%s'\n"), logfile );
 
     lock_log( FALSE );
     chmod( logfile, S_IRWXU );
@@ -1468,7 +1474,7 @@ static char* get_loop_from_file( const char* path )
         g_free( stdout );
     }
     else
-        wlog( "udevil: warning: unable to run losetup (%s)\n",
+        wlog( _("udevil: warning 9: unable to run losetup (%s)\n"),
                                     read_config( "losetup_program", NULL ), 1 );
     drop_privileges( 0 );
     return ret;
@@ -1525,7 +1531,7 @@ static char* get_file_from_loop( const char* device_file )
         g_free( stdout );
     }
     else
-        wlog( "udevil: warning: unable to run losetup (%s)\n",
+        wlog( _("udevil: warning 10: unable to run losetup (%s)\n"),
                                     read_config( "losetup_program", NULL ), 1 );
     drop_privileges( 0 );
     g_free( devloop );
@@ -1556,6 +1562,7 @@ static gboolean device_is_mounted_mtab( const char* device_file, char** mount_po
     {
         if ( !g_file_get_contents( "/etc/mtab", &contents, NULL, &error ) )
         {
+            // no translate
             g_warning ("Error reading mtab: %s", error->message);
             g_error_free (error);
             return FALSE;
@@ -1573,6 +1580,7 @@ static gboolean device_is_mounted_mtab( const char* device_file, char** mount_po
                   encoded_point,
                   fs_type ) != 3 )
         {
+            // no translate
             g_warning ("Error parsing mtab line '%s'", lines[n]);
             continue;
         }
@@ -1617,6 +1625,7 @@ static gboolean path_is_mounted_mtab( const char* path, char** device_file )
     {
         if ( !g_file_get_contents( "/etc/mtab", &contents, NULL, &error ) )
         {
+            // no translate
             g_warning ("Error reading mtab: %s", error->message);
             g_error_free (error);
             return FALSE;
@@ -1633,6 +1642,7 @@ static gboolean path_is_mounted_mtab( const char* path, char** device_file )
                   encoded_file,
                   encoded_point ) != 2 )
         {
+            // no translate
             g_warning ("Error parsing mtab line '%s'", lines[n]);
             continue;
         }
@@ -1671,6 +1681,7 @@ static gboolean path_is_mounted_block( const char* path, char** device_file )
     error = NULL;
     if (!g_file_get_contents ("/proc/self/mountinfo", &contents, NULL, &error))
     {
+        // no translate
         g_warning ("Error reading /proc/self/mountinfo: %s", error->message);
         g_error_free (error);
         return FALSE;
@@ -1695,6 +1706,7 @@ static gboolean path_is_mounted_block( const char* path, char** device_file )
                   encoded_root,
                   encoded_mount_point ) != 6 )
         {
+            // no translate
             g_warning ("Error reading /proc/self/mountinfo: Error parsing line '%s'", lines[n]);
             continue;
         }
@@ -1753,7 +1765,7 @@ static int root_write_to_file( const char* path, const char* data )
     drop_privileges( 0 );
     if ( !f )
     {
-        wlog( "udevil: error: could not open %s\n", path, 2 );
+        wlog( _("udevil: error 11: could not open %s\n"), path, 2 );
         return 1;
     }
     expected = sizeof( char ) * strlen( data );
@@ -1761,7 +1773,7 @@ static int root_write_to_file( const char* path, const char* data )
     if( actual != expected )
     {
         fclose( f );
-        wlog( "udevil: error: error writing to %s\n", path, 2 );
+        wlog( _("udevil: error 12: error writing to %s\n"), path, 2 );
         return 1;
     }
     fclose( f );
@@ -1811,7 +1823,7 @@ static int exec_program( const char* var, const char* msg, gboolean show_error,
             exit_status = 0;
     }
     else
-        wlog( "udevil: error: unable to run %s\n", prog, 2 );
+        wlog( _("udevil: error 13: unable to run %s\n"), prog, 2 );
 
     // unpriv
     if ( as_root )
@@ -1823,12 +1835,12 @@ static int exec_program( const char* var, const char* msg, gboolean show_error,
 
     if ( exit_status )
     {
-        char* str = g_strdup_printf( "      %s exit status = %d\n", prog, exit_status );
+        char* str = g_strdup_printf( _("      %s exit status = %d\n"), prog, exit_status );
         wlog( str, NULL, 0 );
         g_free( str );
         if ( show_error )
         {
-            str = g_strdup_printf( "udevil: denied: %s returned exit status %d\n",
+            str = g_strdup_printf( _("udevil: denied 14: %s returned exit status %d\n"),
                                                             var, exit_status );
             wlog( str, NULL, 2 );
             g_free( str );
@@ -1863,7 +1875,7 @@ static int try_umount( const char* device_file, gboolean force, gboolean lazy )
     drop_privileges( 0 );
 
     // log
-    wlog( "udevil: trying umount as current user\n", NULL, 0 );
+    wlog( _("udevil: trying umount as current user\n"), NULL, 0 );
     wlog( "USER: %s\n", allarg, 0 );
     g_free( allarg );
     
@@ -1876,12 +1888,12 @@ static int try_umount( const char* device_file, gboolean force, gboolean lazy )
             exit_status = 0;
     }
     else
-        wlog( "udevil: warning: unable to run umount (%s)\n",
+        wlog( _("udevil: warning 15: unable to run umount (%s)\n"),
                                     read_config( "umount_program", NULL ), 1 );
 
     if ( exit_status )
     {
-        char* str = g_strdup_printf( "      umount exit status = %d\n", exit_status );
+        char* str = g_strdup_printf( _("      umount exit status = %d\n"), exit_status );
         wlog( str, NULL, 0 );
         g_free( str );
         g_free( sstdout );
@@ -1890,7 +1902,7 @@ static int try_umount( const char* device_file, gboolean force, gboolean lazy )
     }
 
     // success - show output
-    wlog( "udevil: success running umount as current user\n", NULL, 1 );
+    wlog( _("udevil: success running umount as current user\n"), NULL, 1 );
     if ( sstderr )
         fprintf( stderr, sstderr );
     if ( sstdout )
@@ -1937,7 +1949,7 @@ static int umount_path( const char* path, gboolean force, gboolean lazy )
             exit_status = 0;
     }
     else
-        wlog( "udevil: error: unable to run umount (%s)\n",
+        wlog( _("udevil: error 16: unable to run umount (%s)\n"),
                                     read_config( "umount_program", NULL ), 2 );
 
     // unpriv
@@ -1947,7 +1959,7 @@ static int umount_path( const char* path, gboolean force, gboolean lazy )
 
     if ( exit_status )
     {
-        char* str = g_strdup_printf( "      umount exit status = %d\n", exit_status );
+        char* str = g_strdup_printf( _("      umount exit status = %d\n"), exit_status );
         wlog( str, NULL, 0 );
         g_free( str );
     }
@@ -2003,7 +2015,7 @@ static int mount_device( const char* device_file, const char* fstype,
             exit_status = 0;
     }
     else
-        wlog( "udevil: error: unable to run mount (%s)\n",
+        wlog( _("udevil: error 17: unable to run mount (%s)\n"),
                                     read_config( "mount_program", NULL ), 2 );
 
     // unpriv
@@ -2016,7 +2028,7 @@ static int mount_device( const char* device_file, const char* fstype,
 
     if ( exit_status )
     {
-        char* str = g_strdup_printf( "      mount exit status = %d\n", exit_status );
+        char* str = g_strdup_printf( _("      mount exit status = %d\n"), exit_status );
         wlog( str, NULL, 0 );
         g_free( str );
     }
@@ -2049,7 +2061,7 @@ static gboolean mount_knows( const char* device_file )
             exit_status = 0;
     }
     else
-        wlog( "udevil: warning: unable to run mount (%s)\n",
+        wlog( _("udevil: warning 18: unable to run mount (%s)\n"),
                                     read_config( "mount_program", NULL ), 1 );
     setreuid( orig_ruid, -1 );
     setregid( orig_rgid, -1 );
@@ -2066,21 +2078,21 @@ static gboolean valid_mount_path( const char* path, char** errmsg )
     if ( !path )
     {
         if ( errmsg )
-            *errmsg = g_strdup_printf( "udevil: denied: Invalid path\n" );
+            *errmsg = g_strdup_printf( _("udevil: denied 19: Invalid path\n") );
         return FALSE;
     }
 
     if ( !g_file_test( path, G_FILE_TEST_IS_DIR )
                             || g_file_test( path, G_FILE_TEST_IS_SYMLINK ) )
-        msg = "udevil: denied: mount path '%s' is not a directory\n";
+        msg = _("udevil: denied 20: mount path '%s' is not a directory\n");
     else if ( path_is_mounted_block( path, NULL ) )
-        msg = "udevil: denied: mount path '%s' is already mounted\n";
+        msg = _("udevil: denied 21: mount path '%s' is already mounted\n");
     else if ( geteuid() != 0 )
     {
         if ( stat( path, &statbuf ) != 0 )
-            msg = "udevil: denied: cannot stat '%s': %s\n";
+            msg = _("udevil: denied 22: cannot stat '%s': %s\n");
         else if ( statbuf.st_uid != 0 && statbuf.st_uid != getuid() )
-            msg = "udevil: denied: neither you nor root owns '%s'\n";
+            msg = _("udevil: denied 23: neither you nor root owns '%s'\n");
     }
     if ( errmsg )
         *errmsg = msg ? g_strdup_printf( msg, path, g_strerror( errno ) ) : NULL;
@@ -2095,7 +2107,7 @@ static gboolean create_run_media()
     // create /run/media/$USER
     char* run_media = g_build_filename( "/run/media", g_get_user_name(), NULL );
     restore_privileges();
-    wlog( "udevil: mkdir %s\n", run_media, 0 );
+    wlog( _("udevil: mkdir %s\n"), run_media, 0 );
     mkdir( "/run/media", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
     chown( "/run/media", 0, 0 );
     mkdir( run_media, S_IRWXU );
@@ -2107,7 +2119,7 @@ static gboolean create_run_media()
     argv[a++] = g_strdup( "-m" );
     argv[a++] = g_strdup_printf( "u:%s:rx", g_get_user_name() );
     argv[a++] = g_strdup( run_media );
-    str = g_strdup_printf( "udevil: %s -m u:%s:rx %s\n",
+    str = g_strdup_printf( _("udevil: %s -m u:%s:rx %s\n"),
                             read_config( "setfacl_program", NULL ),
                             g_get_user_name(), run_media );
     wlog( str, NULL, 0 );
@@ -2115,7 +2127,7 @@ static gboolean create_run_media()
     if ( !g_spawn_sync( NULL, argv, NULL,
                         0, //G_SPAWN_STDERR_TO_DEV_NULL,
                         NULL, NULL, NULL, NULL, NULL, NULL ) )
-        wlog( "udevil: warning: unable to run setfacl (%s)\n",
+        wlog( _("udevil: warning 24: unable to run setfacl (%s)\n"),
                             read_config( "setfacl_program", NULL ), 1 );
     drop_privileges( 0 );
     // test
@@ -2123,7 +2135,7 @@ static gboolean create_run_media()
                     g_access( run_media, R_OK | X_OK ) != 0 )
     {
         // setfacl apparently failed so fallback to normal permissions
-        wlog( "udevil: warning: setfacl on %s failed, falling back to 'rwxr-xr-x'\n",
+        wlog( _("udevil: warning 25: setfacl on %s failed, falling back to 'rwxr-xr-x'\n"),
                                                             run_media, 1 );
         restore_privileges();
         chmod( run_media, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
@@ -2226,7 +2238,7 @@ static int parse_network_url( const char* url, const char* fstype,
             is_colon = TRUE;
         if ( fstype && strcmp( fstype, "smbfs" ) && strcmp( fstype, "cifs" ) )
         {
-            wlog( "udevil: error: invalid type '%s' for SMB share - must be cifs or smbfs\n",
+            wlog( _("udevil: error 26: invalid type '%s' for SMB share - must be cifs or smbfs\n"),
                                                                 fstype, 2 );
             goto _net_free;
         }
@@ -2241,7 +2253,7 @@ static int parse_network_url( const char* url, const char* fstype,
         is_colon = TRUE;
         if ( fstype && strcmp( fstype, "nfs" ) && strcmp( fstype, "nfs4" ) )
         {
-            wlog( "udevil: error: invalid type '%s' for NFS share - must be nfs or nfs4\n",
+            wlog( _("udevil: error 27: invalid type '%s' for NFS share - must be nfs or nfs4\n"),
                                                                 fstype, 2 );
             goto _net_free;
         }
@@ -2254,7 +2266,7 @@ static int parse_network_url( const char* url, const char* fstype,
             is_colon = TRUE;
         if ( fstype && strcmp( fstype, "curlftpfs" ) )
         {
-            wlog( "udevil: error: invalid type '%s' for curlftpfs share - must be curlftpfs\n",
+            wlog( _("udevil: error 28: invalid type '%s' for curlftpfs share - must be curlftpfs\n"),
                                                                 fstype, 2 );
             goto _net_free;
         }
@@ -2266,7 +2278,7 @@ static int parse_network_url( const char* url, const char* fstype,
         is_colon = TRUE;
         if ( fstype && strcmp( fstype, "ftpfs" ) && strcmp( fstype, "curlftpfs" ) )
         {
-            wlog( "udevil: error: invalid type '%s' for FTP share - must be curlftpfs or ftpfs\n",
+            wlog( _("udevil: error 29: invalid type '%s' for FTP share - must be curlftpfs or ftpfs\n"),
                                                                 fstype, 2 );
             goto _net_free;
         }
@@ -2291,7 +2303,7 @@ static int parse_network_url( const char* url, const char* fstype,
             is_colon = TRUE;
         if ( fstype && strcmp( fstype, "sshfs" ) )
         {
-            wlog( "udevil: error: invalid type '%s' for sshfs share - must be sshfs\n",
+            wlog( _("udevil: error 30: invalid type '%s' for sshfs share - must be sshfs\n"),
                                                                 fstype, 2 );
             goto _net_free;
         }
@@ -2304,7 +2316,7 @@ static int parse_network_url( const char* url, const char* fstype,
         is_colon = TRUE;
         if ( fstype && strcmp( fstype, "sshfs" ) )
         {
-            wlog( "udevil: error: invalid type '%s' for sshfs share - must be sshfs\n",
+            wlog( _("udevil: error 31: invalid type '%s' for sshfs share - must be sshfs\n"),
                                                                 fstype, 2 );
             goto _net_free;
         }
@@ -2319,7 +2331,7 @@ static int parse_network_url( const char* url, const char* fstype,
             nm->fstype = g_strdup( "sshfs" );
             if ( fstype && strcmp( fstype, "sshfs" ) )
             {
-                wlog( "udevil: error: invalid type '%s' for sshfs share - must be sshfs\n",
+                wlog( _("udevil: error 32: invalid type '%s' for sshfs share - must be sshfs\n"),
                                                                     fstype, 2 );
                 goto _net_free;
             }
@@ -2330,7 +2342,7 @@ static int parse_network_url( const char* url, const char* fstype,
             nm->fstype = g_strdup( "nfs" );
             if ( fstype && strcmp( fstype, "nfs" ) && strcmp( fstype, "nfs4" ) )
             {
-                wlog( "udevil: error: invalid type '%s' for NFS share - must be nfs or nfs4\n",
+                wlog( _("udevil: error 33: invalid type '%s' for NFS share - must be nfs or nfs4\n"),
                                                                     fstype, 2 );
                 goto _net_free;
             }
@@ -2430,7 +2442,7 @@ static int parse_network_url( const char* url, const char* fstype,
 
     if ( !nm->host )
     {
-        wlog( "udevil: error: '%s' is not a recognized network url\n", url, 2 );
+        wlog( _("udevil: error 34: '%s' is not a recognized network url\n"), url, 2 );
         goto _net_free;
     }
     
@@ -2439,14 +2451,14 @@ static int parse_network_url( const char* url, const char* fstype,
             || ( nm->pass && strchr( nm->pass, ' ' ) )
             || ( nm->port && strchr( nm->port, ' ' ) ) )
     {
-        wlog( "udevil: error: invalid network url\n", fstype, 2 );
+        wlog( _("udevil: error 35: invalid network url\n"), fstype, 2 );
         goto _net_free;
     }
 
     // lookup ip
     if ( !( nm->ip = get_ip( nm->host ) ) || ( nm->ip && nm->ip[0] == '\0' ) )
     {
-        wlog( "udevil: error: lookup host '%s' failed\n", nm->host, 2 );
+        wlog( _("udevil: error 36: lookup host '%s' failed\n"), nm->host, 2 );
         goto _net_free;
     }
 
@@ -2492,8 +2504,8 @@ static int command_mount( CommandData* data )
     // got root?
     if ( orig_euid != 0 )
     {
-        wlog( "udevil: error: udevil was not run suid root\n", NULL, 2 );
-        wlog( "        To correct this problem: sudo chmod +s /usr/bin/udevil\n", NULL, 2 );
+        wlog( _("udevil: error 37: udevil was not run suid root\n"), NULL, 2 );
+        wlog( _("        To correct this problem: sudo chmod +s /usr/bin/udevil\n"), NULL, 2 );
         return 1;
     }
 
@@ -2504,9 +2516,9 @@ _get_type:
     if ( !( data->device_file && data->device_file[0] != '\0' ) )
     {
         if ( data->cmd_type == CMD_MOUNT )
-            wlog( "udevil: error: mount requires DEVICE argument\n", NULL, 2 );
+            wlog( _("udevil: error 38: mount requires DEVICE argument\n"), NULL, 2 );
         else
-            wlog( "udevil: error: unmount requires DEVICE argument\n", NULL, 2 );
+            wlog( _("udevil: error 39: unmount requires DEVICE argument\n"), NULL, 2 );
         return 1;
     }
     if ( data->options && data->options[0] == '\0' )
@@ -2551,7 +2563,7 @@ _get_type:
                 type = MOUNT_FILE;
             else
             {
-                str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+                str = g_strdup_printf( _("udevil: error 40: cannot stat %s: %s\n"),
                                             data->device_file, g_strerror( errno ) );
                 wlog( str, NULL, 2 );
                 g_free ( str );
@@ -2563,14 +2575,14 @@ _get_type:
             // canonicalize device_file & resolve relative paths
             if ( !get_realpath( &data->device_file ) )
             {
-                wlog( "udevil: error: cannot canonicalize device path\n", NULL, 2 );
+                wlog( _("udevil: error 41: cannot canonicalize device path\n"), NULL, 2 );
                 return 1;
             }
 
             // stat
             if ( stat64( data->device_file, &statbuf ) != 0 )
             {
-                str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+                str = g_strdup_printf( _("udevil: error 42: cannot stat %s: %s\n"),
                                             data->device_file, g_strerror( errno ) );
                 wlog( str, NULL, 2 );
                 g_free ( str );
@@ -2581,7 +2593,7 @@ _get_type:
                 // not a block device
                 if ( !S_ISREG( statbuf.st_mode ) && !S_ISDIR( statbuf.st_mode ) )
                 {
-                    wlog( "udevil: error: '%s' is not a regular file or directory\n",
+                    wlog( _("udevil: error 43: '%s' is not a regular file or directory\n"),
                                                             data->device_file, 2 );
                     return 1;
                 }
@@ -2602,6 +2614,7 @@ _get_type:
             if ( ret == 0 )
             {
                 // success_exec
+                // no translate
                 str = g_strdup_printf( "%s unmounted %s", g_get_user_name(),
                                 type == MOUNT_NET ? netmount->url : data->device_file );
                 exec_program( "success_rootexec", str, FALSE, TRUE );
@@ -2618,13 +2631,13 @@ _get_type:
             if ( mount_knows( type == MOUNT_NET ? netmount->url : data->device_file ) )
             {
                 // mount knows (in fstab) so mount as normal user with only specified opts
-                wlog( "udevil: %s is known to mount - running mount as current user\n",
+                wlog( _("udevil: %s is known to mount - running mount as current user\n"),
                             type == MOUNT_NET ? netmount->url : data->device_file, 1 );
                 if ( data->fstype )
-                    wlog( "udevil: warning: fstype ignored for device in fstab (or specify mount point)\n",
+                    wlog( _("udevil: warning 44: fstype ignored for device in fstab (or specify mount point)\n"),
                                                                             NULL, 1 );
                 if ( data->options )
-                    wlog( "udevil: warning: options ignored for device in fstab (or specify mount point)\n",
+                    wlog( _("udevil: warning 45: options ignored for device in fstab (or specify mount point)\n"),
                                                                             NULL, 1 );
 
                 ret = mount_device( type == MOUNT_NET ? netmount->url : data->device_file,
@@ -2636,11 +2649,13 @@ _get_type:
                             type == MOUNT_NET ? netmount->url : data->device_file,
                                                                     &str, NULL ) )
                     {
+                        // no translate
                         str = g_strdup_printf( "Mounted %s at %s\n",
                                 type == MOUNT_NET ? netmount->url : data->device_file,
                                 str );
                     }
                     else
+                        // no translate
                         str = g_strdup_printf( "Mounted %s\n",
                                 type == MOUNT_NET ? netmount->url : data->device_file );
                     wlog( str, NULL, -1 );
@@ -2649,6 +2664,7 @@ _get_type:
                     // success_exec
                     if ( !ret )
                     {
+                        // no translate
                         str = g_strdup_printf( "%s mounted %s (in fstab)",
                                     g_get_user_name(),
                                     type == MOUNT_NET ? netmount->url : data->device_file );
@@ -2692,7 +2708,7 @@ _get_type:
                 }
                 else
                 {
-                    wlog( "udevil: error: cannot find '%s' mounted in mtab\n",
+                    wlog( _("udevil: error 46: cannot find '%s' mounted in mtab\n"),
                                                                 data->point, 2 );
                     return 1;
                 }
@@ -2706,27 +2722,27 @@ _get_type:
                 // unmounting a file attached to loop
                 if ( !get_realpath( &str ) )
                 {
-                    wlog( "udevil: error: cannot canonicalize attached loop device\n",
+                    wlog( _("udevil: error 47: cannot canonicalize attached loop device\n"),
                                                             NULL, 2 );
                     return 2;
                 }            
                 if ( !validate_in_list( "allowed_types", g_get_user_name(), "file" ) )
                 {
-                    wlog( "udevil: denied: 'file' is not an allowed type\n",
+                    wlog( _("udevil: denied 48: 'file' is not an allowed type\n"),
                                                             NULL, 2 );
                     g_free( str );
                     return 2;
                 }
                 if ( !validate_in_list( "allowed_files", "file", data->device_file ) )
                 {
-                    wlog( "udevil: denied: '%s' is not an allowed file\n",
+                    wlog( _("udevil: denied 49: '%s' is not an allowed file\n"),
                                                             data->device_file, 2 );
                     g_free( str );
                     return 2;
                 }
                 if ( !device_is_mounted_mtab( str, &data->point, NULL ) )
                 {
-                    wlog( "udevil: error: cannot find '%s' mounted in mtab\n",
+                    wlog( _("udevil: error 50: cannot find '%s' mounted in mtab\n"),
                                                             str, 2 );
                     g_free( str );
                     return 1;
@@ -2745,7 +2761,7 @@ _get_type:
                 }
                 else
                 {
-                    wlog( "udevil: warning: attached device %s is not a loop device\n",
+                    wlog( _("udevil: warning 51: attached device %s is not a loop device\n"),
                                                             data->device_file, 1 );
                     g_free( data->point );
                     data->point = NULL;
@@ -2770,7 +2786,7 @@ _get_type:
         {
             if ( stat64( data->device_file, &statbuf ) != 0 )
             {
-                str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+                str = g_strdup_printf( _("udevil: error 52: cannot stat %s: %s\n"),
                                         data->device_file, g_strerror( errno ) );
                 wlog( str, NULL, 2 );
                 g_free( str );
@@ -2789,7 +2805,7 @@ _get_type:
         parent_dir = g_path_get_dirname( data->device_file );
         if ( !get_realpath( &parent_dir ) )
         {
-            wlog( "udevil: error: cannot canonicalize path\n", NULL, 2 );
+            wlog( _("udevil: error 53: cannot canonicalize path\n"), NULL, 2 );
             ret = 1;
             goto _finish;
         }
@@ -2805,7 +2821,7 @@ _get_type:
         {
             // file is not really missing but user can't stat
             drop_privileges( 0 );
-            wlog( "udevil: error: invalid path '%s'\n", data->device_file, 2 );
+            wlog( _("udevil: error 54: invalid path '%s'\n"), data->device_file, 2 );
             ret = 1;
             goto _finish;
         }
@@ -2814,14 +2830,14 @@ _get_type:
         // get fstype
         if ( !device_is_mounted_mtab( data->device_file, NULL, &fstype ) )
         {
-            wlog( "udevil: error: cannot find '%s' mounted in mtab\n",
+            wlog( _("udevil: error 55: cannot find '%s' mounted in mtab\n"),
                                                         data->device_file, 2 );
             ret = 1;
             goto _finish;
         }
         else if ( !( fstype && fstype[0] != '\0' ) )
         {
-            wlog( "udevil: error: cannot find device %s fstype in mtab\n",
+            wlog( _("udevil: error 56: cannot find device %s fstype in mtab\n"),
                                                         data->device_file, 2 );
             ret = 1;
             goto _finish;
@@ -2832,7 +2848,7 @@ _get_type:
         // block device - get info
         if ( stat64( data->device_file, &statbuf ) != 0 )
         {
-            str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+            str = g_strdup_printf( _("udevil: error 57: cannot stat %s: %s\n"),
                                     data->device_file, g_strerror( errno ) );
             wlog( str, NULL, 2 );
             g_free( str );
@@ -2841,7 +2857,7 @@ _get_type:
         }
         if ( statbuf.st_rdev == 0 || !S_ISBLK( statbuf.st_mode ) )
         {
-            wlog( "udevil: error: %s is not a block device\n",
+            wlog( _("udevil: error 58: %s is not a block device\n"),
                                                         data->device_file, 2 );
             ret = 1;
             goto _finish;
@@ -2850,7 +2866,7 @@ _get_type:
         udev = udev_new();
         if ( udev == NULL )
         {
-            wlog( "udevil: error: error initializing libudev\n", NULL, 2 );
+            wlog( _("udevil: error 59: error initializing libudev\n"), NULL, 2 );
             ret = 1;
             goto _finish;
         }
@@ -2858,7 +2874,7 @@ _get_type:
                                                                 statbuf.st_rdev );
         if ( udevice == NULL )
         {
-            wlog( "udevil: error: no udev device for device %s\n",
+            wlog( _("udevil: error 60: no udev device for device %s\n"),
                                                         data->device_file, 2 );
             udev_unref( udev );
             udev = NULL;
@@ -2869,7 +2885,7 @@ _get_type:
         device = device_alloc( udevice );
         if ( !device_get_info( device, devmounts ) )
         {
-            wlog( "udevil: error: unable to get device info for device %s\n",
+            wlog( _("udevil: error 61: unable to get device info for device %s\n"),
                                                             data->device_file, 2 );
             ret = 1;
         }
@@ -2891,7 +2907,7 @@ _get_type:
                                              || !strcmp( data->fstype, "ramfs" )
                                              || !strcmp( data->fstype, "file" ) )
             {
-                wlog( "udevil: error: type %s is invalid for block device\n",
+                wlog( _("udevil: error 62: type %s is invalid for block device\n"),
                                                                     data->fstype, 2 );
                 ret = 1;
                 goto _finish;
@@ -2906,10 +2922,10 @@ _get_type:
             else
             {
                 if ( !device->device_is_mounted && !device->device_is_media_available )
-                    wlog( "udevil: error: no media in device %s (or specify type with -t)\n",
+                    wlog( _("udevil: error 63: no media in device %s (or specify type with -t)\n"),
                                                         data->device_file, 2 );
                 else
-                    wlog( "udevil: error: unable to determine device fstype - specify with -t\n", NULL, 2 );
+                    wlog( _("udevil: error 64: unable to determine device fstype - specify with -t\n"), NULL, 2 );
                 ret = 1;
                 goto _finish;
             }
@@ -2968,10 +2984,10 @@ _get_type:
                                 && data->point && data->point[0] == '/' ) )
             {
                 if ( device && !device->device_is_mounted )
-                    wlog( "udevil: denied: device %s is not mounted\n",
+                    wlog( _("udevil: denied 65: device %s is not mounted\n"),
                                                         data->device_file, 2 );
                 else
-                    wlog( "udevil: denied: could not find mount point for '%s'\n",
+                    wlog( _("udevil: denied 66: could not find mount point for '%s'\n"),
                             type == MOUNT_NET ? netmount->url : data->device_file, 2 );
                 ret = 2;
                 goto _finish;
@@ -2992,7 +3008,7 @@ _get_type:
         {
             if ( !get_realpath( &data->point ) )
             {
-                wlog( "udevil: error: cannot canonicalize mount point path\n", NULL, 2 );
+                wlog( _("udevil: error 67: cannot canonicalize mount point path\n"), NULL, 2 );
                 
                 ret = 1;
                 goto _finish;
@@ -3003,7 +3019,7 @@ _get_type:
             // point doesn't exist
             if ( data->cmd_type == CMD_UNMOUNT )
             {
-                wlog( "udevil: error: cannot stat '%s'\n", data->point, 2 );
+                wlog( _("udevil: error 68: cannot stat '%s'\n"), data->point, 2 );
                 ret = 1;
                 goto _finish;
             }
@@ -3021,7 +3037,7 @@ _get_type:
             // canonicalize parent
             if ( !get_realpath( &parent_dir ) )
             {
-                wlog( "udevil: error: cannot canonicalize mount point path\n", NULL, 2 );
+                wlog( _("udevil: error 69: cannot canonicalize mount point path\n"), NULL, 2 );
                 ret = 1;
                 goto _finish;
             }
@@ -3032,7 +3048,7 @@ _get_type:
             g_free( parent_dir );
             if ( stat64( data->point, &statbuf ) == 0 && !get_realpath( &data->point ) )
             {
-                wlog( "udevil: error: cannot canonicalize mount point path\n", NULL, 2 );
+                wlog( _("udevil: error 70: cannot canonicalize mount point path\n"), NULL, 2 );
                 ret = 1;
                 goto _finish;
             }
@@ -3042,7 +3058,7 @@ _get_type:
         if ( !parent_dir || parent_dir[0] != '/' || 
                 !validate_in_list( "allowed_media_dirs", fstype, parent_dir ) )
         {
-            wlog( "udevil: denied: '%s' is not an allowed media directory\n",
+            wlog( _("udevil: denied 71: '%s' is not an allowed media directory\n"),
                                                                 parent_dir, 2 );
             g_free( parent_dir );
             ret = 2;
@@ -3054,13 +3070,13 @@ _get_type:
     // test fstype
     if ( fstype && strchr( fstype, ',' ) )
     {
-        wlog( "udevil: error: multiple fstypes not allowed\n", NULL, 2 );
+        wlog( _("udevil: error 72: multiple fstypes not allowed\n"), NULL, 2 );
         ret = 1;
         goto _finish;
     }
     if ( !validate_in_list( "allowed_types", g_get_user_name(), fstype ) )
     {
-        wlog( "udevil: denied: fstype '%s' is not an allowed type\n", fstype, 2 );
+        wlog( _("udevil: denied 73: fstype '%s' is not an allowed type\n"), fstype, 2 );
         ret = 2;
         goto _finish;
     }
@@ -3069,7 +3085,7 @@ _get_type:
     const char* user_name = g_get_user_name();
     if ( !user_name || ( user_name && user_name[0] == '\0' ) )
     {
-        wlog( "udevil: error: could not get username\n", NULL, 2 );
+        wlog( _("udevil: error 74: could not get username\n"), NULL, 2 );
         ret = 1;
         goto _finish;
     }
@@ -3077,7 +3093,7 @@ _get_type:
     if ( !validate_in_list( "allowed_users", fstype, user_name ) &&
          !validate_in_list( "allowed_users", fstype, uid ) )
     {
-        str = g_strdup_printf( "udevil: denied: user '%s' (%s) is not in allowed users\n",
+        str = g_strdup_printf( _("udevil: denied 75: user '%s' (%s) is not in allowed users\n"),
                                                             user_name, uid );
         wlog( str, NULL, 2 );
         g_free( uid );
@@ -3089,7 +3105,7 @@ _get_type:
     /*
     if ( test_config( "tty_required", fstype ) && !user_on_tty() )
     {
-        wlog( "udevil: denied: user '%s' is not on a real TTY (tty_required=1)\n",
+        wlog( _("udevil: denied 76: user '%s' is not on a real TTY (tty_required=1)\n"),
                                                                 user_name, 2 );
         ret = 2;
         goto _finish;
@@ -3099,7 +3115,7 @@ _get_type:
     // test groups
     if ( !validate_in_groups( "allowed_groups", fstype, user_name ) )
     {
-        wlog( "udevil: denied: user '%s' is not in allowed groups\n", user_name, 2 );
+        wlog( _("udevil: denied 77: user %s is not in allowed groups\n"), user_name, 2 );
         ret = 2;
         goto _finish;
     }
@@ -3111,13 +3127,13 @@ _get_type:
         if ( !validate_in_list( "allowed_networks", fstype, netmount->host )
                 && !validate_in_list( "allowed_networks", fstype, netmount->ip ) )
         {
-            str = g_strdup_printf( "udevil: denied: host '%s' (%s) is not an allowed network\n",
+            str = g_strdup_printf( _("udevil: denied 78: host '%s' (%s) is not an allowed network\n"),
                                                         netmount->host, netmount->ip );
         }
         else if ( validate_in_list( "forbidden_networks", fstype, netmount->host )
                     || validate_in_list( "forbidden_networks", fstype, netmount->ip ) )
         {
-            str = g_strdup_printf( "udevil: denied: host '%s' (%s) is a forbidden network\n",
+            str = g_strdup_printf( _("udevil: denied 79: host '%s' (%s) is a forbidden network\n"),
                                                     netmount->host, netmount->ip );
         }
         if ( str )
@@ -3132,14 +3148,14 @@ _get_type:
     {
         if ( !validate_in_list( "allowed_devices", fstype, data->device_file ) )
         {
-            wlog( "udevil: denied: device %s is not an allowed device\n",
+            wlog( _("udevil: denied 80: device %s is not an allowed device\n"),
                                                             data->device_file, 2 );
             ret = 2;
             goto _finish;
         }
         if ( validate_in_list( "forbidden_devices", fstype, data->device_file ) )
         {
-            wlog( "udevil: denied: device %s is a forbidden device\n",
+            wlog( _("udevil: denied 81: device %s is a forbidden device\n"),
                                                             data->device_file, 2 );
             ret = 2;
             goto _finish;
@@ -3152,7 +3168,7 @@ _get_type:
             if ( !validate_in_list( "allowed_files", "file", data->device_file )
                  || validate_in_list( "forbidden_files", "file", data->device_file ) )
             {
-                wlog( "udevil: denied: '%s' is not an allowed file\n",
+                wlog( _("udevil: denied 82: '%s' is not an allowed file\n"),
                                                                 data->device_file, 2 );
                 ret = 2;
                 goto _finish;
@@ -3161,7 +3177,7 @@ _get_type:
                                         g_strcmp0( data->device_file, "ramfs" ) &&
                                         g_access( data->device_file, R_OK ) != 0 )
             {
-                wlog( "udevil: denied: you don't have read permission for file '%s'\n",
+                wlog( _("udevil: denied 83: you don't have read permission for file '%s'\n"),
                                                                 data->device_file, 2 );
                 ret = 2;
                 goto _finish;
@@ -3169,7 +3185,7 @@ _get_type:
         }
         else if ( data->cmd_type == CMD_MOUNT && data->point )
         {
-            wlog( "udevil: error: cannot specify mount point for directory\n", NULL, 2 );
+            wlog( _("udevil: error 84: cannot specify mount point for directory\n"), NULL, 2 );
             ret = 1;
             goto _finish;
         }
@@ -3189,7 +3205,7 @@ _get_type:
             {
                 if ( str[0] != '/' || !get_realpath( &str ) )
                 {
-                    wlog( "udevil: denied: %s is attached to an invalid file\n",
+                    wlog( _("udevil: denied 85: %s is attached to an invalid file\n"),
                                                         data->device_file, 2 );
                     ret = 2;
                     goto _finish;
@@ -3197,7 +3213,7 @@ _get_type:
 
                 if ( str[0] != '/' || g_access( str, R_OK ) )
                 {
-                    wlog( "udevil: denied: '%s' is not a permitted file\n",
+                    wlog( _("udevil: denied 86: '%s' is not a permitted file\n"),
                                                             str, 2 );
                     g_free( str );
                     ret = 2;
@@ -3206,7 +3222,7 @@ _get_type:
 
                 if ( !validate_in_list( "allowed_files", "file", str ) )
                 {
-                    wlog( "udevil: denied: '%s' is not an allowed file\n",
+                    wlog( _("udevil: denied 87: '%s' is not an allowed file\n"),
                                                             str, 2 );
                     g_free( str );
                     ret = 2;
@@ -3227,7 +3243,7 @@ _get_type:
                 !validate_in_list( "allowed_internal_devices", fstype, data->device_file ) &&
                 !( g_str_has_prefix( data->device_file, "/dev/loop" ) && pass_loop ) )
         {
-            wlog( "udevil: denied: device %s is an internal device and you're not root\n",
+            wlog( _("udevil: denied 88: device %s is an internal device and you're not root\n"),
                                                             data->device_file, 2 );
             ret = 2;
             goto _finish;
@@ -3238,6 +3254,7 @@ _get_type:
     if ( data->cmd_type == CMD_UNMOUNT )
     {
         // validate exec
+        // no translate
         str = g_strdup_printf( "%s is unmounting %s", g_get_user_name(),
                                                             data->point );
         ret = exec_program( "validate_rootexec", str, TRUE, TRUE );
@@ -3252,6 +3269,7 @@ _get_type:
                                                                 data->lazy ) ) )
         {
             // success_exec
+            // no translate
             str = g_strdup_printf( "%s unmounted %s", g_get_user_name(),
                                                         data->point );
             exec_program( "success_rootexec", str, FALSE, TRUE );
@@ -3407,7 +3425,7 @@ _get_type:
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-=+_,.\"'$/" ) )
                                                     != strlen( options ) )
     {
-        str = g_strdup_printf( "udevil: error: options contain an invalid character ('%c')\n",
+        str = g_strdup_printf( _("udevil: error 89: options contain an invalid character ('%c')\n"),
                                                                     options[i] );
         wlog( str, NULL, 2 );
         g_free( str );
@@ -3416,7 +3434,7 @@ _get_type:
     }
     if ( str = validate_options( "allowed_options", fstype, options ) )
     {
-        wlog( "udevil: denied: option '%s' is not an allowed option\n", str, 2 );
+        wlog( _("udevil: denied 90: option '%s' is not an allowed option\n"), str, 2 );
         g_free( str );
         ret = 2;
         goto _finish;
@@ -3427,7 +3445,7 @@ _get_type:
                                         || !strcmp( fstype, "curlftpfs" )
                                         || !strcmp( fstype, "sshfs" ) ) )
     {
-            wlog( "udevil: denied: cannot use remount option with FTP or sshfs share\n",
+            wlog( _("udevil: denied 91: cannot use remount option with FTP or sshfs share\n"),
                                                                     NULL, 2 );
             ret = 1;
             goto _finish;
@@ -3446,7 +3464,7 @@ _get_type:
     {
         if ( type == MOUNT_BLOCK && device->device_is_mounted )
         {
-            wlog( "udevil: denied: device %s is already mounted (or specify mount point)\n",
+            wlog( _("udevil: denied 92: device %s is already mounted (or specify mount point)\n"),
                                                             data->device_file, 2 );
             ret = 2;
             goto _finish;
@@ -3457,11 +3475,11 @@ _get_type:
             if ( device_is_mounted_mtab( str, &point, NULL ) )
             {
                 g_free( str );
-                str = g_strdup_printf( "udevil: denied: file %s is already mounted at %s (or specify mount point)\n", data->device_file, point );
+                str = g_strdup_printf( _("udevil: denied 93: file %s is already mounted at %s (or specify mount point)\n"), data->device_file, point );
                 wlog( str, NULL, 2 );
             }
             else
-                wlog( "udevil: denied: file %s is already mounted (or specify mount point)\n",
+                wlog( _("udevil: denied 94: file %s is already mounted (or specify mount point)\n"),
                                                             data->device_file, 2 );
             g_free( str );
             ret = 2;
@@ -3469,7 +3487,7 @@ _get_type:
         }
         if ( type == MOUNT_NET && device_is_mounted_mtab( netmount->url, NULL, NULL ) )
         {
-            wlog( "udevil: denied: %s is already mounted (or specify mount point)\n",
+            wlog( _("udevil: denied 95: %s is already mounted (or specify mount point)\n"),
                                                             netmount->url, 2 );
             ret = 2;
             goto _finish;
@@ -3478,13 +3496,13 @@ _get_type:
         if ( mount_knows( type == MOUNT_NET ? netmount->url : data->device_file ) )
         {
             // mount knows (in fstab) so mount as normal user with only specified opts
-            wlog( "udevil: %s is known to mount - running mount as current user\n",
+            wlog( _("udevil: %s is known to mount - running mount as current user\n"),
                             type == MOUNT_NET ? netmount->url : data->device_file, 1 );
             if ( data->fstype )
-                wlog( "udevil: warning: fstype ignored for device in fstab (or specify mount point)\n",
+                wlog( _("udevil: warning 96: fstype ignored for device in fstab (or specify mount point)\n"),
                                                                         NULL, 1 );
             if ( data->options )
-                wlog( "udevil: warning: options ignored for device in fstab (or specify mount point)\n",
+                wlog( _("udevil: warning 97: options ignored for device in fstab (or specify mount point)\n"),
                                                                         NULL, 1 );
 
             ret = mount_device( type == MOUNT_NET ? netmount->url : data->device_file,
@@ -3496,11 +3514,13 @@ _get_type:
                         type == MOUNT_NET ? netmount->url : data->device_file,
                                                                 &str, NULL ) )
                 {
+                    // no translate
                     str = g_strdup_printf( "Mounted %s at %s\n",
                             type == MOUNT_NET ? netmount->url : data->device_file,
                             str );
                 }
                 else
+                    // no translate
                     str = g_strdup_printf( "Mounted %s\n",
                             type == MOUNT_NET ? netmount->url : data->device_file );
                 wlog( str, NULL, -1 );
@@ -3509,6 +3529,7 @@ _get_type:
                 // success_exec
                 if ( !ret )
                 {
+                    // no translate
                     str = g_strdup_printf( "%s mounted %s (in fstab)",
                                 g_get_user_name(),
                                 type == MOUNT_NET ? netmount->url : data->device_file );
@@ -3523,10 +3544,10 @@ _get_type:
         {
             // device is directory
             if ( path_is_mounted_mtab( data->device_file, NULL ) )
-                wlog( "udevil: denied: '%s' is already mounted (or specify mount point)\n",
+                wlog( _("udevil: denied 98: '%s' is already mounted (or specify mount point)\n"),
                                                         data->device_file, 2 );
             else
-                wlog( "udevil: denied: can't mount '%s' (not in fstab?) (or specify mount point)\n",
+                wlog( _("udevil: denied 99: can't mount '%s' (not in fstab?) (or specify mount point)\n"),
                                                         data->device_file, 2 );
             ret = 2;
             goto _finish;
@@ -3539,16 +3560,17 @@ _get_type:
         if ( ( type != MOUNT_BLOCK && type != MOUNT_NET )
                         || g_file_test( data->device_file, G_FILE_TEST_IS_DIR ) )
         {
-            wlog( "udevil: denied: must specify device or network for remount\n",
+            wlog( _("udevil: denied 100: must specify device or network for remount\n"),
                                                                         NULL, 2 );
             ret = 2;
             goto _finish;
         }
         if ( data->point )
-            wlog( "udevil: warning: specified mount point with remount ignored\n",
+            wlog( _("udevil: warning 101: specified mount point with remount ignored\n"),
                                                                         NULL, 2 );
 
         // validate exec
+        // no translate
         str = g_strdup_printf( "%s is remounting %s", g_get_user_name(),
                         type == MOUNT_NET ? netmount->url : data->device_file );
         ret = exec_program( "validate_rootexec", str, TRUE, TRUE );
@@ -3570,6 +3592,7 @@ _get_type:
         // success_exec
         if ( !ret )
         {
+            // no translate
             str = g_strdup_printf( "%s remounted %s",
                         g_get_user_name(),
                         type == MOUNT_NET ? netmount->url : data->device_file );
@@ -3588,7 +3611,7 @@ _get_type:
         point = g_strdup( data->point );
         if ( type == MOUNT_BLOCK && device->device_is_mounted )
         {
-            str = g_strdup_printf( "udevil: warning: device %s is already mounted on %s\n",
+            str = g_strdup_printf( _("udevil: warning 102: device %s is already mounted on %s\n"),
                                         data->device_file, device->mount_points );
             wlog( str, NULL, 1 );
             g_free( str );
@@ -3600,7 +3623,7 @@ _get_type:
         char* mount_dir = get_default_mount_dir( fstype );
         if ( !mount_dir )
         {
-            wlog( "udevil: error: no valid existing directory in allowed_media_dirs\n",
+            wlog( _("udevil: error 103: no valid existing directory in allowed_media_dirs\n"),
                                                                         NULL, 2 );
             ret = 1;
             goto _finish;
@@ -3696,7 +3719,7 @@ _get_type:
     gboolean made_point = FALSE;
     if ( !g_utf8_validate( point, -1, NULL ) )
     {
-        wlog( "udevil: error: mount point '%s' is not a valid UTF8 string\n", point, 2 );
+        wlog( _("udevil: error 104: mount point '%s' is not a valid UTF8 string\n"), point, 2 );
         ret = 1;
         goto _finish;
     }
@@ -3718,7 +3741,7 @@ _get_type:
         if ( mkdir( point, S_IRWXU ) != 0 )
         {
             drop_privileges( 0 );
-            str = g_strdup_printf( "udevil: error: mkdir '%s' failed\n", point );
+            str = g_strdup_printf( _("udevil: error 105: mkdir '%s' failed\n"), point );
             wlog( str, NULL, 2 );
             g_free( str );
             ret = 1;
@@ -3733,6 +3756,7 @@ _get_type:
     }
 
     // validate exec
+    // no translate
     str = g_strdup_printf( "%s is mounting %s to %s", g_get_user_name(),
                     type == MOUNT_NET ? netmount->url : data->device_file, point );
     ret = exec_program( "validate_rootexec", str, TRUE, TRUE );
@@ -3750,7 +3774,7 @@ _get_type:
                     && validate_in_list( "allowed_options", fstype, "guest" ) )
         {
             // try cifs as guest first
-            wlog( "udevil: trying %s as guest\n", fstype, 1 );
+            wlog( _("udevil: trying %s as guest\n"), fstype, 1 );
             str = g_strdup_printf( "%s%sguest", options ? options : "",
                                                 options ? "," : "" );
             ret = mount_device( netmount->url, fstype, str, point, TRUE );
@@ -3761,7 +3785,7 @@ _get_type:
                 str = g_strdup_printf( "user=%s", g_get_user_name() );
                 if ( validate_in_list( "allowed_options", fstype, str ) )
                 {
-                    wlog( "udevil: trying with %s\n", str, 1 );
+                    wlog( _("udevil: trying with %s\n"), str, 1 );
                     g_free( str );
                     str = g_strdup_printf( "%s%suser=%s", options ? options : "",
                                                         options ? "," : "",
@@ -3803,7 +3827,7 @@ _get_type:
             mode = strtol( str, NULL, 8 );
             if ( mode == 0 || str[0] != '0' )
             {
-                wlog( "udevil: warning: invalid mount_point_mode in udevil.conf - using 0755\n",
+                wlog( _("udevil: warning 106: invalid mount_point_mode in udevil.conf - using 0755\n"),
                                                                     NULL, 1 );
                 mode = 0755;
             }
@@ -3813,6 +3837,7 @@ _get_type:
         }
 
         // print
+        // no translate
         str = g_strdup_printf( "Mounted %s at %s\n",
                     type == MOUNT_NET ? netmount->url : data->device_file,
                     point );
@@ -3820,6 +3845,7 @@ _get_type:
         g_free( str );
         
         // success_exec
+        // no translate
         str = g_strdup_printf( "%s mounted %s at %s",
                     g_get_user_name(),
                     type == MOUNT_NET ? netmount->url : data->device_file,
@@ -3859,20 +3885,20 @@ static int command_remove( CommandData* data )
     // got root?
     if ( orig_euid != 0 )
     {
-        wlog( "udevil: error: udevil was not run suid root\n", NULL, 2 );
-        wlog( "        To correct this problem: sudo chmod +s /usr/bin/udevil\n", NULL, 2 );
+        wlog( _("udevil: error 107: udevil was not run suid root\n"), NULL, 2 );
+        wlog( _("        To correct this problem: sudo chmod +s /usr/bin/udevil\n"), NULL, 2 );
         return 1;
     }
 
     if ( !device_file || ( device_file && device_file[0] == '\0' ) )
     {
-        wlog( "udevil: error: remove requires DEVICE argument\n", NULL, 2 );
+        wlog( _("udevil: error 108: remove requires DEVICE argument\n"), NULL, 2 );
         return 1;
     }
 
     if ( stat( device_file, &statbuf ) != 0 )
     {
-        str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+        str = g_strdup_printf( _("udevil: error 109: cannot stat %s: %s\n"),
                                     device_file, g_strerror( errno ) );
         wlog( str, NULL, 2 );
         g_free( str );
@@ -3880,21 +3906,21 @@ static int command_remove( CommandData* data )
     }
     if ( statbuf.st_rdev == 0 || !S_ISBLK( statbuf.st_mode ) )
     {
-        wlog( "udevil: error: %s is not a block device\n", device_file, 2 );
+        wlog( _("udevil: error 110: %s is not a block device\n"), device_file, 2 );
         return 1;
     }
 
     udev = udev_new();
     if ( udev == NULL )
     {
-        wlog( "udevil: error: error initializing libudev\n", NULL, 2 );
+        wlog( _("udevil: error 111: error initializing libudev\n"), NULL, 2 );
         return 1;
     }
 
     udevice = udev_device_new_from_devnum( udev, 'b', statbuf.st_rdev );
     if ( udevice == NULL )
     {
-        wlog( "udevil: error: no udev device for device %s\n", device_file, 2 );
+        wlog( _("udevil: error 112: no udev device for device %s\n"), device_file, 2 );
         udev_unref( udev );
         udev = NULL;
         return 1;
@@ -3903,7 +3929,7 @@ static int command_remove( CommandData* data )
     device_t *device = device_alloc( udevice );
     if ( !device_get_info( device, devmounts ) )
     {
-        wlog( "udevil: error: unable to get device info\n", NULL, 2 );
+        wlog( _("udevil: error 113: unable to get device info\n"), NULL, 2 );
         udev_device_unref( udevice );
         udev_unref( udev );
         udev = NULL;
@@ -3915,7 +3941,7 @@ static int command_remove( CommandData* data )
     gboolean skip_driver = FALSE;
     if ( device->device_is_system_internal )
     {
-        wlog( "udevil: warning: device %s is an internal device - not unbinding driver\n",
+        wlog( _("udevil: warning 114: device %s is an internal device - not unbinding driver\n"),
                                                         data->device_file, 1 );
         skip_driver = TRUE;
     }
@@ -3926,7 +3952,7 @@ static int command_remove( CommandData* data )
           && strcmp( device->drive_connection_interface, "usb" )
           && strcmp( device->drive_connection_interface, "firewire" ) )
     {
-        wlog( "udevil: warning: interface is not usb, firewire, sdio, esata - not unbinding driver\n",
+        wlog( _("udevil: warning 115: interface is not usb, firewire, sdio, esata - not unbinding driver\n"),
                                                         data->device_file, 1 );
         skip_driver = TRUE;
     }
@@ -3934,13 +3960,13 @@ static int command_remove( CommandData* data )
     // allowed
     if ( !validate_in_list( "allowed_devices", device->id_type, data->device_file ) )
     {
-        wlog( "udevil: denied: device %s is not an allowed device\n",
+        wlog( _("udevil: denied 116: device %s is not an allowed device\n"),
                                                         data->device_file, 2 );
         return 2;
     }
     if ( validate_in_list( "forbidden_devices", device->id_type, data->device_file ) )
     {
-        wlog( "udevil: denied: device %s is a forbidden device\n",
+        wlog( _("udevil: denied 117: device %s is a forbidden device\n"),
                                                         data->device_file, 2 );
         return 2;
     }
@@ -3978,7 +4004,7 @@ static int command_remove( CommandData* data )
             // looks like a full device, unmount device if mounted
             if ( device_is_mounted_mtab( device->devnode, NULL, NULL ) )
             {
-                wlog( "udevil: unmount %s\n", device->devnode, 1 );
+                wlog( _("udevil: unmount %s\n"), device->devnode, 1 );
                 data2 = g_slice_new0( CommandData );
                 data2->cmd_type = CMD_UNMOUNT;
                 data2->device_file = g_strdup( device->devnode );
@@ -4012,7 +4038,7 @@ static int command_remove( CommandData* data )
     partdir = g_dir_open( host_path, 0, NULL );
     if( !partdir )
     {
-        wlog( "udevil: error: unable to access dir %s\n", host_path, 2 );
+        wlog( _("udevil: error 118: unable to access dir %s\n"), host_path, 2 );
         g_free( host_path );
         return 1;
     }
@@ -4037,12 +4063,12 @@ static int command_remove( CommandData* data )
 
         /* construct /dev/<partition> */
         path = g_strdup_printf( "/dev/%s", filename );
-        wlog( "udevil: examining partition %s\n", path, 0 );
+        wlog( _("udevil: examining partition %s\n"), path, 0 );
         
         while( device_is_mounted_mtab( path, NULL, NULL ) )
         {
             // unmount partition
-            wlog( "udevil: unmount partition %s\n", path, 1 );
+            wlog( _("udevil: unmount partition %s\n"), path, 1 );
             data2 = g_slice_new0( CommandData );
             data2->cmd_type = CMD_UNMOUNT;
             data2->device_file = g_strdup( path );
@@ -4094,13 +4120,13 @@ static int command_remove( CommandData* data )
     }
     if ( c == NULL )
     {
-        wlog( "udevil: error: unable to find host for %s\n", host_path, 2 );
+        wlog( _("udevil: error 119: unable to find host for %s\n"), host_path, 2 );
         goto _remove_error;
     }
     // we need to move back one more time
     if ( NULL == ( c = strrchr( host_path, '/' ) ) )
     {
-        wlog( "udevil: error: unable to find host for %s\n", host_path, 2 );
+        wlog( _("udevil: error 120: unable to find host for %s\n"), host_path, 2 );
         goto _remove_error;
     }
     // end the string there
@@ -4109,7 +4135,7 @@ static int command_remove( CommandData* data )
     // now we need the last component, aka the bus id
     if ( NULL == ( c = strrchr( host_path, '/' ) ) )
     {
-        wlog( "udevil: error: unable to find last component for %s\n", host_path, 2 );
+        wlog( _("udevil: error 121: unable to find last component for %s\n"), host_path, 2 );
         goto _remove_error;
     }
     // move up, so this points to the name only, e.g. 1-2
@@ -4118,7 +4144,7 @@ static int command_remove( CommandData* data )
     // unbind driver: write the bus id to <device>/driver/unbind
     path = g_build_filename( host_path, "driver", "unbind", NULL );
     str = g_strdup_printf( "udevil: unbind driver: echo '%s' > %s\n", c, path );
-    wlog( str, NULL, 1 );
+    wlog( str, NULL, 0 );
     g_free( str );
     if ( root_write_to_file( path, c ) )
         goto _remove_error;
@@ -4128,26 +4154,27 @@ static int command_remove( CommandData* data )
     path = g_build_filename( host_path, "power", "autosuspend", NULL );
     if ( g_file_test( path, G_FILE_TEST_EXISTS ) )
     {
-        wlog( "udevil: suspend device: echo '0' > %s\n", path, 1 );
+        wlog( "udevil: suspend device: echo '0' > %s\n", path, 0 );
         if ( root_write_to_file( path, "0" ) )
             goto _remove_error;
     }
     else
-        wlog( "udevil: warning: missing power autosuspend %s\n", path, 1 );
+        wlog( _("udevil: warning 122: missing power autosuspend %s\n"), path, 1 );
     g_free( path );
 
     // step 2: write "auto" to <device>/power/control
     path = g_build_filename( host_path, "power", "control", NULL );
     if ( g_file_test( path, G_FILE_TEST_EXISTS ) )
     {
-        wlog( "udevil: auto power control: echo 'auto' > %s\n", path, 1 );
+        wlog( "udevil: auto power control: echo 'auto' > %s\n", path, 0 );
         if ( root_write_to_file( path, "auto" ) )
             goto _remove_error;
     }
     else
-        wlog( "udevil: warning: missing power control %s\n", path, 1 );
+        wlog( _("udevil: warning 123: missing power control %s\n"), path, 1 );
     g_free( path );    
 
+    // no translate
     wlog( "Stopped device %s\n", host_path, -1 );
     g_free( host_path );
     return 0;
@@ -4172,15 +4199,15 @@ static int command_clean()
     // got root?
     if ( orig_euid != 0 )
     {
-        wlog( "udevil: error: udevil was not run suid root\n", NULL, 2 );
-        wlog( "        To correct this problem: sudo chmod +s /usr/bin/udevil\n", NULL, 2 );
+        wlog( _("udevil: error 124: udevil was not run suid root\n"), NULL, 2 );
+        wlog( _("        To correct this problem: sudo chmod +s /usr/bin/udevil\n"), NULL, 2 );
         return 1;
     }
 
     /*
     if ( test_config( "tty_required", NULL ) && !user_on_tty() )
     {
-        wlog( "udevil: denied: user '%s' is not on a real TTY (tty_required=1)\n",
+        wlog( _("udevil: denied 125: user '%s' is not on a real TTY (tty_required=1)\n"),
                                                         g_get_user_name(), 2 );
         return 1;
     }
@@ -4222,6 +4249,7 @@ static int command_clean()
                         g_free( path );
                         path = g_build_filename( selement, name, NULL );
                         rmdir( path );
+                        // no translate
                         wlog( "udevil: cleaned '%s'\n", path, 0 );
                     }
                     g_free( path );
@@ -4244,13 +4272,13 @@ static int command_info( CommandData* data )
 
     if ( !device_file || ( device_file && device_file[0] == '\0' ) )
     {
-        wlog( "udevil: error: info requires DEVICE argument\n", NULL, 2 );
+        wlog( _("udevil: error 126: info requires DEVICE argument\n"), NULL, 2 );
         return 1;
     }
 
     if ( stat( device_file, &statbuf ) != 0 )
     {
-        str = g_strdup_printf( "udevil: error: cannot stat %s: %s\n",
+        str = g_strdup_printf( _("udevil: error 127: cannot stat %s: %s\n"),
                                     device_file, g_strerror( errno ) );
         wlog( str, NULL, 2 );
         g_free( str );
@@ -4258,21 +4286,21 @@ static int command_info( CommandData* data )
     }
     if ( statbuf.st_rdev == 0 || !S_ISBLK( statbuf.st_mode ) )
     {
-        wlog( "udevil: error: %s is not a block device\n", device_file, 2 );
+        wlog( _("udevil: error 128: %s is not a block device\n"), device_file, 2 );
         return 1;
     }
 
     udev = udev_new();
     if ( udev == NULL )
     {
-        wlog( "udevil: error: error initializing libudev\n", NULL, 2 );
+        wlog( _("udevil: error 129: error initializing libudev\n"), NULL, 2 );
         return 1;
     }
 
     udevice = udev_device_new_from_devnum( udev, 'b', statbuf.st_rdev );
     if ( udevice == NULL )
     {
-        wlog( "udevil: error: no udev device for device %s\n", device_file, 2 );
+        wlog( _("udevil: error 130: no udev device for device %s\n"), device_file, 2 );
         udev_unref( udev );
         udev = NULL;
         return 1;
@@ -4288,7 +4316,7 @@ static int command_info( CommandData* data )
     }
     else
     {
-        wlog( "udevil: error: unable to get device info\n", NULL, 2 );
+        wlog( _("udevil: error 131: unable to get device info\n"), NULL, 2 );
         ret = 1;
     }
 
@@ -4330,7 +4358,7 @@ void command_monitor_finalize()
         udev_unref( udev );
         udev = NULL;
     }
-    //printf( "udevil: exit\n" );
+    //printf( _("udevil: exit\n") );
     exit( 130 );  // same exit status as udisks v1
 }
 
@@ -4340,7 +4368,7 @@ static int command_monitor()
     udev = udev_new();
     if ( !udev )
     {
-        wlog( "udevil: error: unable to initialize udev\n", NULL, 2 );
+        wlog( _("udevil: error 132: unable to initialize udev\n"), NULL, 2 );
         return 1;
     }
 
@@ -4351,24 +4379,24 @@ static int command_monitor()
     umonitor = udev_monitor_new_from_netlink( udev, "udev" );
     if ( !umonitor )
     {
-        wlog( "udevil: error: cannot create udev monitor\n", NULL, 2 );
+        wlog( _("udevil: error 133: cannot create udev monitor\n"), NULL, 2 );
         goto finish_;
     }
     if ( udev_monitor_enable_receiving( umonitor ) )
     {
-        wlog( "udevil: error: cannot enable udev monitor receiving\n", NULL, 2);
+        wlog( _("udevil: error 134: cannot enable udev monitor receiving\n"), NULL, 2);
         goto finish_;
     }
     if ( udev_monitor_filter_add_match_subsystem_devtype( umonitor, "block", NULL ) )
     {
-        wlog( "udevil: error: cannot set udev filter\n", NULL, 2);
+        wlog( _("udevil: error 135: cannot set udev filter\n"), NULL, 2);
         goto finish_;
     }
 
     gint ufd = udev_monitor_get_fd( umonitor );
     if ( ufd == 0 )
     {
-        wlog( "udevil: error: cannot get udev monitor socket file descriptor\n", NULL, 2);
+        wlog( _("udevil: error 136: cannot get udev monitor socket file descriptor\n"), NULL, 2);
         goto finish_;
     }
 
@@ -4389,7 +4417,7 @@ static int command_monitor()
     else
     {
         free_devmounts();
-        wlog( "udevil: error: monitoring /proc/self/mountinfo: %s\n", error->message, 2 );
+        wlog( _("udevil: error 137: monitoring /proc/self/mountinfo: %s\n"), error->message, 2 );
         g_error_free (error);
     }
 
@@ -4397,6 +4425,7 @@ static int command_monitor()
     signal(SIGTERM, command_monitor_finalize );
     signal(SIGINT,  command_monitor_finalize );
 
+    // no translate
     wlog( "Monitoring activity from the disks daemon. Press Ctrl+C to cancel.\n", NULL, -1 );
 
     // main loop
@@ -4429,6 +4458,7 @@ void command_interrupt()
         udev = NULL;
     }
 
+    // no translate
     wlog( "\nudevil: exit: user aborted\n", NULL, 1 );
     dump_log();
     g_free( cmd_line );
@@ -4442,76 +4472,76 @@ static void show_help()
 {
     printf( _("udevil version %s\n"), UDEVIL_VERSION );
     printf( _("Mounts and unmounts devices without password, shows device info, monitors\n") );
-    printf( "device changes.  Emulates udisks1/2 command line usage and udisks1 output.\n" );
-    printf( "Usage: udevil [OPTIONS] COMMAND [COMMAND-OPTIONS] [COMMAND-ARGUMENTS]\n" );
-    printf( "OPTIONS:\n" );
-    printf( "    --verbose                                   print details\n" );
-    printf( "    --quiet                                     minimal output\n" );
-    printf( "MOUNT  -  Mounts DEVICE to mount point DIR with MOUNT-OPTIONS:\n" );
-    printf( "    udevil mount|--mount [MOUNT-OPTIONS] [[-b|--block-device] DEVICE] [DIR]\n" );
-    printf( "    MOUNT-OPTIONS:\n" );
-    printf( "    -t|--types|--filesystem-type|--mount-fstype TYPE    (see man mount)\n" );
-    printf( "    -o|--options|--mount-options OPT,...                (see man mount)\n" );
+    printf( _("device changes.  Emulates udisks1/2 command line usage and udisks1 output.\n") );
+    printf( _("Usage: udevil [OPTIONS] COMMAND [COMMAND-OPTIONS] [COMMAND-ARGUMENTS]\n") );
+    printf( _("OPTIONS:\n") );
+    printf( "    --verbose                                   %s\n", _("print details") );
+    printf( "    --quiet                                     %s\n", _("minimal output") );
+    printf( _("MOUNT  -  Mounts DEVICE to mount point DIR with MOUNT-OPTIONS:\n") );
+    printf( _("    udevil mount|--mount [MOUNT-OPTIONS] [[-b|--block-device] DEVICE] [DIR]\n") );
+    printf( _("    MOUNT-OPTIONS:\n") );
+    printf( "    -t|--types|--filesystem-type|--mount-fstype TYPE    (%s)\n", _("see man mount") );
+    printf( "    -o|--options|--mount-options OPT,...                (%s)\n", _("see man mount") );
     //printf( "    -L LABEL                                    mount device by label LABEL\n" );
     //printf( "    -U UUID                                     mount device by UUID\n" );
-    printf( "    --no-user-interaction                       ignored (for compatibility)\n" );
-    printf( "    EXAMPLES:\n" );
+    printf( "    --no-user-interaction                       %s\n", _("ignored (for compatibility)") );
+    printf( "    %s:\n", _("EXAMPLES") );
     printf( "    udevil mount /dev/sdd1\n" );
     printf( "    udevil mount -o ro,noatime /dev/sdd1\n" );
     printf( "    udevil mount -o ro,noatime /dev/sdd1 /media/custom\n" );
     //printf( "    udevil mount -L 'Disk Label'\n" );
-    printf( "    udevil mount /tmp/example.iso                    # ISO file\n" );
-    printf( "    udevil mount ftp://sys.domain                    # ftp site - requires\n" );
-    printf( "                                                       curlftpfs or ftpfs\n" );
-    printf( "    udevil mount ftp://user:pass@sys.domain/share    # ftp share with\n" );
-    printf( "                                                       user and password\n" );
-    printf( "    udevil mount ftp://user:pass@sys.domain:21/share # ftp share with\n" );
-    printf( "                                                       port, user and password\n" );
-    printf( "    udevil mount -t ftpfs sys.domain                 # ftp site with ftpfs\n" );
-    printf( "    udevil mount -t curlftpfs sys.domain             # ftp site with curl\n" );
-    printf( "    udevil mount -t curlftpfs user:pass@sys.domain   # ftp site with curl u/p\n" );
-    printf( "    udevil mount nfs://sys.domain:/share             # nfs share\n" );
-    printf( "    udevil mount sys.domain:/share                   # nfs share\n" );
-    printf( "    udevil mount smb://sys.domain/share              # samba share w/ cifs\n" );
-    printf( "    udevil mount smb://user:pass@10.0.0.1:50/share   # samba share w/ u/p/port\n" );
-    printf( "    udevil mount //sys.domain/share                  # samba share w/ cifs\n" );
-    printf( "    udevil mount //sys.domain/share -t smbfs         # samba share w/ smbfs\n" );
-    printf( "    udevil mount ssh://user@sys.domain               # sshfs with user - \n" );
-    printf( "                                                       requires sshfs\n" );
-    printf( "    udevil mount -t sshfs user@sys.domain            # sshfs with user\n" );
-    printf( "    udevil mount tmpfs                               # make a ram drive\n" );
-    printf( "UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:\n" );
-    printf( "    udevil umount|unmount|--unmount|--umount [UNMOUNT-OPTIONS] \n" );
-    printf( "                                              {[-b|--block-device] DEVICE}|DIR\n" );
-    printf( "    UNMOUNT-OPTIONS:\n" );
-    printf( "    -l                                          lazy unmount (see man umount)\n" );
-    printf( "    -f                                          force unmount (see man umount)\n" );
-    printf( "    --no-user-interaction                       ignored (for compatibility)\n" );
-    printf( "    EXAMPLES: udevil umount /dev/sdd1\n" );
+    printf( "    udevil mount /tmp/example.iso                    # %s\n", _("ISO file") );
+    printf( "    udevil mount ftp://sys.domain                    # %s\n", _("ftp site - requires") );
+    printf( "                                                       curlftpfs %s ftpfs\n", _("or") );
+    printf( "    udevil mount ftp://user:pass@sys.domain/share    # %s\n", _("ftp share with") );
+    printf( "                                                       %s\n", _("user and password") );
+    printf( "    udevil mount ftp://user:pass@sys.domain:21/share # %s\n", _("ftp share with") );
+    printf( "                                                       %s\n", _("port, user and password") );
+    printf( "    udevil mount -t ftpfs sys.domain                 # %s\n", _("ftp site with ftpfs") );
+    printf( "    udevil mount -t curlftpfs sys.domain             # %s\n", _("ftp site with curl") );
+    printf( "    udevil mount -t curlftpfs user:pass@sys.domain   # %s\n", _("ftp site with curl u/p") );
+    printf( "    udevil mount nfs://sys.domain:/share             # %s\n", _("nfs share") );
+    printf( "    udevil mount sys.domain:/share                   # %s\n", _("nfs share") );
+    printf( "    udevil mount smb://sys.domain/share              # %s\n", _("samba share w/ cifs") );
+    printf( "    udevil mount smb://user:pass@10.0.0.1:50/share   # %s\n", _("samba share w/ u/p/port") );
+    printf( "    udevil mount //sys.domain/share                  # %s\n", _("samba share w/ cifs") );
+    printf( "    udevil mount //sys.domain/share -t smbfs         # %s\n", _("samba share w/ smbfs") );
+    printf( "    udevil mount ssh://user@sys.domain               # %s\n", _("sshfs with user - ") );
+    printf( "                                                       %s\n", _("requires sshfs") );
+    printf( "    udevil mount -t sshfs user@sys.domain            # %s\n", _("sshfs with user") );
+    printf( "    udevil mount tmpfs                               # %s\n", _("make a ram drive") );
+    printf( _("UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:\n") );
+    printf( _("    udevil umount|unmount|--unmount|--umount [UNMOUNT-OPTIONS] \n") );
+    printf( _("                                              {[-b|--block-device] DEVICE}|DIR\n") );
+    printf( _("    UNMOUNT-OPTIONS:\n") );
+    printf( "    -l                                          %s\n", _("lazy unmount (see man umount)") );
+    printf( "    -f                                          %s\n", _("force unmount (see man umount)") );
+    printf( "    --no-user-interaction                       %s\n", _("ignored (for compatibility)") );
+    printf( "    %s: udevil umount /dev/sdd1\n", _("EXAMPLES") );
     printf( "              udevil umount /media/disk\n" );
     printf( "              udevil umount -l /media/disk\n" );
     printf( "              udevil umount /tmp/example.iso\n" );
-    printf( "REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe\n" );
-    printf( "           removal (sync, stop, unbind driver, and power off):\n" );
-    printf( "    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n" );
-    printf( "    OPTIONS:\n" );
-    printf( "    -l                                          lazy unmount (see man umount)\n" );
-    printf( "    -f                                          force unmount (see man umount)\n" );
-    printf( "    --no-user-interaction                       ignored (for compatibility)\n" );
-    printf( "    EXAMPLE: udevil remove /dev/sdd\n" );
-    printf( "INFO  -  Show information about DEVICE emulating udisks v1 output:\n" );
-    printf( "    udevil info|--show-info|--info [-b|--block-device] DEVICE\n" );
-    printf( "    EXAMPLE:  udevil info /dev/sdd1\n" );
-    printf( "MONITOR  -  Display device events emulating udisks v1 output:\n" );
+    printf( _("REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe\n") );
+    printf( _("           removal (sync, stop, unbind driver, and power off):\n") );
+    printf( _("    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n") );
+    printf( _("    OPTIONS:\n") );
+    printf( "    -l                                          %s\n", _("lazy unmount (see man umount)") );
+    printf( "    -f                                          %s\n", _("force unmount (see man umount)") );
+    printf( "    --no-user-interaction                       %s\n", _("ignored (for compatibility)") );
+    printf( "    %s: udevil remove /dev/sdd\n", _("EXAMPLE") );
+    printf( _("INFO  -  Show information about DEVICE emulating udisks v1 output:\n") );
+    printf( _("    udevil info|--show-info|--info [-b|--block-device] DEVICE\n") );
+    printf( "    %s:  udevil info /dev/sdd1\n", _("EXAMPLE") );
+    printf( _("MONITOR  -  Display device events emulating udisks v1 output:\n") );
     printf( "    udevil monitor|--monitor\n" );
-    printf( "    EXAMPLE:  udevil monitor\n" );
-    printf( "CLEAN  -  Remove unmounted udevil-created mount dirs in media dirs\n" );
+    printf( "    %s:  udevil monitor\n", _("EXAMPLE") );
+    printf( _("CLEAN  -  Remove unmounted udevil-created mount dirs in media dirs\n") );
     printf( "    udevil clean\n" );
-    printf( "HELP  -  Show this help\n" );
+    printf( _("HELP  -  Show this help\n") );
     printf( "    udevil help|--help|-h\n" );
     printf( "\n" );
-    printf( "http://ignorantguru.github.com/udevil/  See /etc/udevil/udevil.conf for config.\n" );
-    printf( "For automounting with udevil run 'devmon --help'\n" );
+    printf( "http://ignorantguru.github.com/udevil/  %s\n", _("See /etc/udevil/udevil.conf for config.") );
+    printf( _("For automounting with udevil run 'devmon --help'\n") );
 
     printf( "\n" );
 }
@@ -4521,7 +4551,15 @@ int main( int argc, char **argv )
     struct stat statbuf;
     char* str;
     char* config_msg = NULL;
-    
+
+#ifdef ENABLE_NLS
+    //printf ("Locale is: %s\n", setlocale(LC_ALL,NULL) );
+    setlocale( LC_ALL, "" );  // use default environment locale
+    bindtextdomain ( GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR );
+    bind_textdomain_codeset ( GETTEXT_PACKAGE, "UTF-8" );
+    textdomain ( GETTEXT_PACKAGE );
+#endif
+
     signal( SIGTERM, command_interrupt );
     signal( SIGINT,  command_interrupt );
 /*
@@ -4597,7 +4635,8 @@ printf("\n-----------------------\n");
         g_free( str );
     }
     if ( config_msg && strcmp( config_msg,
-                                "udevil: read config /etc/udevil/udevil.conf\n" ) )
+                                _("udevil: read config /etc/udevil/udevil.conf\n") ) )
+        // this only works for english
         wlog( config_msg, NULL, strstr( config_msg, "warning:" ) ? 1 : 0 );
     g_free( config_msg );
 
@@ -4643,7 +4682,7 @@ printf("\n-----------------------\n");
         if ( ( arg && !g_utf8_validate( arg, -1, NULL ) ) ||
                         ( arg_next && !g_utf8_validate( arg_next, -1, NULL ) ) )
         {
-            wlog( "udevil: error: argument is not valid UTF-8\n", NULL, 2 );
+            wlog( _("udevil: error 138: argument is not valid UTF-8\n"), NULL, 2 );
             goto _exit;
         }
         
@@ -4943,16 +4982,16 @@ printf("\n-----------------------\n");
     return ret;
 
 _reject_too_many:
-    wlog( "udevil: error: too many arguments\n", NULL, 2 );
+    wlog( _("udevil: error 139: too many arguments\n"), NULL, 2 );
     goto _exit;
 _reject_missing_arg:
-    wlog( "udevil: error: option '%s' requires an argument\n", arg, 2 );
+    wlog( _("udevil: error 140: option '%s' requires an argument\n"), arg, 2 );
     goto _exit;
 _reject_arg:
     if ( arg[0] == '-' )
-        wlog( "udevil: error: invalid option '%s'\n", arg, 2 );
+        wlog( _("udevil: error 141: invalid option '%s'\n"), arg, 2 );
     else
-        wlog( "udevil: error: invalid or unexpected argument '%s'\n", arg, 2 );
+        wlog( _("udevil: error 142: invalid or unexpected argument '%s'\n"), arg, 2 );
 _exit:
     g_free( arg_short );
     free_command_data( data );
