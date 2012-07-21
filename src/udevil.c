@@ -3339,8 +3339,10 @@ _get_type:
         }
         else if ( !strcmp( fstype, "smbfs" ) || !strcmp( fstype, "cifs" ) )
         {
-            net_opts = g_strdup_printf( "%s,user=%s", str, 
-                            netmount->user ? netmount->user : g_get_user_name() );
+            if ( netmount->user )
+                net_opts = g_strdup_printf( "user=%s", netmount->user );
+            else
+                net_opts = g_strdup( "" );
             if ( netmount->pass )
             {
                 str = net_opts;
@@ -3743,20 +3745,33 @@ _get_type:
     // mount
     if ( type == MOUNT_NET )
     {
-        ret = -1;
         if ( ( !strcmp( fstype, "smbfs" ) || !strcmp( fstype, "cifs" ) )
-                    && !netmount->pass
+                    && !netmount->user
                     && validate_in_list( "allowed_options", fstype, "guest" ) )
         {
             // try cifs as guest first
             wlog( "udevil: trying %s as guest\n", fstype, 1 );
-            str = g_strdup_printf( "%s,guest", options ? options : "" );
+            str = g_strdup_printf( "%s%sguest", options ? options : "",
+                                                options ? "," : "" );
             ret = mount_device( netmount->url, fstype, str, point, TRUE );
             g_free( str );
             if ( ret != 0 )
-                wlog( "udevil: trying %s as non-guest\n", fstype, 1 );
+            {
+                // try as current user
+                str = g_strdup_printf( "user=%s", g_get_user_name() );
+                if ( validate_in_list( "allowed_options", fstype, str ) )
+                {
+                    wlog( "udevil: trying with %s\n", str, 1 );
+                    g_free( str );
+                    str = g_strdup_printf( "%s%suser=%s", options ? options : "",
+                                                        options ? "," : "",
+                                                        g_get_user_name() );
+                    ret = mount_device( netmount->url, fstype, str, point, TRUE );
+                }
+                g_free( str );
+            }
         }
-        if ( ret != 0 )
+        else
             ret = mount_device( netmount->url, fstype, options, point, TRUE );
     }
     else

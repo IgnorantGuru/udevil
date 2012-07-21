@@ -5,7 +5,7 @@
     added default_options_ntfs to udevil.conf
     [devmon 1.1.2] udevil clean on remove device #6
     sshfs supplies current user if none specified
-    supply current user with cifs; try guest first
+    cifs no user specified try guest mount then current user
 0.3.0   2012-07-13:
     cifs,ftpfs dont quote username, double quote password #3
     default udevil.conf: allow option flush
