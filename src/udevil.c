@@ -2512,7 +2512,7 @@ static int command_mount( CommandData* data )
     // got root?
     if ( orig_euid != 0 )
     {
-        str = g_strdup_printf( "udevil: error 37: %s\n",
+        str = g_strdup_printf( _("udevil: error 37: %s\n"),
                                             _("udevil was not run suid root") );
         wlog( str, NULL, 2 );
         g_free( str );
@@ -3904,7 +3904,7 @@ static int command_remove( CommandData* data )
     // got root?
     if ( orig_euid != 0 )
     {
-        str = g_strdup_printf( "udevil: error 107: %s\n",
+        str = g_strdup_printf( _("udevil: error 107: %s\n"),
                                             _("udevil was not run suid root") );
         wlog( str, NULL, 2 );
         g_free( str );
@@ -4227,7 +4227,7 @@ static int command_clean()
     // got root?
     if ( orig_euid != 0 )
     {
-        str = g_strdup_printf( "udevil: error 124: %s\n",
+        str = g_strdup_printf( _("udevil: error 124: %s\n"),
                                             _("udevil was not run suid root") );
         wlog( str, NULL, 2 );
         g_free( str );
