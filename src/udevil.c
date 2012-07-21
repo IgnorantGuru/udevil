@@ -2107,7 +2107,7 @@ static gboolean create_run_media()
     // create /run/media/$USER
     char* run_media = g_build_filename( "/run/media", g_get_user_name(), NULL );
     restore_privileges();
-    wlog( _("udevil: mkdir %s\n"), run_media, 0 );
+    wlog( "udevil: mkdir %s\n", run_media, 0 );
     mkdir( "/run/media", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
     chown( "/run/media", 0, 0 );
     mkdir( run_media, S_IRWXU );
@@ -2119,7 +2119,7 @@ static gboolean create_run_media()
     argv[a++] = g_strdup( "-m" );
     argv[a++] = g_strdup_printf( "u:%s:rx", g_get_user_name() );
     argv[a++] = g_strdup( run_media );
-    str = g_strdup_printf( _("udevil: %s -m u:%s:rx %s\n"),
+    str = g_strdup_printf( "udevil: %s -m u:%s:rx %s\n",
                             read_config( "setfacl_program", NULL ),
                             g_get_user_name(), run_media );
     wlog( str, NULL, 0 );
@@ -2198,6 +2198,14 @@ static char* get_default_mount_dir( const char* type )
     }
     g_free( run_media );
     return NULL;
+}
+
+char* get_udevil()
+{
+    char* str = g_find_program_in_path( "udevil" );
+    if ( str )
+        return str;
+    return g_strdup( "/usr/bin/udevil" );
 }
 
 static int parse_network_url( const char* url, const char* fstype,
@@ -2504,8 +2512,16 @@ static int command_mount( CommandData* data )
     // got root?
     if ( orig_euid != 0 )
     {
-        wlog( _("udevil: error 37: udevil was not run suid root\n"), NULL, 2 );
-        wlog( _("        To correct this problem: sudo chmod +s /usr/bin/udevil\n"), NULL, 2 );
+        str = g_strdup_printf( "udevil: error 37: %s\n",
+                                            _("udevil was not run suid root") );
+        wlog( str, NULL, 2 );
+        g_free( str );
+        str = get_udevil();
+        str2 = g_strdup_printf( "        %s: sudo chmod +s %s\n",
+                                            _("To correct this problem"), str );
+        wlog( str, NULL, 2 );
+        g_free( str );
+        g_free( str2 );
         return 1;
     }
 
@@ -3882,13 +3898,22 @@ static int command_remove( CommandData* data )
     struct udev_device  *udevice;
     const char* device_file = data->device_file;
     char* str;
+    char* str2;
     int ret = 0;
     
     // got root?
     if ( orig_euid != 0 )
     {
-        wlog( _("udevil: error 107: udevil was not run suid root\n"), NULL, 2 );
-        wlog( _("        To correct this problem: sudo chmod +s /usr/bin/udevil\n"), NULL, 2 );
+        str = g_strdup_printf( "udevil: error 107: %s\n",
+                                            _("udevil was not run suid root") );
+        wlog( str, NULL, 2 );
+        g_free( str );
+        str = get_udevil();
+        str2 = g_strdup_printf( "        %s: sudo chmod +s %s\n",
+                                            _("To correct this problem"), str );
+        wlog( str, NULL, 2 );
+        g_free( str );
+        g_free( str2 );
         return 1;
     }
 
@@ -4190,6 +4215,7 @@ static int command_clean()
 {
     char* list = NULL;
     char* str;
+    char* str2;
     char* comma;
     char* element;
     char* selement;
@@ -4201,8 +4227,16 @@ static int command_clean()
     // got root?
     if ( orig_euid != 0 )
     {
-        wlog( _("udevil: error 124: udevil was not run suid root\n"), NULL, 2 );
-        wlog( _("        To correct this problem: sudo chmod +s /usr/bin/udevil\n"), NULL, 2 );
+        str = g_strdup_printf( "udevil: error 124: %s\n",
+                                            _("udevil was not run suid root") );
+        wlog( str, NULL, 2 );
+        g_free( str );
+        str = get_udevil();
+        str2 = g_strdup_printf( "        %s: sudo chmod +s %s\n",
+                                            _("To correct this problem"), str );
+        wlog( str, NULL, 2 );
+        g_free( str );
+        g_free( str2 );
         return 1;
     }
 
