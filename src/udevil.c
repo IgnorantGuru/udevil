@@ -2733,7 +2733,8 @@ _get_type:
                     g_free( str );
                     return 2;
                 }
-                if ( !validate_in_list( "allowed_files", "file", data->device_file ) )
+                if ( !validate_in_list( "allowed_files", "file", data->device_file ) ||
+                      validate_in_list( "forbidden_files", "file", data->device_file ) )
                 {
                     wlog( _("udevil: denied 49: '%s' is not an allowed file\n"),
                                                             data->device_file, 2 );
@@ -3220,7 +3221,8 @@ _get_type:
                     goto _finish;
                 }
 
-                if ( !validate_in_list( "allowed_files", "file", str ) )
+                if ( !validate_in_list( "allowed_files", "file", str ) ||
+                      validate_in_list( "forbidden_files", "file", str ) )
                 {
                     wlog( _("udevil: denied 87: '%s' is not an allowed file\n"),
                                                             str, 2 );
