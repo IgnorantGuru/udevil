@@ -3930,6 +3930,9 @@ static int command_remove( CommandData* data )
         return 2;
     }
 
+    // flush buffers - this may be unnecessary here
+    sync();
+
     // unmount all partitions on this device - contains code from pmount-jjk
     GDir *partdir;
     const char* filename;
@@ -4099,20 +4102,35 @@ static int command_remove( CommandData* data )
 
     // unbind driver: write the bus id to <device>/driver/unbind
     path = g_build_filename( host_path, "driver", "unbind", NULL );
+    str = g_strdup_printf( "udevil: unbind driver: echo '%s' > %s\n", c, path );
+    wlog( str, NULL, 1 );
+    g_free( str );
     if ( root_write_to_file( path, c ) )
         goto _remove_error;
     g_free( path );
 
     // suspend device. step 1: write "0" to <device>/power/autosuspend
     path = g_build_filename( host_path, "power", "autosuspend", NULL );
-    if ( g_file_test( path, G_FILE_TEST_EXISTS ) && root_write_to_file( path, "0" ) )
-        goto _remove_error;
+    if ( g_file_test( path, G_FILE_TEST_EXISTS ) )
+    {
+        wlog( "udevil: suspend device: echo '0' > %s\n", path, 1 );
+        if ( root_write_to_file( path, "0" ) )
+            goto _remove_error;
+    }
+    else
+        wlog( "udevil: warning: missing power autosuspend %s\n", path, 1 );
     g_free( path );
 
     // step 2: write "auto" to <device>/power/control
     path = g_build_filename( host_path, "power", "control", NULL );
-    if ( g_file_test( path, G_FILE_TEST_EXISTS ) && root_write_to_file( path, "auto" ) )
-        goto _remove_error;
+    if ( g_file_test( path, G_FILE_TEST_EXISTS ) )
+    {
+        wlog( "udevil: auto power control: echo 'auto' > %s\n", path, 1 );
+        if ( root_write_to_file( path, "auto" ) )
+            goto _remove_error;
+    }
+    else
+        wlog( "udevil: warning: missing power control %s\n", path, 1 );
     g_free( path );    
 
     wlog( "Stopped device %s\n", host_path, -1 );
