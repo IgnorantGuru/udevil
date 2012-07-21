@@ -2519,7 +2519,7 @@ static int command_mount( CommandData* data )
         str = get_udevil();
         str2 = g_strdup_printf( "        %s: sudo chmod +s %s\n",
                                             _("To correct this problem"), str );
-        wlog( str, NULL, 2 );
+        wlog( str2, NULL, 2 );
         g_free( str );
         g_free( str2 );
         return 1;
@@ -3911,7 +3911,7 @@ static int command_remove( CommandData* data )
         str = get_udevil();
         str2 = g_strdup_printf( "        %s: sudo chmod +s %s\n",
                                             _("To correct this problem"), str );
-        wlog( str, NULL, 2 );
+        wlog( str2, NULL, 2 );
         g_free( str );
         g_free( str2 );
         return 1;
@@ -4234,7 +4234,7 @@ static int command_clean()
         str = get_udevil();
         str2 = g_strdup_printf( "        %s: sudo chmod +s %s\n",
                                             _("To correct this problem"), str );
-        wlog( str, NULL, 2 );
+        wlog( str2, NULL, 2 );
         g_free( str );
         g_free( str2 );
         return 1;
