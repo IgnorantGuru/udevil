@@ -74,6 +74,6 @@ To create a translation of udevil for your language, follow these steps.
         intltool-update --dist --output-file=fr-test.po fr
 
     Then complete any missing or fuzzy translations in the .po file, and repeat
-    steps 8 through 11.
+    steps 8 through 10.
 
 

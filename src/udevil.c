@@ -4470,7 +4470,7 @@ void command_interrupt()
 
 static void show_help()
 {
-    printf( _("udevil version %s\n"), UDEVIL_VERSION );
+    printf( "udevil version %s\n", UDEVIL_VERSION );
     printf( _("Mounts and unmounts devices without password, shows device info, monitors\n") );
     printf( _("device changes.  Emulates udisks1/2 command line usage and udisks1 output.\n") );
     printf( _("Usage: udevil [OPTIONS] COMMAND [COMMAND-OPTIONS] [COMMAND-ARGUMENTS]\n") );
