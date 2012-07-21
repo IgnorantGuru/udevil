@@ -3746,7 +3746,7 @@ _get_type:
     if ( type == MOUNT_NET )
     {
         if ( ( !strcmp( fstype, "smbfs" ) || !strcmp( fstype, "cifs" ) )
-                    && !netmount->user
+                    && !netmount->user && !netmount->pass
                     && validate_in_list( "allowed_options", fstype, "guest" ) )
         {
             // try cifs as guest first
