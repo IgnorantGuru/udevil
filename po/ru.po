@@ -1,0 +1,985 @@
+# Russian udevil translation
+# Copyright (C) 2012
+# This file is distributed under the same license as the udevil package.
+# Vladimir Kudrya <vladimir-csp@yandex.ru>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-22 13:38+0400\n"
+"PO-Revision-Date: 2012-07-22 14:39+0300\n"
+"Last-Translator: Vladimir Kudrya <vladimir-csp@yandex.ru>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/udevil.c:606
+#, c-format
+msgid "udevil: error 1: unable to drop priviledges - please report this problem\n"
+msgstr "udevil: ошибка 1: невозможно сбросить привилегии - пожалуйста, сообщите об этой проблеме разработчику\n"
+
+#: ../src/udevil.c:798
+#, c-format
+msgid "udevil: error 2: %s line %d is not valid UTF-8\n"
+msgstr "udevil: ошибка 2: %s строка %d не является корректной UTF-8\n"
+
+#: ../src/udevil.c:804
+#, c-format
+msgid "udevil: error 3: %s line %d is too long\n"
+msgstr "udevil: ошибка 3: %s строка %d слишком длинная\n"
+
+#: ../src/udevil.c:814
+#, c-format
+msgid "udevil: error 4: %s line %d syntax error:\n"
+msgstr "udevil: ошибка 4: %s строка %d ошибка синтаксиса:\n"
+
+#: ../src/udevil.c:827
+#, c-format
+msgid "udevil: error 5: %s line %d syntax error:\n"
+msgstr "udevil: ошибка 5: %s строка %d ошибка синтаксиса:\n"
+
+#: ../src/udevil.c:834
+#, c-format
+msgid "udevil: error 6: %s line %d duplicate assignment:\n"
+msgstr "udevil: ошибка 6: %s строка %d повторяющийся параметр:\n"
+
+#: ../src/udevil.c:897
+#, c-format
+msgid "udevil: warning 7: /etc/udevil/udevil.conf could not be read\n"
+msgstr "udevil: предупреждение 7: невозможно прочесть /etc/udevil/udevil.conf\n"
+
+#: ../src/udevil.c:907
+#, c-format
+msgid "udevil: read config %s\n"
+msgstr "udevil: чтение конфигурации %s\n"
+
+#: ../src/udevil.c:1146
+#, c-format
+msgid "udevil: error 8: failed writing to log file '%s'\n"
+msgstr "udevil: ошибка 8: ошибка записи лога '%s'\n"
+
+#: ../src/udevil.c:1477
+#, c-format
+msgid "udevil: warning 9: unable to run losetup (%s)\n"
+msgstr "udevil: предупреждение 9: невозможно выполнить losetup (%s)\n"
+
+#: ../src/udevil.c:1534
+#, c-format
+msgid "udevil: warning 10: unable to run losetup (%s)\n"
+msgstr "udevil: предупреждение 10: невозможно выполнить losetup (%s)\n"
+
+#: ../src/udevil.c:1768
+#, c-format
+msgid "udevil: error 11: could not open %s\n"
+msgstr "udevil: ошибка 11: невозможно открыть %s\n"
+
+#: ../src/udevil.c:1776
+#, c-format
+msgid "udevil: error 12: error writing to %s\n"
+msgstr "udevil: ошибка 12: ошибка при записи в %s\n"
+
+#: ../src/udevil.c:1826
+#, c-format
+msgid "udevil: error 13: unable to run %s\n"
+msgstr "udevil: ошибка 13: невозможно запустить %s\n"
+
+#: ../src/udevil.c:1838
+#, c-format
+msgid "      %s exit status = %d\n"
+msgstr ""
+
+#: ../src/udevil.c:1843
+#, c-format
+msgid "udevil: denied 14: %s returned exit status %d\n"
+msgstr "udevil: отказано 14: %s возвратил exit status %d\n"
+
+#. log
+#: ../src/udevil.c:1878
+msgid "udevil: trying umount as current user\n"
+msgstr "udevil: попытка монтирования от текущего пользователя\n"
+
+#: ../src/udevil.c:1891
+#, c-format
+msgid "udevil: warning 15: unable to run umount (%s)\n"
+msgstr "udevil: предупреждение 15: невозможно выполнить umount (%s)\n"
+
+#: ../src/udevil.c:1896
+#: ../src/udevil.c:1962
+#, c-format
+msgid "      umount exit status = %d\n"
+msgstr ""
+
+#. success - show output
+#: ../src/udevil.c:1905
+msgid "udevil: success running umount as current user\n"
+msgstr "udevil: успешное выполнение umount от текущего пользователя\n"
+
+#: ../src/udevil.c:1952
+#, c-format
+msgid "udevil: error 16: unable to run umount (%s)\n"
+msgstr "udevil: ошибка 16: невозможно выполнить umount (%s)\n"
+
+#: ../src/udevil.c:2018
+#, c-format
+msgid "udevil: error 17: unable to run mount (%s)\n"
+msgstr "udevil: ошибка 17: невозможно выполнить mount (%s)\n"
+
+#: ../src/udevil.c:2031
+#, c-format
+msgid "      mount exit status = %d\n"
+msgstr ""
+
+#: ../src/udevil.c:2064
+#, c-format
+msgid "udevil: warning 18: unable to run mount (%s)\n"
+msgstr "udevil: предупреждение 18: невозможно выполнить mount (%s)\n"
+
+#: ../src/udevil.c:2081
+#, c-format
+msgid "udevil: denied 19: Invalid path\n"
+msgstr "udevil: отказано 19: некорректный путь\n"
+
+#: ../src/udevil.c:2087
+#, c-format
+msgid "udevil: denied 20: mount path '%s' is not a directory\n"
+msgstr "udevil: отказано 20: путь монтирования '%s' не является каталогом\n"
+
+#: ../src/udevil.c:2089
+#, c-format
+msgid "udevil: denied 21: mount path '%s' is already mounted\n"
+msgstr "udevil: отказано 21: по пути '%s' уже примонтирован раздел\n"
+
+#: ../src/udevil.c:2093
+#, c-format
+msgid "udevil: denied 22: cannot stat '%s': %s\n"
+msgstr "udevil: отказано 22: невозможно прочитать '%s': %s\n"
+
+#: ../src/udevil.c:2095
+#, c-format
+msgid "udevil: denied 23: neither you nor root owns '%s'\n"
+msgstr "udevil: отказано 23: ни вы, ни суперпользователь не являетесь владельцем '%s'\n"
+
+#: ../src/udevil.c:2130
+#, c-format
+msgid "udevil: warning 24: unable to run setfacl (%s)\n"
+msgstr "udevil: предупреждение 24: невозможно выполнить setfacl (%s)\n"
+
+#. setfacl apparently failed so fallback to normal permissions
+#: ../src/udevil.c:2138
+#, c-format
+msgid "udevil: warning 25: setfacl on %s failed, falling back to 'rwxr-xr-x'\n"
+msgstr "udevil: предупреждение 25: выполнение setfacl на %s неуспешно, используем 'rwxr-xr-x'\n"
+
+#: ../src/udevil.c:2249
+#, c-format
+msgid "udevil: error 26: invalid type '%s' for SMB share - must be cifs or smbfs\n"
+msgstr "udevil: ошибка 26: некорректный тип ФС '%s' для ресурса SMB - должен быть cifs или smbfs\n"
+
+#: ../src/udevil.c:2264
+#, c-format
+msgid "udevil: error 27: invalid type '%s' for NFS share - must be nfs or nfs4\n"
+msgstr "udevil: ошибка 27: некорректный тип ФС '%s' для ресурса NFS - должен быть nfs или nfs4\n"
+
+#: ../src/udevil.c:2277
+#, c-format
+msgid "udevil: error 28: invalid type '%s' for curlftpfs share - must be curlftpfs\n"
+msgstr "udevil: ошибка 28: некорректный тип ФС '%s' для ресурса curlftpfs - должен быть curlftpfs\n"
+
+#: ../src/udevil.c:2289
+#, c-format
+msgid "udevil: error 29: invalid type '%s' for FTP share - must be curlftpfs or ftpfs\n"
+msgstr "udevil: ошибка 29: некорректный тип ФС '%s' для ресурса FTP - должен быть curlftpfs или ftpfs\n"
+
+#: ../src/udevil.c:2314
+#, c-format
+msgid "udevil: error 30: invalid type '%s' for sshfs share - must be sshfs\n"
+msgstr "udevil: ошибка 30: некорректный тип ФС '%s' для ресурса sshfs - должен быть sshfs\n"
+
+#: ../src/udevil.c:2327
+#, c-format
+msgid "udevil: error 31: invalid type '%s' for sshfs share - must be sshfs\n"
+msgstr "udevil: ошибка 31: некорректный тип ФС '%s' для ресурса sshfs - должен быть sshfs\n"
+
+#: ../src/udevil.c:2342
+#, c-format
+msgid "udevil: error 32: invalid type '%s' for sshfs share - must be sshfs\n"
+msgstr "udevil: ошибка 32: некорректный тип ФС '%s' для ресурса sshfs - должен быть sshfs\n"
+
+#: ../src/udevil.c:2353
+#, c-format
+msgid "udevil: error 33: invalid type '%s' for NFS share - must be nfs or nfs4\n"
+msgstr "udevil: ошибка 33: некорректный тип ФС '%s' для ресурса NFS - должен быть nfs или nfs4\n"
+
+#: ../src/udevil.c:2453
+#, c-format
+msgid "udevil: error 34: '%s' is not a recognized network url\n"
+msgstr "udevil: ошибка 34: '%s' не распознан как сетевой URL\n"
+
+#: ../src/udevil.c:2462
+msgid "udevil: error 35: invalid network url\n"
+msgstr "udevil: ошибка 35: некорректный сетевой URL\n"
+
+#: ../src/udevil.c:2469
+#, c-format
+msgid "udevil: error 36: lookup host '%s' failed\n"
+msgstr "udevil: ошибка 36: узел '%s' не найден\n"
+
+#: ../src/udevil.c:2515
+#, c-format
+msgid "udevil: error 37: %s\n"
+msgstr "udevil: ошибка 37: %s\n"
+
+#: ../src/udevil.c:2516
+#: ../src/udevil.c:3908
+#: ../src/udevil.c:4231
+msgid "udevil was not run suid root"
+msgstr "udevil не запущен с suid root"
+
+#: ../src/udevil.c:2521
+#: ../src/udevil.c:3913
+#: ../src/udevil.c:4236
+msgid "To correct this problem"
+msgstr "Чтобы устранить эту проблему"
+
+#: ../src/udevil.c:2535
+msgid "udevil: error 38: mount requires DEVICE argument\n"
+msgstr "udevil: ошибка 38: mount требует аргумента DEVICE\n"
+
+#: ../src/udevil.c:2537
+msgid "udevil: error 39: unmount requires DEVICE argument\n"
+msgstr "udevil: ошибка 39: unmount требует аргумента DEVICE\n"
+
+#: ../src/udevil.c:2582
+#, c-format
+msgid "udevil: error 40: cannot stat %s: %s\n"
+msgstr "udevil: ошибка 40: невозможно прочитать %s: %s\n"
+
+#: ../src/udevil.c:2594
+msgid "udevil: error 41: cannot canonicalize device path\n"
+msgstr "udevil: ошибка 41: невозможно развернуть путь к устройству\n"
+
+#: ../src/udevil.c:2601
+#, c-format
+msgid "udevil: error 42: cannot stat %s: %s\n"
+msgstr "udevil: ошибка 42: невозможно прочитать %s: %s\n"
+
+#: ../src/udevil.c:2612
+#, c-format
+msgid "udevil: error 43: '%s' is not a regular file or directory\n"
+msgstr "udevil: ошибка 43: '%s' не является обычным файлом или каталогом\n"
+
+#. mount knows (in fstab) so mount as normal user with only specified opts
+#: ../src/udevil.c:2650
+#: ../src/udevil.c:3517
+#, c-format
+msgid "udevil: %s is known to mount - running mount as current user\n"
+msgstr "udevil: %s прописан в fstab - выполнение mount от текущего пользователя\n"
+
+#: ../src/udevil.c:2653
+msgid "udevil: warning 44: fstype ignored for device in fstab (or specify mount point)\n"
+msgstr "udevil: предупреждение 44: тип ФС игнорируется для устройства в fstab (или можно указать точку монтирования)\n"
+
+#: ../src/udevil.c:2656
+msgid "udevil: warning 45: options ignored for device in fstab (or specify mount point)\n"
+msgstr "udevil: предупреждение 45: параметры монтирования игнорируются для устройства в fstab (или можно указать точку монтирования)\n"
+
+#: ../src/udevil.c:2727
+#, c-format
+msgid "udevil: error 46: cannot find '%s' mounted in mtab\n"
+msgstr "udevil: ошибка 46: невозможно найти запись о '%s' в mtab\n"
+
+#: ../src/udevil.c:2741
+msgid "udevil: error 47: cannot canonicalize attached loop device\n"
+msgstr "udevil: ошибка 47: невозможно развернуть путь до присоединенного loop-устройства\n"
+
+#: ../src/udevil.c:2747
+msgid "udevil: denied 48: 'file' is not an allowed type\n"
+msgstr "udevil: отказано 48: 'file' не является разрешенным типом устройства\n"
+
+#: ../src/udevil.c:2755
+#, c-format
+msgid "udevil: denied 49: '%s' is not an allowed file\n"
+msgstr "udevil: отказано 49: '%s' не является разрешенным файлом\n"
+
+#: ../src/udevil.c:2762
+#, c-format
+msgid "udevil: error 50: cannot find '%s' mounted in mtab\n"
+msgstr "udevil: ошибка 50: невозможно найти запись о '%s' в mtab\n"
+
+#: ../src/udevil.c:2781
+#, c-format
+msgid "udevil: warning 51: attached device %s is not a loop device\n"
+msgstr "udevil: предупреждение 51: присоединенное устройство %s не является loop-устройством\n"
+
+#: ../src/udevil.c:2806
+#, c-format
+msgid "udevil: error 52: cannot stat %s: %s\n"
+msgstr "udevil: ошибка 52: невозможно прочитать %s: %s\n"
+
+#: ../src/udevil.c:2825
+msgid "udevil: error 53: cannot canonicalize path\n"
+msgstr "udevil: ошибка 53: невозможно развернуть путь\n"
+
+#: ../src/udevil.c:2841
+#, c-format
+msgid "udevil: error 54: invalid path '%s'\n"
+msgstr "udevil: ошибка 54: некорректный путь '%s'\n"
+
+#: ../src/udevil.c:2850
+#, c-format
+msgid "udevil: error 55: cannot find '%s' mounted in mtab\n"
+msgstr "udevil: ошибка 55: невозможно найти сведения о '%s' в mtab\n"
+
+#: ../src/udevil.c:2857
+#, c-format
+msgid "udevil: error 56: cannot find device %s fstype in mtab\n"
+msgstr "udevil: ошибка 56: невозможно найти тип ФС для %s в mtab\n"
+
+#: ../src/udevil.c:2868
+#, c-format
+msgid "udevil: error 57: cannot stat %s: %s\n"
+msgstr "udevil: ошибка 57: невозможно прочитать %s: %s\n"
+
+#: ../src/udevil.c:2877
+#, c-format
+msgid "udevil: error 58: %s is not a block device\n"
+msgstr "udevil: ошибка 58: %s не является блочным устройством\n"
+
+#: ../src/udevil.c:2886
+msgid "udevil: error 59: error initializing libudev\n"
+msgstr "udevil: ошибка 59: ошибка при инициализации libudev\n"
+
+#: ../src/udevil.c:2894
+#, c-format
+msgid "udevil: error 60: no udev device for device %s\n"
+msgstr "udevil: ошибка 60: нет устройства udev для устройства %s\n"
+
+#: ../src/udevil.c:2905
+#, c-format
+msgid "udevil: error 61: unable to get device info for device %s\n"
+msgstr "udevil: ошибка 61: невозможно получить информацию об устройстве %s\n"
+
+#: ../src/udevil.c:2927
+#, c-format
+msgid "udevil: error 62: type %s is invalid for block device\n"
+msgstr "udevil: ошибка 62: type %s is invalid for block device\n"
+
+#: ../src/udevil.c:2942
+#, c-format
+msgid "udevil: error 63: no media in device %s (or specify type with -t)\n"
+msgstr "udevil: ошибка 63: нет носителя в устройстве %s (или укажите тип с помощью -t)\n"
+
+#: ../src/udevil.c:2945
+msgid "udevil: error 64: unable to determine device fstype - specify with -t\n"
+msgstr "udevil: ошибка 64: невозможно определить тип ФС - укажите с помощью -t\n"
+
+#: ../src/udevil.c:3004
+#, c-format
+msgid "udevil: denied 65: device %s is not mounted\n"
+msgstr "udevil: отказано 65: устройство %s не примонтировано\n"
+
+#: ../src/udevil.c:3007
+#, c-format
+msgid "udevil: denied 66: could not find mount point for '%s'\n"
+msgstr "udevil: отказано 66: невозможно найти точку монтирования для '%s'\n"
+
+#: ../src/udevil.c:3028
+msgid "udevil: error 67: cannot canonicalize mount point path\n"
+msgstr "udevil: ошибка 67: невозможно развернуть путь точки монтирования\n"
+
+#: ../src/udevil.c:3039
+#, c-format
+msgid "udevil: error 68: cannot stat '%s'\n"
+msgstr "udevil: ошибка 68: невозможно прочитать '%s'\n"
+
+#: ../src/udevil.c:3057
+msgid "udevil: error 69: cannot canonicalize mount point path\n"
+msgstr "udevil: ошибка 69: невозможно развернуть путь точки монтирования\n"
+
+#: ../src/udevil.c:3068
+msgid "udevil: error 70: cannot canonicalize mount point path\n"
+msgstr "udevil: ошибка 70: невозможно развернуть путь точки монтирования\n"
+
+#: ../src/udevil.c:3078
+#, c-format
+msgid "udevil: denied 71: '%s' is not an allowed media directory\n"
+msgstr "udevil: ошибка 71: '%s' не является разрешенным каталогом монтирования\n"
+
+#: ../src/udevil.c:3090
+msgid "udevil: error 72: multiple fstypes not allowed\n"
+msgstr "udevil: ошибка 72: нельзя указывать несколько типов ФС\n"
+
+#: ../src/udevil.c:3096
+#, c-format
+msgid "udevil: denied 73: fstype '%s' is not an allowed type\n"
+msgstr "udevil: отказано 73: тип ФС '%s' не разрешен\n"
+
+#: ../src/udevil.c:3105
+msgid "udevil: error 74: could not get username\n"
+msgstr "udevil: ошибка 74: невозможно получить имя пользователя\n"
+
+#: ../src/udevil.c:3113
+#, c-format
+msgid "udevil: denied 75: user '%s' (%s) is not in allowed users\n"
+msgstr "udevil: отказано 75: пользователя '%s' (%s) нет в списке разрешенных\n"
+
+#: ../src/udevil.c:3135
+#, c-format
+msgid "udevil: denied 77: user %s is not in allowed groups\n"
+msgstr "udevil: отказано 77: пользователь %s не состоит в разрешенных группах\n"
+
+#: ../src/udevil.c:3147
+#, c-format
+msgid "udevil: denied 78: host '%s' (%s) is not an allowed network\n"
+msgstr "udevil: отказано 78: узел '%s' (%s) не находится в разрешенной сети\n"
+
+#: ../src/udevil.c:3153
+#, c-format
+msgid "udevil: denied 79: host '%s' (%s) is a forbidden network\n"
+msgstr "udevil: отказано 79: узел '%s' (%s) находится в запрещенной сети\n"
+
+#: ../src/udevil.c:3168
+#, c-format
+msgid "udevil: denied 80: device %s is not an allowed device\n"
+msgstr "udevil: отказано 80: устройство %s не является разрешенным устройством\n"
+
+#: ../src/udevil.c:3175
+#, c-format
+msgid "udevil: denied 81: device %s is a forbidden device\n"
+msgstr "udevil: отказано 81: устройство %s является запрещенным устройством\n"
+
+#: ../src/udevil.c:3188
+#, c-format
+msgid "udevil: denied 82: '%s' is not an allowed file\n"
+msgstr "udevil: отказано 82: '%s' не является разрешенным файлом\n"
+
+#: ../src/udevil.c:3197
+#, c-format
+msgid "udevil: denied 83: you don't have read permission for file '%s'\n"
+msgstr "udevil: отказано 83: у вас нет доступа на чтение к файлу '%s'\n"
+
+#: ../src/udevil.c:3205
+msgid "udevil: error 84: cannot specify mount point for directory\n"
+msgstr "udevil: ошибка 84: невозможно указать точку монтирования для каталога\n"
+
+#: ../src/udevil.c:3225
+#, c-format
+msgid "udevil: denied 85: %s is attached to an invalid file\n"
+msgstr "udevil: отказано 85: %s присоеденен к некорректному файлу\n"
+
+#: ../src/udevil.c:3233
+#, c-format
+msgid "udevil: denied 86: '%s' is not a permitted file\n"
+msgstr "udevil: отказано 86: у вас нет доступа на чтение к файлу '%s'\n"
+
+#: ../src/udevil.c:3243
+#, c-format
+msgid "udevil: denied 87: '%s' is not an allowed file\n"
+msgstr "udevil: отказано 87: '%s' не является разрешенным файлом\n"
+
+#: ../src/udevil.c:3264
+#, c-format
+msgid "udevil: denied 88: device %s is an internal device and you're not root\n"
+msgstr "udevil: отказано 88: устройство %s устройство является внутренним, а вы не root\n"
+
+#: ../src/udevil.c:3446
+#, c-format
+msgid "udevil: error 89: options contain an invalid character ('%c')\n"
+msgstr "udevil: ошибка 89: параметры содержат некорректный символ ('%c')\n"
+
+#: ../src/udevil.c:3455
+#, c-format
+msgid "udevil: denied 90: option '%s' is not an allowed option\n"
+msgstr "udevil: отказано 90: параметр '%s' не является разрешенным параметром\n"
+
+#: ../src/udevil.c:3466
+msgid "udevil: denied 91: cannot use remount option with FTP or sshfs share\n"
+msgstr "udevil: отказано 91: ресурсы FTP или sshfs невозможно перемонтировать\n"
+
+#: ../src/udevil.c:3485
+#, c-format
+msgid "udevil: denied 92: device %s is already mounted (or specify mount point)\n"
+msgstr "udevil: отказано 92: устройство %s уже примонтировано (или укажите точку монтирования)\n"
+
+#: ../src/udevil.c:3496
+#, c-format
+msgid "udevil: denied 93: file %s is already mounted at %s (or specify mount point)\n"
+msgstr "udevil: отказано 93: файл %s уже примонтирован в %s (или укажите точку монтирования)\n"
+
+#: ../src/udevil.c:3500
+#, c-format
+msgid "udevil: denied 94: file %s is already mounted (or specify mount point)\n"
+msgstr "udevil: отказано 94: файл %s уже примонтирован (или укажите точку монтирования)\n"
+
+#: ../src/udevil.c:3508
+#, c-format
+msgid "udevil: denied 95: %s is already mounted (or specify mount point)\n"
+msgstr "udevil: отказано 95: %s уже примонтирован (или укажите точку монтирования)\n"
+
+#: ../src/udevil.c:3520
+msgid "udevil: warning 96: fstype ignored for device in fstab (or specify mount point)\n"
+msgstr "udevil: предупреждение 96: тип ФС игнорируется для устройства в fstab (или укажите точку монтирования)\n"
+
+#: ../src/udevil.c:3523
+msgid "udevil: warning 97: options ignored for device in fstab (or specify mount point)\n"
+msgstr "udevil: предупреждение 97: параметры монтирования игнорируются для устройства в fstab (или укажите точку монтирования)\n"
+
+#: ../src/udevil.c:3565
+#, c-format
+msgid "udevil: denied 98: '%s' is already mounted (or specify mount point)\n"
+msgstr "udevil: отказано 98: '%s' уже примонтирован (или укажите точку монтирования)\n"
+
+#: ../src/udevil.c:3568
+#, c-format
+msgid "udevil: denied 99: can't mount '%s' (not in fstab?) (or specify mount point)\n"
+msgstr "udevil: отказано 99: невозможно примонтировать '%s' (не в fstab?) (или укажите точку монтирования)\n"
+
+#: ../src/udevil.c:3581
+msgid "udevil: denied 100: must specify device or network for remount\n"
+msgstr "udevil: отказано 100: необходимо указать устройство или сетевой ресурс для перемонтирования\n"
+
+#: ../src/udevil.c:3587
+msgid "udevil: warning 101: specified mount point with remount ignored\n"
+msgstr "udevil: предупреждение 101: точка монтирования игнорируется при перемонтировании\n"
+
+#: ../src/udevil.c:3632
+#, c-format
+msgid "udevil: warning 102: device %s is already mounted on %s\n"
+msgstr "udevil: предупреждение 102: устройство %s уже примонтировано в %s\n"
+
+#: ../src/udevil.c:3644
+msgid "udevil: error 103: no valid existing directory in allowed_media_dirs\n"
+msgstr "udevil: ошибка 103: в allowed_media_dirs нет корректного существующего каталога\n"
+
+#: ../src/udevil.c:3740
+#, c-format
+msgid "udevil: error 104: mount point '%s' is not a valid UTF8 string\n"
+msgstr "udevil: ошибка 104: точка монтирования '%s' не является корректной строкой UTF8\n"
+
+#: ../src/udevil.c:3762
+#, c-format
+msgid "udevil: error 105: mkdir '%s' failed\n"
+msgstr "udevil: ошибка 105: не удалось создать '%s'\n"
+
+#. try cifs as guest first
+#: ../src/udevil.c:3795
+#, c-format
+msgid "udevil: trying %s as guest\n"
+msgstr "udevil: попытка примонтировать %s как гостевой ресурс\n"
+
+#: ../src/udevil.c:3806
+#, c-format
+msgid "udevil: trying with %s\n"
+msgstr "udevil: попытка с %s\n"
+
+#: ../src/udevil.c:3848
+msgid "udevil: warning 106: invalid mount_point_mode in udevil.conf - using 0755\n"
+msgstr "udevil: предупреждение 106: некорректный mount_point_mode в udevil.conf - используется 0755\n"
+
+#: ../src/udevil.c:3907
+#, c-format
+msgid "udevil: error 107: %s\n"
+msgstr "udevil: ошибка 107: %s\n"
+
+#: ../src/udevil.c:3922
+msgid "udevil: error 108: remove requires DEVICE argument\n"
+msgstr "udevil: ошибка 108: remove требует аргумента DEVICE\n"
+
+#: ../src/udevil.c:3928
+#, c-format
+msgid "udevil: error 109: cannot stat %s: %s\n"
+msgstr "udevil: ошибка 109: невозможно прочитать %s: %s\n"
+
+#: ../src/udevil.c:3936
+#, c-format
+msgid "udevil: error 110: %s is not a block device\n"
+msgstr "udevil: ошибка 110: %s не является блочным устройством\n"
+
+#: ../src/udevil.c:3943
+msgid "udevil: error 111: error initializing libudev\n"
+msgstr "udevil: ошибка 111: ошибка инициализации libudev\n"
+
+#: ../src/udevil.c:3950
+#, c-format
+msgid "udevil: error 112: no udev device for device %s\n"
+msgstr "udevil: ошибка 112: нет устройства udev для устройства %s\n"
+
+#: ../src/udevil.c:3959
+msgid "udevil: error 113: unable to get device info\n"
+msgstr "udevil: ошибка 113: невозможно получить информацию об устройстве\n"
+
+#: ../src/udevil.c:3971
+#, c-format
+msgid "udevil: warning 114: device %s is an internal device - not unbinding driver\n"
+msgstr "udevil: предупреждение 114: устройство %s является внутренним - не отсоединяем драйвер\n"
+
+#: ../src/udevil.c:3982
+msgid "udevil: warning 115: interface is not usb, firewire, sdio, esata - not unbinding driver\n"
+msgstr "udevil: предупреждение 115: интерфейс не usb, firewire, sdio, esata - не отсоединяем драйвер\n"
+
+#: ../src/udevil.c:3990
+#, c-format
+msgid "udevil: denied 116: device %s is not an allowed device\n"
+msgstr "udevil: отказано 116: устройство %s не является разрешенным устройством\n"
+
+#: ../src/udevil.c:3996
+#, c-format
+msgid "udevil: denied 117: device %s is a forbidden device\n"
+msgstr "udevil: отказано 117: устройство %s является запрещенным устройством\n"
+
+#: ../src/udevil.c:4034
+#, c-format
+msgid "udevil: unmount %s\n"
+msgstr ""
+
+#: ../src/udevil.c:4068
+#, c-format
+msgid "udevil: error 118: unable to access dir %s\n"
+msgstr "udevil: ошибка 118: невозможно получить доступ к каталогу %s\n"
+
+#: ../src/udevil.c:4093
+#, c-format
+msgid "udevil: examining partition %s\n"
+msgstr "udevil: осмотр раздела %s\n"
+
+#. unmount partition
+#: ../src/udevil.c:4098
+#, c-format
+msgid "udevil: unmount partition %s\n"
+msgstr "udevil: размонтирование раздела %s\n"
+
+#: ../src/udevil.c:4150
+#, c-format
+msgid "udevil: error 119: unable to find host for %s\n"
+msgstr "udevil: ошибка 119: невозможно найти узел для %s\n"
+
+#: ../src/udevil.c:4156
+#, c-format
+msgid "udevil: error 120: unable to find host for %s\n"
+msgstr "udevil: ошибка 120: невозможно найти узел для %s\n"
+
+#: ../src/udevil.c:4165
+#, c-format
+msgid "udevil: error 121: unable to find last component for %s\n"
+msgstr "udevil: ошибка 121: невозможно найти последний компонент для %s\n"
+
+#: ../src/udevil.c:4189
+#, c-format
+msgid "udevil: warning 122: missing power autosuspend %s\n"
+msgstr "udevil: предупреждение 122: отсутствует автоприостановка питания %s\n"
+
+#: ../src/udevil.c:4201
+#, c-format
+msgid "udevil: warning 123: missing power control %s\n"
+msgstr "udevil: предупреждение 123: отсутствует управление питанием %s\n"
+
+#: ../src/udevil.c:4230
+#, c-format
+msgid "udevil: error 124: %s\n"
+msgstr "udevil: ошибка 124: %s\n"
+
+#: ../src/udevil.c:4311
+msgid "udevil: error 126: info requires DEVICE argument\n"
+msgstr "udevil: ошибка 126: info требует аргумента DEVICE\n"
+
+#: ../src/udevil.c:4317
+#, c-format
+msgid "udevil: error 127: cannot stat %s: %s\n"
+msgstr "udevil: ошибка 127: невозможно прочитать %s: %s\n"
+
+#: ../src/udevil.c:4325
+#, c-format
+msgid "udevil: error 128: %s is not a block device\n"
+msgstr "udevil: ошибка 128: %s не является блочным устройством\n"
+
+#: ../src/udevil.c:4332
+msgid "udevil: error 129: error initializing libudev\n"
+msgstr "udevil: ошибка 129: ошибка инициализации libudev\n"
+
+#: ../src/udevil.c:4339
+#, c-format
+msgid "udevil: error 130: no udev device for device %s\n"
+msgstr "udevil: ошибка 130: нет устройства udev для устройства %s\n"
+
+#: ../src/udevil.c:4355
+msgid "udevil: error 131: unable to get device info\n"
+msgstr "udevil: ошибка 131: невозможно получить информацию о устройстве\n"
+
+#: ../src/udevil.c:4407
+msgid "udevil: error 132: unable to initialize udev\n"
+msgstr "udevil: ошибка 132: невозможно инициализировать udev\n"
+
+#: ../src/udevil.c:4418
+msgid "udevil: error 133: cannot create udev monitor\n"
+msgstr "udevil: ошибка 133: невозможно создать монитор udev\n"
+
+#: ../src/udevil.c:4423
+msgid "udevil: error 134: cannot enable udev monitor receiving\n"
+msgstr "udevil: ошибка 134: невозможно включить прием данных монитора udev\n"
+
+#: ../src/udevil.c:4428
+msgid "udevil: error 135: cannot set udev filter\n"
+msgstr "udevil: ошибка 135: невозможно выставить фильтр udev\n"
+
+#: ../src/udevil.c:4435
+msgid "udevil: error 136: cannot get udev monitor socket file descriptor\n"
+msgstr "udevil: ошибка 136: невозможно прочитать дескриптор файла сокета монитора udev\n"
+
+#: ../src/udevil.c:4456
+#, c-format
+msgid "udevil: error 137: monitoring /proc/self/mountinfo: %s\n"
+msgstr "udevil: ошибка 137: мониторинг /proc/self/mountinfo: %s\n"
+
+#: ../src/udevil.c:4510
+#, c-format
+msgid "Mounts and unmounts devices without password, shows device info, monitors\n"
+msgstr "Монтирует и размонтирует устройства без ввода пароля, показывает информацию об устройствах, мониторит\n"
+
+#: ../src/udevil.c:4511
+#, c-format
+msgid "device changes.  Emulates udisks1/2 command line usage and udisks1 output.\n"
+msgstr "изменения устройств. Эмулирует поведение udisks1/2 и вывод udisks1.\n"
+
+#: ../src/udevil.c:4512
+#, c-format
+msgid "Usage: udevil [OPTIONS] COMMAND [COMMAND-OPTIONS] [COMMAND-ARGUMENTS]\n"
+msgstr "Использование: udevil [ПАРАМЕТРЫ] КОМАНДА [ПАРАМЕТРЫ_КОМАНДЫ] [АРГУМЕНТЫ_КОМАНДЫ]\n"
+
+#: ../src/udevil.c:4513
+#, c-format
+msgid "OPTIONS:\n"
+msgstr "ПАРАМЕТРЫ:\n"
+
+#: ../src/udevil.c:4514
+msgid "print details"
+msgstr "детальный вывод"
+
+#: ../src/udevil.c:4515
+msgid "minimal output"
+msgstr "минимальный вывод"
+
+#: ../src/udevil.c:4516
+#, c-format
+msgid "MOUNT  -  Mounts DEVICE to mount point DIR with MOUNT-OPTIONS:\n"
+msgstr "MOUNT - Монтирует УСТРОЙСТВО в точку монтирования КАТАЛОГ с ПАРАМЕТРАМИ_МОНТИРОВАНИЯ:\n"
+
+#: ../src/udevil.c:4517
+#, c-format
+msgid "    udevil mount|--mount [MOUNT-OPTIONS] [[-b|--block-device] DEVICE] [DIR]\n"
+msgstr "    udevil mount|--mount [ПАРАМЕТРЫ_МОНТИРОВАНИЯ] [[-b|--block-device] УСТРОЙСТВО] [КАТАЛОГ]\n"
+
+#: ../src/udevil.c:4518
+#, c-format
+msgid "    MOUNT-OPTIONS:\n"
+msgstr "    ПАРАМЕТРЫ_МОНТИРОВАНИЯ:\n"
+
+#: ../src/udevil.c:4519
+#: ../src/udevil.c:4520
+msgid "see man mount"
+msgstr "смотрите man mount"
+
+#. printf( "    -L LABEL                                    mount device by label LABEL\n" );
+#. printf( "    -U UUID                                     mount device by UUID\n" );
+#: ../src/udevil.c:4523
+#: ../src/udevil.c:4555
+#: ../src/udevil.c:4566
+msgid "ignored (for compatibility)"
+msgstr "игнорируется (для совместимости)"
+
+#: ../src/udevil.c:4524
+#: ../src/udevil.c:4556
+msgid "EXAMPLES"
+msgstr "ПРИМЕРЫ"
+
+#. printf( "    udevil mount -L 'Disk Label'\n" );
+#: ../src/udevil.c:4529
+msgid "ISO file"
+msgstr "файл ISO"
+
+#: ../src/udevil.c:4530
+msgid "ftp site - requires"
+msgstr "ресурс ftp - требуется"
+
+#: ../src/udevil.c:4531
+msgid "or"
+msgstr "или"
+
+#: ../src/udevil.c:4532
+#: ../src/udevil.c:4534
+msgid "ftp share with"
+msgstr "ресурс ftp с"
+
+#: ../src/udevil.c:4533
+msgid "user and password"
+msgstr "пользователем и паролем"
+
+#: ../src/udevil.c:4535
+msgid "port, user and password"
+msgstr "портом, пользователем и паролем"
+
+#: ../src/udevil.c:4536
+msgid "ftp site with ftpfs"
+msgstr "ресурс ftp с ftpfs"
+
+#: ../src/udevil.c:4537
+msgid "ftp site with curl"
+msgstr "ресурс ftp с curl"
+
+#: ../src/udevil.c:4538
+msgid "ftp site with curl u/p"
+msgstr "ресурс ftp с curl u/p"
+
+#: ../src/udevil.c:4539
+#: ../src/udevil.c:4540
+msgid "nfs share"
+msgstr "ресурс nfs"
+
+#: ../src/udevil.c:4541
+#: ../src/udevil.c:4543
+msgid "samba share w/ cifs"
+msgstr "ресурс samba с: cifs"
+
+#: ../src/udevil.c:4542
+msgid "samba share w/ u/p/port"
+msgstr "ресурс samba с: пользователь/пароль/порт"
+
+#: ../src/udevil.c:4544
+msgid "samba share w/ smbfs"
+msgstr "ресурс samba с: smbfs"
+
+#: ../src/udevil.c:4545
+msgid "sshfs with user - "
+msgstr "sshfs с пользователем -"
+
+#: ../src/udevil.c:4546
+msgid "requires sshfs"
+msgstr "требует sshfs"
+
+#: ../src/udevil.c:4547
+msgid "sshfs with user"
+msgstr "sshfs с пользователем"
+
+#: ../src/udevil.c:4548
+msgid "make a ram drive"
+msgstr "создать ram-устройство"
+
+#: ../src/udevil.c:4549
+#, c-format
+msgid "UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:\n"
+msgstr "UNMOUNT - Размонтировать УСТРОЙСТВО или КАТАЛОГ с ПАРАМЕТРАМИ_РАЗМОНТИРОВАНИЯ:\n"
+
+#: ../src/udevil.c:4550
+#, c-format
+msgid "    udevil umount|unmount|--unmount|--umount [UNMOUNT-OPTIONS] \n"
+msgstr "    udevil umount|unmount|--unmount|--umount [ПАРАМЕТРЫ_РАЗМОНТИРОВАНИЯ] \n"
+
+#: ../src/udevil.c:4551
+#, c-format
+msgid "                                              {[-b|--block-device] DEVICE}|DIR\n"
+msgstr "                                              {[-b|--block-device] УСТРОЙСТВО}|КАТАЛОГ\n"
+
+#: ../src/udevil.c:4552
+#, c-format
+msgid "    UNMOUNT-OPTIONS:\n"
+msgstr "    ПАРАМЕТРЫ_РАЗМОНТИРОВАНИЯ:\n"
+
+#: ../src/udevil.c:4553
+#: ../src/udevil.c:4564
+msgid "lazy unmount (see man umount)"
+msgstr "lazy unmount (смотри man umount)"
+
+#: ../src/udevil.c:4554
+#: ../src/udevil.c:4565
+msgid "force unmount (see man umount)"
+msgstr "force unmount (смотри man umount)"
+
+#: ../src/udevil.c:4560
+#, c-format
+msgid "REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe\n"
+msgstr "REMOVE  -  Размонтировать все разделы на УСТРОЙСТВЕ и приготовить его для безопасного\n"
+
+#: ../src/udevil.c:4561
+#, c-format
+msgid "           removal (sync, stop, unbind driver, and power off):\n"
+msgstr "           извлечения (sync, stop, unbind driver, and power off):\n"
+
+#: ../src/udevil.c:4562
+#, c-format
+msgid "    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n"
+msgstr "    udevil remove|--remove|--detach [ПАРАМЕТРЫ] [-b|--block-device] УСТРОЙСТВО\n"
+
+#: ../src/udevil.c:4563
+#, c-format
+msgid "    OPTIONS:\n"
+msgstr "    ПАРАМЕТРЫ:\n"
+
+#: ../src/udevil.c:4567
+#: ../src/udevil.c:4570
+#: ../src/udevil.c:4573
+msgid "EXAMPLE"
+msgstr "ПРИМЕР"
+
+#: ../src/udevil.c:4568
+#, c-format
+msgid "INFO  -  Show information about DEVICE emulating udisks v1 output:\n"
+msgstr "INFO  -  Показать информацию об УСТРОЙСТВЕ, эмулируя вывод udisks v1:\n"
+
+#: ../src/udevil.c:4569
+#, c-format
+msgid "    udevil info|--show-info|--info [-b|--block-device] DEVICE\n"
+msgstr "    udevil info|--show-info|--info [-b|--block-device] УСТРОЙСТВО\n"
+
+#: ../src/udevil.c:4571
+#, c-format
+msgid "MONITOR  -  Display device events emulating udisks v1 output:\n"
+msgstr "MONITOR  -  Вывод событий устойства в формате udisks v1:\n"
+
+#: ../src/udevil.c:4574
+#, c-format
+msgid "CLEAN  -  Remove unmounted udevil-created mount dirs in media dirs\n"
+msgstr "CLEAN  -  Удалить пустые точки монтирования, созданные udevil\n"
+
+#: ../src/udevil.c:4576
+#, c-format
+msgid "HELP  -  Show this help\n"
+msgstr "HELP  -  показать эту справку\n"
+
+#: ../src/udevil.c:4579
+msgid "See /etc/udevil/udevil.conf for config."
+msgstr "Смотри /etc/udevil/udevil.conf для конфигурации."
+
+#: ../src/udevil.c:4580
+#, c-format
+msgid "For automounting with udevil run 'devmon --help'\n"
+msgstr "Для автомонтирования при помощи udevil, выполните 'devmon --help'\n"
+
+#: ../src/udevil.c:4674
+msgid "udevil: read config /etc/udevil/udevil.conf\n"
+msgstr "udevil: чтение конфигурации /etc/udevil/udevil.conf\n"
+
+#: ../src/udevil.c:4721
+msgid "udevil: error 138: argument is not valid UTF-8\n"
+msgstr "udevil: ошибка 138: аргумент не является корректной строкой UTF-8\n"
+
+#: ../src/udevil.c:5021
+msgid "udevil: error 139: too many arguments\n"
+msgstr "udevil: ошибка 139: слишком много аргументов\n"
+
+#: ../src/udevil.c:5024
+#, c-format
+msgid "udevil: error 140: option '%s' requires an argument\n"
+msgstr "udevil: ошибка 140: параметру '%s' требуется аргумент\n"
+
+#: ../src/udevil.c:5028
+#, c-format
+msgid "udevil: error 141: invalid option '%s'\n"
+msgstr "udevil: ошибка 141: некорректный параметр '%s'\n"
+
+#: ../src/udevil.c:5030
+#, c-format
+msgid "udevil: error 142: invalid or unexpected argument '%s'\n"
+msgstr "udevil: ошибка 142: некорректный или неожиданный параметр '%s'\n"
+

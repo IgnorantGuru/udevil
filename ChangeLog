@@ -9,6 +9,7 @@
     ready for translations - see TRANSLATE
     translation independent msg numbers in errors, warnings, and denied msgs
     test forbidden file consistently
+    Russian translation by Vladimir Kudrya
 0.3.0   2012-07-13:
     cifs,ftpfs dont quote username, double quote password #3
     default udevil.conf: allow option flush
