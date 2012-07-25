@@ -21,6 +21,29 @@
 
 
 <!-- --------------------------------------------------------------------- -->
+<br><hr><a name="0.3.1"></a>
+<big><b><a href="#0.3.1">0.3.1 released</a></b></big><br>
+2012-Jul-25
+
+<br><br>
+udevil is now ready for translation (see <a href="https://github.com/IgnorantGuru/udevil/blob/next/TRANSLATE">TRANSLATE</a>).  Thanks to <b>Vladimir Kudrya</b> for providing an initial <b>Russian translation</b>!
+
+<p>devmon has been updated to 1.1.2.  It will now automatically run 'udevil clean' to <b>remove unused device mount points</b> when a device is removed, in case it is unmounted by other means (udevil clean is only run if udevil is devmon's current mount program in use).
+
+<p>Some fixes for guest mounts on <b>smb</b> are included - udevil will first try a guest mount, then a user mount.
+
+<p><b>ssh</b> now passes any specified port to sshfs, and will specify the current user if none is specified.
+
+<p>A <b>default_options_ntfs</b> line has been added to the default <a href="udevil.conf.txt">udevil.conf</a>
+
+<p>Translation independent numbers have been added to messages.
+
+<br>
+<br>
+
+
+
+<!-- --------------------------------------------------------------------- -->
 <br><hr><a name="archrepo"></a>
 <big><b><a href="#archrepo">udevil in Arch Linux</a></b></big><br>
 2012-Jul-13
