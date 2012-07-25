@@ -1,4 +1,4 @@
-0.3.0+
+0.3.1   2012-07-25:
     cifs,smbfs use guest option when no user specified
     sshfs add port as option
     added default_options_ntfs to udevil.conf
