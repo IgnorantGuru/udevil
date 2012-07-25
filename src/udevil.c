@@ -4557,7 +4557,7 @@ static void show_help()
     printf( "              udevil umount /media/disk\n" );
     printf( "              udevil umount -l /media/disk\n" );
     printf( "              udevil umount /tmp/example.iso\n" );
-#if 0
+#if 1
     printf( _("REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe\n") );
     printf( _("           removal (sync, stop, unbind driver, and power off):\n") );
     printf( _("    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n") );
@@ -4774,7 +4774,7 @@ printf("\n-----------------------\n");
                         ac += next_inc;
                     }
                 }
-#if 0
+#if 1
                 else if ( !strcmp( arg, "remove" ) || !strcmp( arg, "--remove" )
                                                    || !strcmp( arg, "--detach" ) )
                 {
