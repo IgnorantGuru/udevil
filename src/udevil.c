@@ -4557,6 +4557,7 @@ static void show_help()
     printf( "              udevil umount /media/disk\n" );
     printf( "              udevil umount -l /media/disk\n" );
     printf( "              udevil umount /tmp/example.iso\n" );
+#if 0
     printf( _("REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe\n") );
     printf( _("           removal (sync, stop, unbind driver, and power off):\n") );
     printf( _("    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n") );
@@ -4565,6 +4566,7 @@ static void show_help()
     printf( "    -f                                          %s\n", _("force unmount (see man umount)") );
     printf( "    --no-user-interaction                       %s\n", _("ignored (for compatibility)") );
     printf( "    %s: udevil remove /dev/sdd\n", _("EXAMPLE") );
+#endif
     printf( _("INFO  -  Show information about DEVICE emulating udisks v1 output:\n") );
     printf( _("    udevil info|--show-info|--info [-b|--block-device] DEVICE\n") );
     printf( "    %s:  udevil info /dev/sdd1\n", _("EXAMPLE") );
@@ -4772,6 +4774,7 @@ printf("\n-----------------------\n");
                         ac += next_inc;
                     }
                 }
+#if 0
                 else if ( !strcmp( arg, "remove" ) || !strcmp( arg, "--remove" )
                                                    || !strcmp( arg, "--detach" ) )
                 {
@@ -4782,6 +4785,7 @@ printf("\n-----------------------\n");
                         ac += next_inc;
                     }
                 }
+#endif
                 else if ( !strcmp( arg, "--verbose" ) )
                     verbose = 0;
                 else if ( !strcmp( arg, "--quiet" ) )

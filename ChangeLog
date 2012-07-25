@@ -1,7 +1,6 @@
 0.3.0+
     cifs,smbfs use guest option when no user specified
     sshfs add port as option
-    added remove command to unmount and remove device safely
     added default_options_ntfs to udevil.conf
     [devmon 1.1.2] udevil clean on remove device #6
     sshfs supplies current user if none specified
