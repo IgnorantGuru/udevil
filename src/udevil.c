@@ -14,6 +14,9 @@
 #endif
 #include <time.h>
 
+// locale
+#include <locale.h>
+
 // glib
 #include <glib.h>
 #include <glib/gstdio.h>
