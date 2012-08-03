@@ -1,6 +1,8 @@
 0.3.1+
     added remove to remove devices safely (under development)
     accept smb workgroup/user
+    curlftpfs pass user:pass as option
+    allow email address as username
 0.3.1   2012-07-25:
     cifs,smbfs use guest option when no user specified
     sshfs add port as option

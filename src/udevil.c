@@ -2373,6 +2373,11 @@ static int parse_network_url( const char* url, const char* fstype,
     // user:pass
     if ( str = strchr( xurl, '@' ) )
     {
+        if ( str2 = strchr( str + 1, '@' ) )
+        {
+            // there is a second @ - assume username contains email address
+            str = str2;
+        }
         str[0] = '\0';
         if ( str2 = strchr( xurl, ':' ) )
         {
@@ -2422,11 +2427,7 @@ static int parse_network_url( const char* url, const char* fstype,
         else if ( !strcmp( nm->fstype, "nfs" ) )
             nm->url = g_strdup_printf( "%s:%s", nm->host, nm->path ? nm->path : "/" );
         else if ( !g_strcmp0( nm->fstype, "curlftpfs" ) )
-            nm->url = g_strdup_printf( "curlftpfs#ftp://%s%s%s%s%s%s%s%s",
-                            nm->user ? nm->user : "",
-                            nm->pass ? ":" : "",
-                            nm->pass ? nm->pass : "",
-                            nm->user || nm->pass ? "@" : "",
+            nm->url = g_strdup_printf( "curlftpfs#ftp://%s%s%s%s",
                             nm->host,
                             nm->port ? ":" : "",
                             nm->port ? nm->port : "",
@@ -3367,6 +3368,17 @@ _get_type:
                 g_free( str );
             }
         }
+        else if ( !strcmp( fstype, "curlftpfs" ) )
+        {
+            if ( netmount->user )
+            {
+                if ( netmount->pass )
+                    net_opts = g_strdup_printf( "user=%s:%s", netmount->user,
+                                                                    netmount->pass );
+                else
+                    net_opts = g_strdup_printf( "user=%s", netmount->user );
+            }
+        }
         else if ( !strcmp( fstype, "nfs" ) )
         {
             if ( netmount->port )
@@ -3449,7 +3461,7 @@ _get_type:
 
     // test options
     if ( ( i = strspn( options,
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-=+_,.\"'$/" ) )
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-=+_,.:;\"'$@/" ) )
                                                     != strlen( options ) )
     {
         str = g_strdup_printf( _("udevil: error 89: options contain an invalid character ('%c')\n"),
