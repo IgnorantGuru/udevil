@@ -4561,7 +4561,7 @@ static void show_help()
     printf( "    udevil mount sys.domain:/share                   # %s\n", _("nfs share") );
     printf( "    udevil mount smb://sys.domain/share              # %s\n", _("samba share w/ cifs") );
     printf( "    udevil mount smb://user:pass@10.0.0.1:50/share   # %s\n", _("samba share w/ u/p/port") );
-    printf( "    udevil mount smb://workgroup/user@sys.domain     # %s\n", _("samba share w/ workgroup") );
+    printf( "    udevil mount smb://WORKGROUP/user@sys.domain     # %s\n", _("samba share w/ workgroup") );
     printf( "    udevil mount //sys.domain/share                  # %s\n", _("samba share w/ cifs") );
     printf( "    udevil mount //sys.domain/share -t smbfs         # %s\n", _("samba share w/ smbfs") );
     printf( "    udevil mount ssh://user@sys.domain               # %s\n", _("sshfs with user - ") );
