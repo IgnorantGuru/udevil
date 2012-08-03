@@ -1,5 +1,6 @@
 0.3.1+
     added remove to remove devices safely (under development)
+    accept smb workgroup/user
 0.3.1   2012-07-25:
     cifs,smbfs use guest option when no user specified
     sshfs add port as option

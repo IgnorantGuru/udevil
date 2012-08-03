@@ -2366,17 +2366,10 @@ static int parse_network_url( const char* url, const char* fstype,
     {
         xurl = str + 1;
     }
-
     while ( xurl[0] == '/' )
         xurl++;
     char* trim_url = g_strdup( xurl );
 
-    // path
-    if ( str = strchr( xurl, '/' ) )
-    {
-        nm->path = g_strdup( str );
-        str[0] = '\0';
-    }
     // user:pass
     if ( str = strchr( xurl, '@' ) )
     {
@@ -2390,6 +2383,12 @@ static int parse_network_url( const char* url, const char* fstype,
         if ( xurl[0] != '\0' )
             nm->user = g_strdup( xurl );
         xurl = str + 1;
+    }
+    // path
+    if ( str = strchr( xurl, '/' ) )
+    {
+        nm->path = g_strdup( str );
+        str[0] = '\0';
     }
     // host:port
     if ( xurl[0] == '[' )
@@ -3376,7 +3375,17 @@ _get_type:
         else if ( !strcmp( fstype, "smbfs" ) || !strcmp( fstype, "cifs" ) )
         {
             if ( netmount->user )
-                net_opts = g_strdup_printf( "user=%s", netmount->user );
+            {
+                if ( str = strchr( netmount->user, '/' ) )
+                {
+                    // domain included   DOMAIN/USER@HOST
+                    str[0] = '\0';
+                    net_opts = g_strdup_printf( "user=%s,domain=%s", str + 1, netmount->user );
+                    str[0] = '/';
+                }
+                else
+                    net_opts = g_strdup_printf( "user=%s", netmount->user );
+            }
             else
                 net_opts = g_strdup( "" );
             if ( netmount->pass )
@@ -4540,6 +4549,7 @@ static void show_help()
     printf( "    udevil mount sys.domain:/share                   # %s\n", _("nfs share") );
     printf( "    udevil mount smb://sys.domain/share              # %s\n", _("samba share w/ cifs") );
     printf( "    udevil mount smb://user:pass@10.0.0.1:50/share   # %s\n", _("samba share w/ u/p/port") );
+    printf( "    udevil mount smb://workgroup/user@sys.domain     # %s\n", _("samba share w/ workgroup") );
     printf( "    udevil mount //sys.domain/share                  # %s\n", _("samba share w/ cifs") );
     printf( "    udevil mount //sys.domain/share -t smbfs         # %s\n", _("samba share w/ smbfs") );
     printf( "    udevil mount ssh://user@sys.domain               # %s\n", _("sshfs with user - ") );
