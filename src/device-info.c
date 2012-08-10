@@ -1299,8 +1299,6 @@ gboolean device_get_info( device_t *device, GList* devmounts )
     device->device_is_system_internal = info_is_system_internal( device );
     device->mount_points = info_mount_points( device, devmounts );
     device->device_is_mounted = ( device->mount_points != NULL );
-    if ( device->device_is_mounted )
-        device->device_is_media_available = TRUE;
     info_partition_table( device );
     info_partition( device );
     info_optical_disc( device );
