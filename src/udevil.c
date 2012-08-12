@@ -2937,15 +2937,24 @@ _get_type:
         else
         {
             // use udev determined type
+            str = NULL;
             if ( device->id_type && device->id_type[0] != '\0' )
                 fstype = g_strdup( device->id_type );
+            else if ( device_is_mounted_mtab( data->device_file, NULL, &str )
+                                                    && str && str[0] != '\0' )
+                // an ejected cd may still be mounted so get fstype from mtab
+                fstype = str;
             else
             {
-                if ( !device->device_is_mounted && !device->device_is_media_available )
+                if ( data->cmd_type == CMD_UNMOUNT )
+                    wlog( _("udevil: error 143: unable to determine device fstype\n"),
+                                                                        NULL, 2 );
+                else if ( !device->device_is_media_available )
                     wlog( _("udevil: error 63: no media in device %s (or specify type with -t)\n"),
                                                         data->device_file, 2 );
                 else
-                    wlog( _("udevil: error 64: unable to determine device fstype - specify with -t\n"), NULL, 2 );
+                    wlog( _("udevil: error 64: unable to determine device fstype - specify with -t\n"),
+                                                                        NULL, 2 );
                 ret = 1;
                 goto _finish;
             }
