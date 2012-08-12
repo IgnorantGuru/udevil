@@ -299,10 +299,10 @@ if (( execoix + execomx + execovx + execoax + execodx + execolx + execoux + exec
 fi
 
 # Discovery
-udevil=`which udevil`
-udisks1=`which udisks`
-udisks2=`which udisksctl`
-pmount=`which pmount`
+udevil=`which udevil 2>/dev/null`
+udisks1=`which udisks 2>/dev/null`
+udisks2=`which udisksctl 2>/dev/null`
+pmount=`which pmount 2>/dev/null`
 
 if [ "$udevil" != "" ] && [ -x "$udevil" ]; then
 	info_cmd="$udevil"
