@@ -15,7 +15,7 @@ defaultmountoptions="noexec,nosuid,nodev,noatime"
 help()
 {
 	cat << EOF
-devmon version 1.1.2  (distributed with udevil)
+devmon version 1.1.3  (distributed with udevil)
 Automounts and unmounts optical and removable drives
 Requires:    udevil bash>=4        Also Recommended: eject zenity
 Optional:    udisks v1 may be substituted for udevil
@@ -1084,19 +1084,31 @@ while ps -p $COPROC_PID &>/dev/null; do
 					eval notejected${devpath#/dev/}=1
 				else
 					if [ "$systeminternal" != "1" ] && \
-						 [ "$ismounted" != "1" ] && [ "$hasmedia" = "0" ]; then
-						# disc ejected
-						echo "devmon: $devpath eject detected"
-						eval notejected${devpath#/dev/}=0
+													[ "$hasmedia" = "0" ]; then
+						if (( notejected == 1 )) || [ "$notejected" == "" ]; then
+							# disc ejected
+							echo "devmon: $devpath eject detected"
+							eval notejected${devpath#/dev/}=0
+						fi
+						if [ "$ismounted" != "0" ]; then
+							# unmount if ejected disc still mounted
+							unmountdev "$devpath"
+						fi
 					fi
 					if [ "$systeminternal" != "1" ] && [ "$ismounted" != "1" ] && \
-					   [ "$nopolicy" != "1" ] && [ "$devmounted" = "1" ]; then					
+							[ "$nopolicy" != "1" ] && [ "$devmounted" = "1" ]; then
 						# exec-on-unmount
 						if (( execoux != 0 )); then
-							if ( ! ignoredevice "$devpath" ) && ( ! ignorelabel "$label" ); then
+							if ( ! ignoredevice "$devpath" ) && \
+												( ! ignorelabel "$label" ); then
 								dv="$devpath"
 								execcommands "exec on unmount" "${execou[@]}"
 							fi
+						fi
+						# remove udevil mount point in case unmounted by other
+						if [ "$mount_cmd" = "$udevil" ]; then
+							echo "devmon: $udevil clean"
+							$udevil clean
 						fi
 					fi
 				fi
@@ -1112,12 +1124,13 @@ while ps -p $COPROC_PID &>/dev/null; do
 			mounterr=$?
 		fi
 		if [ $mounterr -eq 0 ]; then
-			unmountdev $devpath
+			unmountdev "${devpath}"
 		elif [ "$mount_cmd" = "$udevil" ]; then
-			# remove mount point of removed device which was unmounted by other
+			# remove udevil mount point in case unmounted by other
 			echo "devmon: $udevil clean"
 			$udevil clean
 		fi
+
 		# exec-on-remove
 		if (( execorx != 0 )); then
 			if ( ! ignoredevice "$devpath" ); then
