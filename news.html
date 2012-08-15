@@ -21,6 +21,26 @@
 
 
 <!-- --------------------------------------------------------------------- -->
+<br><hr><a name="0.3.2"></a>
+<big><b><a href="#0.3.2">0.3.2 released</a></b></big><br>
+2012-Aug-15
+
+<br><br>
+This maintenance release includes:
+<ul>
+    <li>udevil now allows <b>unmounting of qualified media which has already been ejected</b> even if there is no user entry in fstab (#6 #7)<br><br>
+    <li><b>devmon 1.1.3</b>, included with udevil 0.3.2, <b>automatically unmounts discs when they are ejected</b>, and also cleans udevil mount points when another process unmounts a udevil-mounted device<br><br>
+    <li>udevil now accepts a workgroup for smb mounting using the URL form <b>smb://WORKGROUP/user@sys.domain</b><br><br>
+    <li>A specified <b>ftp username and password</b> are now passed as an option to curlftpfs<br><br>
+    <li>An <b>email address</b> is now acceptable as a network username<br><br>
+    <li>The default <a href="udevil.conf.txt">udevil.conf</a> <b>no longer includes option ro in default_options_udf</b>.  (Note that this may cause mount to issue a normal 'mounted read-only' warning when mounting read-only media.)
+</ul>
+
+<br>
+
+
+
+<!-- --------------------------------------------------------------------- -->
 <br><hr><a name="0.3.1"></a>
 <big><b><a href="#0.3.1">0.3.1 released</a></b></big><br>
 2012-Jul-25
