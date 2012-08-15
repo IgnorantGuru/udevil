@@ -1,11 +1,11 @@
-0.3.1+
-    added remove to remove devices safely (under development)
+0.3.2   2012-08-15:
     accept smb workgroup/user
     curlftpfs pass user:pass as option
     allow email address as username
     allow unmount ejected disc #6 #7
     [devmon 1.1.3] unmount ejected disc; clean unmounted #6 #7
     [devmon 1.1.3] less verbose which
+    no default ro for udf in udevil.conf
 0.3.1   2012-07-25:
     cifs,smbfs use guest option when no user specified
     sshfs add port as option
