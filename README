@@ -1,4 +1,4 @@
-README for udevil v0.3.2 BETA TEST VERSION
+README for udevil v0.3.2+ BETA TEST VERSION
 
 
 THIS IS A TEST RELEASE - USE AT YOUR OWN RISK.
@@ -268,14 +268,24 @@ ENABLE KERNEL POLLING
 
     If you get 0 or -1 from those commands, then it's probably disabled.
 
-    TO ENABLE KERNEL POLLING TEMPORARILY, enable common polling for the block
-    module:
+    TO ENABLE KERNEL POLLING PERMANENTLY (survives a reboot), add this command
+    to your /etc/rc.local file (anywhere before the 'exit' line in that file):
 
-        sudo bash -c 'echo 2000 > /sys/module/block/parameters/events_dfl_poll_msecs'
+        echo 2000 > /sys/module/block/parameters/events_dfl_poll_msecs
 
     Any number between 2000 and 5000 (milliseconds) should be reasonable - the
     higher 5000 means poll every 5 seconds, which is less overhead but a little
     slower.
+
+    OR you can pass this option to the kernel boot command line in grub:
+
+        block.events_dfl_poll_msecs=2000
+
+
+    TO ENABLE KERNEL POLLING TEMPORARILY, enable common polling for the block
+    module:
+
+        sudo bash -c 'echo 2000 > /sys/module/block/parameters/events_dfl_poll_msecs'
 
     OR you can enable polling just for a single device like this (/dev/sr0 in
     this example):
@@ -285,16 +295,6 @@ ENABLE KERNEL POLLING
     The change should be immediate - media will be detected and the eject
     button on the drive should work normally again. However, the above changes
     will be lost when you reboot.
-
-    TO MAKE POLLING PERMANENT (survives a reboot), add one of the above
-    commands to your /etc/rc.local file (anywhere before the 'exit' line in
-    that file), like this (without the sudo):
-
-        echo 2000 > /sys/module/block/parameters/events_dfl_poll_msecs
-
-    OR you can pass this option to the kernel boot command line in grub:
-
-        block.events_dfl_poll_msecs=2000
 
     References:
     http://www.mail-archive.com/lfs-dev@linuxfromscratch.org/msg15714.html

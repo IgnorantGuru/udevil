@@ -19,7 +19,7 @@
 
 GETTEXT_PACKAGE = udevil
 PACKAGE = udevil
-VERSION = 0.3.2
+VERSION = 0.3.2+
 
 SHELL = /bin/bash
 
@@ -28,7 +28,7 @@ top_srcdir = ..
 top_builddir = ..
 
 
-prefix = /usr/local
+prefix = /usr
 exec_prefix = ${prefix}
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
