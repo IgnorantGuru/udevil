@@ -2,7 +2,7 @@
 <pre>
 $ udevil --help
 
-udevil version 0.3.1
+udevil version 0.3.2
 Mounts and unmounts devices without password, shows device info, monitors
 device changes.  Emulates udisks1/2 command line usage and udisks1 output.
 Usage: udevil [OPTIONS] COMMAND [COMMAND-OPTIONS] [COMMAND-ARGUMENTS]
@@ -33,6 +33,7 @@ MOUNT  -  Mounts DEVICE to mount point DIR with MOUNT-OPTIONS:
     udevil mount sys.domain:/share                   # nfs share
     udevil mount smb://sys.domain/share              # samba share w/ cifs
     udevil mount smb://user:pass@10.0.0.1:50/share   # samba share w/ u/p/port
+    udevil mount smb://WORKGROUP/user@sys.domain     # samba share w/ workgroup
     udevil mount //sys.domain/share                  # samba share w/ cifs
     udevil mount //sys.domain/share -t smbfs         # samba share w/ smbfs
     udevil mount ssh://user@sys.domain               # sshfs with user - 
@@ -50,6 +51,14 @@ UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:
               udevil umount /media/disk
               udevil umount -l /media/disk
               udevil umount /tmp/example.iso
+REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe
+           removal (sync, stop, unbind driver, and power off):
+    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE
+    OPTIONS:
+    -l                                          lazy unmount (see man umount)
+    -f                                          force unmount (see man umount)
+    --no-user-interaction                       ignored (for compatibility)
+    EXAMPLE: udevil remove /dev/sdd
 INFO  -  Show information about DEVICE emulating udisks v1 output:
     udevil info|--show-info|--info [-b|--block-device] DEVICE
     EXAMPLE:  udevil info /dev/sdd1
