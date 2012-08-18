@@ -3417,7 +3417,7 @@ _get_type:
             if ( netmount->pass )
             {
                 str = net_opts;
-                net_opts = g_strdup_printf( "%s,password=\"%s\"", str, netmount->pass );
+                net_opts = g_strdup_printf( "%s,password=%s", str, netmount->pass );
                 g_free( str );
             }
             if ( netmount->port )
