@@ -2,6 +2,7 @@
     update ru.po
     no quote cifs password
     allow most UTF-8 characters in options
+    default udevil.conf add utf8 to default_options_iso9660,ntfs,vfat
 0.3.2   2012-08-15:
     accept smb workgroup/user
     curlftpfs pass user:pass as option
