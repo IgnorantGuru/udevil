@@ -3474,12 +3474,11 @@ _get_type:
     }
 
     // test options
-    if ( ( i = strspn( options,
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-=+_,.:;\"'$@/" ) )
-                                                    != strlen( options ) )
+    if ( ( str2 = g_utf8_strchr( options, -1, '\\' ) ) ||
+         ( str2 = g_utf8_strchr( options, -1, ' ' ) ) )
     {
         str = g_strdup_printf( _("udevil: error 89: options contain an invalid character ('%c')\n"),
-                                                                    options[i] );
+                                                                    str2[0] );
         wlog( str, NULL, 2 );
         g_free( str );
         ret = 1;
