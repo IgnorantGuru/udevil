@@ -64,7 +64,7 @@
 #define ALLOWED_TYPES "$KNOWN_FILESYSTEMS,smbfs,cifs,nfs,ftpfs,curlftpfs,sshfs,file,tmpfs,ramfs"
 #define MAX_LOG_DAYS 60   // don't set this too high
 
-#define OPT_REMOVE   // build with under-development remove function
+//#define OPT_REMOVE   // build with under-development remove function
 
 static int command_clean();
 

@@ -1,8 +1,4 @@
-README for udevil v0.3.2+ BETA TEST VERSION
-
-
-THIS IS A TEST RELEASE - USE AT YOUR OWN RISK.
-Please test this version of udevil carefully before relying on its behavior.
+README for udevil v0.3.3
 
 
 For updates and instructions visit:
@@ -44,11 +40,13 @@ DESCRIPTION
 
 PACKAGES
 
-    antiX-12 base & full will include udevil (currently available in testing):
+    antiX-12 base & full includes udevil:
         http://sourceforge.net/projects/antix-linux/
 
-    Arch's AUR includes udevil-git:
-        https://aur.archlinux.org/packages.php?ID=59463
+    Arch Linux's [community] repository includes udevil (i686 and x86_64).
+        Also, the AUR includes udevil-git, which is the next version of udevil
+        as a work in progress: 
+            https://aur.archlinux.org/packages.php?ID=59463
 
     Debian-based deb packages are provided in Downloads:
         (to save a file, click on its filename and click 'View Raw'):

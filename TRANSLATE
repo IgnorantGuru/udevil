@@ -3,8 +3,8 @@ TRANSLATIONS
 Translating udevil doesn't require any special tools - just a text editor.
 To create a translation of udevil for your language, follow these steps.
 
-1)  Install build dependencies listed in README, download the udevil
-    source code tarball, and extract it.
+1)  Install build dependencies, download the udevil source code tarball, and
+    extract it (see README - BUILD).
 
 2)  Open a terminal and enter the source code subdirectory 'po'
 
