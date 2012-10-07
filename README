@@ -69,6 +69,9 @@ PACKAGES
     Parted Magic includes SpaceFM with udevil as its default file manager:
         http://partedmagic.com/doku.php
 
+    Slackware's SlackBuilds.org includes udevil:
+        http://slackbuilds.org/system/udevil/
+
     Other:  See INSTALLER below
 
     NOTE: See POST INSTALL section below for post-installation steps.
