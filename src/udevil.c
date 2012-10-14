@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <limits.h>
+#include <sys/wait.h>
 
 // time
 #ifndef __USE_XOPEN
