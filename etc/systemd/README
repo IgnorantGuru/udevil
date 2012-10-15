@@ -1,0 +1,13 @@
+devmon systemd service
+======================
+
+To Install:
+
+    cd etc/systemd
+    install -Dm644 devmon /etc/conf.d/devmon
+    install -Dm644 devmon@.service /usr/lib/systemd/system/devmon@.service
+
+To Start:
+
+    systemctl start devmon@<user>
+
