@@ -9,6 +9,7 @@ AC_PROG_INTLTOOL([0.21])
 
 AM_MAINTAINER_MODE
 AC_ISC_POSIX
+AM_PROG_CC_C_O
 AC_HEADER_STDC
 AM_PROG_LIBTOOL
 AC_PROG_INSTALL
@@ -75,6 +76,18 @@ AC_ARG_WITH(setfacl-prog,
 setfaclprog="$withval"
 
 
+# options
+AC_ARG_ENABLE(
+    [systemd],
+    AS_HELP_STRING([--disable-systemd],
+                   [disable installation of devmon daemon files for systemd (default: enable)]),
+		   use_systemd=$enableval, use_systemd="yes")
+if test x"$use_systemd" = x"yes"; then
+    AC_DEFINE([ADD_SYSTEMD], [1], [Copy devmon daemon systemd files])
+fi
+AM_CONDITIONAL(ADD_SYSTEMD, test "$use_systemd" = "yes")
+
+
 # check for libs    gobject-2.0 gmodule-2.0 gthread-2.0
 dnl Check for glib 2.0
 PKG_CHECK_MODULES(GLIB, [glib-2.0], , [
@@ -132,7 +145,7 @@ src/Makefile
 
 
 echo
-echo udevil....................................... : Version $VERSION BETA TEST
+echo udevil....................................... : Version $VERSION
 echo
 echo Linux device support......................... : libudev
 if test x"$mountprog" != x""; then
@@ -155,6 +168,7 @@ echo setfacl program.............................. : $setfaclprog
 else
 echo setfacl program.............................. : /usr/bin/setfacl
 fi
+echo install devmon systemd service............... : $use_systemd
 echo
 echo Installation Prefix.......................... : $prefix
 echo "      The binary will be installed as $prefix/bin/udevil"

@@ -220,7 +220,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = udevil.conf
+@ADD_SYSTEMD_FALSE@EXTRA_DIST = udevil.conf
+@ADD_SYSTEMD_TRUE@EXTRA_DIST = udevil.conf devmon devmon@.service
 all: all-am
 
 .SUFFIXES:
@@ -417,6 +418,13 @@ install-data-hook:
 	test -d $(DESTDIR)/etc/udevil || mkdir -p -- $(DESTDIR)/etc/udevil
 	test -f $(DESTDIR)/etc/udevil/udevil.conf || $(INSTALL_DATA) \
 				$(srcdir)/udevil.conf $(DESTDIR)/etc/udevil/udevil.conf
+@ADD_SYSTEMD_TRUE@	test -d $(DESTDIR)/etc/conf.d || mkdir -p -- $(DESTDIR)/etc/conf.d
+@ADD_SYSTEMD_TRUE@	test -f $(DESTDIR)/etc/conf.d/devmon || $(INSTALL_DATA) \
+@ADD_SYSTEMD_TRUE@				$(srcdir)/systemd/devmon $(DESTDIR)/etc/conf.d/devmon
+@ADD_SYSTEMD_TRUE@	test -d $(DESTDIR)/$(libdir)/systemd/system || \
+@ADD_SYSTEMD_TRUE@				mkdir -p -- $(DESTDIR)/$(libdir)/systemd/system
+@ADD_SYSTEMD_TRUE@	$(INSTALL_DATA) $(srcdir)/systemd/devmon@.service \
+@ADD_SYSTEMD_TRUE@				$(DESTDIR)/$(libdir)/systemd/system/devmon@.service
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

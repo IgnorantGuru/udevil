@@ -1,5 +1,7 @@
 0.3.3+
     btrfs moint point detection workaround - spacefm issue 165
+    adjustment for build on debian squeeze
+    install devmon systemd service files (or --disable-systemd) #10
 0.3.3   2012-09-14:
     update ru.po
     no quote cifs password

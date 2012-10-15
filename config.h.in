@@ -1,5 +1,8 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Copy devmon daemon systemd files */
+#undef ADD_SYSTEMD
+
 /* always defined to indicate that i18n is enabled */
 #undef ENABLE_NLS
 
@@ -60,6 +63,9 @@
 
 /* path to mount */
 #undef MOUNTPROG
+
+/* Define to 1 if your C compiler doesn't accept -c and -o together. */
+#undef NO_MINUS_C_MINUS_O
 
 /* Name of package */
 #undef PACKAGE

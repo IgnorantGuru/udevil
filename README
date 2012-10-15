@@ -16,10 +16,10 @@ CONTENTS
     CREATE DEB PACKAGE
     POST INSTALL
         Kernel Polling
-        Set SUID
         Networks and Files
-        FTP Support
         NTFS-3G
+        Set SUID
+        systemd Service
     ENABLE KERNEL POLLING
     UNINSTALL
     TRANSLATIONS
@@ -244,6 +244,13 @@ POST INSTALL
             -rwxr-xr-x 1 root root 226625 May 22 08:13 /usr/bin/udevil
 
     You can also limit users and groups by editing /etc/udevil/udevil.conf
+
+
+    systemd Service
+    ---------------
+    
+    To start devmon as a systemd service:
+        systemctl start devmon@<user>
 
 
 ENABLE KERNEL POLLING
