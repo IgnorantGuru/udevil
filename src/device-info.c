@@ -937,30 +937,16 @@ gchar* info_mount_points( device_t *device, GList* devmounts )
                 gchar mount_source[PATH_MAX];
                 struct stat statbuf;
 
-                if (sscanf (sep + 3, "%s %s", typebuf, mount_source) != 2)
+                if ( sscanf( sep + 3, "%s %s", typebuf, mount_source ) == 2 &&
+                                !g_strcmp0( typebuf, "btrfs" ) &&
+                                g_str_has_prefix( mount_source, "/dev/" ) &&
+                                stat( mount_source, &statbuf ) == 0 &&
+                                S_ISBLK( statbuf.st_mode ) )
                 {
-                    g_warning ("Error parsing things past - for '%s'", lines[n]);
-                    continue;
+                    major = major( statbuf.st_rdev );
+                    minor = minor( statbuf.st_rdev );
                 }
-                if (g_strcmp0 (typebuf, "btrfs") != 0)
-                    continue;
-                if (!g_str_has_prefix (mount_source, "/dev/"))
-                    continue;
-                if (stat (mount_source, &statbuf) != 0)
-                {
-                    g_warning ("Error statting %s: %m", mount_source);
-                    continue;
-                }
-                if (!S_ISBLK (statbuf.st_mode))
-                {
-                    g_warning ("%s is not a block device", mount_source);
-                    continue;
-                }
-                major = major( statbuf.st_rdev );
-                minor = minor( statbuf.st_rdev );
             }
-            else
-                continue;
         }
 
         if ( major != dmajor || minor != dminor )
