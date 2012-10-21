@@ -45,7 +45,7 @@ PACKAGES
 
     Arch Linux's [community] repository includes udevil (i686 and x86_64).
         Also, the AUR includes udevil-git, which is the next version of udevil
-        as a work in progress: 
+        as a work in progress:
             https://aur.archlinux.org/packages.php?ID=59463
 
     Debian-based deb packages are provided in Downloads:
@@ -111,7 +111,7 @@ BUILD
 
         Also recommended for network support: cifs-utils curlftpfs sshfs
 
-        Also recommended if using devmon: eject zenity
+        Also recommended if using devmon: eject spacefm|zenity
 
         configure will report anything missing when you run it as shown below.
 
@@ -131,18 +131,25 @@ BUILD
         # Remove Temporary Files
         cd / && rm -rf /tmp/udevil-build
 
-    NOTE: If configure reports missing dependencies, install them and run
-    configure again before proceeding to make.
+    NOTES:
 
-    NOTE: See POST INSTALL section below for post-installation steps.
+        * If configure reports missing dependencies, install them and run
+          configure again before proceeding to make.
+
+        * By default, systemd configuration files for devmon are installed to:
+              /etc/conf.d/devmon
+              /usr/lib/systemd/system/devmon@.service
+          To skip installation of these files, use configure option
+          --disable-systemd   In either case, systemd is NOT required.
+
+        * See POST INSTALL section below for post-installation steps.
 
 
 BUILD NEXT
 
     The git 'next' branch of udevil is a work in progress which eventually
-    becomes the next release version.  The next build is less stable in
-    general, and functions may be incomplete.  To build from this branch,
-    install the required build dependencies listed above in BUILD, then:
+    becomes the next release version.  To build from this branch, install the
+    required build dependencies listed above in BUILD, then:
 
     # Download & Extract
     mkdir /tmp/udevil-next && cd /tmp/udevil-next
@@ -248,7 +255,7 @@ POST INSTALL
 
     systemd Service
     ---------------
-    
+
     To start devmon as a systemd service:
         systemctl start devmon@<user>
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script Name: devmon    http://igurublog.wordpress.com/downloads/script-devmon/ 
-# Requires:    udevil bash>=4        Recommended: eject zenity
+# Requires:    udevil bash>=4        Recommended: eject spacefm|zenity
 # Optional:    udisks v1 may be substituted for udevil
 #              If udevil is not set suid, udisks v1/v2 or pmount is required
 # License: GNU GENERAL PUBLIC LICENSE Version 3 http://www.gnu.org/licenses/gpl-3.0.txt
@@ -15,9 +15,9 @@ defaultmountoptions="noexec,nosuid,nodev,noatime"
 help()
 {
 	cat << EOF
-devmon version 1.1.3  (distributed with udevil)
+devmon version 1.1.4  (distributed with udevil)
 Automounts and unmounts optical and removable drives
-Requires:    udevil bash>=4        Also Recommended: eject zenity
+Requires:    udevil bash>=4        Also Recommended: eject spacefm|zenity
 Optional:    udisks v1 may be substituted for udevil
              If udevil is not set suid, udisks v1/v2 or pmount is required
 Usage: devmon [AUTOMOUNT-OPTIONS]  # Run as daemon to automount
@@ -38,14 +38,14 @@ AUTOMOUNT-OPTIONS:  (these can be used only in daemon mode)
   Multiple --exec-on-XXX options may be used to execute multiple commands.
   Other exec-on-XXX commands are ignored if exec-on-device or -label executed.
 --mount-options "OPTIONS"          Default: $defaultmountoptions
---info-on-mount                    Show mounted drive info in a zenity dialog
+--info-on-mount                    Show mounted drive info in a popup dialog
 --no-mount                         Don't mount anything, just exec (disables
                                    --exec-on-video)
 --no-unmount                       Don't unmount all removable drives on exit
 
 MOUNT-OPTIONS:  (these can be used only in client mode)
 --unmount-removable | -r      Sync and unmount all removable drives and show
-                              pop-up dialog (zenity installation required)
+                              pop-up dialog (spacefm or zenity required)
 --unmount-recent | -c         Unmount most recently mounted removable drive
 --unmount-optical | -o        Unmount all optical drives (error pop-up only)
 --unmount-all | -u            Same as --unmount-removable --unmount-optical
@@ -63,7 +63,7 @@ UNIVERSAL OPTIONS:  (these can be used in both daemon and client modes)
                               flush for fat & vfat (slower writing but safer)
 --internal                    Also attempt to un/mount internal system drives
                               (this is mostly a fix for esata issues)
---no-gui | -g                 Do not show zenity pop-up dialogs
+--no-gui | -g                 Do not show spacefm/zenity pop-up dialogs
 Instructions and updates:
   http://igurublog.wordpress.com/downloads/script-devmon/
 EOF
@@ -303,6 +303,8 @@ udevil=`which udevil 2>/dev/null`
 udisks1=`which udisks 2>/dev/null`
 udisks2=`which udisksctl 2>/dev/null`
 pmount=`which pmount 2>/dev/null`
+zenity=`which zenity 2>/dev/null`
+spacefm=`which spacefm 2>/dev/null`
 
 if [ "$udevil" != "" ] && [ -x "$udevil" ]; then
 	info_cmd="$udevil"
@@ -507,8 +509,12 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 				if (( mountmode == 0 )) && (( polkiterrgiven != 1 )) && \
 				           [ "$(echo "$umsg" | grep 'Not *Authorized')" != "" ]; then
 					if (( nogui != 1 )); then
-						( sleep 3 && WINDOWID="" zenity --error --no-wrap --title="devmon error" \
-						  --text="udisks functions are not authorized through policykit,\nso devmon cannot automount drives.\nPlease install udevil or see devmon's consolekit installation instructions:\n\nhttp://igurublog.wordpress.com/downloads/script-devmon/#install\n\n(To silence this pop-up add --no-gui to devmon's command line.)" &> /dev/null ) &
+						if [ "$spacefm" != "" ]; then
+							( sleep 3 && $spacefm -g --title "devmon error" --window-icon error --label "udisks functions are not authorized through policykit,\nso devmon cannot automount drives.\nPlease install udevil or see devmon's consolekit installation instructions:\n\nhttp://igurublog.wordpress.com/downloads/script-devmon/#install\n\n(To silence this pop-up add --no-gui to devmon's command line.)" --button "Open Website" xdg-open "http://igurublog.wordpress.com/downloads/script-devmon/#install" --button ok &> /dev/null ) &							
+						else
+							( sleep 3 && WINDOWID="" $zenity --error --no-wrap --title="devmon error" \
+							  --text="udisks functions are not authorized through policykit,\nso devmon cannot automount drives.\nPlease install udevil or see devmon's consolekit installation instructions:\n\nhttp://igurublog.wordpress.com/downloads/script-devmon/#install\n\n(To silence this pop-up add --no-gui to devmon's command line.)" &> /dev/null ) &
+						fi
 					fi
 					echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" 1>&2
 					echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" 1>&2
@@ -667,8 +673,15 @@ mountdrive()   # $1=device $2=label  [$3=devtype or fstype]
 		sleep .5
 		echo "devmon: [info on mount] $dv"
 		if (( nogui != 1 )); then
-			WINDOWID="" zenity --info --text="The following device has been mounted:\n\n$(df -hT "$dv" \
+			if [ "$spacefm" != "" ]; then
+				$spacefm -g --title "devmon mount" --window-icon drive-removable-media --label \
+				"The following device has been mounted:\n\n$(df -hT "$dv" | grep "$dv" | \
+				awk '{print "Device:\\t"$1"\x0AType:\\t"$2"\nSize:\\t\\t"$3"\nUsed:\\t"$4"\n""Avail:\\t"$5"\nUse%:\\t"$6"\nMount:\\t"$7,$8,$9,$10}')\nLabel:\\t$lb" \
+				--button open spacefm "$point" --button ok &>/dev/null &
+			else
+				WINDOWID="" $zenity --info --text="The following device has been mounted:\n\n$(df -hT "$dv" \
 			   | grep "$dv" | awk '{print "Device:\\t"$1"\x0AType:\\t"$2"\nSize:\\t\\t"$3"\nUsed:\\t"$4"\n""Avail:\\t"$5"\nUse%:\\t"$6"\nMount:\\t"$7,$8,$9,$10}')\nLabel:\\t$lb" --title="devmon mount" &
+			fi
 		fi
 		df -hT "$dv"
 	fi
@@ -812,7 +825,11 @@ if (( mountmode != 0 )); then
 			echo "Preparing to unmount ${udrive[@]}"
 		fi
 		if (( nogui != 1 )); then
-			WINDOWID="" zenity --info --title="$msgtitle" --text="$msg" &> /dev/null &
+			if [ "$spacefm" != "" ]; then
+				spacefm -g --title "$msgtitle" --label "$msg" --button close &> /dev/null &
+			else
+				WINDOWID="" zenity --info --title="$msgtitle" --text="$msg" &> /dev/null &
+			fi
 			zpid=$!
 		fi
 		if (( y > 0 )); then
@@ -828,7 +845,12 @@ if (( mountmode != 0 )); then
 						lb=" ($label)"
 					fi
 					msg="Unmount error on $d$lb:\n\n$uerrmsg"
-					WINDOWID="" zenity --error --title="$msgtitle" --text="$msg" &> /dev/null &
+					if [ "$spacefm" != "" ]; then
+						spacefm -g --title "$msgtitle" --window-icon error \
+						           --label "$msg" --button close &> /dev/null &
+					else
+						WINDOWID="" zenity --error --title="$msgtitle" --text="$msg" &> /dev/null &
+					fi
 				fi	
 			done
 			echo "devmon: sync"
@@ -863,8 +885,14 @@ if (( mountmode != 0 )); then
 							lb=" ($label)"
 						fi
 						msg="Unmount error on /dev/sr$x$lb:\n\n$uerrmsg"
-						WINDOWID="" zenity --error --title="devmon unmount optical" \
+						if [ "$spacefm" != "" ]; then
+							spacefm -g --title "devmon unmount optical" \
+							           --window-icon error \
+							           --label "$msg" --button close &> /dev/null &
+						else
+							WINDOWID="" zenity --error --title="devmon unmount optical" \
 						                   --text="$msg" &> /dev/null &
+						fi
 					fi	
 				fi
 			fi
