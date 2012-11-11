@@ -2,13 +2,14 @@
 # Copyright (C) 2012
 # This file is distributed under the same license as the udevil package.
 # Vladimir Kudrya <vladimir-csp@yandex.ru>, 2012.
+# Vladimir Lomov <irk.translator@gmail.com>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-16 22:31+0400\n"
-"PO-Revision-Date: 2012-08-16 22:40+0300\n"
+"POT-Creation-Date: 2012-11-10 15:04+0400\n"
+"PO-Revision-Date: 2012-11-10 15:20+0300\n"
 "Last-Translator: Vladimir Kudrya <vladimir-csp@yandex.ru>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -16,478 +17,478 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/udevil.c:611
+#: ../src/udevil.c:612
 #, c-format
 msgid "udevil: error 1: unable to drop priviledges - please report this problem\n"
 msgstr "udevil: ошибка 1: невозможно сбросить привилегии - пожалуйста, сообщите об этой проблеме разработчику\n"
 
-#: ../src/udevil.c:803
+#: ../src/udevil.c:804
 #, c-format
 msgid "udevil: error 2: %s line %d is not valid UTF-8\n"
 msgstr "udevil: ошибка 2: %s строка %d не является корректной UTF-8\n"
 
-#: ../src/udevil.c:809
+#: ../src/udevil.c:810
 #, c-format
 msgid "udevil: error 3: %s line %d is too long\n"
 msgstr "udevil: ошибка 3: %s строка %d слишком длинная\n"
 
-#: ../src/udevil.c:819
+#: ../src/udevil.c:820
 #, c-format
 msgid "udevil: error 4: %s line %d syntax error:\n"
 msgstr "udevil: ошибка 4: %s строка %d ошибка синтаксиса:\n"
 
-#: ../src/udevil.c:832
+#: ../src/udevil.c:833
 #, c-format
 msgid "udevil: error 5: %s line %d syntax error:\n"
 msgstr "udevil: ошибка 5: %s строка %d ошибка синтаксиса:\n"
 
-#: ../src/udevil.c:839
+#: ../src/udevil.c:840
 #, c-format
 msgid "udevil: error 6: %s line %d duplicate assignment:\n"
 msgstr "udevil: ошибка 6: %s строка %d повторяющийся параметр:\n"
 
-#: ../src/udevil.c:902
+#: ../src/udevil.c:903
 #, c-format
 msgid "udevil: warning 7: /etc/udevil/udevil.conf could not be read\n"
-msgstr "udevil: предупреждение 7: невозможно прочесть /etc/udevil/udevil.conf\n"
+msgstr "udevil: предупреждение 7: невозможно прочитать /etc/udevil/udevil.conf\n"
 
-#: ../src/udevil.c:912
+#: ../src/udevil.c:913
 #, c-format
 msgid "udevil: read config %s\n"
 msgstr "udevil: чтение конфигурации %s\n"
 
-#: ../src/udevil.c:1151
+#: ../src/udevil.c:1152
 #, c-format
 msgid "udevil: error 8: failed writing to log file '%s'\n"
 msgstr "udevil: ошибка 8: ошибка записи лога '%s'\n"
 
-#: ../src/udevil.c:1482
+#: ../src/udevil.c:1483
 #, c-format
 msgid "udevil: warning 9: unable to run losetup (%s)\n"
 msgstr "udevil: предупреждение 9: невозможно выполнить losetup (%s)\n"
 
-#: ../src/udevil.c:1539
+#: ../src/udevil.c:1540
 #, c-format
 msgid "udevil: warning 10: unable to run losetup (%s)\n"
 msgstr "udevil: предупреждение 10: невозможно выполнить losetup (%s)\n"
 
-#: ../src/udevil.c:1773
+#: ../src/udevil.c:1774
 #, c-format
 msgid "udevil: error 11: could not open %s\n"
 msgstr "udevil: ошибка 11: невозможно открыть %s\n"
 
-#: ../src/udevil.c:1781
+#: ../src/udevil.c:1782
 #, c-format
 msgid "udevil: error 12: error writing to %s\n"
 msgstr "udevil: ошибка 12: ошибка при записи в %s\n"
 
-#: ../src/udevil.c:1831
+#: ../src/udevil.c:1832
 #, c-format
 msgid "udevil: error 13: unable to run %s\n"
 msgstr "udevil: ошибка 13: невозможно запустить %s\n"
 
-#: ../src/udevil.c:1843
+#: ../src/udevil.c:1844
 #, c-format
 msgid "      %s exit status = %d\n"
-msgstr ""
+msgstr "      код возврата %s = %d\n"
 
-#: ../src/udevil.c:1848
+#: ../src/udevil.c:1849
 #, c-format
 msgid "udevil: denied 14: %s returned exit status %d\n"
-msgstr "udevil: отказано 14: %s возвратил exit status %d\n"
+msgstr "udevil: отказано 14: %s вернул код возврата %d\n"
 
 #. log
-#: ../src/udevil.c:1883
+#: ../src/udevil.c:1884
 msgid "udevil: trying umount as current user\n"
 msgstr "udevil: попытка монтирования от текущего пользователя\n"
 
-#: ../src/udevil.c:1896
+#: ../src/udevil.c:1897
 #, c-format
 msgid "udevil: warning 15: unable to run umount (%s)\n"
 msgstr "udevil: предупреждение 15: невозможно выполнить umount (%s)\n"
 
-#: ../src/udevil.c:1901
-#: ../src/udevil.c:1967
+#: ../src/udevil.c:1902
+#: ../src/udevil.c:1968
 #, c-format
 msgid "      umount exit status = %d\n"
-msgstr ""
+msgstr "      код возврата umount = %d\n"
 
 #. success - show output
-#: ../src/udevil.c:1910
+#: ../src/udevil.c:1911
 msgid "udevil: success running umount as current user\n"
-msgstr "udevil: успешное выполнение umount от текущего пользователя\n"
+msgstr "udevil: успешное выполнение umount от имени текущего пользователя\n"
 
-#: ../src/udevil.c:1957
+#: ../src/udevil.c:1958
 #, c-format
 msgid "udevil: error 16: unable to run umount (%s)\n"
 msgstr "udevil: ошибка 16: невозможно выполнить umount (%s)\n"
 
-#: ../src/udevil.c:2023
+#: ../src/udevil.c:2024
 #, c-format
 msgid "udevil: error 17: unable to run mount (%s)\n"
 msgstr "udevil: ошибка 17: невозможно выполнить mount (%s)\n"
 
-#: ../src/udevil.c:2036
+#: ../src/udevil.c:2037
 #, c-format
 msgid "      mount exit status = %d\n"
-msgstr ""
+msgstr "      код возврата mount = %d\n"
 
-#: ../src/udevil.c:2069
+#: ../src/udevil.c:2070
 #, c-format
 msgid "udevil: warning 18: unable to run mount (%s)\n"
 msgstr "udevil: предупреждение 18: невозможно выполнить mount (%s)\n"
 
-#: ../src/udevil.c:2086
+#: ../src/udevil.c:2087
 #, c-format
 msgid "udevil: denied 19: Invalid path\n"
 msgstr "udevil: отказано 19: некорректный путь\n"
 
-#: ../src/udevil.c:2092
+#: ../src/udevil.c:2093
 #, c-format
 msgid "udevil: denied 20: mount path '%s' is not a directory\n"
 msgstr "udevil: отказано 20: путь монтирования '%s' не является каталогом\n"
 
-#: ../src/udevil.c:2094
+#: ../src/udevil.c:2095
 #, c-format
 msgid "udevil: denied 21: mount path '%s' is already mounted\n"
-msgstr "udevil: отказано 21: по пути '%s' уже примонтирован раздел\n"
+msgstr "udevil: отказано 21: путь монтирования '%s' уже используется\n"
 
-#: ../src/udevil.c:2098
+#: ../src/udevil.c:2099
 #, c-format
 msgid "udevil: denied 22: cannot stat '%s': %s\n"
 msgstr "udevil: отказано 22: невозможно прочитать '%s': %s\n"
 
-#: ../src/udevil.c:2100
+#: ../src/udevil.c:2101
 #, c-format
 msgid "udevil: denied 23: neither you nor root owns '%s'\n"
 msgstr "udevil: отказано 23: ни вы, ни суперпользователь не являетесь владельцем '%s'\n"
 
-#: ../src/udevil.c:2135
+#: ../src/udevil.c:2136
 #, c-format
 msgid "udevil: warning 24: unable to run setfacl (%s)\n"
 msgstr "udevil: предупреждение 24: невозможно выполнить setfacl (%s)\n"
 
 #. setfacl apparently failed so fallback to normal permissions
-#: ../src/udevil.c:2143
+#: ../src/udevil.c:2144
 #, c-format
 msgid "udevil: warning 25: setfacl on %s failed, falling back to 'rwxr-xr-x'\n"
 msgstr "udevil: предупреждение 25: выполнение setfacl на %s неуспешно, используем 'rwxr-xr-x'\n"
 
-#: ../src/udevil.c:2254
+#: ../src/udevil.c:2255
 #, c-format
 msgid "udevil: error 26: invalid type '%s' for SMB share - must be cifs or smbfs\n"
 msgstr "udevil: ошибка 26: некорректный тип ФС '%s' для ресурса SMB - должен быть cifs или smbfs\n"
 
-#: ../src/udevil.c:2269
+#: ../src/udevil.c:2270
 #, c-format
 msgid "udevil: error 27: invalid type '%s' for NFS share - must be nfs or nfs4\n"
 msgstr "udevil: ошибка 27: некорректный тип ФС '%s' для ресурса NFS - должен быть nfs или nfs4\n"
 
-#: ../src/udevil.c:2282
+#: ../src/udevil.c:2283
 #, c-format
 msgid "udevil: error 28: invalid type '%s' for curlftpfs share - must be curlftpfs\n"
 msgstr "udevil: ошибка 28: некорректный тип ФС '%s' для ресурса curlftpfs - должен быть curlftpfs\n"
 
-#: ../src/udevil.c:2294
+#: ../src/udevil.c:2295
 #, c-format
 msgid "udevil: error 29: invalid type '%s' for FTP share - must be curlftpfs or ftpfs\n"
 msgstr "udevil: ошибка 29: некорректный тип ФС '%s' для ресурса FTP - должен быть curlftpfs или ftpfs\n"
 
-#: ../src/udevil.c:2319
+#: ../src/udevil.c:2320
 #, c-format
 msgid "udevil: error 30: invalid type '%s' for sshfs share - must be sshfs\n"
 msgstr "udevil: ошибка 30: некорректный тип ФС '%s' для ресурса sshfs - должен быть sshfs\n"
 
-#: ../src/udevil.c:2332
+#: ../src/udevil.c:2333
 #, c-format
 msgid "udevil: error 31: invalid type '%s' for sshfs share - must be sshfs\n"
 msgstr "udevil: ошибка 31: некорректный тип ФС '%s' для ресурса sshfs - должен быть sshfs\n"
 
-#: ../src/udevil.c:2347
+#: ../src/udevil.c:2348
 #, c-format
 msgid "udevil: error 32: invalid type '%s' for sshfs share - must be sshfs\n"
 msgstr "udevil: ошибка 32: некорректный тип ФС '%s' для ресурса sshfs - должен быть sshfs\n"
 
-#: ../src/udevil.c:2358
+#: ../src/udevil.c:2359
 #, c-format
 msgid "udevil: error 33: invalid type '%s' for NFS share - must be nfs or nfs4\n"
 msgstr "udevil: ошибка 33: некорректный тип ФС '%s' для ресурса NFS - должен быть nfs или nfs4\n"
 
-#: ../src/udevil.c:2458
+#: ../src/udevil.c:2459
 #, c-format
 msgid "udevil: error 34: '%s' is not a recognized network url\n"
 msgstr "udevil: ошибка 34: '%s' не распознан как сетевой URL\n"
 
-#: ../src/udevil.c:2467
+#: ../src/udevil.c:2468
 msgid "udevil: error 35: invalid network url\n"
 msgstr "udevil: ошибка 35: некорректный сетевой URL\n"
 
-#: ../src/udevil.c:2474
+#: ../src/udevil.c:2475
 #, c-format
 msgid "udevil: error 36: lookup host '%s' failed\n"
 msgstr "udevil: ошибка 36: узел '%s' не найден\n"
 
-#: ../src/udevil.c:2520
+#: ../src/udevil.c:2521
 #, c-format
 msgid "udevil: error 37: %s\n"
 msgstr "udevil: ошибка 37: %s\n"
 
-#: ../src/udevil.c:2521
+#: ../src/udevil.c:2522
 #: ../src/udevil.c:3943
 #: ../src/udevil.c:4266
 msgid "udevil was not run suid root"
 msgstr "udevil не запущен с suid root"
 
-#: ../src/udevil.c:2526
+#: ../src/udevil.c:2527
 #: ../src/udevil.c:3948
 #: ../src/udevil.c:4271
 msgid "To correct this problem"
 msgstr "Чтобы устранить эту проблему"
 
-#: ../src/udevil.c:2540
+#: ../src/udevil.c:2541
 msgid "udevil: error 38: mount requires DEVICE argument\n"
 msgstr "udevil: ошибка 38: mount требует аргумента DEVICE\n"
 
-#: ../src/udevil.c:2542
+#: ../src/udevil.c:2543
 msgid "udevil: error 39: unmount requires DEVICE argument\n"
 msgstr "udevil: ошибка 39: unmount требует аргумента DEVICE\n"
 
-#: ../src/udevil.c:2587
+#: ../src/udevil.c:2588
 #, c-format
 msgid "udevil: error 40: cannot stat %s: %s\n"
 msgstr "udevil: ошибка 40: невозможно прочитать %s: %s\n"
 
-#: ../src/udevil.c:2599
+#: ../src/udevil.c:2600
 msgid "udevil: error 41: cannot canonicalize device path\n"
 msgstr "udevil: ошибка 41: невозможно развернуть путь к устройству\n"
 
-#: ../src/udevil.c:2606
+#: ../src/udevil.c:2607
 #, c-format
 msgid "udevil: error 42: cannot stat %s: %s\n"
 msgstr "udevil: ошибка 42: невозможно прочитать %s: %s\n"
 
-#: ../src/udevil.c:2617
+#: ../src/udevil.c:2618
 #, c-format
 msgid "udevil: error 43: '%s' is not a regular file or directory\n"
 msgstr "udevil: ошибка 43: '%s' не является обычным файлом или каталогом\n"
 
 #. mount knows (in fstab) so mount as normal user with only specified opts
-#: ../src/udevil.c:2655
+#: ../src/udevil.c:2656
 #: ../src/udevil.c:3552
 #, c-format
 msgid "udevil: %s is known to mount - running mount as current user\n"
 msgstr "udevil: %s прописан в fstab - выполнение mount от текущего пользователя\n"
 
-#: ../src/udevil.c:2658
+#: ../src/udevil.c:2659
 msgid "udevil: warning 44: fstype ignored for device in fstab (or specify mount point)\n"
 msgstr "udevil: предупреждение 44: тип ФС игнорируется для устройства в fstab (или можно указать точку монтирования)\n"
 
-#: ../src/udevil.c:2661
+#: ../src/udevil.c:2662
 msgid "udevil: warning 45: options ignored for device in fstab (or specify mount point)\n"
 msgstr "udevil: предупреждение 45: параметры монтирования игнорируются для устройства в fstab (или можно указать точку монтирования)\n"
 
-#: ../src/udevil.c:2732
+#: ../src/udevil.c:2733
 #, c-format
 msgid "udevil: error 46: cannot find '%s' mounted in mtab\n"
 msgstr "udevil: ошибка 46: невозможно найти запись о '%s' в mtab\n"
 
-#: ../src/udevil.c:2746
+#: ../src/udevil.c:2747
 msgid "udevil: error 47: cannot canonicalize attached loop device\n"
 msgstr "udevil: ошибка 47: невозможно развернуть путь до присоединенного loop-устройства\n"
 
-#: ../src/udevil.c:2752
+#: ../src/udevil.c:2753
 msgid "udevil: denied 48: 'file' is not an allowed type\n"
 msgstr "udevil: отказано 48: 'file' не является разрешенным типом устройства\n"
 
-#: ../src/udevil.c:2760
+#: ../src/udevil.c:2761
 #, c-format
 msgid "udevil: denied 49: '%s' is not an allowed file\n"
 msgstr "udevil: отказано 49: '%s' не является разрешенным файлом\n"
 
-#: ../src/udevil.c:2767
+#: ../src/udevil.c:2768
 #, c-format
 msgid "udevil: error 50: cannot find '%s' mounted in mtab\n"
 msgstr "udevil: ошибка 50: невозможно найти запись о '%s' в mtab\n"
 
-#: ../src/udevil.c:2786
+#: ../src/udevil.c:2787
 #, c-format
 msgid "udevil: warning 51: attached device %s is not a loop device\n"
 msgstr "udevil: предупреждение 51: присоединенное устройство %s не является loop-устройством\n"
 
-#: ../src/udevil.c:2811
+#: ../src/udevil.c:2812
 #, c-format
 msgid "udevil: error 52: cannot stat %s: %s\n"
 msgstr "udevil: ошибка 52: невозможно прочитать %s: %s\n"
 
-#: ../src/udevil.c:2830
+#: ../src/udevil.c:2831
 msgid "udevil: error 53: cannot canonicalize path\n"
 msgstr "udevil: ошибка 53: невозможно развернуть путь\n"
 
-#: ../src/udevil.c:2846
+#: ../src/udevil.c:2847
 #, c-format
 msgid "udevil: error 54: invalid path '%s'\n"
 msgstr "udevil: ошибка 54: некорректный путь '%s'\n"
 
-#: ../src/udevil.c:2855
+#: ../src/udevil.c:2856
 #, c-format
 msgid "udevil: error 55: cannot find '%s' mounted in mtab\n"
 msgstr "udevil: ошибка 55: невозможно найти сведения о '%s' в mtab\n"
 
-#: ../src/udevil.c:2862
+#: ../src/udevil.c:2863
 #, c-format
 msgid "udevil: error 56: cannot find device %s fstype in mtab\n"
 msgstr "udevil: ошибка 56: невозможно найти тип ФС для %s в mtab\n"
 
-#: ../src/udevil.c:2873
+#: ../src/udevil.c:2874
 #, c-format
 msgid "udevil: error 57: cannot stat %s: %s\n"
 msgstr "udevil: ошибка 57: невозможно прочитать %s: %s\n"
 
-#: ../src/udevil.c:2882
+#: ../src/udevil.c:2883
 #, c-format
 msgid "udevil: error 58: %s is not a block device\n"
 msgstr "udevil: ошибка 58: %s не является блочным устройством\n"
 
-#: ../src/udevil.c:2891
+#: ../src/udevil.c:2892
 msgid "udevil: error 59: error initializing libudev\n"
 msgstr "udevil: ошибка 59: ошибка при инициализации libudev\n"
 
-#: ../src/udevil.c:2899
+#: ../src/udevil.c:2900
 #, c-format
 msgid "udevil: error 60: no udev device for device %s\n"
 msgstr "udevil: ошибка 60: нет устройства udev для устройства %s\n"
 
-#: ../src/udevil.c:2910
+#: ../src/udevil.c:2911
 #, c-format
 msgid "udevil: error 61: unable to get device info for device %s\n"
 msgstr "udevil: ошибка 61: невозможно получить информацию об устройстве %s\n"
 
-#: ../src/udevil.c:2932
+#: ../src/udevil.c:2933
 #, c-format
 msgid "udevil: error 62: type %s is invalid for block device\n"
-msgstr "udevil: ошибка 62: type %s is invalid for block device\n"
+msgstr "udevil: ошибка 62: неверный тип %s для блочного устройства\n"
 
-#: ../src/udevil.c:2952
+#: ../src/udevil.c:2953
 msgid "udevil: error 143: unable to determine device fstype\n"
 msgstr "udevil: ошибка 143: невозможно определить тип ФС\n"
 
-#: ../src/udevil.c:2955
+#: ../src/udevil.c:2956
 #, c-format
 msgid "udevil: error 63: no media in device %s (or specify type with -t)\n"
-msgstr "udevil: ошибка 63: нет носителя в устройстве %s (или укажите тип с помощью -t)\n"
+msgstr "udevil: ошибка 63: нет носителя в устройстве %s (или укажите тип ФС с помощью -t)\n"
 
-#: ../src/udevil.c:2958
+#: ../src/udevil.c:2959
 msgid "udevil: error 64: unable to determine device fstype - specify with -t\n"
 msgstr "udevil: ошибка 64: невозможно определить тип ФС - укажите с помощью -t\n"
 
-#: ../src/udevil.c:3018
+#: ../src/udevil.c:3019
 #, c-format
 msgid "udevil: denied 65: device %s is not mounted\n"
 msgstr "udevil: отказано 65: устройство %s не примонтировано\n"
 
-#: ../src/udevil.c:3021
+#: ../src/udevil.c:3022
 #, c-format
 msgid "udevil: denied 66: could not find mount point for '%s'\n"
 msgstr "udevil: отказано 66: невозможно найти точку монтирования для '%s'\n"
 
-#: ../src/udevil.c:3042
+#: ../src/udevil.c:3043
 msgid "udevil: error 67: cannot canonicalize mount point path\n"
 msgstr "udevil: ошибка 67: невозможно развернуть путь точки монтирования\n"
 
-#: ../src/udevil.c:3053
+#: ../src/udevil.c:3054
 #, c-format
 msgid "udevil: error 68: cannot stat '%s'\n"
 msgstr "udevil: ошибка 68: невозможно прочитать '%s'\n"
 
-#: ../src/udevil.c:3071
+#: ../src/udevil.c:3072
 msgid "udevil: error 69: cannot canonicalize mount point path\n"
 msgstr "udevil: ошибка 69: невозможно развернуть путь точки монтирования\n"
 
-#: ../src/udevil.c:3082
+#: ../src/udevil.c:3083
 msgid "udevil: error 70: cannot canonicalize mount point path\n"
 msgstr "udevil: ошибка 70: невозможно развернуть путь точки монтирования\n"
 
-#: ../src/udevil.c:3092
+#: ../src/udevil.c:3093
 #, c-format
 msgid "udevil: denied 71: '%s' is not an allowed media directory\n"
 msgstr "udevil: ошибка 71: '%s' не является разрешенным каталогом монтирования\n"
 
-#: ../src/udevil.c:3104
+#: ../src/udevil.c:3105
 msgid "udevil: error 72: multiple fstypes not allowed\n"
 msgstr "udevil: ошибка 72: нельзя указывать несколько типов ФС\n"
 
-#: ../src/udevil.c:3110
+#: ../src/udevil.c:3111
 #, c-format
 msgid "udevil: denied 73: fstype '%s' is not an allowed type\n"
 msgstr "udevil: отказано 73: тип ФС '%s' не разрешен\n"
 
-#: ../src/udevil.c:3119
+#: ../src/udevil.c:3120
 msgid "udevil: error 74: could not get username\n"
 msgstr "udevil: ошибка 74: невозможно получить имя пользователя\n"
 
-#: ../src/udevil.c:3127
+#: ../src/udevil.c:3128
 #, c-format
 msgid "udevil: denied 75: user '%s' (%s) is not in allowed users\n"
 msgstr "udevil: отказано 75: пользователя '%s' (%s) нет в списке разрешенных\n"
 
-#: ../src/udevil.c:3149
+#: ../src/udevil.c:3150
 #, c-format
 msgid "udevil: denied 77: user %s is not in allowed groups\n"
 msgstr "udevil: отказано 77: пользователь %s не состоит в разрешенных группах\n"
 
-#: ../src/udevil.c:3161
+#: ../src/udevil.c:3162
 #, c-format
 msgid "udevil: denied 78: host '%s' (%s) is not an allowed network\n"
 msgstr "udevil: отказано 78: узел '%s' (%s) не находится в разрешенной сети\n"
 
-#: ../src/udevil.c:3167
+#: ../src/udevil.c:3168
 #, c-format
 msgid "udevil: denied 79: host '%s' (%s) is a forbidden network\n"
 msgstr "udevil: отказано 79: узел '%s' (%s) находится в запрещенной сети\n"
 
-#: ../src/udevil.c:3182
+#: ../src/udevil.c:3183
 #, c-format
 msgid "udevil: denied 80: device %s is not an allowed device\n"
 msgstr "udevil: отказано 80: устройство %s не является разрешенным устройством\n"
 
-#: ../src/udevil.c:3189
+#: ../src/udevil.c:3190
 #, c-format
 msgid "udevil: denied 81: device %s is a forbidden device\n"
 msgstr "udevil: отказано 81: устройство %s является запрещенным устройством\n"
 
-#: ../src/udevil.c:3202
+#: ../src/udevil.c:3203
 #, c-format
 msgid "udevil: denied 82: '%s' is not an allowed file\n"
 msgstr "udevil: отказано 82: '%s' не является разрешенным файлом\n"
 
-#: ../src/udevil.c:3211
+#: ../src/udevil.c:3212
 #, c-format
 msgid "udevil: denied 83: you don't have read permission for file '%s'\n"
 msgstr "udevil: отказано 83: у вас нет доступа на чтение к файлу '%s'\n"
 
-#: ../src/udevil.c:3219
+#: ../src/udevil.c:3220
 msgid "udevil: error 84: cannot specify mount point for directory\n"
 msgstr "udevil: ошибка 84: невозможно указать точку монтирования для каталога\n"
 
-#: ../src/udevil.c:3239
+#: ../src/udevil.c:3240
 #, c-format
 msgid "udevil: denied 85: %s is attached to an invalid file\n"
 msgstr "udevil: отказано 85: %s присоеденен к некорректному файлу\n"
 
-#: ../src/udevil.c:3247
+#: ../src/udevil.c:3248
 #, c-format
 msgid "udevil: denied 86: '%s' is not a permitted file\n"
 msgstr "udevil: отказано 86: у вас нет доступа на чтение к файлу '%s'\n"
 
-#: ../src/udevil.c:3257
+#: ../src/udevil.c:3258
 #, c-format
 msgid "udevil: denied 87: '%s' is not an allowed file\n"
 msgstr "udevil: отказано 87: '%s' не является разрешенным файлом\n"
 
-#: ../src/udevil.c:3278
+#: ../src/udevil.c:3279
 #, c-format
 msgid "udevil: denied 88: device %s is an internal device and you're not root\n"
-msgstr "udevil: отказано 88: устройство %s устройство является внутренним, а вы не root\n"
+msgstr "udevil: отказано 88: устройство %s является внутренним, а вы не root\n"
 
 #: ../src/udevil.c:3481
 #, c-format
@@ -566,7 +567,7 @@ msgstr "udevil: ошибка 104: точка монтирования '%s' не 
 #: ../src/udevil.c:3797
 #, c-format
 msgid "udevil: error 105: mkdir '%s' failed\n"
-msgstr "udevil: ошибка 105: не удалось создать '%s'\n"
+msgstr "udevil: ошибка 105: не удалось создать каталог '%s'\n"
 
 #. try cifs as guest first
 #: ../src/udevil.c:3830
@@ -581,7 +582,7 @@ msgstr "udevil: попытка с %s\n"
 
 #: ../src/udevil.c:3883
 msgid "udevil: warning 106: invalid mount_point_mode in udevil.conf - using 0755\n"
-msgstr "udevil: предупреждение 106: некорректный mount_point_mode в udevil.conf - используется 0755\n"
+msgstr "udevil: предупреждение 106: некорректное значение mount_point_mode в udevil.conf - используется 0755\n"
 
 #: ../src/udevil.c:3942
 #, c-format
@@ -637,7 +638,7 @@ msgstr "udevil: отказано 117: устройство %s является �
 #: ../src/udevil.c:4069
 #, c-format
 msgid "udevil: unmount %s\n"
-msgstr ""
+msgstr "udevil: размонтирование %s\n"
 
 #: ../src/udevil.c:4103
 #, c-format
@@ -990,5 +991,4 @@ msgstr "udevil: ошибка 141: некорректный параметр '%s'
 #, c-format
 msgid "udevil: error 142: invalid or unexpected argument '%s'\n"
 msgstr "udevil: ошибка 142: некорректный или неожиданный параметр '%s'\n"
-
 
