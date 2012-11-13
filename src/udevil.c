@@ -2995,7 +2995,7 @@ _get_type:
                     element = g_strdup( list );
                     list = NULL;
                 }
-                selement = g_strstrip( element );
+                selement = g_strchug( element );
                 if ( selement[0] == '\0' )
                     continue;
                 parent_dir = g_path_get_dirname( selement );
@@ -3037,9 +3037,8 @@ _get_type:
     // clean, canonicalize & test mount point
     if ( data->point )
     {
-        // remove trailing slashes and spaces
-        while ( ( g_str_has_suffix( data->point, "/" ) && data->point[1] != '\0' )
-                    || g_str_has_suffix( data->point, " " ) )
+        // remove trailing slashes
+        while ( ( g_str_has_suffix( data->point, "/" ) && data->point[1] != '\0' ) )
             data->point[ strlen( data->point ) - 1] = '\0';
     
         // canonicalize
@@ -3757,6 +3756,17 @@ _get_type:
                 mname = g_strdup( str );
         }
 
+        // remove leading and trailing spaces
+        if ( mname )
+        {
+            g_strstrip( mname );
+            if ( mname[0] == '\0' )
+            {
+                g_free( mname );
+                mname = NULL;
+            }
+        }
+            
         if ( !mname )
             mname = g_strdup( bdev );
 
