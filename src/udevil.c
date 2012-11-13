@@ -1558,7 +1558,7 @@ static gboolean device_is_mounted_mtab( const char* device_file, char** mount_po
     gchar encoded_point[PATH_MAX];
     gchar fs_type[PATH_MAX];
 
-    if ( !device_file )
+    if ( !device_file || !g_strcmp0( device_file, "none" ) )
         return FALSE;
 
     contents = NULL;
@@ -1864,6 +1864,9 @@ static int try_umount( const char* device_file, gboolean force, gboolean lazy )
     char* sstdout = NULL;
     char* sstderr = NULL;
     
+    if ( !g_strcmp0( device_file, "none" ) )
+        return 1;    
+    
     int a = 0;
     argv[a++] = g_strdup( read_config( "umount_program", NULL ) );
     if ( !argv[0] )
@@ -2047,6 +2050,10 @@ static gboolean mount_knows( const char* device_file )
     int exit_status = 1;
     gchar *argv[5] = { NULL };
     int a = 0;
+    
+    if ( !g_strcmp0( device_file, "none" ) )
+        return FALSE;    
+    
     argv[a++] = g_strdup( read_config( "mount_program", NULL ) );
     if ( !argv[0] )
         return FALSE;
@@ -3012,7 +3019,7 @@ _get_type:
             // no block device mount point found so look in mtab
             if ( !( device_is_mounted_mtab(
                         type == MOUNT_NET ? netmount->url : data->device_file,
-                         &data->point, NULL )
+                                                           &data->point, NULL )
                                 && data->point && data->point[0] == '/' ) )
             {
                 if ( device && !device->device_is_mounted )
@@ -3611,7 +3618,8 @@ _get_type:
     if ( remount )
     {
         if ( ( type != MOUNT_BLOCK && type != MOUNT_NET )
-                        || g_file_test( data->device_file, G_FILE_TEST_IS_DIR ) )
+                        || g_file_test( data->device_file, G_FILE_TEST_IS_DIR )
+                        || ( type == MOUNT_NET && !strcmp( netmount->url, "none" ) ) )
         {
             wlog( _("udevil: denied 100: must specify device or network for remount\n"),
                                                                         NULL, 2 );
@@ -3634,7 +3642,7 @@ _get_type:
             goto _finish;
             
         // remount
-        if ( type == MOUNT_NET )
+        if ( type == MOUNT_NET )            
             ret = mount_device( netmount->url, data->fstype ? fstype : NULL, options,
                                                                         NULL, TRUE );
         else
