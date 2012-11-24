@@ -1,4 +1,4 @@
-README for udevil v0.3.4+
+README for udevil v0.3.5
 
 
 For updates and instructions visit:
@@ -273,8 +273,8 @@ ENABLE KERNEL POLLING
     userspace polling. Kernel polling also corrects a common issue where the
     eject button on a drive won't respond with the newer udev.
 
-    To use kernel polling, your Linux kernel needs to be 2.6.38 or newer, and
-    udev must be version 173 or newer.
+    To use kernel polling, your Linux kernel may need to be 2.6.38 or newer,
+    and udev may need to be version 173 or newer.
 
     TO DETERIME IF KERNEL POLLING IS ENABLED, run these commands:
 

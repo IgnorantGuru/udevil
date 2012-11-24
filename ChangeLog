@@ -1,4 +1,4 @@
-0.3.4+
+0.3.5   2012-11-24:
     ftpfs limit attempts on none #14
     handle mount point trailing space #12
     update russian translation
