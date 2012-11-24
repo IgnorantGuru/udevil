@@ -1,5 +1,8 @@
 0.3.4+
-
+    ftpfs limit attempts on none #14
+    handle mount point trailing space #12
+    update russian translation
+    default udevil.conf add file to allowed_types
 0.3.4   2012-10-21:
     btrfs moint point detection workaround - spacefm issue 165
     adjustment for build on debian squeeze
