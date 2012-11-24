@@ -2753,7 +2753,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=udevil
- VERSION=0.3.4+
+ VERSION=0.3.5
 
 
 cat >>confdefs.h <<_ACEOF
