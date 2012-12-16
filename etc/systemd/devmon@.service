@@ -4,6 +4,8 @@ Description=devmon Service
 [Service]
 Type=simple
 User=%i
+# Set DISPLAY for popup dialogs
+Environment=DISPLAY=:0
 EnvironmentFile=/etc/conf.d/devmon
 ExecStart=/usr/bin/devmon $ARGS 
 
