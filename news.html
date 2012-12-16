@@ -30,6 +30,33 @@
 
 
 <!-- --------------------------------------------------------------------- -->
+<br><hr><a name="0.3.6"></a>
+<big><b><a href="#0.3.6">0.3.6 released - <b>UPGRADE RECOMMENDED</b> </a></b></big><br>
+2012-Dec-16
+
+<br><br>
+<b>A routine review of security policies</b> in udevil has been conducted, and several changes were made to harden udevil against known mount helper exploits:
+<ul>
+    <li>A potential vulnerability based on a symlink race condition when mounting iso files has been closed.  In theory, this could have allowed an attacker to fashion a custom process to interfere with the filesystem while udevil was checking and mounting the file, resulting in the ability to mount an arbitrary device.  Due to the custom process and precision timing required, the risk from this potential vulnerability being successfully exploited in udevil was low and there are no known implementations of such an attack against udevil.<br><br>
+    <li>udevil now places additional restrictions on the mounting of iso files: remounting a file is disallowed, and files are always mounted ro.  These were deemed prudent due to the fact that iso files may be user-owned.<br><br>
+    <li>A warning has been added to the default <a href="udevil.conf.txt">udevil.conf</a> file discouraging allowed_devices outside of /dev or in /dev/shm.  If you do want to mount devices elsewhere, be sure their parent directory is owned and writable only by root.<br><br>
+    <li>A secondary path canonicalization has been added to harden udevil against general symlink attack methods.  These can potentially impact udevil if udevil.conf is configured in an unsafe way, such as allowing user-owned media or device directories (which udevil.conf warns against).  This enhancement helps protect the system from exploits in such a use case.
+</ul>
+
+Due to the above security enhancements, <b>upgrading is recommended</b>.
+
+<p>In addition, <a href="https://github.com/IgnorantGuru/udevil/issues/17">firecat53 contributed</a> <b>an addition to devmon's provided systemd service file</b> which adds a DISPLAY=:0 environment variable for devmon popups.  (systemd is not required or used directly by udevil or devmon - these files are provided for convenience for those wishing to start devmon via systemd.)
+
+<br>
+<br>
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------------- -->
 <br><hr><a name="0.3.5"></a>
 <big><b><a href="#0.3.5">0.3.5 released</a></b></big><br>
 2012-Nov-24

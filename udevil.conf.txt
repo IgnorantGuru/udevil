@@ -117,6 +117,8 @@ allowed_media_dirs = /media, /run/media/$USER
 # Note: Wildcards may be used, but a wildcard will never match a /, except
 # for "allowed_devices=*" which allows any device.  The recommended setting is
 # allowed_devices = /dev/*
+# WARNING:  ALLOWING USERS TO MOUNT DEVICES OUTSIDE OF /dev CAN CAUSE SERIOUS
+# SECURITY PROBLEMS.  DO NOT ALLOW DEVICES IN /dev/shm
 allowed_devices = /dev/*
 
 
