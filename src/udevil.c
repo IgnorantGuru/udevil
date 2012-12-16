@@ -1409,6 +1409,16 @@ static gboolean get_realpath( char** path )
     }
 }
 
+static gboolean check_realpath( const char* path )
+{   // verify realpath hasn't changed
+    if ( !( path && path[0] != '\0' ) )
+        return FALSE;
+    char* res = canonicalize_path( path );
+    gboolean ret = !g_strcmp0( res, path );
+    g_free( res );
+    return ret;
+}
+
 /*
 int user_on_tty()
 {   // ( source code taken from pmount - but this doesn't seem to find tty )
@@ -1442,6 +1452,148 @@ int user_on_tty()
     return retval;
 }
 */
+
+static void detach_loop( const char* loopdev )
+{
+    char* stdout = NULL;
+    char* str;
+    int status = 0;
+    int exit_status = 1;
+    gchar *argv[4] = { NULL };
+
+    int a = 0;
+    argv[a++] = g_strdup( read_config( "losetup_program", NULL ) );
+    if ( !argv[0] )
+        return;
+    argv[a++] = g_strdup( "-d" );
+    argv[a++] = g_strdup( loopdev );
+
+    // print
+    char* allarg = g_strjoinv( " ", argv );
+    wlog( "ROOT: %s\n", allarg, 0 );
+    g_free( allarg );
+
+    restore_privileges();
+    if ( g_spawn_sync( NULL, argv, NULL,
+                        0,
+                        NULL, NULL, &stdout, NULL, &status, NULL ) )
+    {
+        if ( status && WIFEXITED( status ) )
+            exit_status = WEXITSTATUS( status );
+        else
+            exit_status = 0;
+        g_free( stdout );
+    }
+    else
+        wlog( _("udevil: warning 9: unable to run losetup (%s)\n"),
+                                    read_config( "losetup_program", NULL ), 1 );
+    drop_privileges( 0 );
+}
+
+static char* get_free_loop()
+{
+    char* stdout = NULL;
+    char* ret = NULL;
+    char* str;
+    int status = 0;
+    int exit_status = 1;
+    gchar *argv[4] = { NULL };
+
+    int a = 0;
+    argv[a++] = g_strdup( read_config( "losetup_program", NULL ) );
+    if ( !argv[0] )
+        return NULL;
+    argv[a++] = g_strdup( "-f" );
+    restore_privileges();
+    if ( g_spawn_sync( NULL, argv, NULL,
+                        G_SPAWN_STDERR_TO_DEV_NULL,
+                        NULL, NULL, &stdout, NULL, &status, NULL ) )
+    {
+        drop_privileges( 0 );
+        if ( status && WIFEXITED( status ) )
+            exit_status = WEXITSTATUS( status );
+        else
+            exit_status = 0;
+
+        if ( !exit_status && stdout && g_str_has_prefix( stdout, "/dev/loop" ) )
+        {
+            str = strchr( stdout, '\n' );
+            if ( str )
+            {
+                str[0] = '\0';
+                ret = g_strdup( stdout );
+            }
+        }
+        g_free( stdout );
+    }
+    else
+        wlog( _("udevil: warning 9: unable to run losetup (%s)\n"),
+                                    read_config( "losetup_program", NULL ), 1 );
+    drop_privileges( 0 );
+    return ret;
+}
+
+static char* attach_fd_to_loop( const char* device_file, int fd )
+{
+    if ( fd == -1 )
+        return NULL;
+    char* loopdev = get_free_loop();
+    if ( !loopdev )
+    {
+        wlog( _("udevil: error 147: unable to get free loop device\n"), NULL, 2 );
+        return NULL;
+    }
+    // use /dev/fd to prevent race condition exploit
+    char* fdpath = g_strdup_printf( "/dev/fd/%d", fd );
+    if ( !get_realpath( &fdpath ) || g_strcmp0( fdpath, device_file ) )
+    {
+        g_free( loopdev );
+        g_free( fdpath );
+        wlog( _("udevil: error 150: path changed\n"), NULL, 2 );
+        return NULL;
+    }
+    
+    char* stdout = NULL;
+    char* str;
+    int status = 0;
+    int exit_status = 1;
+    gchar *argv[4] = { NULL };
+
+    int a = 0;
+    argv[a++] = g_strdup( read_config( "losetup_program", NULL ) );
+    if ( !argv[0] )
+        return NULL;
+    argv[a++] = g_strdup( loopdev );
+    argv[a++] = fdpath;
+
+    // print
+    char* allarg = g_strjoinv( " ", argv );
+    wlog( "ROOT: %s\n", allarg, 0 );
+    g_free( allarg );
+
+    restore_privileges();
+    if ( g_spawn_sync( NULL, argv, NULL,
+                        0,
+                        NULL, NULL, &stdout, NULL, &status, NULL ) )
+    {
+        if ( status && WIFEXITED( status ) )
+            exit_status = WEXITSTATUS( status );
+        else
+            exit_status = 0;
+
+        if ( exit_status )
+        {
+            g_free( loopdev );
+            loopdev = NULL;
+        }
+        g_free( stdout );
+    }
+    else
+        wlog( _("udevil: warning 9: unable to run losetup (%s)\n"),
+                                    read_config( "losetup_program", NULL ), 1 );
+    drop_privileges( 0 );
+    return loopdev;
+}
 
 static char* get_loop_from_file( const char* path )
 {
@@ -1926,7 +2078,7 @@ static int umount_path( const char* path, gboolean force, gboolean lazy )
     // setup command
     int status = 0;
     int exit_status = 1;
-    gchar *argv[6] = { NULL };
+    gchar *argv[7] = { NULL };
     int a = 0;
     argv[a++] = g_strdup( read_config( "umount_program", NULL ) );
     if ( !argv[0] )
@@ -1936,7 +2088,8 @@ static int umount_path( const char* path, gboolean force, gboolean lazy )
     if ( force )
         argv[a++] = g_strdup( "-f" );
     if ( lazy )
-        argv[a++] = g_strdup( "-l" );    
+        argv[a++] = g_strdup( "-l" );
+    argv[a++] = g_strdup( "-d" );
     argv[a++] = g_strdup( path );
 
     // print
@@ -1950,7 +2103,13 @@ static int umount_path( const char* path, gboolean force, gboolean lazy )
     setregid( 0, -1 );
 
     // run
-    if ( g_spawn_sync( NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, &status, NULL ) )
+    if ( !check_realpath( path ) && 
+                g_file_test( path, G_FILE_TEST_EXISTS ) /* not net url */ )
+    {
+        wlog( _("udevil: error 144: invalid path\n"), NULL, 2 );
+        g_strfreev( argv );
+    }
+    else if ( g_spawn_sync( NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, &status, NULL ) )
     {
         if ( status && WIFEXITED( status ) )
             exit_status = WEXITSTATUS( status );
@@ -2015,8 +2174,14 @@ static int mount_device( const char* device_file, const char* fstype,
         setregid( 0, -1 );
     }
 
-    // run
-    if ( g_spawn_sync( NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, &status, NULL ) )
+    // check existing device path and run mount
+    if ( !check_realpath( device_file ) && 
+                g_file_test( device_file, G_FILE_TEST_EXISTS ) /* not net url */ )
+    {
+        wlog( _("udevil: error 144: invalid path\n"), NULL, 2 );
+        g_strfreev( argv );
+    }
+    else if ( g_spawn_sync( NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, &status, NULL ) )
     {
         if ( status && WIFEXITED( status ) )
             exit_status = WEXITSTATUS( status );
@@ -2041,6 +2206,27 @@ static int mount_device( const char* device_file, const char* fstype,
         wlog( str, NULL, 0 );
         g_free( str );
     }
+    return exit_status;
+}
+
+static int mount_file( int fd, const char* device_file, const char* fstype, 
+                                        const char* options, const char* point )
+{
+    char* loopdev = attach_fd_to_loop( device_file, fd );
+    if ( !loopdev || fd == -1 )
+    {
+        g_free( loopdev );
+        wlog( _("udevil: error 148: unable to attach file to loop device\n"),
+                                                                    NULL, 2 );
+        return 1;
+    }
+    char* loopopts = g_strdup_printf( "%s%sro", options ? options : "",
+                                                     options ? "," : "" );
+    int exit_status = mount_device( loopdev, fstype, loopopts, point, TRUE );
+    if ( exit_status )
+        detach_loop( loopdev );
+    g_free( loopdev );
+    g_free( loopopts );
     return exit_status;
 }
 
@@ -2510,6 +2696,8 @@ static int command_mount( CommandData* data )
         MOUNT_MISSING
     };
     struct stat64 statbuf;
+    struct stat64 statfd;
+    int fd = -1;
     char* str;
     char* str2;
     char* parent_dir;
@@ -2651,7 +2839,8 @@ _get_type:
                 g_free( str );
                 if ( orig_euid == 0 )
                     command_clean();
-                return 0;
+                ret = 0;
+                goto _finish;
             }
         }
         else if ( data->cmd_type == CMD_MOUNT
@@ -2702,7 +2891,7 @@ _get_type:
                         g_free( str );
                     }
                 }
-                return ret;
+                goto _finish;
             }
         }
         ret = 0;
@@ -3203,22 +3392,47 @@ _get_type:
     {
         if ( !g_file_test( data->device_file, G_FILE_TEST_IS_DIR ) )
         {
-            if ( !validate_in_list( "allowed_files", "file", data->device_file )
-                 || validate_in_list( "forbidden_files", "file", data->device_file ) )
-            {
-                wlog( _("udevil: denied 82: '%s' is not an allowed file\n"),
-                                                                data->device_file, 2 );
-                ret = 2;
-                goto _finish;
-            }
             if ( g_strcmp0( data->device_file, "tmpfs" ) &&
-                                        g_strcmp0( data->device_file, "ramfs" ) &&
-                                        g_access( data->device_file, R_OK ) != 0 )
+                                        g_strcmp0( data->device_file, "ramfs" ) )
             {
-                wlog( _("udevil: denied 83: you don't have read permission for file '%s'\n"),
-                                                                data->device_file, 2 );
-                ret = 2;
-                goto _finish;
+                if ( !validate_in_list( "allowed_files", "file", data->device_file )
+                     || validate_in_list( "forbidden_files", "file", data->device_file ) )
+                {
+                    wlog( _("udevil: denied 82: '%s' is not an allowed file\n"),
+                                                                    data->device_file, 2 );
+                    ret = 2;
+                    goto _finish;
+                }
+                if ( g_access( data->device_file, R_OK ) != 0 )
+                {
+                    wlog( _("udevil: denied 83: you don't have read permission for file '%s'\n"),
+                                                                    data->device_file, 2 );
+                    ret = 2;
+                    goto _finish;
+                }
+                // test for race conditions
+                restore_privileges();
+                fd = open( data->device_file, O_RDWR );
+                drop_privileges( 0 );
+                if ( fd == -1 )
+                {
+                    wlog( _("udevil: denied 145: cannot open '%s'\n"),
+                                                        data->device_file, 2 );
+                    ret = 2;
+                    goto _finish;
+                }
+                if ( stat64( data->device_file, &statbuf ) != 0 || 
+                                            fstat64( fd, &statfd ) != 0 ||
+                                            !S_ISREG( statbuf.st_mode ) ||
+                                            !S_ISREG( statfd.st_mode ) ||
+                                            statbuf.st_ino != statfd.st_ino ||
+                                            statbuf.st_dev != statfd.st_dev ||
+                                            !check_realpath( data->device_file ) )
+                {
+                    wlog( _("udevil: error 146: path changed\n"), NULL, 2 );
+                    ret = 1;
+                    goto _finish;
+                }
             }
         }
         else if ( data->cmd_type == CMD_MOUNT && data->point )
@@ -3510,6 +3724,15 @@ _get_type:
             goto _finish;
     }
 
+    // check for file remount
+    if ( remount && type == MOUNT_FILE  )
+    {
+            wlog( _("udevil: denied 149: cannot use remount option with file\n"),
+                                                                    NULL, 2 );
+            ret = 1;
+            goto _finish;
+    }
+
     // replace fuse fstype
     if ( type == MOUNT_NET && ( !strcmp( fstype, "curlftpfs" )
                                                 || !strcmp( fstype, "sshfs" ) ) )
@@ -3606,7 +3829,7 @@ _get_type:
                 wlog( _("udevil: denied 98: '%s' is already mounted (or specify mount point)\n"),
                                                         data->device_file, 2 );
             else
-                wlog( _("udevil: denied 99: can't mount '%s' (not in fstab?) (or specify mount point)\n"),
+                wlog( _("udevil: denied 99: can't mount '%s' (not in fstab?)\n"),
                                                         data->device_file, 2 );
             ret = 2;
             goto _finish;
@@ -3869,10 +4092,15 @@ _get_type:
         else
             ret = mount_device( netmount->url, fstype, options, point, TRUE );
     }
+    else if ( type == MOUNT_FILE && g_strcmp0( data->device_file, "tmpfs" ) && 
+                                    g_strcmp0( data->device_file, "ramfs" ) )
+        ret = mount_file( fd, data->device_file, 
+                                g_strcmp0( fstype, "file" ) ? fstype : NULL,
+                                options, point );
     else
-        ret = mount_device( data->device_file,
-                            g_strcmp0( fstype, "file" ) ? fstype : NULL,
-                            options, point, TRUE );
+        ret = mount_device( data->device_file, 
+                                g_strcmp0( fstype, "file" ) ? fstype : NULL,
+                                options, point, TRUE );
 
     // result
     if ( ret )
@@ -3942,6 +4170,12 @@ _finish:
     device_free( device );
     g_free( options );
     g_free( point );
+    if ( fd != -1 )
+    {
+        restore_privileges();
+        close( fd );
+        drop_privileges( 0 );
+    }
     return ret;
 }
 
@@ -4538,9 +4772,6 @@ finish_:
 
 void command_interrupt()
 {
-    //if (signal == SIGINT || signal == SIGTERM)
-    //printf( "\nudevil: SIGINT || SIGTERM\n");
-
     if ( udev )
     {
         udev_unref( udev );
@@ -4600,6 +4831,7 @@ static void show_help()
     printf( "                                                       %s\n", _("requires sshfs") );
     printf( "    udevil mount -t sshfs user@sys.domain            # %s\n", _("sshfs with user") );
     printf( "    udevil mount tmpfs                               # %s\n", _("make a ram drive") );
+    printf( _("\n    WARNING !!! a password on the command line is UNSAFE - see filesystem docs\n\n") );
     printf( _("UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:\n") );
     printf( _("    udevil umount|unmount|--unmount|--umount [UNMOUNT-OPTIONS] \n") );
     printf( _("                                              {[-b|--block-device] DEVICE}|DIR\n") );
@@ -4654,6 +4886,9 @@ int main( int argc, char **argv )
 
     signal( SIGTERM, command_interrupt );
     signal( SIGINT,  command_interrupt );
+    signal( SIGHUP,  command_interrupt );
+    signal( SIGSTOP, SIG_IGN );
+
 /*
 printf("\n-----------------------PRE-SANITIZE\n");
 int i = 0;
@@ -4772,7 +5007,9 @@ printf("\n-----------------------\n");
             arg_next = NULL;
 
         if ( ( arg && !g_utf8_validate( arg, -1, NULL ) ) ||
-                        ( arg_next && !g_utf8_validate( arg_next, -1, NULL ) ) )
+                        ( arg_next && !g_utf8_validate( arg_next, -1, NULL ) ) ||
+                        ( arg && strchr( arg, '\n' ) ) ||
+                        ( arg_next && strchr( arg_next, '\n' ) ) )
         {
             wlog( _("udevil: error 138: argument is not valid UTF-8\n"), NULL, 2 );
             goto _exit;
