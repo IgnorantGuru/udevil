@@ -22,87 +22,89 @@
 <tr><td>
 
 <br>
-udevil is a command line Linux program which mounts and unmounts removable devices without a password, shows device info, and monitors device changes.  It can also mount ISO files, nfs://, smb://, ftp://, and ssh:// URLs, and tmpfs/ramfs filesystems.
-
-<p>udevil is highly configurable, requires no daemon running, and depends only on udev and glib - NO udisks, gvfs, fuse, policykit, etc. (although it can coexist with any of these).  To use it, just prefix a normal mount command with 'udevil'.  udevil can also replace udisks in the <a href="http://ignorantguru.github.com/spacefm/">SpaceFM</a> file manager and the <a href="http://igurublog.wordpress.com/downloads/script-devmon/">devmon</a> automounting daemon (devmon is included with udevil).&nbsp;&nbsp;<a href="#highlights">read more</a>
 
 
-<br><br>
-<h3>Links</h3>
 
-<ul>
-	<li><a href="https://github.com/IgnorantGuru/udevil/tree/master/packages">Downloads</a> - To save a file on Github, click on its filename and click 'View Raw'
-	<li><a href="news.html">News</a> - The latest news on udevil development and releases
-	<li><a href="udevil--help.html">Usage</a> and <a href="udevil.conf.txt">udevil.conf</a> - How to use and configure udevil
-	<li><a href="https://github.com/IgnorantGuru/udevil/issues">Bugs &amp; Requests</a>
-	<li><a href="http://igurublog.wordpress.com/">IgnorantGuru's Blog</a> - Author's blog contains news and update info
-</ul>
-
-
-<h3>Packages</h3>
 
 <center>
+<h2>udevil At A Glance</h2>
 <table border=1 cellpadding="5" width="80%">
-<tr>
-	<th>Distro</th>
-	<th>Packages &amp; Repositories*</th>
-</tr>
 
 <tr>
-<td valign="top"><b>antiX<b></td>
+<td valign="top"><b>About<b></td>
 <td>
-	<a href="http://sourceforge.net/projects/antix-linux/">antiX-12</a> base and full includes spacefm and udevil
+    udevil is a command line Linux program which mounts and unmounts removable devices without a password, shows device info, and monitors device changes.  It can also mount ISO files, nfs://, smb://, ftp://, and ssh:// URLs, and tmpfs/ramfs filesystems.
+
+    <ul>
+	<li>Intended as a hassle-free replacement for udisks
+	<li>Highly configurable &amp; security conscious
+	<li>Requires no daemon running
+	<li>To use it, just prefix a normal mount command with 'udevil'
+	<li>Can replace udisks in the <a href="http://ignorantguru.github.com/spacefm/">SpaceFM</a> file manager and the <a href="http://igurublog.wordpress.com/downloads/script-devmon/">devmon</a> automounting daemon (devmon is included with udevil)
+	<li>More <a href="#highlights">Highlights</a>
+    </ul>
 </td>
 </tr>
 
 <tr>
-<td valign="top"><b>Arch Linux</b></td>
+<td valign="top"><b>Depends<b></td>
 <td>
-	Arch Linux's [community] repository includes udevil <a href="http://www.archlinux.org/packages/community/i686/udevil/">i686</a> and <a href="http://www.archlinux.org/packages/community/x86_64/udevil/">x86_64</a>.  Also, the AUR includes <a href="https://aur.archlinux.org/packages.php?ID=59463">udevil-git</a>, which is the next version of udevil as a work in progress.
+	<ul>
+		<li>udev
+		<li>glib
+	</ul>
+	<b>NO</b> dependency on udisks, gvfs, fuse, policykit, consolekit, etc. (although it can coexist with any of these).
 </td>
 </tr>
 
 <tr>
-<td valign="top"><b><a name="deb">Debian-based</a></b></td>
+<td valign="top"><b>Install<b></td>
 <td>
-	<p>deb packages are available in <a href="https://github.com/IgnorantGuru/udevil/tree/master/packages">Downloads</a> (to save a file, click on its filename and click 'View Raw'), and are also available in <a href="http://igurublog.wordpress.com/downloads/ppa/">the author's PPA</a>.  These convenience deb packages contain the source code and will build and install udevil automatically on most Debian-based distros.  $TMPDIR (usually /tmp) must NOT be mounted noexec for the installation.
-
-	<p><b>Or</b> easily build your own deb package from source using the instructions in the <a href="https://github.com/IgnorantGuru/udevil/blob/master/README">README</a> file.
+	<ul>
+		<li><a href="https://github.com/IgnorantGuru/spacefm/wiki/Distros">Packages for your distro</a>
+		<li>Use the <a href="#installer">Self-Extracting Installer</a>
+		<li>Download the source from <a href="https://github.com/IgnorantGuru/udevil/tree/master/packages">Github</a> (To save a file on Github, click on its filename and click 'View Raw')
+		<li><b>IMPORTANT:</b> <a href="#post">Post-Installation Steps</a>
+	</ul>
 </td>
 </tr>
 
 <tr>
-<td valign="top"><b>Gentoo</b></td>
+<td valign="top"><b>Docs<b></td>
 <td>
-	Gentoo's portage tree includes <a href="http://packages.gentoo.org/package/sys-apps/udevil">udevil</a>
+	<ul>
+		<li><a href="udevil--help.html">Usage</a> - udevil's command line
+		<li><a href="udevil.conf.txt">udevil.conf</a> - How to configure udevil
+		<li>Latest <a href="https://github.com/IgnorantGuru/udevil/blob/master/README">README</a> file
+		<li><a href="https://github.com/IgnorantGuru/udevil/blob/master/COPYING">License</a>
+		<li><a href="https://github.com/IgnorantGuru/udevil/wiki/">Wiki</a>
+	</ul>
 </td>
 </tr>
 
 <tr>
-<td valign="top"><b>Parted Magic</b></td>
+<td valign="top"><b>Sites<b></td>
 <td>
-	<a href="http://partedmagic.com/doku.php">Parted Magic</a> includes SpaceFM with udevil as its default file manager
+	<ul>
+		<li><a href="news.html">News</a> - The latest news on udevil development and releases
+		<li><a href="http://sourceforge.net/p/spacefm/discussion/general/">SpaceFM/udevil Forum</a> - Discuss any aspect of udevil or SpaceFM
+		<li>IRC Channel -  #spacefm on <a href="http://freenode.net/irc_servers.shtml">irc.freenode.net</a>
+		<li><a href="http://igurublog.wordpress.com/">Author's Blog</a> - News and commentary
+		<br><br>
+		<li><a href="https://github.com/IgnorantGuru/udevil/issues">Bugs &amp; Requests</a>
+		<li><a href="https://github.com/IgnorantGuru/udevil/commits/master">Master code repo</a> (release version)
+		<li><a href="https://github.com/IgnorantGuru/udevil/commits/next">Next code repo</a> (upcoming release)
+	</ul>
 </td>
 </tr>
 
-<tr>
-<td valign="top"><b>Slackware</b></td>
-<td>
-	SlackBuilds.org includes <a href="http://slackbuilds.org/system/udevil/">udevil</a>
-</td>
-</tr>
-
-<tr>
-<td valign="top"><b><i>Other</i></b></td>
-<td>
-	A <a href="#installer">self-extracting installer</a> is available, <b>or</b> use one of the manual build methods in the <a href="https://github.com/IgnorantGuru/udevil/blob/master/README">README</a>.
-</td>
-</tr>
 </table>
-<br>
-<p>NOTE: Also see <a href="#post">Post Installation</a> steps below.
 </center>
 
+
+<br>
+<hr>
+<br>
 
 <h3><a name="highlights">Highlights</a></h3>
 <ul>
@@ -131,7 +133,7 @@ udevil is a command line Linux program which mounts and unmounts removable devic
 <a name="installer">&nbsp;</a>
 <p><h3>Installer</h3>
 
-<p>A self-extracting installer is available in <a href="https://github.com/IgnorantGuru/udevil/tree/master/packages">Downloads</a>.  The installer MUST be run in a terminal.  It automatically builds and installs, and should work with any recent distro.  Run it like this:
+<p>A self-extracting installer is available in <a href="https://github.com/IgnorantGuru/udevil/tree/master/packages">Downloads</a> (click on a file and click View Raw to download).  The installer MUST be run in a terminal.  It automatically builds and installs, and should work with any recent distro.  Run it like this:
 <p>
 <table bgcolor="#d0d4d7" width="100%" border="1"><tr><td><pre><font color="#000000">bash udevil-x.x.x-installer.sh
 
@@ -157,8 +159,9 @@ bash udevil-x.x.x-installer.sh --help
 
 <p>NOTE: Also see <a href="#post">Post Installation</a> steps below.
 
+<br>
+<br>
 <hr>
-
 
 <a name="post">&nbsp;</a>
 <p><h3>Post Installation</h3>
@@ -214,8 +217,9 @@ OR, if you don't want to use udevil for mounting, you can unset suid:
 </pre>
 You can also limit users and groups by editing <a href="udevil.conf.txt">/etc/udevil/udevil.conf</a>
 
+<br>
+<br>
 <hr>
-
 <a name="polling">&nbsp;</a>
 <p><h3>Enable Kernel Polling</h3>
 
@@ -272,10 +276,10 @@ The change should be immediate - media will be detected and the eject button on 
 <table cellspacing="0" cellpadding="0" align="center" width="75%">
  <tr> 
 	<td>
-		<div align="left"><i>Updated 2012-11-24</i></div>
+		<div align="left"><i>Updated 2013-02-01</i></div>
 	</td>
 	<td>
-		<div align="left"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BN2HNPVPS2EFJ"><img style="border:0;" src="donate_button.gif" alt="Make A Donation" /></a> <a href="http://flattr.com/thing/898993/udevil-Homepage" target="_blank"><img src="flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a><br><small><a href="http://igurublog.wordpress.com/donate/">Tips &amp; Donation Info</a></small></div>
+		<div align="left"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BN2HNPVPS2EFJ"><img style="border:0;" src="donate_button.gif" alt="Make A Donation" /></a><br><small><a href="http://igurublog.wordpress.com/donate/">Tips &amp; Donation Info</a></small></div>
 	</td>
 	<td>
 		<div align="right"><a href="http://igurublog.wordpress.com/contact-ignorantguru/">Contact</a></div>
