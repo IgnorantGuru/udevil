@@ -15,7 +15,7 @@ defaultmountoptions="noexec,nosuid,nodev,noatime"
 help()
 {
 	cat << EOF
-devmon version 1.1.4  (distributed with udevil)
+devmon version 1.1.5  (distributed with udevil)
 Automounts and unmounts optical and removable drives
 Requires:    udevil bash>=4        Also Recommended: eject spacefm|zenity
 Optional:    udisks v1 may be substituted for udevil
@@ -495,7 +495,7 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 	point=`echo "$umsg" | grep "^Mounted " | sed 's/^Mounted .* at \(.*\)/\1/'`
 
 	if [ "$mount_cmd" = "$pmount" ] && [ "$point" = "" ]; then
-		# pmount doesn't output the mount point
+		# pmount doesn't output the mount point - get it below
 		point=" "
 	fi
 	if [ "$mounterr" != "0" ] || [ "$point" = "" ]; then
@@ -536,8 +536,10 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 	fi
 	echo "$umsg"
 	if [ "$point" = " " ]; then
-		# pmount doesn't output the mount point
-		point=""
+		# pmount doesn't output the mount point - get it now
+		sleep 1
+		point=`$info_cmd --show-info $1 | grep "^  mount paths:" | sed 's/.*: *\(.*\)/\1/'`
+		point="${point%%, *}"
 	fi
 }
 
