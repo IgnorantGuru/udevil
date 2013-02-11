@@ -2307,6 +2307,8 @@ static gboolean create_run_media()
     char* run_media = g_build_filename( "/run/media", g_get_user_name(), NULL );
     restore_privileges();
     wlog( "udevil: mkdir %s\n", run_media, 0 );
+    mkdir( "/run", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+    chown( "/run", 0, 0 );
     mkdir( "/run/media", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
     chown( "/run/media", 0, 0 );
     mkdir( run_media, S_IRWXU );
