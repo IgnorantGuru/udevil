@@ -30,6 +30,36 @@
 
 
 <!-- --------------------------------------------------------------------- -->
+<br><hr><a name="0.4.0"></a>
+<big><b><a href="#0.4.0">0.4.0 released</a></b></big><br>
+2013-Feb-11
+
+<br><br>
+udevil 0.4.0 includes the following changes:
+<ul>
+    <li><b>Support for WebDAV has been added</b>, which allows mounting of http:// and https:// URLs via <a href="http://linux.die.net/man/8/mount.davfs">davfs2</a> (a new optional udevil dependency).  To use this support, install davfs2, add "davfs" to allowed_types in <a href="udevil.conf.txt">udevil.conf</a>, and add the following line to udevil.conf if not already present:
+    <pre>    default_options_davfs = nosuid, noexec, nodev, uid=$UID, gid=$GID</pre>
+    <li>A problem in devmon which caused --exec-on-drive to fail to execute when devmon was used with pmount and without udevil has been corrected.<br><br>
+    <li>A crash caused by specifying a network fs type without a protocol has been corrected.<br><br>
+    <li>udevil now creates /run if needed when creating /run/media/$USER on demand<br><br>
+    <li>The provided build-from-source <a href="https://github.com/IgnorantGuru/spacefm/wiki/Debian">Debian packages</a> use a longer mktemp X template to correct problems installing on Ubuntu.<br><br>
+    <li><b>The debian/ directory in the source tree has been moved</b> to distros/debian/ to remove conflicts with official Debian packaging (which is reportedly underway).  Please see the updated <a href="https://github.com/IgnorantGuru/udevil/blob/master/README">README</a> file for instructions on creating a deb package.<br><br>
+    <li>The SpaceFM Wiki has been updated to include a <a href="https://github.com/IgnorantGuru/spacefm/wiki/Distros">distro information</a> page for both SpaceFM and udevil, allowing packagers and users to keep information for their distro up-to-date.
+</ul>
+
+Also, SpaceFM with udevil is now the default file manager in the latest release of <a href="http://sourceforge.net/projects/archpup/">ArchPup</a> (13.2), the new Debian sid-based distro <a href="http://vsido.org/index.php">VSIDO</a>, and will be the new default file manager in the upcoming release of <a href="http://www.slitaz.org/">SliTaz</a>.
+
+
+<br>
+<br>
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------------- -->
 <br><hr><a name="0.3.6"></a>
 <big><b><a href="#0.3.6">0.3.6 released - <b>UPGRADE RECOMMENDED</b> </a></b></big><br>
 2012-Dec-16

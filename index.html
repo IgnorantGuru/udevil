@@ -33,7 +33,7 @@
 <tr>
 <td valign="top"><b>About<b></td>
 <td>
-    udevil is a command line Linux program which mounts and unmounts removable devices without a password, shows device info, and monitors device changes.  It can also mount ISO files, nfs://, smb://, ftp://, and ssh:// URLs, and tmpfs/ramfs filesystems.
+    udevil is a command line Linux program which mounts and unmounts removable devices without a password, shows device info, and monitors device changes.  It can also mount ISO files, nfs://, smb://, ftp://, ssh:// and WebDAV URLs, and tmpfs/ramfs filesystems.
 
     <ul>
 	<li>Intended as a hassle-free replacement for udisks
@@ -77,7 +77,6 @@
 		<li><a href="udevil.conf.txt">udevil.conf</a> - How to configure udevil
 		<li>Latest <a href="https://github.com/IgnorantGuru/udevil/blob/master/README">README</a> file
 		<li><a href="https://github.com/IgnorantGuru/udevil/blob/master/COPYING">License</a>
-		<li><a href="https://github.com/IgnorantGuru/udevil/wiki/">Wiki</a>
 	</ul>
 </td>
 </tr>
@@ -87,6 +86,7 @@
 <td>
 	<ul>
 		<li><a href="news.html">News</a> - The latest news on udevil development and releases
+		<li><a href="https://github.com/IgnorantGuru/udevil/wiki/">Wiki</a>
 		<li><a href="http://sourceforge.net/p/spacefm/discussion/general/">SpaceFM/udevil Forum</a> - Discuss any aspect of udevil or SpaceFM
 		<li>IRC Channel -  #spacefm on <a href="http://freenode.net/irc_servers.shtml">irc.freenode.net</a>
 		<li><a href="http://igurublog.wordpress.com/">Author's Blog</a> - News and commentary
@@ -110,7 +110,7 @@
 <ul>
     <li>Lightweight -  Written in C with libudev and glib - no dependency on udisks or gvfs
     <li>Users can specify custom mount points and mount options
-    <li>Optional user mounting of nfs://, smb://, ftp://, and ssh:// network URLs with support for username, password, port, and any other configured options
+    <li>Optional user mounting of nfs://, smb://, ftp://, ssh:// and WebDAV network URLs with support for username, password, port, and any other configured options
     <li>Optional user mounting of image files (ISO, etc)
     <li>Uses mount's existing command line usage - just prefix your mount command with 'udevil'.  Also supports udisks v1 and v2 command line usage
     <li>Flexible - Admins can easily adjust allowed users, groups, fstypes, devices, and networks, and set default mount options and allowed mount options for each fstype, with exceptions for special users
@@ -145,7 +145,7 @@ bash udevil-x.x.x-installer.sh --help
 <p>The installer requires the build dependencies listed in the <a href="https://github.com/IgnorantGuru/udevil/blob/master/README">README</a> file.  Build dependencies include:  (package names may vary on your distro)
 <blockquote><i>libglib2.0-0 libglib2.0-dev libudev0 (>=143) libudev-dev autotools-dev build-essential fakeroot intltool pkg-config</i></blockquote>
 
-<p>Also recommended for network support: <i>cifs-utils curlftpfs sshfs</i>
+<p>Also recommended for network support: <i>cifs-utils curlftpfs sshfs davfs2</i>
 
 <p>Also recommended if using devmon: <i>eject</i> <i>zenity</i>
 
@@ -175,10 +175,10 @@ bash udevil-x.x.x-installer.sh --help
 <p>By default, /etc/udevil/udevil.conf is set to allow only local fileystems to be mounted, with mounting of networks and ISO files disallowed.  To allow networks and files to be mounted, in /etc/udevil/udevil.conf set:
 
 <pre>
-    allowed_types = $KNOWN_FILESYSTEMS, file, cifs, nfs, curlftpfs, sshfs
+    allowed_types = $KNOWN_FILESYSTEMS, file, cifs, nfs, curlftpfs, sshfs, davfs
 </pre>
 
-You may also need to install <a href="http://linuxconfig.org/mount-remote-ftp-directory-host-locally-into-linux-filesystem">curlftpfs</a> or <a href="http://www.techrepublic.com/article/mount-ftp-volumes-locally-with-ftpfs/5031896">ftpfs</a> (ftp://), cifs-utils or smbfs (smb://), and sshfs (ssh://).
+You may also need to install <a href="http://linuxconfig.org/mount-remote-ftp-directory-host-locally-into-linux-filesystem">curlftpfs</a> or <a href="http://www.techrepublic.com/article/mount-ftp-volumes-locally-with-ftpfs/5031896">ftpfs</a> (ftp://), cifs-utils or smbfs (smb://), sshfs (ssh://), and <a href="http://linux.die.net/man/8/mount.davfs">davfs2</a> (http://).
 
 <p><b>NTFS-3G</b>
 
@@ -276,7 +276,7 @@ The change should be immediate - media will be detected and the eject button on 
 <table cellspacing="0" cellpadding="0" align="center" width="75%">
  <tr> 
 	<td>
-		<div align="left"><i>Updated 2013-02-01</i></div>
+		<div align="left"><i>Updated 2013-02-11</i></div>
 	</td>
 	<td>
 		<div align="left"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BN2HNPVPS2EFJ"><img style="border:0;" src="donate_button.gif" alt="Make A Donation" /></a><br><small><a href="http://igurublog.wordpress.com/donate/">Tips &amp; Donation Info</a></small></div>
