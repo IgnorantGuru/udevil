@@ -12,7 +12,7 @@ Package: udevil
 Architecture: any
 Depends: libc6, libglib2.0-0, libudev0 (>=143)
 Recommends: 
-Suggests: eject, cifs-utils, curlftpfs, sshfs, spacefm
+Suggests: eject, cifs-utils, curlftpfs, sshfs, davfs2, spacefm
 Conflicts: devmon
 Provides: devmon
 Description: Mounts and unmounts removable devices and networks without a
