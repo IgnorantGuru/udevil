@@ -2181,7 +2181,8 @@ static int mount_device( const char* device_file, const char* fstype,
         wlog( _("udevil: error 144: invalid path\n"), NULL, 2 );
         g_strfreev( argv );
     }
-    else if ( g_spawn_sync( NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, &status, NULL ) )
+    else if ( g_spawn_sync( NULL, argv, NULL, G_SPAWN_CHILD_INHERITS_STDIN,
+                                        NULL, NULL, NULL, NULL, &status, NULL ) )
     {
         if ( status && WIFEXITED( status ) )
             exit_status = WEXITSTATUS( status );
@@ -2526,6 +2527,18 @@ static int parse_network_url( const char* url, const char* fstype,
         }
         nm->fstype = g_strdup( "sshfs" );
     }
+    else if ( g_str_has_prefix( xurl, "http:" ) || g_str_has_prefix( xurl, "https:" ) )
+    {
+        ret = 2;
+        is_colon = TRUE;
+        if ( fstype && strcmp( fstype, "davfs" ) )
+        {
+            wlog( _("udevil: error 151: invalid type '%s' for WebDAV share - must be davfs\n"),
+                                                                fstype, 2 );
+            goto _net_free;
+        }
+        nm->fstype = g_strdup( "davfs" );
+    }
     else if ( ( str = strstr( xurl, ":/" ) ) && xurl[0] != ':' && xurl[0] != '/' )
     {
         ret = 2;
@@ -2558,6 +2571,7 @@ static int parse_network_url( const char* url, const char* fstype,
                           !strcmp( fstype, "smbfs" ) ||
                           !strcmp( fstype, "cifs" ) ||
                           !strcmp( fstype, "sshfs" ) ||
+                          !strcmp( fstype, "davfs" ) ||
                           !strcmp( fstype, "curlftpfs" ) ||
                           !strcmp( fstype, "ftpfs" ) ) )
     {
@@ -2652,6 +2666,8 @@ static int parse_network_url( const char* url, const char* fstype,
                             "@",   //nm->user || nm->pass ? "@" : "",
                             nm->host,
                             nm->path ? nm->path : "/" );
+        else if ( !g_strcmp0( nm->fstype, "davfs" ) )
+            nm->url = g_strdup( url );
         else
             nm->url = g_strdup( trim_url );
     }
@@ -3133,6 +3149,7 @@ _get_type:
                                              || !strcmp( data->fstype, "ftpfs" )
                                              || !strcmp( data->fstype, "curlftpfs" )
                                              || !strcmp( data->fstype, "sshfs" )
+                                             || !strcmp( data->fstype, "davfs" )
                                              || !strcmp( data->fstype, "tmpfs" )
                                              || !strcmp( data->fstype, "ramfs" )
                                              || !strcmp( data->fstype, "file" ) )
@@ -3954,6 +3971,13 @@ _get_type:
                 str = "smb";
             else if ( !strcmp( netmount->fstype, "sshfs" ) )
                 str = "ssh";
+            else if ( !strcmp( netmount->fstype, "davfs" ) )
+            {
+                if ( g_str_has_prefix( netmount->url, "https" ) )
+                    str = "https";
+                else
+                    str = "http";
+            }
             else
                 str = "ftp";
 
@@ -4841,6 +4865,7 @@ static void show_help()
     printf( "    udevil mount ssh://user@sys.domain               # %s\n", _("sshfs with user - ") );
     printf( "                                                       %s\n", _("requires sshfs") );
     printf( "    udevil mount -t sshfs user@sys.domain            # %s\n", _("sshfs with user") );
+    printf( "    udevil mount http://sys.domain/dav/              # %s\n", _("WebDAV - requires davfs2") );
     printf( "    udevil mount tmpfs                               # %s\n", _("make a ram drive") );
     printf( _("\n    WARNING !!! a password on the command line is UNSAFE - see filesystem docs\n\n") );
     printf( _("UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:\n") );

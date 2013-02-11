@@ -183,10 +183,10 @@ POST INSTALL
     to be mounted, with mounting of networks and ISO files disallowed.  To
     allow networks and files to be mounted, in /etc/udevil/udevil.conf set:
 
-        allowed_types = $KNOWN_FILESYSTEMS, file, cifs, nfs, curlftpfs, sshfs
+        allowed_types = $KNOWN_FILESYSTEMS, file, cifs, nfs, curlftpfs, sshfs, davfs
 
     You may also need to install curlftpfs or ftpfs (ftp://), cifs or smbfs
-    (smb://), and sshfs (ssh://).
+    (smb://), sshfs (ssh://), and davfs2 (http://).
 
 
     NTFS-3G
