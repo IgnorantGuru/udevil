@@ -1,4 +1,4 @@
-0.3.6+
+0.4.0   2013-02-11:
     debian package add XXXXXXXX to mktemp template [dist]
     [devmon] get pmount mount point after mount #20
     move debian/ to distros/debian/ and update README
