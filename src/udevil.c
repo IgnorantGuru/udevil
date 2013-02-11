@@ -2425,11 +2425,6 @@ static int parse_network_url( const char* url, const char* fstype,
     nm->pass = NULL;
     nm->path = NULL;
 
-    if ( fstype && ( !strcmp( fstype, "nfs" ) || !strcmp( fstype, "smbfs" ) 
-            || !strcmp( fstype, "cifs" ) || !strcmp( fstype, "sshfs" ) 
-            || !strcmp( fstype, "nfs4" ) ) )
-        ret = 2; //invalid as default response
-
     char* orig_url = strdup( url );
     char* xurl = orig_url;
     gboolean is_colon = FALSE;
@@ -2556,6 +2551,18 @@ static int parse_network_url( const char* url, const char* fstype,
         }
         str[0] = ':';
     }
+    else if ( fstype && ( !strcmp( fstype, "nfs" ) || 
+                          !strcmp( fstype, "nfs4" ) ||
+                          !strcmp( fstype, "smbfs" ) ||
+                          !strcmp( fstype, "cifs" ) ||
+                          !strcmp( fstype, "sshfs" ) ||
+                          !strcmp( fstype, "curlftpfs" ) ||
+                          !strcmp( fstype, "ftpfs" ) ) )
+    {
+        // no protocol but user specified a valid network fstype
+        ret = 2;
+        nm->fstype = g_strdup( fstype );
+    }
 
     if ( ret != 2 )
         goto _net_free;
@@ -2588,12 +2595,14 @@ static int parse_network_url( const char* url, const char* fstype,
             nm->user = g_strdup( xurl );
         xurl = str + 1;
     }
+
     // path
     if ( str = strchr( xurl, '/' ) )
     {
         nm->path = g_strdup( str );
         str[0] = '\0';
     }
+
     // host:port
     if ( xurl[0] == '[' )
     {
@@ -2621,9 +2630,9 @@ static int parse_network_url( const char* url, const char* fstype,
     // url
     if ( nm->host )
     {
-        if ( !strcmp( nm->fstype, "cifs" ) || !strcmp( nm->fstype, "smbfs" ) )
+        if ( !g_strcmp0( nm->fstype, "cifs" ) || !g_strcmp0( nm->fstype, "smbfs" ) )
             nm->url = g_strdup_printf( "//%s%s", nm->host, nm->path ? nm->path : "/" );
-        else if ( !strcmp( nm->fstype, "nfs" ) )
+        else if ( !g_strcmp0( nm->fstype, "nfs" ) )
             nm->url = g_strdup_printf( "%s:%s", nm->host, nm->path ? nm->path : "/" );
         else if ( !g_strcmp0( nm->fstype, "curlftpfs" ) )
             nm->url = g_strdup_printf( "curlftpfs#ftp://%s%s%s%s",

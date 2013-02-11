@@ -2,6 +2,7 @@
     debian package add XXXXXXXX to mktemp template [dist]
     [devmon] get pmount mount point after mount #20
     move debian/ to distros/debian/ and update README
+    fix -t with net fstype without protocol
 0.3.6   2012-12-16:
     file mount prevent race conditions
     disallow remount of file due to potential race conditions
