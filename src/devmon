@@ -538,7 +538,7 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 	if [ "$point" = " " ]; then
 		# pmount doesn't output the mount point - get it now
 		sleep 1
-		point=`$info_cmd --show-info $1 | grep "^  mount paths:" | sed 's/.*: *\(.*\)/\1/'`
+		point=`$info_cmd --show-info $1 2>/dev/null | grep "^  mount paths:" | sed 's/.*: *\(.*\)/\1/'`
 		point="${point%%, *}"
 	fi
 }
