@@ -39,7 +39,7 @@ udevil 0.4.0 includes the following changes:
 <ul>
     <li><b>Support for WebDAV has been added</b>, which allows mounting of http:// and https:// URLs via <a href="http://linux.die.net/man/8/mount.davfs">davfs2</a> (a new optional udevil dependency).  To use this support, install davfs2, add "davfs" to allowed_types in <a href="udevil.conf.txt">udevil.conf</a>, and add the following line to udevil.conf if not already present:
     <pre>    default_options_davfs = nosuid, noexec, nodev, uid=$UID, gid=$GID</pre>
-    <li>A problem in devmon which caused --exec-on-drive to fail to execute when devmon was used with pmount and without udevil has been corrected.<br><br>
+    <li>A problem in devmon which caused --exec-on-drive to fail to execute when devmon was used with pmount and without udevil has been corrected in devmon 1.1.5 (included with udevil).<br><br>
     <li>A crash caused by specifying a network fs type without a protocol has been corrected.<br><br>
     <li>udevil now creates /run if needed when creating /run/media/$USER on demand<br><br>
     <li>The provided build-from-source <a href="https://github.com/IgnorantGuru/spacefm/wiki/Debian">Debian packages</a> use a longer mktemp X template to correct problems installing on Ubuntu.<br><br>
