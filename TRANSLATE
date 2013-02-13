@@ -1,5 +1,16 @@
 TRANSLATIONS
 
+TRANSIFEX METHOD
+
+    To help translate udevil in your language, please visit:
+        https://www.transifex.com/projects/p/udevil/
+
+    Just sign up for a free Transifex account.  For instructions visit:
+        http://help.transifex.com/intro/translating.html#translating
+
+
+MANUAL METHOD
+
 Translating udevil doesn't require any special tools - just a text editor.
 To create a translation of udevil for your language, follow these steps.
 
@@ -48,14 +59,17 @@ To create a translation of udevil for your language, follow these steps.
 10) Once translations are the way you want them, release your translated .po
     file:
 
-    If you are familiar with github, you can clone the udevil repo and do a
-    pull request.  https://help.github.com/articles/using-pull-requests/
+    Upload the file to https://www.transifex.com/projects/p/udevil/
+
+    OR, if you are familiar with github, you can clone the udevil repo and 
+    do a pull request.  https://help.github.com/articles/using-pull-requests/
 
     OR, add the .po file to a public gist https://gist.github.com/ or host
     it elsewhere, then open a new issue asking for your file to be merged into
     the source:  https://github.com/IgnorantGuru/udevil/issues/new
 
-    OR, email your .po file:  http://igurublog.wordpress.com/contact-ignorantguru/
+    OR, email your .po file:  
+        http://igurublog.wordpress.com/contact-ignorantguru/
 
 11) Translated strings will change occassionally as new udevil versions are
     released.  To update your translation:

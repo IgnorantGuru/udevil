@@ -1,2 +1,3 @@
-packages export-ignore
+.tx export-ignore
+pacpackages export-ignore
 .gitattributes export-ignore
