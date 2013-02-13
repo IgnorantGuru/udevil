@@ -8,6 +8,7 @@ src/udevil
 src/.deps/
 src/.libs/
 
+.tx/
 autom4te.cache/
 Makefile
 config.log

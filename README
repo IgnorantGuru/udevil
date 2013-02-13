@@ -180,7 +180,7 @@ POST INSTALL
     ------------------
 
     By default, /etc/udevil/udevil.conf is set to allow only local fileystems
-    to be mounted, with mounting of networks and ISO files disallowed.  To
+    and ISO files to be mounted, with mounting of networks disallowed.  To
     allow networks and files to be mounted, in /etc/udevil/udevil.conf set:
 
         allowed_types = $KNOWN_FILESYSTEMS, file, cifs, nfs, curlftpfs, sshfs, davfs

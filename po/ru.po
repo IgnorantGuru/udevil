@@ -1,12 +1,13 @@
-# Russian udevil translation
-# Copyright (C) 2012
-# This file is distributed under the same license as the udevil package.
+# udevil PO Template    http://ignorantguru.github.com/udevil/
+# This file is distributed under the same copyright and license as the SpaceFM
+# package.
 #
 # Vladimir Kudrya <vladimir-csp@yandex.ru>, 2012.
 # Vladimir Lomov <irk.translator@gmail.com>, 2012.
+
 msgid ""
 msgstr ""
-"Project-Id-Version: udevil\n"
+"Project-Id-Version: udevil 0.4.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-12 00:31+0400\n"
 "PO-Revision-Date: 2013-02-12 00:33+0300\n"
