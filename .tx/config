@@ -2,12 +2,9 @@
 host = https://www.transifex.com
 type = PO
 
-[spacefm.udevilpot]
-source_file = po/udevil.pot
-source_lang = en
-
 [udevil.udevilpot]
 source_file = po/udevil.pot
 source_lang = en
+trans.it = po/it.po
 trans.ru = po/ru.po
 
