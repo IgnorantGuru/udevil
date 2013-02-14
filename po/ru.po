@@ -1,31 +1,28 @@
 # udevil PO Template    http://ignorantguru.github.com/udevil/
 # This file is distributed under the same copyright and license as the SpaceFM
 # package.
-#
+# 
+# Translators:
 # Vladimir Kudrya <vladimir-csp@yandex.ru>, 2012.
 # Vladimir Lomov <irk.translator@gmail.com>, 2012.
-
 msgid ""
 msgstr ""
-"Project-Id-Version: udevil 0.4.0\n"
+"Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-12 00:31+0400\n"
-"PO-Revision-Date: 2013-02-12 00:33+0300\n"
-"Last-Translator: Vladimir Kudrya <vladimir-csp@yandex.ru>\n"
-"Language-Team: none\n"
-"Language: ru\n"
+"POT-Creation-Date: 2013-02-13 22:35+0000\n"
+"PO-Revision-Date: 2013-02-13 22:46+0000\n"
+"Last-Translator: ignorantguru <jgj7.ignorantguru@mailnull.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.4.6.1\n"
-"X-Poedit-Bookmarks: -1,-1,901,-1,-1,-1,-1,-1,-1,-1\n"
-"X-Poedit-Language: Russian\n"
-"X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 #: ../src/udevil.c:612
 #, c-format
-msgid "udevil: error 1: unable to drop priviledges - please report this problem\n"
+msgid ""
+"udevil: error 1: unable to drop priviledges - please report this problem\n"
 msgstr "udevil: ошибка 1: невозможно сбросить привилегии — сообщите об этой проблеме разработчику\n"
 
 #: ../src/udevil.c:804
@@ -68,9 +65,7 @@ msgstr "udevil: чтение конфигурации %s\n"
 msgid "udevil: error 8: failed writing to log file '%s'\n"
 msgstr "udevil: ошибка 8: ошибка записи в файл журнала «%s»\n"
 
-#: ../src/udevil.c:1488
-#: ../src/udevil.c:1530
-#: ../src/udevil.c:1592
+#: ../src/udevil.c:1488 ../src/udevil.c:1530 ../src/udevil.c:1592
 #: ../src/udevil.c:1635
 #, c-format
 msgid "udevil: warning 9: unable to run losetup (%s)\n"
@@ -124,8 +119,7 @@ msgstr "udevil: попытка монтирования от текущего п
 msgid "udevil: warning 15: unable to run umount (%s)\n"
 msgstr "udevil: предупреждение 15: невозможно выполнить umount (%s)\n"
 
-#: ../src/udevil.c:2057
-#: ../src/udevil.c:2130
+#: ../src/udevil.c:2057 ../src/udevil.c:2130
 #, c-format
 msgid "      umount exit status = %d\n"
 msgstr "      код возврата umount = %d\n"
@@ -135,8 +129,7 @@ msgstr "      код возврата umount = %d\n"
 msgid "udevil: success running umount as current user\n"
 msgstr "udevil: успешное выполнение umount от имени текущего пользователя\n"
 
-#: ../src/udevil.c:2109
-#: ../src/udevil.c:2181
+#: ../src/udevil.c:2109 ../src/udevil.c:2181
 msgid "udevil: error 144: invalid path\n"
 msgstr "udevil: ошибка 144: некорректный путь\n"
 
@@ -202,22 +195,28 @@ msgstr "udevil: предупреждение 25: выполнение setfacl н
 
 #: ../src/udevil.c:2446
 #, c-format
-msgid "udevil: error 26: invalid type '%s' for SMB share - must be cifs or smbfs\n"
+msgid ""
+"udevil: error 26: invalid type '%s' for SMB share - must be cifs or smbfs\n"
 msgstr "udevil: ошибка 26: некорректный тип ФС «%s» для ресурса SMB — должен быть cifs или smbfs\n"
 
 #: ../src/udevil.c:2461
 #, c-format
-msgid "udevil: error 27: invalid type '%s' for NFS share - must be nfs or nfs4\n"
+msgid ""
+"udevil: error 27: invalid type '%s' for NFS share - must be nfs or nfs4\n"
 msgstr "udevil: ошибка 27: некорректный тип ФС «%s» для ресурса NFS — должен быть nfs или nfs4\n"
 
 #: ../src/udevil.c:2474
 #, c-format
-msgid "udevil: error 28: invalid type '%s' for curlftpfs share - must be curlftpfs\n"
+msgid ""
+"udevil: error 28: invalid type '%s' for curlftpfs share - must be "
+"curlftpfs\n"
 msgstr "udevil: ошибка 28: некорректный тип ФС «%s» для ресурса curlftpfs — должен быть curlftpfs\n"
 
 #: ../src/udevil.c:2486
 #, c-format
-msgid "udevil: error 29: invalid type '%s' for FTP share - must be curlftpfs or ftpfs\n"
+msgid ""
+"udevil: error 29: invalid type '%s' for FTP share - must be curlftpfs or "
+"ftpfs\n"
 msgstr "udevil: ошибка 29: некорректный тип ФС «%s» для ресурса FTP — должен быть curlftpfs или ftpfs\n"
 
 #: ../src/udevil.c:2511
@@ -242,7 +241,8 @@ msgstr "udevil: ошибка 32: некорректный тип ФС «%s» д�
 
 #: ../src/udevil.c:2562
 #, c-format
-msgid "udevil: error 33: invalid type '%s' for NFS share - must be nfs or nfs4\n"
+msgid ""
+"udevil: error 33: invalid type '%s' for NFS share - must be nfs or nfs4\n"
 msgstr "udevil: ошибка 33: некорректный тип ФС «%s» для ресурса NFS — должен быть nfs или nfs4\n"
 
 #: ../src/udevil.c:2679
@@ -264,15 +264,11 @@ msgstr "udevil: ошибка 36: узел «%s» не найден\n"
 msgid "udevil: error 37: %s\n"
 msgstr "udevil: ошибка 37: %s\n"
 
-#: ../src/udevil.c:2744
-#: ../src/udevil.c:4230
-#: ../src/udevil.c:4553
+#: ../src/udevil.c:2744 ../src/udevil.c:4230 ../src/udevil.c:4553
 msgid "udevil was not run suid root"
 msgstr "udevil не запущен с suid root"
 
-#: ../src/udevil.c:2749
-#: ../src/udevil.c:4235
-#: ../src/udevil.c:4558
+#: ../src/udevil.c:2749 ../src/udevil.c:4235 ../src/udevil.c:4558
 msgid "To correct this problem"
 msgstr "Чтобы устранить эту проблему"
 
@@ -304,18 +300,21 @@ msgid "udevil: error 43: '%s' is not a regular file or directory\n"
 msgstr "udevil: ошибка 43: «%s» не является обычным файлом или каталогом\n"
 
 #. mount knows (in fstab) so mount as normal user with only specified opts
-#: ../src/udevil.c:2879
-#: ../src/udevil.c:3809
+#: ../src/udevil.c:2879 ../src/udevil.c:3809
 #, c-format
 msgid "udevil: %s is known to mount - running mount as current user\n"
 msgstr "udevil: %s прописан в fstab — выполнение mount от текущего пользователя\n"
 
 #: ../src/udevil.c:2882
-msgid "udevil: warning 44: fstype ignored for device in fstab (or specify mount point)\n"
+msgid ""
+"udevil: warning 44: fstype ignored for device in fstab (or specify mount "
+"point)\n"
 msgstr "udevil: предупреждение 44: тип ФС игнорируется для устройства в fstab (или можно указать точку монтирования)\n"
 
 #: ../src/udevil.c:2885
-msgid "udevil: warning 45: options ignored for device in fstab (or specify mount point)\n"
+msgid ""
+"udevil: warning 45: options ignored for device in fstab (or specify mount "
+"point)\n"
 msgstr "udevil: предупреждение 45: параметры монтирования игнорируются для устройства в fstab (или можно указать точку монтирования)\n"
 
 #: ../src/udevil.c:2956
@@ -550,12 +549,15 @@ msgstr "udevil: отказано 149: нельзя использовать оп
 
 #: ../src/udevil.c:3777
 #, c-format
-msgid "udevil: denied 92: device %s is already mounted (or specify mount point)\n"
+msgid ""
+"udevil: denied 92: device %s is already mounted (or specify mount point)\n"
 msgstr "udevil: отказано 92: устройство %s уже примонтировано (или укажите точку монтирования)\n"
 
 #: ../src/udevil.c:3788
 #, c-format
-msgid "udevil: denied 93: file %s is already mounted at %s (or specify mount point)\n"
+msgid ""
+"udevil: denied 93: file %s is already mounted at %s (or specify mount "
+"point)\n"
 msgstr "udevil: отказано 93: файл %s уже примонтирован в %s (или укажите точку монтирования)\n"
 
 #: ../src/udevil.c:3792
@@ -569,11 +571,15 @@ msgid "udevil: denied 95: %s is already mounted (or specify mount point)\n"
 msgstr "udevil: отказано 95: %s уже примонтирован (или укажите точку монтирования)\n"
 
 #: ../src/udevil.c:3812
-msgid "udevil: warning 96: fstype ignored for device in fstab (or specify mount point)\n"
+msgid ""
+"udevil: warning 96: fstype ignored for device in fstab (or specify mount "
+"point)\n"
 msgstr "udevil: предупреждение 96: тип ФС игнорируется для устройства в fstab (или укажите точку монтирования)\n"
 
 #: ../src/udevil.c:3815
-msgid "udevil: warning 97: options ignored for device in fstab (or specify mount point)\n"
+msgid ""
+"udevil: warning 97: options ignored for device in fstab (or specify mount "
+"point)\n"
 msgstr "udevil: предупреждение 97: параметры монтирования игнорируются для устройства в fstab (или укажите точку монтирования)\n"
 
 #: ../src/udevil.c:3857
@@ -625,7 +631,8 @@ msgid "udevil: trying with %s\n"
 msgstr "udevil: попытка с %s\n"
 
 #: ../src/udevil.c:4164
-msgid "udevil: warning 106: invalid mount_point_mode in udevil.conf - using 0755\n"
+msgid ""
+"udevil: warning 106: invalid mount_point_mode in udevil.conf - using 0755\n"
 msgstr "udevil: предупреждение 106: некорректное значение mount_point_mode в udevil.conf — используется 0755\n"
 
 #: ../src/udevil.c:4229
@@ -662,11 +669,15 @@ msgstr "udevil: ошибка 113: невозможно получить инфо
 
 #: ../src/udevil.c:4293
 #, c-format
-msgid "udevil: warning 114: device %s is an internal device - not unbinding driver\n"
+msgid ""
+"udevil: warning 114: device %s is an internal device - not unbinding "
+"driver\n"
 msgstr "udevil: предупреждение 114: устройство %s является внутренним — не отсоединяем драйвер\n"
 
 #: ../src/udevil.c:4304
-msgid "udevil: warning 115: interface is not usb, firewire, sdio, esata - not unbinding driver\n"
+msgid ""
+"udevil: warning 115: interface is not usb, firewire, sdio, esata - not "
+"unbinding driver\n"
 msgstr "udevil: предупреждение 115: интерфейс не usb, firewire, sdio или esata — не отсоединяем драйвер\n"
 
 #: ../src/udevil.c:4312
@@ -784,12 +795,14 @@ msgstr "udevil: ошибка 137: мониторинг /proc/self/mountinfo: %s\
 
 #: ../src/udevil.c:4829
 #, c-format
-msgid "Mounts and unmounts devices without password, shows device info, monitors\n"
+msgid ""
+"Mounts and unmounts devices without password, shows device info, monitors\n"
 msgstr "Монтирует и размонтирует устройства без ввода пароля, показывает информацию об устройствах, отслеживает\n"
 
 #: ../src/udevil.c:4830
 #, c-format
-msgid "device changes.  Emulates udisks1/2 command line usage and udisks1 output.\n"
+msgid ""
+"device changes.  Emulates udisks1/2 command line usage and udisks1 output.\n"
 msgstr "изменения устройств. Эмулирует поведение udisks1/2 и вывод udisks1.\n"
 
 #: ../src/udevil.c:4831
@@ -817,7 +830,9 @@ msgstr "MOUNT — монтирует УСТРОЙСТВО в точку монт
 
 #: ../src/udevil.c:4836
 #, c-format
-msgid "    udevil mount|--mount [MOUNT-OPTIONS] [[-b|--block-device] DEVICE] [DIR]\n"
+msgid ""
+"    udevil mount|--mount [MOUNT-OPTIONS] [[-b|--block-device] DEVICE] "
+"[DIR]\n"
 msgstr "    udevil mount|--mount [ПАРАМЕТРЫ-МОНТИРОВАНИЯ] [[-b|--block-device] УСТРОЙСТВО] [КАТАЛОГ]\n"
 
 #: ../src/udevil.c:4837
@@ -825,21 +840,19 @@ msgstr "    udevil mount|--mount [ПАРАМЕТРЫ-МОНТИРОВАНИЯ] [
 msgid "    MOUNT-OPTIONS:\n"
 msgstr "    ПАРАМЕТРЫ-МОНТИРОВАНИЯ:\n"
 
-#: ../src/udevil.c:4838
-#: ../src/udevil.c:4839
+#: ../src/udevil.c:4838 ../src/udevil.c:4839
 msgid "see man mount"
 msgstr "смотрите man mount"
 
-#. printf( "    -L LABEL                                    mount device by label LABEL\n" );
-#. printf( "    -U UUID                                     mount device by UUID\n" );
-#: ../src/udevil.c:4842
-#: ../src/udevil.c:4877
-#: ../src/udevil.c:4889
+#. printf( "    -L LABEL                                    mount device by
+#. label LABEL\n" );
+#. printf( "    -U UUID                                     mount device by
+#. UUID\n" );
+#: ../src/udevil.c:4842 ../src/udevil.c:4877 ../src/udevil.c:4889
 msgid "ignored (for compatibility)"
 msgstr "игнорируется (для совместимости)"
 
-#: ../src/udevil.c:4843
-#: ../src/udevil.c:4878
+#: ../src/udevil.c:4843 ../src/udevil.c:4878
 msgid "EXAMPLES"
 msgstr "ПРИМЕРЫ"
 
@@ -856,8 +869,7 @@ msgstr "ресурс ftp — требуется"
 msgid "or"
 msgstr "или"
 
-#: ../src/udevil.c:4851
-#: ../src/udevil.c:4853
+#: ../src/udevil.c:4851 ../src/udevil.c:4853
 msgid "ftp share with"
 msgstr "ресурс ftp с"
 
@@ -881,13 +893,11 @@ msgstr "ресурс ftp с curl"
 msgid "ftp site with curl u/p"
 msgstr "ресурс ftp с curl пользователь/пароль"
 
-#: ../src/udevil.c:4858
-#: ../src/udevil.c:4859
+#: ../src/udevil.c:4858 ../src/udevil.c:4859
 msgid "nfs share"
 msgstr "ресурс nfs"
 
-#: ../src/udevil.c:4860
-#: ../src/udevil.c:4863
+#: ../src/udevil.c:4860 ../src/udevil.c:4863
 msgid "samba share w/ cifs"
 msgstr "ресурс samba с: cifs"
 
@@ -929,10 +939,7 @@ msgid ""
 "\n"
 "    WARNING !!! a password on the command line is UNSAFE - see filesystem docs\n"
 "\n"
-msgstr ""
-"\n"
-"    ВНИМАНИЕ !!! прописывание пароля в командной строке НЕБЕЗОПАСНО - см. документацию по ФС\n"
-"\n"
+msgstr "\n    ВНИМАНИЕ !!! прописывание пароля в командной строке НЕБЕЗОПАСНО - см. документацию по ФС\n\n"
 
 #: ../src/udevil.c:4871
 #, c-format
@@ -946,7 +953,9 @@ msgstr "    udevil umount|unmount|--unmount|--umount [ПАРАМЕТРЫ-РАЗ�
 
 #: ../src/udevil.c:4873
 #, c-format
-msgid "                                              {[-b|--block-device] DEVICE}|DIR\n"
+msgid ""
+"                                              {[-b|--block-device] "
+"DEVICE}|DIR\n"
 msgstr "                                              {[-b|--block-device] УСТРОЙСТВО}|КАТАЛОГ\n"
 
 #: ../src/udevil.c:4874
@@ -954,19 +963,18 @@ msgstr "                                              {[-b|--block-device] УС�
 msgid "    UNMOUNT-OPTIONS:\n"
 msgstr "    ПАРАМЕТРЫ-РАЗМОНТИРОВАНИЯ:\n"
 
-#: ../src/udevil.c:4875
-#: ../src/udevil.c:4887
+#: ../src/udevil.c:4875 ../src/udevil.c:4887
 msgid "lazy unmount (see man umount)"
 msgstr "lazy unmount (смотри man umount)"
 
-#: ../src/udevil.c:4876
-#: ../src/udevil.c:4888
+#: ../src/udevil.c:4876 ../src/udevil.c:4888
 msgid "force unmount (see man umount)"
 msgstr "force unmount (смотри man umount)"
 
 #: ../src/udevil.c:4883
 #, c-format
-msgid "REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe\n"
+msgid ""
+"REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe\n"
 msgstr "REMOVE  —  размонтировать все разделы на УСТРОЙСТВЕ и приготовить его для безопасного\n"
 
 #: ../src/udevil.c:4884
@@ -976,7 +984,8 @@ msgstr "           извлечения (синхронизовать, оста�
 
 #: ../src/udevil.c:4885
 #, c-format
-msgid "    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n"
+msgid ""
+"    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n"
 msgstr "    udevil remove|--remove|--detach [ПАРАМЕТРЫ] [-b|--block-device] УСТРОЙСТВО\n"
 
 #: ../src/udevil.c:4886
@@ -984,9 +993,7 @@ msgstr "    udevil remove|--remove|--detach [ПАРАМЕТРЫ] [-b|--block-dev
 msgid "    OPTIONS:\n"
 msgstr "    ПАРАМЕТРЫ:\n"
 
-#: ../src/udevil.c:4890
-#: ../src/udevil.c:4894
-#: ../src/udevil.c:4897
+#: ../src/udevil.c:4890 ../src/udevil.c:4894 ../src/udevil.c:4897
 msgid "EXAMPLE"
 msgstr "ПРИМЕР"
 
@@ -1050,4 +1057,3 @@ msgstr "udevil: ошибка 141: некорректный параметр «%s
 #, c-format
 msgid "udevil: error 142: invalid or unexpected argument '%s'\n"
 msgstr "udevil: ошибка 142: некорректный или неожиданный параметр «%s»\n"
-
