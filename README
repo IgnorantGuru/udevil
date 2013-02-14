@@ -22,7 +22,7 @@ CONTENTS
         systemd Service
     ENABLE KERNEL POLLING
     UNINSTALL
-    TRANSLATIONS
+    TRANSLATE
     LICENSE
 
 
@@ -305,10 +305,16 @@ UNINSTALL
         # Note: /etc/udevil/ is not automatically removed
 
 
-TRANSLATIONS
+TRANSLATE
 
-    Adding or updating a translation of udevil doesn't require any special
-    tools, just a text editor.  For instructions, see the TRANSLATE file.
+    To help translate udevil please visit:
+        https://github.com/IgnorantGuru/spacefm/wiki/Translate
+    
+    At Transifex:
+        https://www.transifex.com/projects/p/udevil/
+
+    Just sign up for a free Transifex account.  For instructions visit:
+        http://help.transifex.com/intro/translating.html#translating
 
 
 LICENSE
