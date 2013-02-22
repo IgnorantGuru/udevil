@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# This script updates udevil.pot and modifies comments
+
+curdir=`pwd`
+if [ "$(basename "$curdir")" != "po" ] || [ ! -e POTFILES.in ]; then
+    echo "udevil: update-pot: This script must be run from udevil's po subdirectory"
+    exit 1
+fi
+
+# get configure version
+#AM_INIT_AUTOMAKE(udevil, 0.2.0)
+ver=`grep -m 1 "^AM_INIT_AUTOMAKE(udevil, .*" "../configure.ac" \
+			| sed "s/AM_INIT_AUTOMAKE(udevil, \(.*\))/\1/"`
+if [ "$ver" = "" ]; then
+	echo "udevil: update-pot: cannot get configure.ac version"
+	exit 1
+fi
+
+rm -f udevil.pot
+intltool-update --pot
+if [ $? -ne 0 ] || [ ! -s udevil.pot ]; then
+	echo "udevil: update-pot: error creating udevil.pot"
+	exit 2
+fi
+sed -i 's/# SOME DESCRIPTIVE TITLE\./# udevil PO Template    http:\/\/ignorantguru.github.com\/udevil\//' udevil.pot
+sed -i "/# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER/d" udevil.pot
+sed -i 's/# This file is distributed under the same license as the PACKAGE package\./# This file is distributed under the same copyright and license as the udevil\x0A# package./' udevil.pot
+sed -i s/'"Project-Id-Version: PACKAGE VERSION\\n"'/"\"Project-Id-Version: udevil ${ver}\\\n\""/ udevil.pot
+sed -i s/'"POT-Creation-Date: .*\\n"'/"\"POT-Creation-Date: $(date -u '+%Y-%m-%d %H:%M+0000')\\\n\""/ udevil.pot
+
+head -n 20 udevil.pot
+

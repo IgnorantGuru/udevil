@@ -19,6 +19,7 @@ po/.intltool-merge-cache
 po/POTFILES
 po/*.gmo
 po/stamp-it
+po/Makefile.in
 
 packages/*/*.src.tar.gz
 packages/*/*.changes

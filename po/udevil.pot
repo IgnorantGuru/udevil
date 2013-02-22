@@ -1,14 +1,14 @@
 # udevil PO Template    http://ignorantguru.github.com/udevil/
-# This file is distributed under the same copyright and license as the SpaceFM
+# This file is distributed under the same copyright and license as the udevil
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: udevil 0.4.0\n"
+"Project-Id-Version: udevil 0.4.0+\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-13 22:35+0000\n"
+"POT-Creation-Date: 2013-02-22 13:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
