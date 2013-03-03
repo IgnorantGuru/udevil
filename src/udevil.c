@@ -685,9 +685,9 @@ char *replace_string( const char* orig, const char* str, const char* replace,
     if ( !replace )
     {
         if ( quote )
-            rep = g_strdup_printf( "''" );
+            rep = g_strdup( "''" );
         else
-            rep = g_strdup_printf( "" );
+            rep = g_strdup( "" );
     }
     else if ( quote )
         rep = g_strdup_printf( "'%s'", replace );
@@ -1143,7 +1143,7 @@ static void dump_log()
     }
     if ( file )
     {
-        if ( fprintf( file, logmem ) < 1 )
+        if ( fprintf( file, logmem, NULL ) < 1 )
             fail = TRUE;
         if ( fclose( file ) != 0 )
             fail = TRUE;
@@ -2065,9 +2065,9 @@ static int try_umount( const char* device_file, gboolean force, gboolean lazy )
     // success - show output
     wlog( _("udevil: success running umount as current user\n"), NULL, 1 );
     if ( sstderr )
-        fprintf( stderr, sstderr );
+        fprintf( stderr, sstderr, NULL );
     if ( sstdout )
-        fprintf( stdout, sstdout );
+        fprintf( stdout, sstdout, NULL );
     g_free( sstdout );
     g_free( sstderr );
     return 0;
@@ -4056,7 +4056,7 @@ _get_type:
     {
         if ( !valid_mount_path( point, &str ) )
         {
-            printf( str );
+            printf( str, NULL );
             g_free( str );
             ret = 2;
             goto _finish;

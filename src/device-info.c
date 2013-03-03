@@ -1129,16 +1129,16 @@ void info_partition( device_t *device )
       size = sysfs_get_uint64 (device->native_path, "size");
       alignment_offset = sysfs_get_uint64 (device->native_path, "alignment_offset");
 
-      device->partition_size = g_strdup_printf( "%d", size * 512 );
-      device->partition_alignment_offset = g_strdup_printf( "%d", alignment_offset );
+      device->partition_size = g_strdup_printf( "%lu", size * 512 );
+      device->partition_alignment_offset = g_strdup_printf( "%lu", alignment_offset );
 
       offset = sysfs_get_uint64 (device->native_path, "start") * device->device_block_size;
-      device->partition_offset = g_strdup_printf( "%d", offset );
+      device->partition_offset = g_strdup_printf( "%lu", offset );
 
       s = device->native_path;
       for (n = strlen (s) - 1; n >= 0 && g_ascii_isdigit (s[n]); n--)
         ;
-      device->partition_number = g_strdup_printf( "%d", strtol (s + n + 1, NULL, 0) );
+      device->partition_number = g_strdup_printf( "%ld", strtol (s + n + 1, NULL, 0) );
         /*
       s = g_strdup (device->priv->native_path);
       for (n = strlen (s) - 1; n >= 0 && s[n] != '/'; n--)
@@ -1384,7 +1384,7 @@ char* device_show_info( device_t *device )
         line[i++] = g_strdup_printf("  partition:\n");
         line[i++] = g_strdup_printf("    scheme:                    %s\n", device->partition_scheme ?
                                                     device->partition_scheme : "" );
-        line[i++] = g_strdup_printf("    number:                    %d\n", device->partition_number ?
+        line[i++] = g_strdup_printf("    number:                    %s\n", device->partition_number ?
                                                     device->partition_number : "" );
         line[i++] = g_strdup_printf("    type:                      %s\n", device->partition_type ?
                                                     device->partition_type : "" );
