@@ -130,7 +130,7 @@ BUILD NEXT
     cd IgnorantGuru-udevil-*
 
     # Build, & Install
-    ./autogen.sh   # pass desired configure options (if any) here to autogen.sh
+    ./configure
     make
     sudo make install
 

@@ -15,7 +15,7 @@ defaultmountoptions="noexec,nosuid,nodev,noatime"
 help()
 {
 	cat << EOF
-devmon version 1.1.5  (distributed with udevil)
+devmon version 1.1.6  (distributed with udevil)
 Automounts and unmounts optical and removable drives
 Requires:    udevil bash>=4        Also Recommended: eject spacefm|zenity
 Optional:    udisks v1 may be substituted for udevil
@@ -1075,6 +1075,8 @@ while ps -p $COPROC_PID &>/dev/null; do
 	event="${REPLY%:*}"
 	devpath="${REPLY#*:}"
 	devpath="/dev/${devpath##*/}"
+	devtag="${devpath#/dev/}"
+	devtag="${devtag//-/_}"
     if [ "$event" != "" ] && [ "$devpath" != "/dev/" ] && [ -e "$devpath" ]; then
 		case $event in
 			added )
@@ -1094,9 +1096,9 @@ while ps -p $COPROC_PID &>/dev/null; do
 				;;
 			changed )
 				driveinfo $devpath
-				eval notejected=\$notejected${devpath#/dev/}
-				eval devmounted=\$devmounted${devpath#/dev/}
-				eval devmounted${devpath#/dev/}="$ismounted"
+				eval notejected=\$notejected${devtag}
+				eval devmounted=\$devmounted${devtag}
+				eval devmounted${devtag}="$ismounted"
 				# If notejected==1 then cd has not been ejected and was probably
 				# manually unmounted, so don't automount it.  Otherwise
 				# devmon will instantly mount any manual unmount.
@@ -1111,14 +1113,14 @@ while ps -p $COPROC_PID &>/dev/null; do
 					else
 						mountdrive $devpath "$label" optical
 					fi
-					eval notejected${devpath#/dev/}=1
+					eval notejected${devtag}=1
 				else
 					if [ "$systeminternal" != "1" ] && \
 													[ "$hasmedia" = "0" ]; then
 						if (( notejected == 1 )) || [ "$notejected" == "" ]; then
 							# disc ejected
 							echo "devmon: $devpath eject detected"
-							eval notejected${devpath#/dev/}=0
+							eval notejected${devtag}=0
 						fi
 						if [ "$ismounted" != "0" ]; then
 							# unmount if ejected disc still mounted
@@ -1145,7 +1147,7 @@ while ps -p $COPROC_PID &>/dev/null; do
 			;;
 		esac
     elif [ "$event" = "removed" ]; then
-		eval unset devmounted${devpath#/dev/}
+		eval unset devmounted${devtag}
 		# unmount if removed device is still mounted
 		grep -qs "^${devpath} " /proc/mounts &> /dev/null
 		mounterr=$?
