@@ -7,5 +7,6 @@ source_file = po/udevil.pot
 source_lang = en
 trans.de = po/de.po
 trans.it = po/it.po
+trans.pt_BR = po/pt_BR.po
 trans.ru = po/ru.po
 

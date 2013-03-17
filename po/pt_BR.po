@@ -3,20 +3,19 @@
 # package.
 # 
 # Translators:
-#  <johannes@ballentin.org>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-22 13:49+0000\n"
-"PO-Revision-Date: 2013-03-08 00:22+0000\n"
-"Last-Translator: jup <inactive+jup@transifex.com>\n"
+"PO-Revision-Date: 2013-02-13 22:43+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../src/udevil.c:612
 #, c-format
@@ -27,42 +26,42 @@ msgstr ""
 #: ../src/udevil.c:804
 #, c-format
 msgid "udevil: error 2: %s line %d is not valid UTF-8\n"
-msgstr "udevil: Fehler 2: %s Zeile %d entspricht nicht der UTF-8 Norm\n"
+msgstr ""
 
 #: ../src/udevil.c:810
 #, c-format
 msgid "udevil: error 3: %s line %d is too long\n"
-msgstr "udevil: Fehler 3: %s Zeile %d ist zu lang\n"
+msgstr ""
 
 #: ../src/udevil.c:820
 #, c-format
 msgid "udevil: error 4: %s line %d syntax error:\n"
-msgstr "udevil: Fehler 4: %s Zeile %d Syntaxfehler:\n"
+msgstr ""
 
 #: ../src/udevil.c:833
 #, c-format
 msgid "udevil: error 5: %s line %d syntax error:\n"
-msgstr "udevil: Fehler 5: %s Zeile %d Syntaxfehler:\n"
+msgstr ""
 
 #: ../src/udevil.c:840
 #, c-format
 msgid "udevil: error 6: %s line %d duplicate assignment:\n"
-msgstr "udevil: Fehler 6: %s Zeile %d doppelt zugeordnet:\n"
+msgstr ""
 
 #: ../src/udevil.c:903
 #, c-format
 msgid "udevil: warning 7: /etc/udevil/udevil.conf could not be read\n"
-msgstr "udevil: Warnung 7: /etc/udevil/udevil.conf nicht lesbar\n"
+msgstr ""
 
 #: ../src/udevil.c:913
 #, c-format
 msgid "udevil: read config %s\n"
-msgstr "udevil: Lese Konfiguration %s\n"
+msgstr ""
 
 #: ../src/udevil.c:1152
 #, c-format
 msgid "udevil: error 8: failed writing to log file '%s'\n"
-msgstr "udevil: Fehler 8: Schreiben in die Logdatei gescheitert '%s'\n"
+msgstr ""
 
 #: ../src/udevil.c:1488 ../src/udevil.c:1530 ../src/udevil.c:1592
 #: ../src/udevil.c:1635
@@ -76,7 +75,7 @@ msgstr ""
 
 #: ../src/udevil.c:1552
 msgid "udevil: error 150: path changed\n"
-msgstr "udevil: Fehler 150:Pfad worde geändert\n"
+msgstr ""
 
 #: ../src/udevil.c:1692
 #, c-format
@@ -86,12 +85,12 @@ msgstr ""
 #: ../src/udevil.c:1926
 #, c-format
 msgid "udevil: error 11: could not open %s\n"
-msgstr "udevil: Fehler 11: konnte %s nicht öffnen\n"
+msgstr ""
 
 #: ../src/udevil.c:1934
 #, c-format
 msgid "udevil: error 12: error writing to %s\n"
-msgstr "udevil: Fehler 12: Fehler beim Schreiben nach %s\n"
+msgstr ""
 
 #: ../src/udevil.c:1984
 #, c-format
@@ -111,7 +110,7 @@ msgstr ""
 #. log
 #: ../src/udevil.c:2039
 msgid "udevil: trying umount as current user\n"
-msgstr "udevil: Aushängen als derzeitiger Nutzer wird versucht\n"
+msgstr ""
 
 #: ../src/udevil.c:2052
 #, c-format
@@ -126,11 +125,11 @@ msgstr ""
 #. success - show output
 #: ../src/udevil.c:2066
 msgid "udevil: success running umount as current user\n"
-msgstr "udevil: Aushängen als derzeitiger Nutzer war erfolgreich\n"
+msgstr ""
 
 #: ../src/udevil.c:2109 ../src/udevil.c:2181
 msgid "udevil: error 144: invalid path\n"
-msgstr "udevil: Fehler 144: ungültiger Pfad\n"
+msgstr ""
 
 #: ../src/udevil.c:2120
 #, c-format
@@ -159,17 +158,17 @@ msgstr ""
 #: ../src/udevil.c:2281
 #, c-format
 msgid "udevil: denied 19: Invalid path\n"
-msgstr "udevil: verweigert 19: ungültiger Pfad\n"
+msgstr ""
 
 #: ../src/udevil.c:2287
 #, c-format
 msgid "udevil: denied 20: mount path '%s' is not a directory\n"
-msgstr "udevil: verweigert 20: Einhängepunkt '%s' ist kein Verzeichnis\n"
+msgstr ""
 
 #: ../src/udevil.c:2289
 #, c-format
 msgid "udevil: denied 21: mount path '%s' is already mounted\n"
-msgstr "udevil: verweigert 21: angegebener Einhängepunkt '%s' ist bereits eingehängt\n"
+msgstr ""
 
 #: ../src/udevil.c:2293
 #, c-format
@@ -179,7 +178,7 @@ msgstr ""
 #: ../src/udevil.c:2295
 #, c-format
 msgid "udevil: denied 23: neither you nor root owns '%s'\n"
-msgstr "udevil: verweigert 23: Besitzer von '%s' sind weder Sie noch root\n"
+msgstr ""
 
 #: ../src/udevil.c:2332
 #, c-format
@@ -273,11 +272,11 @@ msgstr ""
 
 #: ../src/udevil.c:2763
 msgid "udevil: error 38: mount requires DEVICE argument\n"
-msgstr "udevil: Fehler 38: der Befehl MOUNT benötigt eine DEVICE Angabe\n"
+msgstr ""
 
 #: ../src/udevil.c:2765
 msgid "udevil: error 39: unmount requires DEVICE argument\n"
-msgstr "udevil: Fehler 39: der Befehl UMOUNT benötigt eine DEVICE Angabe\n"
+msgstr ""
 
 #: ../src/udevil.c:2810
 #, c-format
@@ -356,7 +355,7 @@ msgstr ""
 #: ../src/udevil.c:3070
 #, c-format
 msgid "udevil: error 54: invalid path '%s'\n"
-msgstr "udevil: Fehler 54: ungültiger Pfad '%s'\n"
+msgstr ""
 
 #: ../src/udevil.c:3079
 #, c-format
@@ -413,12 +412,12 @@ msgstr ""
 #: ../src/udevil.c:3243
 #, c-format
 msgid "udevil: denied 65: device %s is not mounted\n"
-msgstr "udevil: verweigert 65: Gerät %s ist nicht eingehängt\n"
+msgstr ""
 
 #: ../src/udevil.c:3246
 #, c-format
 msgid "udevil: denied 66: could not find mount point for '%s'\n"
-msgstr "udevil: verweigert 66: Einhängepunkt für '%s' nicht gefunden\n"
+msgstr ""
 
 #: ../src/udevil.c:3266
 msgid "udevil: error 67: cannot canonicalize mount point path\n"
@@ -502,7 +501,7 @@ msgstr ""
 
 #: ../src/udevil.c:3460
 msgid "udevil: error 146: path changed\n"
-msgstr "udevil: Fehler 146: Pfad geändert\n"
+msgstr ""
 
 #: ../src/udevil.c:3468
 msgid "udevil: error 84: cannot specify mount point for directory\n"
