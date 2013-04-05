@@ -1,9 +1,0 @@
-IgnorantGuru <ignorantguru@gmx.com>  http://igurublog.wordpress.com/
-
-Source code taken from other projects:
- * spacefm       (udev support)
- * util-linux    (secure canonicalize)
- * pmount-jjk    (remove device code - modified)
- * udisks 1.0.4  (device info functions - modified)
- * pmount 0.99   (physical tty test function - modified)
-

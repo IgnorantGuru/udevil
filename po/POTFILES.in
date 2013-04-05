@@ -1,5 +1,0 @@
-# List of source files containing translatable strings.
-# Please keep this file in alphabetical order.
-[encoding: UTF-8]
-src/udevil.c
-src/canonicalize.c

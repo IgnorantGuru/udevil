@@ -1,0 +1,10 @@
+**udevil Downloads**
+
+This branch contains official release source and distribution packages.
+
+To download a file, click on the filename, then click View Raw.
+**DO NOT right click** on a link, as this will save the web page, not the file.
+
+
+Also see [package authentication instructions](http://ignorantguru.github.com/udevil/udevil.SHA256.txt)
+
