@@ -1,7 +1,7 @@
 AC_PREREQ(2.52)
 
 AC_INIT(src/udevil.c)
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_SRCDIR(src)
 AM_INIT_AUTOMAKE(udevil, 0.4.1+)
 
