@@ -15,7 +15,7 @@ defaultmountoptions="noexec,nosuid,nodev,noatime"
 help()
 {
 	cat << EOF
-devmon version 1.1.6  (distributed with udevil)
+devmon version 1.1.7  (distributed with udevil)
 Automounts and unmounts optical and removable drives
 Requires:    udevil bash>=4        Also Recommended: eject spacefm|zenity
 Optional:    udisks v1 may be substituted for udevil
@@ -714,7 +714,7 @@ mountalldrives()
 	# Mount removable drives, no exec
 	IFSOLD="$IFS"
 	IFS=$'\n'
-	partlist=`grep " sd[a-z0-9]*$" /proc/partitions | sed 's/.* \(sd[a-z0-9]*\)/\1/'`
+	partlist=`grep " [ms]d[a-z0-9]*$" /proc/partitions | sed 's/.* \([ms]d[a-z0-9]*\)/\1/'`
 	for p in $partlist; do
 		if ( ignoredevice "/dev/$p" ); then
 			continue
@@ -748,8 +748,8 @@ trapexit()
 			IFSOLD="$IFS"
 			IFS=$'\n'
 			uerr=0
-			partlist=`grep " sd[a-z0-9]*$" /proc/partitions | \
-			          sed 's/.* \(sd[a-z0-9]*\)/\1/'`
+			partlist=`grep " [ms]d[a-z0-9]*$" /proc/partitions | \
+			          sed 's/.* \([ms]d[a-z0-9]*\)/\1/'`
 			for p in $partlist; do
 				if ( ignoredevice "/dev/$p" ); then
 					continue
@@ -793,7 +793,7 @@ if (( mountmode != 0 )); then
 		IFS=$'\n'
 		if (( unmountrem == 1 )); then
 			# Unmount All Removable Drives
-			partlist=`grep " sd[a-z0-9]*$" /proc/partitions | sed 's/.* \(sd[a-z0-9]*\)/\1/'`
+			partlist=`grep " [ms]d[a-z0-9]*$" /proc/partitions | sed 's/.* \([ms]d[a-z0-9]*\)/\1/'`
 			msgtitle="devmon unmount"
 		else
 			# Unmount Recent
