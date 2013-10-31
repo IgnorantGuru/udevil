@@ -3789,7 +3789,7 @@ _get_type:
                 wlog( str, NULL, 2 );
             }
             else
-                wlog( _("udevil: denied 94: file %s is already mounted (or specify mount point)\n"),
+                wlog( _("udevil: denied 94: file %s is already attached to loop device\n"),
                                                             data->device_file, 2 );
             g_free( str );
             ret = 2;

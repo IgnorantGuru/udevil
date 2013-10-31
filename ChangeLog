@@ -3,7 +3,8 @@
     debian pkgs libudev0 | libudev1
     update translations; add es fr pl sv
     fix building with automake-1.13
-    autogen.sh ensure pot not deleted 
+    autogen.sh ensure pot not deleted
+    improve denied 94 msg #24
 0.4.1   2013-03-17:
     update Russian translation
     added translation files to transifex.com

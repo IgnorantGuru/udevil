@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: udevil 0.4.1+\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-17 18:12+0000\n"
+"POT-Creation-Date: 2013-10-31 11:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -560,8 +560,7 @@ msgstr ""
 
 #: ../src/udevil.c:3792
 #, c-format
-msgid ""
-"udevil: denied 94: file %s is already mounted (or specify mount point)\n"
+msgid "udevil: denied 94: file %s is already attached to loop device\n"
 msgstr ""
 
 #: ../src/udevil.c:3800
