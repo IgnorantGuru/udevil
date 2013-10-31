@@ -4,13 +4,13 @@ Priority: optional
 Maintainer: IgnorantGuru <ignorantguru@gmx.com>
 Build-Depends: debhelper (>= 7.0.50~), autotools-dev, build-essential, libc6,
  libglib2.0-0, intltool, pkg-config, libglib2.0-dev, fakeroot,
- libudev0 (>=143), libudev-dev
+ libudev0 (>=143) | libudev1, libudev-dev
 Standards-Version: 3.9.1
 Homepage: http://ignorantguru.github.com/udevil/
 
 Package: udevil
 Architecture: any
-Depends: libc6, libglib2.0-0, libudev0 (>=143)
+Depends: libc6, libglib2.0-0, libudev0 (>=143) | libudev1
 Recommends: 
 Suggests: eject, cifs-utils, curlftpfs, sshfs, davfs2, spacefm
 Conflicts: devmon

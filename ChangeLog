@@ -1,5 +1,6 @@
 0.4.1+
-
+    move packages to pkg branch
+    debian pkgs libudev0 | libudev1
 0.4.1   2013-03-17:
     update Russian translation
     added translation files to transifex.com
