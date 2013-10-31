@@ -6,8 +6,12 @@ type = PO
 source_file = po/udevil.pot
 source_lang = en
 trans.de = po/de.po
+trans.es = po/es.po
+trans.fr = po/fr.po
 trans.it = po/it.po
+trans.pl = po/pl.po
 trans.pt_BR = po/pt_BR.po
 trans.ru = po/ru.po
+trans.sv = po/sv.po
 
 

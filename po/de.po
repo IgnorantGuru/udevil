@@ -3,15 +3,15 @@
 # package.
 # 
 # Translators:
-#  <johannes@ballentin.org>, 2013.
+#  <johannes@ballentin.org>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-22 13:49+0000\n"
-"PO-Revision-Date: 2013-03-08 00:22+0000\n"
-"Last-Translator: jup <inactive+jup@transifex.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2013-03-17 18:12+0000\n"
+"PO-Revision-Date: 2013-04-29 08:20+0000\n"
+"Last-Translator: ignorantguru <ignorantguru@gmx.com>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/udevil/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 #, c-format
 msgid ""
 "udevil: error 1: unable to drop priviledges - please report this problem\n"
-msgstr ""
+msgstr "udevil: Fehler 1: Berechtigungen zurücknehmen nicht möglich -- bitte dieses Problem melden\n"
 
 #: ../src/udevil.c:804
 #, c-format
@@ -68,20 +68,20 @@ msgstr "udevil: Fehler 8: Schreiben in die Logdatei gescheitert '%s'\n"
 #: ../src/udevil.c:1635
 #, c-format
 msgid "udevil: warning 9: unable to run losetup (%s)\n"
-msgstr ""
+msgstr "udevil: Warnung 9: Ausführen von Iosetup (%s) nicht möglich\n"
 
 #: ../src/udevil.c:1543
 msgid "udevil: error 147: unable to get free loop device\n"
-msgstr ""
+msgstr "udevil: Fehler 147: kein freies Dateiblockgerät zu finden\n"
 
 #: ../src/udevil.c:1552
 msgid "udevil: error 150: path changed\n"
-msgstr "udevil: Fehler 150:Pfad worde geändert\n"
+msgstr "udevil: Fehler 150: Pfad wurde geändert\n"
 
 #: ../src/udevil.c:1692
 #, c-format
 msgid "udevil: warning 10: unable to run losetup (%s)\n"
-msgstr ""
+msgstr "udevil: Warnung 10: Ausführen von Iosetup (%s) nicht möglich\n"
 
 #: ../src/udevil.c:1926
 #, c-format
@@ -96,17 +96,17 @@ msgstr "udevil: Fehler 12: Fehler beim Schreiben nach %s\n"
 #: ../src/udevil.c:1984
 #, c-format
 msgid "udevil: error 13: unable to run %s\n"
-msgstr ""
+msgstr "udevil: Fehler 13: Ausführen von %s nicht möglich\n"
 
 #: ../src/udevil.c:1996
 #, c-format
 msgid "      %s exit status = %d\n"
-msgstr ""
+msgstr "      %s Exitstatus = %d\n"
 
 #: ../src/udevil.c:2001
 #, c-format
 msgid "udevil: denied 14: %s returned exit status %d\n"
-msgstr ""
+msgstr "udevil: verweigert 14: %s gab Exotstatu %d zurück\n"
 
 #. log
 #: ../src/udevil.c:2039
@@ -116,12 +116,12 @@ msgstr "udevil: Aushängen als derzeitiger Nutzer wird versucht\n"
 #: ../src/udevil.c:2052
 #, c-format
 msgid "udevil: warning 15: unable to run umount (%s)\n"
-msgstr ""
+msgstr "udevil: Warnung 15: Aushängen (%s) nicht möglich\n"
 
 #: ../src/udevil.c:2057 ../src/udevil.c:2130
 #, c-format
 msgid "      umount exit status = %d\n"
-msgstr ""
+msgstr "      Exitstatus AUshängen = %d\n"
 
 #. success - show output
 #: ../src/udevil.c:2066
@@ -135,26 +135,26 @@ msgstr "udevil: Fehler 144: ungültiger Pfad\n"
 #: ../src/udevil.c:2120
 #, c-format
 msgid "udevil: error 16: unable to run umount (%s)\n"
-msgstr ""
+msgstr "udevil: Fehler 16: Aushängen (%s) nicht möglich\n"
 
 #: ../src/udevil.c:2193
 #, c-format
 msgid "udevil: error 17: unable to run mount (%s)\n"
-msgstr ""
+msgstr "udevil: Fehler 17: Einhängen (%s) nicht möglich\n"
 
 #: ../src/udevil.c:2206
 #, c-format
 msgid "      mount exit status = %d\n"
-msgstr ""
+msgstr "      Exitstatus Einhängen = %d\n"
 
 #: ../src/udevil.c:2220
 msgid "udevil: error 148: unable to attach file to loop device\n"
-msgstr ""
+msgstr "udevil: Fehler 148: Datei hinzufügen zu Dateiblockgerät nicht möglich\n"
 
 #: ../src/udevil.c:2264
 #, c-format
 msgid "udevil: warning 18: unable to run mount (%s)\n"
-msgstr ""
+msgstr "udevil: Warnung 18: Einhängen (%s) nicht möglich\n"
 
 #: ../src/udevil.c:2281
 #, c-format
@@ -174,7 +174,7 @@ msgstr "udevil: verweigert 21: angegebener Einhängepunkt '%s' ist bereits einge
 #: ../src/udevil.c:2293
 #, c-format
 msgid "udevil: denied 22: cannot stat '%s': %s\n"
-msgstr ""
+msgstr "udevil: verweigert 22: keine Statistik '%s' erstellbar: %s\n"
 
 #: ../src/udevil.c:2295
 #, c-format
@@ -184,92 +184,92 @@ msgstr "udevil: verweigert 23: Besitzer von '%s' sind weder Sie noch root\n"
 #: ../src/udevil.c:2332
 #, c-format
 msgid "udevil: warning 24: unable to run setfacl (%s)\n"
-msgstr ""
+msgstr "udevil: Warnung 24: Ausführen setfacl (%s) nicht möglich\n"
 
 #. setfacl apparently failed so fallback to normal permissions
 #: ../src/udevil.c:2340
 #, c-format
 msgid "udevil: warning 25: setfacl on %s failed, falling back to 'rwxr-xr-x'\n"
-msgstr ""
+msgstr "udevil: Warnung 25: setfacl auf %s gescheitert, zurückgesetzt auf 'rwxr-xr-x'\n"
 
 #: ../src/udevil.c:2446
 #, c-format
 msgid ""
 "udevil: error 26: invalid type '%s' for SMB share - must be cifs or smbfs\n"
-msgstr ""
+msgstr "udevil: Fehler 26: ungültiger Typ '%s' für SMB Freigabeordner - muß cifs oder smbfs sein\n"
 
 #: ../src/udevil.c:2461
 #, c-format
 msgid ""
 "udevil: error 27: invalid type '%s' for NFS share - must be nfs or nfs4\n"
-msgstr ""
+msgstr "udevil: Fehler 27: ungültiger Typ '%s' für NFS Freigabeordner - muß nfs oder nfs4 sein\n"
 
 #: ../src/udevil.c:2474
 #, c-format
 msgid ""
 "udevil: error 28: invalid type '%s' for curlftpfs share - must be "
 "curlftpfs\n"
-msgstr ""
+msgstr "udevil: Fehler 28: ungültiger Typ '%s' für curlftpfs Freigabeordner - muß curlftpfs sein\n"
 
 #: ../src/udevil.c:2486
 #, c-format
 msgid ""
 "udevil: error 29: invalid type '%s' for FTP share - must be curlftpfs or "
 "ftpfs\n"
-msgstr ""
+msgstr "udevil: Fehler 29: ungültiger Typ '%s' für FTP Freigabeordner - muß curlftpfs oder ftpfs sein\n"
 
 #: ../src/udevil.c:2511
 #, c-format
 msgid "udevil: error 30: invalid type '%s' for sshfs share - must be sshfs\n"
-msgstr ""
+msgstr "udevil: Fehler 30: ungültiger Typ '%s' für sshfs Freigabeordner - muß sshfs sein\n"
 
 #: ../src/udevil.c:2524
 #, c-format
 msgid "udevil: error 31: invalid type '%s' for sshfs share - must be sshfs\n"
-msgstr ""
+msgstr "udevil: Fehler 31: ungültiger Typ '%s' für sshfs Freigabeordner - muß sshfs sein\n"
 
 #: ../src/udevil.c:2536
 #, c-format
 msgid "udevil: error 151: invalid type '%s' for WebDAV share - must be davfs\n"
-msgstr ""
+msgstr "udevil: Fehler 151: ungültiger Typ '%s' für WebDAV Freigabeordner - muß davfs sein\n"
 
 #: ../src/udevil.c:2551
 #, c-format
 msgid "udevil: error 32: invalid type '%s' for sshfs share - must be sshfs\n"
-msgstr ""
+msgstr "udevil: Fehler 32: ungültiger Typ '%s' für sshfs Freigabeordner - muß sshfs sein\n"
 
 #: ../src/udevil.c:2562
 #, c-format
 msgid ""
 "udevil: error 33: invalid type '%s' for NFS share - must be nfs or nfs4\n"
-msgstr ""
+msgstr "udevil: Fehler 33: ungültiger Typ '%s' für NFS Freigabeordner - muß nfs oder nfs4 sein\n"
 
 #: ../src/udevil.c:2679
 #, c-format
 msgid "udevil: error 34: '%s' is not a recognized network url\n"
-msgstr ""
+msgstr "udevil: Fehler 34: '%s' ist keine erkennbare Netzwerk-URL\n"
 
 #: ../src/udevil.c:2688
 msgid "udevil: error 35: invalid network url\n"
-msgstr ""
+msgstr "udevil: Fehler 35: ungültige Netzwerk-URL\n"
 
 #: ../src/udevil.c:2695
 #, c-format
 msgid "udevil: error 36: lookup host '%s' failed\n"
-msgstr ""
+msgstr "udevil: Fehler 36: Namensauslösung für Host '%s' gescheitert\n"
 
 #: ../src/udevil.c:2743
 #, c-format
 msgid "udevil: error 37: %s\n"
-msgstr ""
+msgstr "udevil: Fehler 37: %s\n"
 
 #: ../src/udevil.c:2744 ../src/udevil.c:4230 ../src/udevil.c:4553
 msgid "udevil was not run suid root"
-msgstr ""
+msgstr "undevil ohne SUID root ausgeführt"
 
 #: ../src/udevil.c:2749 ../src/udevil.c:4235 ../src/udevil.c:4558
 msgid "To correct this problem"
-msgstr ""
+msgstr "Problembehebung:"
 
 #: ../src/udevil.c:2763
 msgid "udevil: error 38: mount requires DEVICE argument\n"
@@ -282,76 +282,76 @@ msgstr "udevil: Fehler 39: der Befehl UMOUNT benötigt eine DEVICE Angabe\n"
 #: ../src/udevil.c:2810
 #, c-format
 msgid "udevil: error 40: cannot stat %s: %s\n"
-msgstr ""
+msgstr "udevil: Fehler 40: keine Statistik %s erstellbar: %s\n"
 
 #: ../src/udevil.c:2822
 msgid "udevil: error 41: cannot canonicalize device path\n"
-msgstr ""
+msgstr "udevil: Fehler 41: der Pfad zum Gerät kann nicht normgerecht gemacht werden\n"
 
 #: ../src/udevil.c:2829
 #, c-format
 msgid "udevil: error 42: cannot stat %s: %s\n"
-msgstr ""
+msgstr "udevil: Fehler 42: keine Statistik %s erstellbar: %s\n"
 
 #: ../src/udevil.c:2840
 #, c-format
 msgid "udevil: error 43: '%s' is not a regular file or directory\n"
-msgstr ""
+msgstr "udevil: Fehler 43: '%s' ist keine reguläre Datei oder Verzeichnis\n"
 
 #. mount knows (in fstab) so mount as normal user with only specified opts
 #: ../src/udevil.c:2879 ../src/udevil.c:3809
 #, c-format
 msgid "udevil: %s is known to mount - running mount as current user\n"
-msgstr ""
+msgstr "udevil: %s ist erfahrungsgemäß einhängbar - Ausführung des Einhängebefehls als aktueller Nutzer\n"
 
 #: ../src/udevil.c:2882
 msgid ""
 "udevil: warning 44: fstype ignored for device in fstab (or specify mount "
 "point)\n"
-msgstr ""
+msgstr "udevil: Warnung 44: Dateisystemtyp wird für dieses Gerät in fstab ignoriert (oder Einhängepunkt festlegen)\n"
 
 #: ../src/udevil.c:2885
 msgid ""
 "udevil: warning 45: options ignored for device in fstab (or specify mount "
 "point)\n"
-msgstr ""
+msgstr "udevil: Warnung 45: Optionen werden für dieses Gerät in fstab ignoriert (oder Einhängepunkt festlegen)\n"
 
 #: ../src/udevil.c:2956
 #, c-format
 msgid "udevil: error 46: cannot find '%s' mounted in mtab\n"
-msgstr ""
+msgstr "udevil: Fehler 46: '%s' in mtab nicht als eingehängt auffindbar\n"
 
 #: ../src/udevil.c:2970
 msgid "udevil: error 47: cannot canonicalize attached loop device\n"
-msgstr ""
+msgstr "udevil: Fehler 47: angehängtes Dateiblockgerät kann nicht normgerecht gemacht werden\n"
 
 #: ../src/udevil.c:2976
 msgid "udevil: denied 48: 'file' is not an allowed type\n"
-msgstr ""
+msgstr "udevil: verweigert 48: 'Datei' ist kein erlaubter Typ\n"
 
 #: ../src/udevil.c:2984
 #, c-format
 msgid "udevil: denied 49: '%s' is not an allowed file\n"
-msgstr ""
+msgstr "udevil: verweigert 49: '%s' ist keine erlaubte Datei\n"
 
 #: ../src/udevil.c:2991
 #, c-format
 msgid "udevil: error 50: cannot find '%s' mounted in mtab\n"
-msgstr ""
+msgstr "udevil: Fehler 50: '%s' in mtab nicht als eingehängt auffindbar\n"
 
 #: ../src/udevil.c:3010
 #, c-format
 msgid "udevil: warning 51: attached device %s is not a loop device\n"
-msgstr ""
+msgstr "udevil: Warnung 51: angeschlossenes Gerät %s ist kein Dateiblockgerät\n"
 
 #: ../src/udevil.c:3035
 #, c-format
 msgid "udevil: error 52: cannot stat %s: %s\n"
-msgstr ""
+msgstr "udevil: Fehler 52: keine Statistik %s erstellbar: %s\n"
 
 #: ../src/udevil.c:3054
 msgid "udevil: error 53: cannot canonicalize path\n"
-msgstr ""
+msgstr "udevil: Fehler 53: Pfad kann nicht normgerecht gemacht werden\n"
 
 #: ../src/udevil.c:3070
 #, c-format
@@ -361,54 +361,54 @@ msgstr "udevil: Fehler 54: ungültiger Pfad '%s'\n"
 #: ../src/udevil.c:3079
 #, c-format
 msgid "udevil: error 55: cannot find '%s' mounted in mtab\n"
-msgstr ""
+msgstr "udevil: Fehler 55: '%s' in mtab nicht als eingehängt auffindbar\n"
 
 #: ../src/udevil.c:3086
 #, c-format
 msgid "udevil: error 56: cannot find device %s fstype in mtab\n"
-msgstr ""
+msgstr "udevil: Fehler 56: Dateisystemtyp bei Gerät %s in mtab nicht auffindbar\n"
 
 #: ../src/udevil.c:3097
 #, c-format
 msgid "udevil: error 57: cannot stat %s: %s\n"
-msgstr ""
+msgstr "udevil: Fehler 57: keine Statistik %s erstellbar: %s\n"
 
 #: ../src/udevil.c:3106
 #, c-format
 msgid "udevil: error 58: %s is not a block device\n"
-msgstr ""
+msgstr "udevil: Fehler 58: %s ist kein Blockgerät\n"
 
 #: ../src/udevil.c:3115
 msgid "udevil: error 59: error initializing libudev\n"
-msgstr ""
+msgstr "udevil: Fehler 59: Fehler beim Initialisieren von libudev\n"
 
 #: ../src/udevil.c:3123
 #, c-format
 msgid "udevil: error 60: no udev device for device %s\n"
-msgstr ""
+msgstr "udevil: Fehler 60: kein udev Gerät für Gerät %s\n"
 
 #: ../src/udevil.c:3134
 #, c-format
 msgid "udevil: error 61: unable to get device info for device %s\n"
-msgstr ""
+msgstr "udevil: Fehler 61: Geräteinfos für Gerät %s nicht zu bekommen\n"
 
 #: ../src/udevil.c:3157
 #, c-format
 msgid "udevil: error 62: type %s is invalid for block device\n"
-msgstr ""
+msgstr "udevil: Fehler 62: Typ %s ist für Blockgerät ungültig\n"
 
 #: ../src/udevil.c:3177
 msgid "udevil: error 143: unable to determine device fstype\n"
-msgstr ""
+msgstr "udevil: Fehler 143: Dateisystemtyp für Gerät nicht zu bestimmen\n"
 
 #: ../src/udevil.c:3180
 #, c-format
 msgid "udevil: error 63: no media in device %s (or specify type with -t)\n"
-msgstr ""
+msgstr "udevil: Fehler 63: kein Medium im Gerät %s (oder Typ mit -t festlegen)\n"
 
 #: ../src/udevil.c:3183
 msgid "udevil: error 64: unable to determine device fstype - specify with -t\n"
-msgstr ""
+msgstr "udevil: Fehler 64: Dateisystemtyp beim Gerät nicht zu bestimmen - mit -t festlegen\n"
 
 #: ../src/udevil.c:3243
 #, c-format
@@ -422,83 +422,83 @@ msgstr "udevil: verweigert 66: Einhängepunkt für '%s' nicht gefunden\n"
 
 #: ../src/udevil.c:3266
 msgid "udevil: error 67: cannot canonicalize mount point path\n"
-msgstr ""
+msgstr "udevil: Fehler 67: Pfad zum Einhängepunkt kann nicht normgerecht gemacht werden\n"
 
 #: ../src/udevil.c:3277
 #, c-format
 msgid "udevil: error 68: cannot stat '%s'\n"
-msgstr ""
+msgstr "udevil: Fehler 68: keine Statistik '%s' erstellbar\n"
 
 #: ../src/udevil.c:3295
 msgid "udevil: error 69: cannot canonicalize mount point path\n"
-msgstr ""
+msgstr "udevil: Fehler 69: Pfad zum Einhängepunkt kann nicht normgerecht gemacht werden\n"
 
 #: ../src/udevil.c:3306
 msgid "udevil: error 70: cannot canonicalize mount point path\n"
-msgstr ""
+msgstr "udevil: Fehler 70: Pfad zum Einhängepunkt kann nicht normgerecht gemacht werden\n"
 
 #: ../src/udevil.c:3316
 #, c-format
 msgid "udevil: denied 71: '%s' is not an allowed media directory\n"
-msgstr ""
+msgstr "udevil: verweigert 71: '%s' ist kein erlaubtes Medienverzeichnis\n"
 
 #: ../src/udevil.c:3328
 msgid "udevil: error 72: multiple fstypes not allowed\n"
-msgstr ""
+msgstr "udevil: Fehler 72: mehrere Dateisystemtypen nicht erlaubt\n"
 
 #: ../src/udevil.c:3334
 #, c-format
 msgid "udevil: denied 73: fstype '%s' is not an allowed type\n"
-msgstr ""
+msgstr "udevil: verweigert 73: Dateisystemtyp '%s' ist kein erlaubter Typ\n"
 
 #: ../src/udevil.c:3343
 msgid "udevil: error 74: could not get username\n"
-msgstr ""
+msgstr "udevil: Fehler 74: Nutzername nicht zu bekommen\n"
 
 #: ../src/udevil.c:3351
 #, c-format
 msgid "udevil: denied 75: user '%s' (%s) is not in allowed users\n"
-msgstr ""
+msgstr "udevil: verweigert 75: Nutzer '%s' (%s) gehört nicht zu den erlaubten Nutzer\n"
 
 #: ../src/udevil.c:3373
 #, c-format
 msgid "udevil: denied 77: user %s is not in allowed groups\n"
-msgstr ""
+msgstr "udevil: verweigert 78: Nutzer %s gehört zu keiner erlaubten Gruppe\n"
 
 #: ../src/udevil.c:3385
 #, c-format
 msgid "udevil: denied 78: host '%s' (%s) is not an allowed network\n"
-msgstr ""
+msgstr "udevil: verweigert 78: Host '%s' (%s) ist kein erlaubtes Netzwerk\n"
 
 #: ../src/udevil.c:3391
 #, c-format
 msgid "udevil: denied 79: host '%s' (%s) is a forbidden network\n"
-msgstr ""
+msgstr "udevil: verweigert 79: Host '%s' (%s) ist ein verbotenes Netzwerk\n"
 
 #: ../src/udevil.c:3406
 #, c-format
 msgid "udevil: denied 80: device %s is not an allowed device\n"
-msgstr ""
+msgstr "udevil: verweigert 80: Gerät %s ist kein erlaubtes Gerät\n"
 
 #: ../src/udevil.c:3413
 #, c-format
 msgid "udevil: denied 81: device %s is a forbidden device\n"
-msgstr ""
+msgstr "udevil: verweigert 81: Gerät %s ist ein verbotenes Gerät\n"
 
 #: ../src/udevil.c:3429
 #, c-format
 msgid "udevil: denied 82: '%s' is not an allowed file\n"
-msgstr ""
+msgstr "udevil: verweigert 82: '%s' ist keine erlaubte Datei\n"
 
 #: ../src/udevil.c:3436
 #, c-format
 msgid "udevil: denied 83: you don't have read permission for file '%s'\n"
-msgstr ""
+msgstr "udevil: verweigert 83: keine Leserechte für Datei '%s'\n"
 
 #: ../src/udevil.c:3447
 #, c-format
 msgid "udevil: denied 145: cannot open '%s'\n"
-msgstr ""
+msgstr "udevil: verweigert 145: '%s' nicht zu öffnen\n"
 
 #: ../src/udevil.c:3460
 msgid "udevil: error 146: path changed\n"
@@ -506,342 +506,342 @@ msgstr "udevil: Fehler 146: Pfad geändert\n"
 
 #: ../src/udevil.c:3468
 msgid "udevil: error 84: cannot specify mount point for directory\n"
-msgstr ""
+msgstr "udevil: Fehler 84: Einhängepunkt für Verzeichnis nicht festlegbar\n"
 
 #: ../src/udevil.c:3488
 #, c-format
 msgid "udevil: denied 85: %s is attached to an invalid file\n"
-msgstr ""
+msgstr "udevil: verweigert 85: %s ist einer ungültigen Datei zugeordnet\n"
 
 #: ../src/udevil.c:3496
 #, c-format
 msgid "udevil: denied 86: '%s' is not a permitted file\n"
-msgstr ""
+msgstr "udevil: verweigert 86: '%s' ist keine erlaubte Datei\n"
 
 #: ../src/udevil.c:3506
 #, c-format
 msgid "udevil: denied 87: '%s' is not an allowed file\n"
-msgstr ""
+msgstr "udevil: verweigert 87: '%s' ist keine erlaubte Datei\n"
 
 #: ../src/udevil.c:3527
 #, c-format
 msgid "udevil: denied 88: device %s is an internal device and you're not root\n"
-msgstr ""
+msgstr "udevil: verweigert 88: Gerät %s ist ein internes Gerät und Sie habe keine Root-Rechte\n"
 
 #: ../src/udevil.c:3729
 #, c-format
 msgid "udevil: error 89: options contain an invalid character ('%c')\n"
-msgstr ""
+msgstr "udevil: Fehler 89: Optionen enthalten ungültiges Zeichen ('%c')\n"
 
 #: ../src/udevil.c:3738
 #, c-format
 msgid "udevil: denied 90: option '%s' is not an allowed option\n"
-msgstr ""
+msgstr "udevil: verweigert 90: Option '%s' ist keine erlaubte Option\n"
 
 #: ../src/udevil.c:3749
 msgid "udevil: denied 91: cannot use remount option with FTP or sshfs share\n"
-msgstr ""
+msgstr "udevil: verweigert 91: die Option nochmaliges Einhängen ist bei FTP oder sshfs Freigabeordnern nicht benutzbar\n"
 
 #: ../src/udevil.c:3758
 msgid "udevil: denied 149: cannot use remount option with file\n"
-msgstr ""
+msgstr "udevil: verweigert 149: die Option nochmaliges Einhängen ist bei der Datei nicht benutzbar\n"
 
 #: ../src/udevil.c:3777
 #, c-format
 msgid ""
 "udevil: denied 92: device %s is already mounted (or specify mount point)\n"
-msgstr ""
+msgstr "udevil: verweigert 92: Gerät %s ist bereits eingehängt (oder Einhängepunkt festlegen)\n"
 
 #: ../src/udevil.c:3788
 #, c-format
 msgid ""
 "udevil: denied 93: file %s is already mounted at %s (or specify mount "
 "point)\n"
-msgstr ""
+msgstr "udevil: verweigert 93: Datei %s ist bereits eingehängt auf %s (oder Einhängepunkt festlegen)\n"
 
 #: ../src/udevil.c:3792
 #, c-format
 msgid "udevil: denied 94: file %s is already mounted (or specify mount point)\n"
-msgstr ""
+msgstr "udevil: verweigert 94: Datei %s ist bereits eingehängt (oder Einhängepunkt festlegen)\n"
 
 #: ../src/udevil.c:3800
 #, c-format
 msgid "udevil: denied 95: %s is already mounted (or specify mount point)\n"
-msgstr ""
+msgstr "udevil: verweigert 95: %s ist bereits eingehängt (oder Einhängepunkt festlegen)\n"
 
 #: ../src/udevil.c:3812
 msgid ""
 "udevil: warning 96: fstype ignored for device in fstab (or specify mount "
 "point)\n"
-msgstr ""
+msgstr "udevil: Warnung 96: Dateisystemtyp wird für dieses Gerät in fstab ignoriert (oder Einhängepunkt festlegen)\n"
 
 #: ../src/udevil.c:3815
 msgid ""
 "udevil: warning 97: options ignored for device in fstab (or specify mount "
 "point)\n"
-msgstr ""
+msgstr "udevil: Warnung 97: Optionen werden für dieses Gerät in fstab ignoriert (oder Einhängepunkt festlegen)\n"
 
 #: ../src/udevil.c:3857
 #, c-format
 msgid "udevil: denied 98: '%s' is already mounted (or specify mount point)\n"
-msgstr ""
+msgstr "udevil: verweigert 98: '%s' ist bereits eingehängt (oder Einhängepunkt festlegen)\n"
 
 #: ../src/udevil.c:3860
 #, c-format
 msgid "udevil: denied 99: can't mount '%s' (not in fstab?)\n"
-msgstr ""
+msgstr "udevil: verweigert 99: '%s' einhängen nicht möglich (nicht in fstab ?)\n"
 
 #: ../src/udevil.c:3874
 msgid "udevil: denied 100: must specify device or network for remount\n"
-msgstr ""
+msgstr "udevil: verweigert 100: Gerät oder Netzwerk zum Nochmaleinhängen muß festgelegt werden\n"
 
 #: ../src/udevil.c:3880
 msgid "udevil: warning 101: specified mount point with remount ignored\n"
-msgstr ""
+msgstr "udevil: Warnung 101: festgelegter Einhängepunkt zum Nochmaleinhängen wird ignoriert\n"
 
 #: ../src/udevil.c:3925
 #, c-format
 msgid "udevil: warning 102: device %s is already mounted on %s\n"
-msgstr ""
+msgstr "udevil: Warnung 102: Gerät %s ist bereits eingehängt auf %s\n"
 
 #: ../src/udevil.c:3937
 msgid "udevil: error 103: no valid existing directory in allowed_media_dirs\n"
-msgstr ""
+msgstr "udevil: Fehler 103: kein gültig existierendes Verzeichnis in erlaubte_Medien_Verzeichnisse\n"
 
 #: ../src/udevil.c:4051
 #, c-format
 msgid "udevil: error 104: mount point '%s' is not a valid UTF8 string\n"
-msgstr ""
+msgstr "udevil: Fehler 104: Einhängepunkt '%s' ist keine gültige UTF8-Zeichenkette\n"
 
 #: ../src/udevil.c:4073
 #, c-format
 msgid "udevil: error 105: mkdir '%s' failed\n"
-msgstr ""
+msgstr "udevil: Fehler 105: mkdir '%s' fehlgeschlagen\n"
 
 #. try cifs as guest first
 #: ../src/udevil.c:4106
 #, c-format
 msgid "udevil: trying %s as guest\n"
-msgstr ""
+msgstr "udevil: %s Versuch als Gast\n"
 
 #: ../src/udevil.c:4117
 #, c-format
 msgid "udevil: trying with %s\n"
-msgstr ""
+msgstr "udevil: Versuch mit %s\n"
 
 #: ../src/udevil.c:4164
 msgid ""
 "udevil: warning 106: invalid mount_point_mode in udevil.conf - using 0755\n"
-msgstr ""
+msgstr "udevil: Warnung 106: ungültiger mount_point_mode in udevil.conf - es wird 0755 verwendet\n"
 
 #: ../src/udevil.c:4229
 #, c-format
 msgid "udevil: error 107: %s\n"
-msgstr ""
+msgstr "udevil: Fehler 107: %s\n"
 
 #: ../src/udevil.c:4244
 msgid "udevil: error 108: remove requires DEVICE argument\n"
-msgstr ""
+msgstr "udevil: Fehler 108: der Befehl remove benötigt ein GERÄT Argument\n"
 
 #: ../src/udevil.c:4250
 #, c-format
 msgid "udevil: error 109: cannot stat %s: %s\n"
-msgstr ""
+msgstr "udevil: Fehler 109: keine Statistik %s erstellbar: %s\n"
 
 #: ../src/udevil.c:4258
 #, c-format
 msgid "udevil: error 110: %s is not a block device\n"
-msgstr ""
+msgstr "udevil: Fehler 110: %s ist kein Blockgerät\n"
 
 #: ../src/udevil.c:4265
 msgid "udevil: error 111: error initializing libudev\n"
-msgstr ""
+msgstr "udevil: Fehler 111: Fehler beim Initialisieren von libudev\n"
 
 #: ../src/udevil.c:4272
 #, c-format
 msgid "udevil: error 112: no udev device for device %s\n"
-msgstr ""
+msgstr "udevil: Fehler 112: kein udev Gerät für Gerät %s\n"
 
 #: ../src/udevil.c:4281
 msgid "udevil: error 113: unable to get device info\n"
-msgstr ""
+msgstr "udevil: Fehler 113: Geräteinfo nicht zu bekommen\n"
 
 #: ../src/udevil.c:4293
 #, c-format
 msgid ""
 "udevil: warning 114: device %s is an internal device - not unbinding "
 "driver\n"
-msgstr ""
+msgstr "udevil: Warnung 114: Gerät %s ist eine internes Gerät - Treiber nicht abkoppeln\n"
 
 #: ../src/udevil.c:4304
 msgid ""
 "udevil: warning 115: interface is not usb, firewire, sdio, esata - not "
 "unbinding driver\n"
-msgstr ""
+msgstr "udevil: Warnung 115: Schnittstelle ist kein usb, firewire, sdio, esata - Treiber nicht abkoppeln\n"
 
 #: ../src/udevil.c:4312
 #, c-format
 msgid "udevil: denied 116: device %s is not an allowed device\n"
-msgstr ""
+msgstr "udevil: verweigert 116: Gerät %s ist kein erlaubtes Gerät\n"
 
 #: ../src/udevil.c:4318
 #, c-format
 msgid "udevil: denied 117: device %s is a forbidden device\n"
-msgstr ""
+msgstr "udevil: verweigert 117: Gerät %s ist en verbotenes Gerät\n"
 
 #: ../src/udevil.c:4356
 #, c-format
 msgid "udevil: unmount %s\n"
-msgstr ""
+msgstr "udevil: Aushängen %s\n"
 
 #: ../src/udevil.c:4390
 #, c-format
 msgid "udevil: error 118: unable to access dir %s\n"
-msgstr ""
+msgstr "udevil: Fehler 118: Zugriff auf Verzeichnis %s nicht möglich\n"
 
 #: ../src/udevil.c:4415
 #, c-format
 msgid "udevil: examining partition %s\n"
-msgstr ""
+msgstr "udevil: Überprüfung Partition %s\n"
 
 #. unmount partition
 #: ../src/udevil.c:4420
 #, c-format
 msgid "udevil: unmount partition %s\n"
-msgstr ""
+msgstr "udevil: Aushängen Partition %s\n"
 
 #: ../src/udevil.c:4472
 #, c-format
 msgid "udevil: error 119: unable to find host for %s\n"
-msgstr ""
+msgstr "udevil: Fehler 119: Host für %s nicht auffindbar\n"
 
 #: ../src/udevil.c:4478
 #, c-format
 msgid "udevil: error 120: unable to find host for %s\n"
-msgstr ""
+msgstr "udevil: Fehler 120: Host für %s nicht auffindbar\n"
 
 #: ../src/udevil.c:4487
 #, c-format
 msgid "udevil: error 121: unable to find last component for %s\n"
-msgstr ""
+msgstr "udevil: Fehler 121: letzte Komponente für %s nicht auffindbar\n"
 
 #: ../src/udevil.c:4511
 #, c-format
 msgid "udevil: warning 122: missing power autosuspend %s\n"
-msgstr ""
+msgstr "udevil: Warnung 122: Möglichkeit zum automatischen Aussetzen der Stromversorgung von %s fehlt\n"
 
 #: ../src/udevil.c:4523
 #, c-format
 msgid "udevil: warning 123: missing power control %s\n"
-msgstr ""
+msgstr "udevil: Warnung 123: Möglichkeit zum Steuern der Stromversorgung von %s fehlt\n"
 
 #: ../src/udevil.c:4552
 #, c-format
 msgid "udevil: error 124: %s\n"
-msgstr ""
+msgstr "udevil: Fehler 124: %s\n"
 
 #: ../src/udevil.c:4633
 msgid "udevil: error 126: info requires DEVICE argument\n"
-msgstr ""
+msgstr "udevil: Fehler 126: Info benötigt GERÄT Argument\n"
 
 #: ../src/udevil.c:4639
 #, c-format
 msgid "udevil: error 127: cannot stat %s: %s\n"
-msgstr ""
+msgstr "udevil: Fehler 127: keine Statistik %s erstellbar: %s\n"
 
 #: ../src/udevil.c:4647
 #, c-format
 msgid "udevil: error 128: %s is not a block device\n"
-msgstr ""
+msgstr "udevil: Fehler 128: %s ist kein Blockgerät\n"
 
 #: ../src/udevil.c:4654
 msgid "udevil: error 129: error initializing libudev\n"
-msgstr ""
+msgstr "udevil: Fehler 129: Fehler beim Initialisieren von libudev\n"
 
 #: ../src/udevil.c:4661
 #, c-format
 msgid "udevil: error 130: no udev device for device %s\n"
-msgstr ""
+msgstr "udevil: Fehler 130: kein udev Gerät für Gerät %s\n"
 
 #: ../src/udevil.c:4677
 msgid "udevil: error 131: unable to get device info\n"
-msgstr ""
+msgstr "udevil: Fehler 113: Geräteinfo nicht zu bekommen\n"
 
 #: ../src/udevil.c:4729
 msgid "udevil: error 132: unable to initialize udev\n"
-msgstr ""
+msgstr "udevil: Fehler 132 : Initialisieren von udev nicht möglich\n"
 
 #: ../src/udevil.c:4740
 msgid "udevil: error 133: cannot create udev monitor\n"
-msgstr ""
+msgstr "udevil: Fehler 133: Erzeugen des udev Monitors nicht möglich\n"
 
 #: ../src/udevil.c:4745
 msgid "udevil: error 134: cannot enable udev monitor receiving\n"
-msgstr ""
+msgstr "udevil: Fehler 134: Erzeugen der Empfangsfunktion des udev Monitors nicht möglich\n"
 
 #: ../src/udevil.c:4750
 msgid "udevil: error 135: cannot set udev filter\n"
-msgstr ""
+msgstr "udevil: Fehler 135: Festlegen des udev Filters nicht möglich\n"
 
 #: ../src/udevil.c:4757
 msgid "udevil: error 136: cannot get udev monitor socket file descriptor\n"
-msgstr ""
+msgstr "udevil: Fehler 136: Socketdateideskriptor des udev Monitors nicht zu bekommen\n"
 
 #: ../src/udevil.c:4778
 #, c-format
 msgid "udevil: error 137: monitoring /proc/self/mountinfo: %s\n"
-msgstr ""
+msgstr "udevil: Fehler 137: Monitoring /proc/self/mountinfo: %s\n"
 
 #: ../src/udevil.c:4829
 #, c-format
 msgid ""
 "Mounts and unmounts devices without password, shows device info, monitors\n"
-msgstr ""
+msgstr "Hängt Geräte ohne Passwort aus und ein, zeigt Geräteinfos und überwacht\n"
 
 #: ../src/udevil.c:4830
 #, c-format
 msgid ""
 "device changes.  Emulates udisks1/2 command line usage and udisks1 output.\n"
-msgstr ""
+msgstr "Geräteänderungen. Emuliert die Verwendung von udisks1/2 Befehlszeilen und udisks1 Ausgaben.\n"
 
 #: ../src/udevil.c:4831
 #, c-format
 msgid "Usage: udevil [OPTIONS] COMMAND [COMMAND-OPTIONS] [COMMAND-ARGUMENTS]\n"
-msgstr ""
+msgstr "Aufruf: udevil [OPTIONEN] BEFEHL [BEFEHLSOPTIONEN] [BEFEHLSARGUMENTE]\n"
 
 #: ../src/udevil.c:4832
 #, c-format
 msgid "OPTIONS:\n"
-msgstr ""
+msgstr "OPTIONEN:\n"
 
 #: ../src/udevil.c:4833
 msgid "print details"
-msgstr ""
+msgstr "Druck Details"
 
 #: ../src/udevil.c:4834
 msgid "minimal output"
-msgstr ""
+msgstr "minimale Ausgabe"
 
 #: ../src/udevil.c:4835
 #, c-format
 msgid "MOUNT  -  Mounts DEVICE to mount point DIR with MOUNT-OPTIONS:\n"
-msgstr ""
+msgstr "MOUNT - Hängt das GERÄT mit den EINHÄNGEOPTIONEN auf den Einhängepunkt VERZEICHNIS ein:\n"
 
 #: ../src/udevil.c:4836
 #, c-format
 msgid ""
 "    udevil mount|--mount [MOUNT-OPTIONS] [[-b|--block-device] DEVICE] "
 "[DIR]\n"
-msgstr ""
+msgstr "    udevil mount|--mount [EINHÄNGEOPTIONEN] [[-b|--block-device] GERÄT] [VERZEICHNIS]\n"
 
 #: ../src/udevil.c:4837
 #, c-format
 msgid "    MOUNT-OPTIONS:\n"
-msgstr ""
+msgstr "   EINHÄNGE-OPTIONEN:\n"
 
 #: ../src/udevil.c:4838 ../src/udevil.c:4839
 msgid "see man mount"
-msgstr ""
+msgstr "siehe man mount"
 
 #. printf( "    -L LABEL                                    mount device by
 #. label LABEL\n" );
@@ -849,88 +849,88 @@ msgstr ""
 #. UUID\n" );
 #: ../src/udevil.c:4842 ../src/udevil.c:4877 ../src/udevil.c:4889
 msgid "ignored (for compatibility)"
-msgstr ""
+msgstr "ignoriert (aus Kompatibilitätsgründen)"
 
 #: ../src/udevil.c:4843 ../src/udevil.c:4878
 msgid "EXAMPLES"
-msgstr ""
+msgstr "BEISPIELE"
 
 #. printf( "    udevil mount -L 'Disk Label'\n" );
 #: ../src/udevil.c:4848
 msgid "ISO file"
-msgstr ""
+msgstr "ISO Datei"
 
 #: ../src/udevil.c:4849
 msgid "ftp site - requires"
-msgstr ""
+msgstr "FTP Netzpräsenz - erfordert"
 
 #: ../src/udevil.c:4850
 msgid "or"
-msgstr ""
+msgstr "oder"
 
 #: ../src/udevil.c:4851 ../src/udevil.c:4853
 msgid "ftp share with"
-msgstr ""
+msgstr "ftp Freigabeordner mit"
 
 #: ../src/udevil.c:4852
 msgid "user and password"
-msgstr ""
+msgstr "Nutzer und Passwort"
 
 #: ../src/udevil.c:4854
 msgid "port, user and password"
-msgstr ""
+msgstr "Port, Nutzer und Passwort"
 
 #: ../src/udevil.c:4855
 msgid "ftp site with ftpfs"
-msgstr ""
+msgstr "FTP Netzpräsenz mit ftpfs"
 
 #: ../src/udevil.c:4856
 msgid "ftp site with curl"
-msgstr ""
+msgstr "FTP Netzpräsenz mit curl"
 
 #: ../src/udevil.c:4857
 msgid "ftp site with curl u/p"
-msgstr ""
+msgstr "FTP Netzpräsenz mit curl u/p"
 
 #: ../src/udevil.c:4858 ../src/udevil.c:4859
 msgid "nfs share"
-msgstr ""
+msgstr "nfs Freigabeordner"
 
 #: ../src/udevil.c:4860 ../src/udevil.c:4863
 msgid "samba share w/ cifs"
-msgstr ""
+msgstr "Samba Freigabeordner w/ cifs"
 
 #: ../src/udevil.c:4861
 msgid "samba share w/ u/p/port"
-msgstr ""
+msgstr "Samba Freigabeordner w/ u/p/port"
 
 #: ../src/udevil.c:4862
 msgid "samba share w/ workgroup"
-msgstr ""
+msgstr "Samba Freigabeordner w/ Arbeitsgruppe"
 
 #: ../src/udevil.c:4864
 msgid "samba share w/ smbfs"
-msgstr ""
+msgstr "Samba Freigabeordner w/ smbfs"
 
 #: ../src/udevil.c:4865
 msgid "sshfs with user - "
-msgstr ""
+msgstr "sshfs mit Nutzer -"
 
 #: ../src/udevil.c:4866
 msgid "requires sshfs"
-msgstr ""
+msgstr "erfordert sshfs"
 
 #: ../src/udevil.c:4867
 msgid "sshfs with user"
-msgstr ""
+msgstr "sshfs mit Nutzer"
 
 #: ../src/udevil.c:4868
 msgid "WebDAV - requires davfs2"
-msgstr ""
+msgstr "WebDAV - erfordert davfs2"
 
 #: ../src/udevil.c:4869
 msgid "make a ram drive"
-msgstr ""
+msgstr "erzeuge RAM Laufwerk"
 
 #: ../src/udevil.c:4870
 #, c-format
@@ -938,121 +938,121 @@ msgid ""
 "\n"
 "    WARNING !!! a password on the command line is UNSAFE - see filesystem docs\n"
 "\n"
-msgstr ""
+msgstr "\n    WARNUNG !!! Ein Passwort in der Befehlzeile ist ein SICHERHEITSRISIKO - siehe Dukumentation zum Dateisystem\n\n"
 
 #: ../src/udevil.c:4871
 #, c-format
 msgid "UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:\n"
-msgstr ""
+msgstr "UNMOUNT - Hängt das GERÄT oder VERZEICHNIS mit den AUSHÄNGEOPTIONEN aus:\n"
 
 #: ../src/udevil.c:4872
 #, c-format
 msgid "    udevil umount|unmount|--unmount|--umount [UNMOUNT-OPTIONS] \n"
-msgstr ""
+msgstr "    udevil umount|unmount|--unmount|--umount [AUSHÄNGEOPTIONEN] \n"
 
 #: ../src/udevil.c:4873
 #, c-format
 msgid ""
 "                                              {[-b|--block-device] "
 "DEVICE}|DIR\n"
-msgstr ""
+msgstr "                                              {[-b|--block-device] GERÄT}|VERZEICHNIS\n"
 
 #: ../src/udevil.c:4874
 #, c-format
 msgid "    UNMOUNT-OPTIONS:\n"
-msgstr ""
+msgstr "    AUSHÄNGEOPTIONEN:\n"
 
 #: ../src/udevil.c:4875 ../src/udevil.c:4887
 msgid "lazy unmount (see man umount)"
-msgstr ""
+msgstr "lazy unmount (siehe man umount)"
 
 #: ../src/udevil.c:4876 ../src/udevil.c:4888
 msgid "force unmount (see man umount)"
-msgstr ""
+msgstr "force unmount (siehe man umount)"
 
 #: ../src/udevil.c:4883
 #, c-format
 msgid ""
 "REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe\n"
-msgstr ""
+msgstr "REMOVE - Aushängen aller Partitonen beim Host des GERÄTS und Vorbereitung eines sicheren\n"
 
 #: ../src/udevil.c:4884
 #, c-format
 msgid "           removal (sync, stop, unbind driver, and power off):\n"
-msgstr ""
+msgstr "           Entfernens (sync, stoppen, Treiber abkoppeln , und ausschalten):\n"
 
 #: ../src/udevil.c:4885
 #, c-format
 msgid ""
 "    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n"
-msgstr ""
+msgstr "    udevil remove|--remove|--detach [OPTIONEN] [-b|--block-device] GERÄT\n"
 
 #: ../src/udevil.c:4886
 #, c-format
 msgid "    OPTIONS:\n"
-msgstr ""
+msgstr "    OPTIONEN:\n"
 
 #: ../src/udevil.c:4890 ../src/udevil.c:4894 ../src/udevil.c:4897
 msgid "EXAMPLE"
-msgstr ""
+msgstr "BEISPIEL"
 
 #: ../src/udevil.c:4892
 #, c-format
 msgid "INFO  -  Show information about DEVICE emulating udisks v1 output:\n"
-msgstr ""
+msgstr "INFO  -  Information anzeigen über GERÄT mit Emulation einer udisks v1 Ausgabe:\n"
 
 #: ../src/udevil.c:4893
 #, c-format
 msgid "    udevil info|--show-info|--info [-b|--block-device] DEVICE\n"
-msgstr ""
+msgstr "    udevil info|--show-info|--info [-b|--block-device] GERÄT\n"
 
 #: ../src/udevil.c:4895
 #, c-format
 msgid "MONITOR  -  Display device events emulating udisks v1 output:\n"
-msgstr ""
+msgstr "MONITOR  -  Anzeige von Geräteereignissen mit Emulation einer udisks v1 Ausgabe:\n"
 
 #: ../src/udevil.c:4898
 #, c-format
 msgid "CLEAN  -  Remove unmounted udevil-created mount dirs in media dirs\n"
-msgstr ""
+msgstr "CLEAN  -  Entfernen nicht eingehängter mit udevil erzeugter Einhängeverzeichnisse in Medienverzeichnissen\n"
 
 #: ../src/udevil.c:4900
 #, c-format
 msgid "HELP  -  Show this help\n"
-msgstr ""
+msgstr "HILFE - diese Hilfe anzeigen\n"
 
 #: ../src/udevil.c:4903
 msgid "See /etc/udevil/udevil.conf for config."
-msgstr ""
+msgstr "Siehe /etc/udevil/udevil.conf zum Konfigurieren."
 
 #: ../src/udevil.c:4904
 #, c-format
 msgid "For automounting with udevil run 'devmon --help'\n"
-msgstr ""
+msgstr "Zum automatischen Einhängen mit udevil 'devmon --help' ausführen\n"
 
 #: ../src/udevil.c:5001
 msgid "udevil: read config /etc/udevil/udevil.conf\n"
-msgstr ""
+msgstr "udevil: bitte config /etc/udevil/udevil.conf lesen\n"
 
 #: ../src/udevil.c:5050
 msgid "udevil: error 138: argument is not valid UTF-8\n"
-msgstr ""
+msgstr "udevil: Fehler 138: Argument entspricht nicht UTF-8 Format\n"
 
 #: ../src/udevil.c:5352
 msgid "udevil: error 139: too many arguments\n"
-msgstr ""
+msgstr "udevil: Fehler 139: zu viele Argumente\n"
 
 #: ../src/udevil.c:5355
 #, c-format
 msgid "udevil: error 140: option '%s' requires an argument\n"
-msgstr ""
+msgstr "udevil: Fehler 140: Option '%s' erfordert ein Argument\n"
 
 #: ../src/udevil.c:5359
 #, c-format
 msgid "udevil: error 141: invalid option '%s'\n"
-msgstr ""
+msgstr "udevil: Fehler 141: ungültige Option '%s'\n"
 
 #: ../src/udevil.c:5361
 #, c-format
 msgid "udevil: error 142: invalid or unexpected argument '%s'\n"
-msgstr ""
+msgstr "udevil: Fehler 142: ungültiges oder unerwartetes Argument '%s'\n"
