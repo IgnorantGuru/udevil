@@ -152,6 +152,9 @@ done
 
 conf_flags="--enable-maintainer-mode " #--enable-compile-warnings" #--enable-iso-c
 
+# ensure pot file is not deleted by make clean
+sed -i 's/\(.*rm -f.*\)\$(GETTEXT_PACKAGE)\.pot \(.*\)/\1 \2/' po/Makefile.in.in 
+
 cd "$ORIGDIR"
 
 if test x$NOCONFIGURE = x; then
