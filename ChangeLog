@@ -2,6 +2,7 @@
     move packages to pkg branch
     debian pkgs libudev0 | libudev1
     update translations; add es fr pl sv
+    fix building with automake-1.13
 0.4.1   2013-03-17:
     update Russian translation
     added translation files to transifex.com
