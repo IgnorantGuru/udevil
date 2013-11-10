@@ -457,12 +457,16 @@ uninstall-am:
 
 
 install-data-hook:
-	test -d $(DESTDIR)/etc/udevil || mkdir -p -- $(DESTDIR)/etc/udevil
-	test -f $(DESTDIR)/etc/udevil/udevil.conf || $(INSTALL_DATA) \
-				$(srcdir)/udevil.conf $(DESTDIR)/etc/udevil/udevil.conf
-@ADD_SYSTEMD_TRUE@	test -d $(DESTDIR)/etc/conf.d || mkdir -p -- $(DESTDIR)/etc/conf.d
-@ADD_SYSTEMD_TRUE@	test -f $(DESTDIR)/etc/conf.d/devmon || $(INSTALL_DATA) \
-@ADD_SYSTEMD_TRUE@				$(srcdir)/systemd/devmon $(DESTDIR)/etc/conf.d/devmon
+	test -d $(DESTDIR)$(sysconfdir)/udevil || mkdir -p -- \
+				$(DESTDIR)$(sysconfdir)/udevil
+	test -f $(DESTDIR)$(sysconfdir)/udevil/udevil.conf || $(INSTALL_DATA) \
+				$(srcdir)/udevil.conf \
+				$(DESTDIR)$(sysconfdir)/udevil/udevil.conf
+@ADD_SYSTEMD_TRUE@	test -d $(DESTDIR)$(sysconfdir)/conf.d || mkdir -p -- \
+@ADD_SYSTEMD_TRUE@				$(DESTDIR)$(sysconfdir)/conf.d
+@ADD_SYSTEMD_TRUE@	test -f $(DESTDIR)$(sysconfdir)/conf.d/devmon || $(INSTALL_DATA) \
+@ADD_SYSTEMD_TRUE@				$(srcdir)/systemd/devmon \
+@ADD_SYSTEMD_TRUE@				$(DESTDIR)$(sysconfdir)/conf.d/devmon
 @ADD_SYSTEMD_TRUE@	test -d $(DESTDIR)/$(libdir)/systemd/system || \
 @ADD_SYSTEMD_TRUE@				mkdir -p -- $(DESTDIR)/$(libdir)/systemd/system
 @ADD_SYSTEMD_TRUE@	$(INSTALL_DATA) $(srcdir)/systemd/devmon@.service \
