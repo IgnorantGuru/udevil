@@ -784,12 +784,12 @@ static char* parse_config()
     char* str;
     char* msg = NULL;
 
-    conf_path = g_strdup_printf( "/etc/udevil/udevil-user-%s.conf", g_get_user_name() );
+    conf_path = g_strdup_printf( "%s/udevil/udevil-user-%s.conf", SYSCONFDIR, g_get_user_name() );
     file = fopen( conf_path, "r" );
     if ( !file )
     {
         g_free( conf_path );
-        conf_path = g_strdup_printf( "/etc/udevil/udevil.conf" );
+        conf_path = g_strdup_printf( SYSCONFDIR "/udevil/udevil.conf" );
         file = fopen( conf_path, "r" );
     }
     drop_privileges( 0 );  // file is open now so drop priv
@@ -900,7 +900,7 @@ static char* parse_config()
     }
     else
     {
-        msg = g_strdup_printf( _("udevil: warning 7: /etc/udevil/udevil.conf could not be read\n") );
+        msg = g_strdup_printf( _("udevil: warning 7: %s/udevil/udevil.conf could not be read\n"), SYSCONFDIR );
         g_free( conf_path );
         conf_path = NULL;
     }
@@ -4900,7 +4900,8 @@ static void show_help()
     printf( _("HELP  -  Show this help\n") );
     printf( "    udevil help|--help|-h\n" );
     printf( "\n" );
-    printf( "http://ignorantguru.github.com/udevil/  %s\n", _("See /etc/udevil/udevil.conf for config.") );
+    printf( "http://ignorantguru.github.com/udevil/  " );
+    printf( _("See %s/udevil/udevil.conf for config.\n"), SYSCONFDIR );
     printf( _("For automounting with udevil run 'devmon --help'\n") );
 
     printf( "\n" );
@@ -4997,8 +4998,10 @@ printf("\n-----------------------\n");
         wlog( str, NULL, 0 );
         g_free( str );
     }
+
+    // Configuration file path left out as it is dependent on SYSCONFDIR
     if ( config_msg && strcmp( config_msg,
-                                _("udevil: read config /etc/udevil/udevil.conf\n") ) )
+                                _("udevil: read config ") ) )
         // this only works for english
         wlog( config_msg, NULL, strstr( config_msg, "warning:" ) ? 1 : 0 );
     g_free( config_msg );
