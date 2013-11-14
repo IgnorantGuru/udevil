@@ -1,0 +1,561 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-11-27 18:15+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Title =
+#: udevil.1.txt:2
+#, no-wrap
+msgid "UDEVIL(1)"
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:9
+#, no-wrap
+msgid "NAME"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:11
+msgid "udevil - mount, unmount, and monitor devices as a normal user"
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:14
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:16
+#, no-wrap
+msgid "*udevil* ['OPTIONS'] 'COMMAND' ['COMMAND-OPTIONS'] ['COMMAND-ARGUMENTS']\n"
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:19
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:23
+msgid ""
+"udevil(1) mounts and unmounts devices without password, shows device info, "
+"monitors device changes.  Emulates udisks1/2 command line usage and udisks1 "
+"output."
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:26
+#, no-wrap
+msgid "OPTIONS"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:27
+#, no-wrap
+msgid "*--verbose*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:29
+msgid "Print details."
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:29
+#, no-wrap
+msgid "*--quiet*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:31
+msgid "Minimal output."
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:34
+#, no-wrap
+msgid "MOUNT"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:36
+#, no-wrap
+msgid ""
+"*udevil mount*|*--mount* ['MOUNT-OPTIONS'] [[*-b*|*--block-device*] "
+"'DEVICE'] ['DIR']\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:38
+msgid "Mounts 'DEVICE' to mount point 'DIR' with 'MOUNT-OPTIONS':"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:39
+#, no-wrap
+msgid "*-t|--types|--filesystem-type|--mount-fstype* 'TYPE'"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:41 udevil.1.txt:43
+msgid "See man mount."
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:41
+#, no-wrap
+msgid "*-o|--options|--mount-options* 'OPT',..."
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:43 udevil.1.txt:123
+#, no-wrap
+msgid "*--no-user-interaction*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:45 udevil.1.txt:125
+msgid "Ignored (for compatibility)."
+msgstr ""
+
+#. type: Title ~
+#: udevil.1.txt:47 udevil.1.txt:127
+#, no-wrap
+msgid "EXAMPLES"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:50
+#, no-wrap
+msgid "*udevil mount /dev/sdd1*\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:52
+#, no-wrap
+msgid "*udevil mount -o ro,noatime /dev/sdd1*\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:54
+#, no-wrap
+msgid "*udevil mount -o ro,noatime /dev/sdd1 /media/custom*\n"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:55
+#, no-wrap
+msgid "*udevil mount /tmp/example.iso*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:57
+msgid "ISO file"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:58
+#, no-wrap
+msgid "*udevil mount ftp://sys.domain*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:61
+msgid "FTP site requires curlftpfs or ftpfs"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:61
+#, no-wrap
+msgid "*udevil mount ftp://user:pass@sys.domain/share*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:63
+msgid "FTP share with user and password"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:64
+#, no-wrap
+msgid "*udevil mount ftp://user:pass@sys.domain:21/share*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:66
+msgid "FTP share with port, user and password"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:67
+#, no-wrap
+msgid "*udevil mount -t ftpfs sys.domain*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:69
+msgid "FTP site with ftpfs"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:70
+#, no-wrap
+msgid "*udevil mount -t curlftpfs sys.domain*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:72
+msgid "FTP site with curl"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:73
+#, no-wrap
+msgid "*udevil mount -t curlftpfs user:pass@sys.domain*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:75
+msgid "FTP site with curl u/p"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:76
+#, no-wrap
+msgid "*udevil mount nfs://sys.domain:/share*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:78 udevil.1.txt:81
+msgid "NFS share"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:79
+#, no-wrap
+msgid "*udevil mount sys.domain:/share*"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:82
+#, no-wrap
+msgid "*udevil mount smb://sys.domain/share*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:84 udevil.1.txt:93
+msgid "Samba share w/ cifs"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:85
+#, no-wrap
+msgid "*udevil mount smb://user:pass@10.0.0.1:50/share*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:87
+msgid "Samba share w/ u/p/port"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:88
+#, no-wrap
+msgid "*udevil mount smb://WORKGROUP/user@sys.domain*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:90
+msgid "Samba share w/ workgroup"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:91
+#, no-wrap
+msgid "*udevil mount //sys.domain/share*"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:94
+#, no-wrap
+msgid "*udevil mount //sys.domain/share -t smbfs*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:96
+msgid "Samba share w/ smbfs"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:97
+#, no-wrap
+msgid "*udevil mount ssh://user@sys.domain*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:99
+msgid "sshfs with user - requires sshfs"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:100
+#, no-wrap
+msgid "*udevil mount -t sshfs user@sys.domain*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:102
+msgid "sshfs with user"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:103
+#, no-wrap
+msgid "*udevil mount http://sys.domain/dav/*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:105
+msgid "WebDAV - requires davfs2"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:106
+#, no-wrap
+msgid "*udevil mount tmpfs*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:108
+msgid "Make a RAM drive"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:110
+#, no-wrap
+msgid ""
+"*WARNING !!!* a password on the command line is *'UNSAFE'* - see filesystem "
+"docs\n"
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:113
+#, no-wrap
+msgid "UNMOUNT"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:116
+#, no-wrap
+msgid ""
+"*udevil umount*|*unmount*|*--unmount*|*--umount* ['UNMOUNT-OPTIONS'] "
+"{[*-b*|*--block-device*] 'DEVICE'}|'DIR'\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:118
+msgid "Unmount 'DEVICE' or 'DIR' with 'UNMOUNT-OPTIONS':"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:119
+#, no-wrap
+msgid "*-l*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:121
+msgid "Lazy unmount (see man umount)."
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:121
+#, no-wrap
+msgid "*-f*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:123
+msgid "Force unmount (see man umount)."
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:130
+#, no-wrap
+msgid "*udevil umount /dev/sdd1*\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:132
+#, no-wrap
+msgid "*udevil umount /media/disk*\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:134
+#, no-wrap
+msgid "*udevil umount -l /media/disk*\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:136
+#, no-wrap
+msgid "*udevil umount /tmp/example.iso*\n"
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:139
+#, no-wrap
+msgid "INFO"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:142
+#, no-wrap
+msgid "*udevil info*|*--show-info*|*--info* [*-b*|*--block-device*] 'DEVICE'\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:144
+msgid "Show information about 'DEVICE' emulating udisks v1 output."
+msgstr ""
+
+#. type: Title ~
+#: udevil.1.txt:146 udevil.1.txt:159
+#, no-wrap
+msgid "EXAMPLE"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:149
+#, no-wrap
+msgid "*udevil info /dev/sdd1*\n"
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:152
+#, no-wrap
+msgid "MONITOR"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:155
+#, no-wrap
+msgid "*udevil monitor*|*--monitor*\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:157
+msgid "Display device events emulating udisks v1 output."
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:162
+#, no-wrap
+msgid "*udevil monitor*\n"
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:165
+#, no-wrap
+msgid "CLEAN"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:168
+#, no-wrap
+msgid "*udevil clean*\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:170
+msgid "Remove unmounted udevil-created mount dirs in media dirs."
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:173
+#, no-wrap
+msgid "HELP"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:176
+#, no-wrap
+msgid "*udevil help*|*--help*|*-h*\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:178
+msgid "Show help very similar to this manpage."
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:181
+#, no-wrap
+msgid "AUTOMOUNTING"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:184
+msgid "For automounting with udevil run \\'*devmon --help*'."
+msgstr ""
+
+#. type: Title -
+#: udevil.1.txt:187
+#, no-wrap
+msgid "FILES"
+msgstr ""
+
+#. type: Labeled list
+#: udevil.1.txt:189
+#, no-wrap
+msgid "*/etc/udevil/udevil.conf*"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:191
+msgid "Configuration file."
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:194
+msgid "HOMEPAGE"
+msgstr ""
+
+#. type: delimited block -
+#: udevil.1.txt:196
+#, no-wrap
+msgid "<http://ignorantguru.github.io/udevil/>\n"
+msgstr ""
+
+#. type: delimited block -
+#: udevil.1.txt:199
+#, no-wrap
+msgid "AUTHOR\n"
+msgstr ""
+
+#. type: Plain text
+#: udevil.1.txt:202
+#, no-wrap
+msgid ""
+"*udevil* is developed and maintained by IgnorantGuru "
+"<ignorantguru@gmx.com>.\n"
+"This manual page was adapted from udevil's --help output by Omega Weapon\n"
+"<OmegaPhil+udevil@gmail.com>.\n"
+msgstr ""

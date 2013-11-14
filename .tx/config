@@ -14,4 +14,8 @@ trans.pt_BR = po/pt_BR.po
 trans.ru = po/ru.po
 trans.sv = po/sv.po
 
+[udevil.udevil-manpot]
+file_filter = man/po4a/<lang>.po
+source_file = man/po4a/udevil-man.pot
+source_lang = en
 
