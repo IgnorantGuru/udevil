@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-17 18:12+0000\n"
-"PO-Revision-Date: 2013-10-26 15:40+0000\n"
+"POT-Creation-Date: 2013-10-31 11:04+0000\n"
+"PO-Revision-Date: 2013-11-20 09:33+0000\n"
 "Last-Translator: appzer0\n"
 "Language-Team: French (http://www.transifex.com/projects/p/udevil/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -323,245 +323,245 @@ msgstr "udevil : erreur 46 : le montage '%s' est introuvable dans le fichier 'mt
 
 #: ../src/udevil.c:2970
 msgid "udevil: error 47: cannot canonicalize attached loop device\n"
-msgstr ""
+msgstr "udevil : erreur 47 : impossible d'obtenir le nom canonique du périphérique-boucle attaché\n"
 
 #: ../src/udevil.c:2976
 msgid "udevil: denied 48: 'file' is not an allowed type\n"
-msgstr ""
+msgstr "udevil : accès refusé 48 : 'file' n'est pas un système de fichiers autorisé\n"
 
 #: ../src/udevil.c:2984
 #, c-format
 msgid "udevil: denied 49: '%s' is not an allowed file\n"
-msgstr ""
+msgstr "udevil : accès refusé 49 : '%s' n'est pas un fichier autorisé\n"
 
 #: ../src/udevil.c:2991
 #, c-format
 msgid "udevil: error 50: cannot find '%s' mounted in mtab\n"
-msgstr ""
+msgstr "udevil : erreur 50 : '%s' est introuvable dansle fichier  'mtab'\n"
 
 #: ../src/udevil.c:3010
 #, c-format
 msgid "udevil: warning 51: attached device %s is not a loop device\n"
-msgstr ""
+msgstr "udevil : avertissement 51 : '%s' n'est pas un périphérique-boucle « loop »\n"
 
 #: ../src/udevil.c:3035
 #, c-format
 msgid "udevil: error 52: cannot stat %s: %s\n"
-msgstr ""
+msgstr "udevil : erreur52 : %s est introuvable : %s\n"
 
 #: ../src/udevil.c:3054
 msgid "udevil: error 53: cannot canonicalize path\n"
-msgstr ""
+msgstr "udevil : erreur 53 : impossible de trouver le nom canonique du chemin\n"
 
 #: ../src/udevil.c:3070
 #, c-format
 msgid "udevil: error 54: invalid path '%s'\n"
-msgstr ""
+msgstr "udevil : erreur 54 : '%s' est introuvable\n"
 
 #: ../src/udevil.c:3079
 #, c-format
 msgid "udevil: error 55: cannot find '%s' mounted in mtab\n"
-msgstr ""
+msgstr "udevil : erreur 55 : '%s' est introuvable dans le fichier 'mtab'\n"
 
 #: ../src/udevil.c:3086
 #, c-format
 msgid "udevil: error 56: cannot find device %s fstype in mtab\n"
-msgstr ""
+msgstr "udevil : erreur 56 : impossible de trouver le système de fichiers du périphérique '%s' dans le fichier 'mtab'\n"
 
 #: ../src/udevil.c:3097
 #, c-format
 msgid "udevil: error 57: cannot stat %s: %s\n"
-msgstr ""
+msgstr "udevil : erreur 57 : '%s' est introuvable : %s\n"
 
 #: ../src/udevil.c:3106
 #, c-format
 msgid "udevil: error 58: %s is not a block device\n"
-msgstr ""
+msgstr "udevil : erreur 58 : '%s' n'est pas un périphérique de type bloc\n"
 
 #: ../src/udevil.c:3115
 msgid "udevil: error 59: error initializing libudev\n"
-msgstr ""
+msgstr "udevil : erreur 59 : erreur lors d'initialisation de la libudev\n"
 
 #: ../src/udevil.c:3123
 #, c-format
 msgid "udevil: error 60: no udev device for device %s\n"
-msgstr ""
+msgstr "udevil : erreur 60 : le périphérique '%s' n'existe pas pour udev\n"
 
 #: ../src/udevil.c:3134
 #, c-format
 msgid "udevil: error 61: unable to get device info for device %s\n"
-msgstr ""
+msgstr "devil : erreur 61 : impossible d'obtenir les caractéristiques du périphérique '%s'\n"
 
 #: ../src/udevil.c:3157
 #, c-format
 msgid "udevil: error 62: type %s is invalid for block device\n"
-msgstr ""
+msgstr "udevil : erreur 62 : le type '%s' est incorrect pour le périphérique bloc demandé\n"
 
 #: ../src/udevil.c:3177
 msgid "udevil: error 143: unable to determine device fstype\n"
-msgstr ""
+msgstr "udevil : erreur 143 : impossible de déterminer le système de fichiers du périphérique\n"
 
 #: ../src/udevil.c:3180
 #, c-format
 msgid "udevil: error 63: no media in device %s (or specify type with -t)\n"
-msgstr ""
+msgstr "udevil : erreur 63 : aucun média présent dans le périphérique '%s' (ou bien spécifiez une option -t)\n"
 
 #: ../src/udevil.c:3183
 msgid "udevil: error 64: unable to determine device fstype - specify with -t\n"
-msgstr ""
+msgstr "udevil : erreur 64 : impossible de déterminer le système de fichiers - ou bien spécifiez l'option -t\n"
 
 #: ../src/udevil.c:3243
 #, c-format
 msgid "udevil: denied 65: device %s is not mounted\n"
-msgstr ""
+msgstr "udevil : accès refusé 65 : le périphérique '%s' n'est pas monté\n"
 
 #: ../src/udevil.c:3246
 #, c-format
 msgid "udevil: denied 66: could not find mount point for '%s'\n"
-msgstr ""
+msgstr "udevil : accès refusé 66 : point de montage '%s' introuvable\n"
 
 #: ../src/udevil.c:3266
 msgid "udevil: error 67: cannot canonicalize mount point path\n"
-msgstr ""
+msgstr "udevil : erreur 67 : impossible de trouver le nom canonique du point de montage\n"
 
 #: ../src/udevil.c:3277
 #, c-format
 msgid "udevil: error 68: cannot stat '%s'\n"
-msgstr ""
+msgstr "udevil : erreur 68 : '%s' est introuvable\n"
 
 #: ../src/udevil.c:3295
 msgid "udevil: error 69: cannot canonicalize mount point path\n"
-msgstr ""
+msgstr "udevil : erreur 69 : impossible de trouver le nom canonique du point de montage\n"
 
 #: ../src/udevil.c:3306
 msgid "udevil: error 70: cannot canonicalize mount point path\n"
-msgstr ""
+msgstr "udevil : erreur 70 : impossible de trouver le nom canonique du point de montage\n"
 
 #: ../src/udevil.c:3316
 #, c-format
 msgid "udevil: denied 71: '%s' is not an allowed media directory\n"
-msgstr ""
+msgstr "udevil : accès refusé 71 : '%s' n'est pas un répertoire media autorisé\n"
 
 #: ../src/udevil.c:3328
 msgid "udevil: error 72: multiple fstypes not allowed\n"
-msgstr ""
+msgstr "udevil : erreur 72 : les systèmes de fichiers multiples ne sont pas autorisés\n"
 
 #: ../src/udevil.c:3334
 #, c-format
 msgid "udevil: denied 73: fstype '%s' is not an allowed type\n"
-msgstr ""
+msgstr "devil : erreur 73 : le système de fichiers '%s' n'est pas autorisé\n"
 
 #: ../src/udevil.c:3343
 msgid "udevil: error 74: could not get username\n"
-msgstr ""
+msgstr "udevil : erreur 74 : nom d'utilisateur introuvable\n"
 
 #: ../src/udevil.c:3351
 #, c-format
 msgid "udevil: denied 75: user '%s' (%s) is not in allowed users\n"
-msgstr ""
+msgstr "evil : accès refusé 75 : l'utilisateur '%s' n'est pas un utilisateur autorisé\n"
 
 #: ../src/udevil.c:3373
 #, c-format
 msgid "udevil: denied 77: user %s is not in allowed groups\n"
-msgstr ""
+msgstr "udevil : accès refusé 77 : l'utilisateur '%s' ne fait pas partie d'un groupe autorisé\n"
 
 #: ../src/udevil.c:3385
 #, c-format
 msgid "udevil: denied 78: host '%s' (%s) is not an allowed network\n"
-msgstr ""
+msgstr "udevil : accès refusé 78 : l'hôte '%s' (%s) n'est pas autorisé\n\n"
 
 #: ../src/udevil.c:3391
 #, c-format
 msgid "udevil: denied 79: host '%s' (%s) is a forbidden network\n"
-msgstr ""
+msgstr "udevil 79 : l'hôte '%s' (%s) est explicitement interdit\n"
 
 #: ../src/udevil.c:3406
 #, c-format
 msgid "udevil: denied 80: device %s is not an allowed device\n"
-msgstr ""
+msgstr "udevil : accès refusé 80 : le périphérique '%s' n'est pas autorisé\n"
 
 #: ../src/udevil.c:3413
 #, c-format
 msgid "udevil: denied 81: device %s is a forbidden device\n"
-msgstr ""
+msgstr "udevil : accès refusé 81 : le périphérique '%s' est interdit\n"
 
 #: ../src/udevil.c:3429
 #, c-format
 msgid "udevil: denied 82: '%s' is not an allowed file\n"
-msgstr ""
+msgstr "udevil : accès refusé 82 : le fichier '%s' n'est pas autorisé\n"
 
 #: ../src/udevil.c:3436
 #, c-format
 msgid "udevil: denied 83: you don't have read permission for file '%s'\n"
-msgstr ""
+msgstr "udevil : accès refusé 83 : vous n'avez pas la permission de lire '%s'\n"
 
 #: ../src/udevil.c:3447
 #, c-format
 msgid "udevil: denied 145: cannot open '%s'\n"
-msgstr ""
+msgstr "udevil : accès refusé 145 : impossible d'ouvrir '%s'\n"
 
 #: ../src/udevil.c:3460
 msgid "udevil: error 146: path changed\n"
-msgstr ""
+msgstr "udevil : erreur 146 : le chemin a changé\n"
 
 #: ../src/udevil.c:3468
 msgid "udevil: error 84: cannot specify mount point for directory\n"
-msgstr ""
+msgstr "udevil : erreur 84 : impossible de spécifier un point de montage pour le répertoire\n"
 
 #: ../src/udevil.c:3488
 #, c-format
 msgid "udevil: denied 85: %s is attached to an invalid file\n"
-msgstr ""
+msgstr "udevil : acc-s refusé 85 : '%s' est attaché à un fichier invalide\n"
 
 #: ../src/udevil.c:3496
 #, c-format
 msgid "udevil: denied 86: '%s' is not a permitted file\n"
-msgstr ""
+msgstr "udevil : accès refusé 86 : '%s' n'est pas fichier autorisé\n"
 
 #: ../src/udevil.c:3506
 #, c-format
 msgid "udevil: denied 87: '%s' is not an allowed file\n"
-msgstr ""
+msgstr "devil : accès refusé 87 : '%s' n'est pas un fichier autorisé\n"
 
 #: ../src/udevil.c:3527
 #, c-format
 msgid "udevil: denied 88: device %s is an internal device and you're not root\n"
-msgstr ""
+msgstr "udevil : accès refusé 88 : '%s' est un périphérique interne et vous n'êtes pas root\n"
 
 #: ../src/udevil.c:3729
 #, c-format
 msgid "udevil: error 89: options contain an invalid character ('%c')\n"
-msgstr ""
+msgstr "devil : erreur 89 : les options contiennent un caractère incorrect ('%c')\n"
 
 #: ../src/udevil.c:3738
 #, c-format
 msgid "udevil: denied 90: option '%s' is not an allowed option\n"
-msgstr ""
+msgstr "udevil : accès refusé 90 : l'option '%s' n'est pas autorisée\n"
 
 #: ../src/udevil.c:3749
 msgid "udevil: denied 91: cannot use remount option with FTP or sshfs share\n"
-msgstr ""
+msgstr "udevil : accès refusé 91 : l'option « remount » est impossible avec les partages FTP ou sshfs\n"
 
 #: ../src/udevil.c:3758
 msgid "udevil: denied 149: cannot use remount option with file\n"
-msgstr ""
+msgstr "udevil : accès refusé 149 : l'option « remount » est impossible dans un fichier\n"
 
 #: ../src/udevil.c:3777
 #, c-format
 msgid ""
 "udevil: denied 92: device %s is already mounted (or specify mount point)\n"
-msgstr ""
+msgstr "udevil : accès refusé 92 : le périphérique '%s' est déjà monté (spécifiez un autre point de montage)\n"
 
 #: ../src/udevil.c:3788
 #, c-format
 msgid ""
 "udevil: denied 93: file %s is already mounted at %s (or specify mount "
 "point)\n"
-msgstr ""
+msgstr "udevil : accès refusé 93 : le fichier '%s' est déjà monté dans '%s' (spécifiez un autre point de montage)\n"
 
 #: ../src/udevil.c:3792
 #, c-format
-msgid "udevil: denied 94: file %s is already mounted (or specify mount point)\n"
+msgid "udevil: denied 94: file %s is already attached to loop device\n"
 msgstr ""
 
 #: ../src/udevil.c:3800

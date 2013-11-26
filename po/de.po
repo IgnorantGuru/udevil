@@ -3,14 +3,15 @@
 # package.
 # 
 # Translators:
+# delix, 2013
 #  <johannes@ballentin.org>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-17 18:12+0000\n"
-"PO-Revision-Date: 2013-04-29 08:20+0000\n"
-"Last-Translator: ignorantguru <ignorantguru@gmx.com>\n"
+"POT-Creation-Date: 2013-10-31 11:04+0000\n"
+"PO-Revision-Date: 2013-11-20 09:33+0000\n"
+"Last-Translator: delix\n"
 "Language-Team: German (http://www.transifex.com/projects/p/udevil/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -561,8 +562,8 @@ msgstr "udevil: verweigert 93: Datei %s ist bereits eingehängt auf %s (oder Ein
 
 #: ../src/udevil.c:3792
 #, c-format
-msgid "udevil: denied 94: file %s is already mounted (or specify mount point)\n"
-msgstr "udevil: verweigert 94: Datei %s ist bereits eingehängt (oder Einhängepunkt festlegen)\n"
+msgid "udevil: denied 94: file %s is already attached to loop device\n"
+msgstr "udevil: verweigert 94: Datei %s ist bereits dem Dateiblockgerät zugeordnet\n"
 
 #: ../src/udevil.c:3800
 #, c-format

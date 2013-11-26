@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-17 18:12+0000\n"
-"PO-Revision-Date: 2013-05-02 14:42+0000\n"
-"Last-Translator: wandows <pressaperfeicao@yahoo.com.br>\n"
+"POT-Creation-Date: 2013-10-31 11:04+0000\n"
+"PO-Revision-Date: 2013-11-20 09:33+0000\n"
+"Last-Translator: ignorantguru <ignorantguru@gmx.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/udevil/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -564,8 +564,8 @@ msgstr "udevil: recusado 93: o arquivo %s já está montado em %s (ou especifica
 
 #: ../src/udevil.c:3792
 #, c-format
-msgid "udevil: denied 94: file %s is already mounted (or specify mount point)\n"
-msgstr "udevil: recusado 94: o arquivo %s já está montado (ou especificar o ponto de montagem)\n"
+msgid "udevil: denied 94: file %s is already attached to loop device\n"
+msgstr ""
 
 #: ../src/udevil.c:3800
 #, c-format

@@ -4,14 +4,15 @@
 # 
 # Translators:
 # ignorantguru <ignorantguru@gmx.com>, 2013
+# ignorantguru <ignorantguru@gmx.com>, 2013
 # Ingemar Karlsson <ingemar@ingk.se>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-17 18:12+0000\n"
-"PO-Revision-Date: 2013-10-31 10:35+0000\n"
-"Last-Translator: ignorantguru <ignorantguru@gmx.com>\n"
+"POT-Creation-Date: 2013-10-31 11:04+0000\n"
+"PO-Revision-Date: 2013-11-20 09:33+0000\n"
+"Last-Translator: Ingemar Karlsson <ingemar@ingk.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/udevil/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgstr ""
 #, c-format
 msgid ""
 "udevil: error 1: unable to drop priviledges - please report this problem\n"
-msgstr ""
+msgstr "udevil: error 1: oförmögen att sänka behörigheter - vänligen rapportera problemet\n"
 
 #: ../src/udevil.c:804
 #, c-format
@@ -48,7 +49,7 @@ msgstr "udevil: fel 5: %s rad %d syntax fel:\n"
 #: ../src/udevil.c:840
 #, c-format
 msgid "udevil: error 6: %s line %d duplicate assignment:\n"
-msgstr ""
+msgstr "udevil: fel 6: %s rad %d dubblerad tilldelning:\n"
 
 #: ../src/udevil.c:903
 #, c-format
@@ -73,7 +74,7 @@ msgstr "udevil: varning 9: kunde inte köra losetup (%s)\n"
 
 #: ../src/udevil.c:1543
 msgid "udevil: error 147: unable to get free loop device\n"
-msgstr ""
+msgstr "udevil: fel 147: oförmögen att få ledig loopenhet\n"
 
 #: ../src/udevil.c:1552
 msgid "udevil: error 150: path changed\n"
@@ -102,7 +103,7 @@ msgstr "udevil: fel 13: kunde inte köra %s\n"
 #: ../src/udevil.c:1996
 #, c-format
 msgid "      %s exit status = %d\n"
-msgstr "%s exit status = %d\n"
+msgstr "      %s exit status = %d\n"
 
 #: ../src/udevil.c:2001
 #, c-format
@@ -122,7 +123,7 @@ msgstr "udevil: varning 15: kunde inte köra umount (%s)\n"
 #: ../src/udevil.c:2057 ../src/udevil.c:2130
 #, c-format
 msgid "      umount exit status = %d\n"
-msgstr "umount avsluts status = %d\n"
+msgstr "      umount avsluts status = %d\n"
 
 #. success - show output
 #: ../src/udevil.c:2066
@@ -146,11 +147,11 @@ msgstr "udevil: fel 17: kunde inte köra mount (%s)\n"
 #: ../src/udevil.c:2206
 #, c-format
 msgid "      mount exit status = %d\n"
-msgstr "mount avsluts status = %d\n"
+msgstr "      mount avsluts status = %d\n"
 
 #: ../src/udevil.c:2220
 msgid "udevil: error 148: unable to attach file to loop device\n"
-msgstr ""
+msgstr "udevil: fel 148: oförmögen att ansluta filen till loopenhet\n"
 
 #: ../src/udevil.c:2264
 #, c-format
@@ -191,7 +192,7 @@ msgstr "udevil: varning 24: kunde inte köra setfacl (%s)\n"
 #: ../src/udevil.c:2340
 #, c-format
 msgid "udevil: warning 25: setfacl on %s failed, falling back to 'rwxr-xr-x'\n"
-msgstr ""
+msgstr "udevil: varning 25: setfacl på %s misslyckades, faller tillbaka till \"rwxr-xr-x '\n"
 
 #: ../src/udevil.c:2446
 #, c-format
@@ -287,7 +288,7 @@ msgstr "udevil: fel 40: kan inte ta status på %s: %s\n"
 
 #: ../src/udevil.c:2822
 msgid "udevil: error 41: cannot canonicalize device path\n"
-msgstr ""
+msgstr "udevil: error 41: kan inte canonicalize sökväg\n"
 
 #: ../src/udevil.c:2829
 #, c-format
@@ -324,7 +325,7 @@ msgstr "udevil: fel 46: kan inte hitta '%s' monterad i mtab\n"
 
 #: ../src/udevil.c:2970
 msgid "udevil: error 47: cannot canonicalize attached loop device\n"
-msgstr ""
+msgstr "udevil: error 47: kan inte canonicalize bifogade loopenhet\n"
 
 #: ../src/udevil.c:2976
 msgid "udevil: denied 48: 'file' is not an allowed type\n"
@@ -352,7 +353,7 @@ msgstr "udevil: fel 52: kan inte ta status på %s: %s\n"
 
 #: ../src/udevil.c:3054
 msgid "udevil: error 53: cannot canonicalize path\n"
-msgstr ""
+msgstr "udevil: error 53: kan inte canonicalize sökvägen\n"
 
 #: ../src/udevil.c:3070
 #, c-format
@@ -423,7 +424,7 @@ msgstr "udevil: nekad 66: kunde inte hitta monteringspunkten för '%s'\n"
 
 #: ../src/udevil.c:3266
 msgid "udevil: error 67: cannot canonicalize mount point path\n"
-msgstr ""
+msgstr "udevil: error 67: kan inte canonicalize monterings sökvägen\n"
 
 #: ../src/udevil.c:3277
 #, c-format
@@ -432,11 +433,11 @@ msgstr "udevil: fel 68: kan inte ta status på '%s'\n"
 
 #: ../src/udevil.c:3295
 msgid "udevil: error 69: cannot canonicalize mount point path\n"
-msgstr ""
+msgstr "udevil: error 69: kan inte canonicalize monterings sökvägen\n"
 
 #: ../src/udevil.c:3306
 msgid "udevil: error 70: cannot canonicalize mount point path\n"
-msgstr ""
+msgstr "udevil: error 70: kan inte canonicalize monterings sökväg\n"
 
 #: ../src/udevil.c:3316
 #, c-format
@@ -562,8 +563,8 @@ msgstr "udevil: nekad 93: filen %s är ​​redan monterad på %s (eller ange m
 
 #: ../src/udevil.c:3792
 #, c-format
-msgid "udevil: denied 94: file %s is already mounted (or specify mount point)\n"
-msgstr "udevil: nekad 94: filen %s är ​​redan monterad (eller ange monteringspunkt)\n"
+msgid "udevil: denied 94: file %s is already attached to loop device\n"
+msgstr "udevil: nekad 94: filen %s är redan monterad på loopenhet\n"
 
 #: ../src/udevil.c:3800
 #, c-format
@@ -612,12 +613,12 @@ msgstr "udevil: fel 103: ingen giltigt befintlig katalog i allowed_media_dirs\n"
 #: ../src/udevil.c:4051
 #, c-format
 msgid "udevil: error 104: mount point '%s' is not a valid UTF8 string\n"
-msgstr ""
+msgstr "udevil: error 104: mount point '%s' är inte en giltig UTF8 sträng\n"
 
 #: ../src/udevil.c:4073
 #, c-format
 msgid "udevil: error 105: mkdir '%s' failed\n"
-msgstr ""
+msgstr "udevil: fel 105: mkdir '%s' misslyckades\n"
 
 #. try cifs as guest first
 #: ../src/udevil.c:4106
@@ -633,187 +634,187 @@ msgstr "udevil: försöker med %s\n"
 #: ../src/udevil.c:4164
 msgid ""
 "udevil: warning 106: invalid mount_point_mode in udevil.conf - using 0755\n"
-msgstr ""
+msgstr "udevil: varning 106: ogiltig mount_point_mode i udevil.conf - använder 0755\n"
 
 #: ../src/udevil.c:4229
 #, c-format
 msgid "udevil: error 107: %s\n"
-msgstr ""
+msgstr "udevil: fel 107: %s\n"
 
 #: ../src/udevil.c:4244
 msgid "udevil: error 108: remove requires DEVICE argument\n"
-msgstr ""
+msgstr "udevil: fel 108: borttagning kräver ENHET argument\n"
 
 #: ../src/udevil.c:4250
 #, c-format
 msgid "udevil: error 109: cannot stat %s: %s\n"
-msgstr ""
+msgstr "udevil: fel 109: kan inte ta status på %s: %s\n"
 
 #: ../src/udevil.c:4258
 #, c-format
 msgid "udevil: error 110: %s is not a block device\n"
-msgstr ""
+msgstr "udevil: fel 110: %s är inte en blockenhet\n"
 
 #: ../src/udevil.c:4265
 msgid "udevil: error 111: error initializing libudev\n"
-msgstr ""
+msgstr "udevil: fel 111: Fel vid initiering av libudev\n"
 
 #: ../src/udevil.c:4272
 #, c-format
 msgid "udevil: error 112: no udev device for device %s\n"
-msgstr ""
+msgstr "udevil: fel 112: ingen udev enhet för enhet %s\n"
 
 #: ../src/udevil.c:4281
 msgid "udevil: error 113: unable to get device info\n"
-msgstr ""
+msgstr "udevil: fel 113: oförmögen att få enhetsinfo\n"
 
 #: ../src/udevil.c:4293
 #, c-format
 msgid ""
 "udevil: warning 114: device %s is an internal device - not unbinding "
 "driver\n"
-msgstr ""
+msgstr "udevil: varning 114: Enheten %s är en intern enhet - inte obunden drivrutin\n"
 
 #: ../src/udevil.c:4304
 msgid ""
 "udevil: warning 115: interface is not usb, firewire, sdio, esata - not "
 "unbinding driver\n"
-msgstr ""
+msgstr "udevil: varning 115: Gränssnittet är inte usb, firewire, SDIO, eSATA - inte obunden drivrutin\n"
 
 #: ../src/udevil.c:4312
 #, c-format
 msgid "udevil: denied 116: device %s is not an allowed device\n"
-msgstr ""
+msgstr "udevil: nekad 116: enheten %s är inte en tillåten enhet\n"
 
 #: ../src/udevil.c:4318
 #, c-format
 msgid "udevil: denied 117: device %s is a forbidden device\n"
-msgstr ""
+msgstr "udevil: nekad 117: enheten %s är en förbjuden enhet\n"
 
 #: ../src/udevil.c:4356
 #, c-format
 msgid "udevil: unmount %s\n"
-msgstr ""
+msgstr "udevil: avmonterar %s\n"
 
 #: ../src/udevil.c:4390
 #, c-format
 msgid "udevil: error 118: unable to access dir %s\n"
-msgstr ""
+msgstr "udevil: fel 118: oförmögen att komma katalog %s\n"
 
 #: ../src/udevil.c:4415
 #, c-format
 msgid "udevil: examining partition %s\n"
-msgstr ""
+msgstr "udevil: undersöker partition %s\n"
 
 #. unmount partition
 #: ../src/udevil.c:4420
 #, c-format
 msgid "udevil: unmount partition %s\n"
-msgstr ""
+msgstr "udevil: avmonterar partitionen %s\n"
 
 #: ../src/udevil.c:4472
 #, c-format
 msgid "udevil: error 119: unable to find host for %s\n"
-msgstr ""
+msgstr "udevil: fel 119: oförmögen att hitta värden för %s\n"
 
 #: ../src/udevil.c:4478
 #, c-format
 msgid "udevil: error 120: unable to find host for %s\n"
-msgstr ""
+msgstr "udevil: fel 120: oförmögen att hitta värden för %s\n"
 
 #: ../src/udevil.c:4487
 #, c-format
 msgid "udevil: error 121: unable to find last component for %s\n"
-msgstr ""
+msgstr "udevil: fel 121: kunde inte hitta sista komponenten för %s\n"
 
 #: ../src/udevil.c:4511
 #, c-format
 msgid "udevil: warning 122: missing power autosuspend %s\n"
-msgstr ""
+msgstr "udevil: varning 122: saknar power autosuspend %s\n"
 
 #: ../src/udevil.c:4523
 #, c-format
 msgid "udevil: warning 123: missing power control %s\n"
-msgstr ""
+msgstr "udevil: varning 123: saknar effektkontroll %s\n"
 
 #: ../src/udevil.c:4552
 #, c-format
 msgid "udevil: error 124: %s\n"
-msgstr ""
+msgstr "udevil: fel 124: %s\n"
 
 #: ../src/udevil.c:4633
 msgid "udevil: error 126: info requires DEVICE argument\n"
-msgstr ""
+msgstr "udevil: fel 126: info kräver ENHET argument\n"
 
 #: ../src/udevil.c:4639
 #, c-format
 msgid "udevil: error 127: cannot stat %s: %s\n"
-msgstr ""
+msgstr "udevil: fel 127: kan inte ta status på %s : %s\n"
 
 #: ../src/udevil.c:4647
 #, c-format
 msgid "udevil: error 128: %s is not a block device\n"
-msgstr ""
+msgstr "udevil: fel 128: %s är inte en blockenhet\n"
 
 #: ../src/udevil.c:4654
 msgid "udevil: error 129: error initializing libudev\n"
-msgstr ""
+msgstr "udevil: fel 129: fel vid initiering av libudev\n"
 
 #: ../src/udevil.c:4661
 #, c-format
 msgid "udevil: error 130: no udev device for device %s\n"
-msgstr ""
+msgstr "udevil: fel 130: ingen udev enhet för enhet %s\n"
 
 #: ../src/udevil.c:4677
 msgid "udevil: error 131: unable to get device info\n"
-msgstr ""
+msgstr "udevil: fel 131: oförmögen att få enhetsinfo\n"
 
 #: ../src/udevil.c:4729
 msgid "udevil: error 132: unable to initialize udev\n"
-msgstr ""
+msgstr "udevil: fel 132: oförmögen att initiera udev\n"
 
 #: ../src/udevil.c:4740
 msgid "udevil: error 133: cannot create udev monitor\n"
-msgstr ""
+msgstr "udevil: fel 133: kan inte skapa udev monitor\n"
 
 #: ../src/udevil.c:4745
 msgid "udevil: error 134: cannot enable udev monitor receiving\n"
-msgstr ""
+msgstr "udevil: fel 134: kan inte aktivera udev monitor mottagning\n"
 
 #: ../src/udevil.c:4750
 msgid "udevil: error 135: cannot set udev filter\n"
-msgstr ""
+msgstr "udevil: fel 135: kan inte ställa in udev filter\n"
 
 #: ../src/udevil.c:4757
 msgid "udevil: error 136: cannot get udev monitor socket file descriptor\n"
-msgstr ""
+msgstr "udevil: fel 136: kan inte få udev monitor deskriptor socket fil\n"
 
 #: ../src/udevil.c:4778
 #, c-format
 msgid "udevil: error 137: monitoring /proc/self/mountinfo: %s\n"
-msgstr ""
+msgstr "udevil: fel 137: övervakning av /proc/self/mountinfo: %s\n"
 
 #: ../src/udevil.c:4829
 #, c-format
 msgid ""
 "Mounts and unmounts devices without password, shows device info, monitors\n"
-msgstr ""
+msgstr "Monterar och avmonterar enheter utan lösenord, visar enhets info, övervakar\n"
 
 #: ../src/udevil.c:4830
 #, c-format
 msgid ""
 "device changes.  Emulates udisks1/2 command line usage and udisks1 output.\n"
-msgstr ""
+msgstr "enhets förändringar. Emulerar udisks1/2 kommandorads användning och udisks1 utmatning.\n"
 
 #: ../src/udevil.c:4831
 #, c-format
 msgid "Usage: udevil [OPTIONS] COMMAND [COMMAND-OPTIONS] [COMMAND-ARGUMENTS]\n"
-msgstr ""
+msgstr "Användning: udevil [ALTERNATIV] KOMMANDO [KOMMANDO-ALTERNATIV] [KOMMANDO-ARGUMENT]\n"
 
 #: ../src/udevil.c:4832
 #, c-format
 msgid "OPTIONS:\n"
-msgstr "    ALTERNATIV:\n"
+msgstr "ALTERNATIV:\n"
 
 #: ../src/udevil.c:4833
 msgid "print details"
@@ -821,24 +822,24 @@ msgstr "skriv ut detaljer"
 
 #: ../src/udevil.c:4834
 msgid "minimal output"
-msgstr ""
+msgstr "minimal utmatning"
 
 #: ../src/udevil.c:4835
 #, c-format
 msgid "MOUNT  -  Mounts DEVICE to mount point DIR with MOUNT-OPTIONS:\n"
-msgstr ""
+msgstr "MOUNT  -  Monterar ENHET till monteringspunkt KAT med MOUNT-ALTERNATIV:\n"
 
 #: ../src/udevil.c:4836
 #, c-format
 msgid ""
 "    udevil mount|--mount [MOUNT-OPTIONS] [[-b|--block-device] DEVICE] "
 "[DIR]\n"
-msgstr ""
+msgstr "    udevil mount|--mount [MONTERINGS-ALTERNATIV] [[-b|--block-device] ENHET] [KAT]\n"
 
 #: ../src/udevil.c:4837
 #, c-format
 msgid "    MOUNT-OPTIONS:\n"
-msgstr "MOUNT-ALTERNATIV:\n"
+msgstr "    MOUNT-ALTERNATIV:\n"
 
 #: ../src/udevil.c:4838 ../src/udevil.c:4839
 msgid "see man mount"
@@ -850,7 +851,7 @@ msgstr "se man mount"
 #. UUID\n" );
 #: ../src/udevil.c:4842 ../src/udevil.c:4877 ../src/udevil.c:4889
 msgid "ignored (for compatibility)"
-msgstr ""
+msgstr "ignoreras (för kompatibilitet)"
 
 #: ../src/udevil.c:4843 ../src/udevil.c:4878
 msgid "EXAMPLES"
@@ -891,27 +892,27 @@ msgstr "ftp adress med curl"
 
 #: ../src/udevil.c:4857
 msgid "ftp site with curl u/p"
-msgstr "ftp adress med curl u/p"
+msgstr "ftp adress med curl a/l"
 
 #: ../src/udevil.c:4858 ../src/udevil.c:4859
 msgid "nfs share"
-msgstr ""
+msgstr "nfs delning"
 
 #: ../src/udevil.c:4860 ../src/udevil.c:4863
 msgid "samba share w/ cifs"
-msgstr "samba delning w/ cifs"
+msgstr "samba delning med cifs"
 
 #: ../src/udevil.c:4861
 msgid "samba share w/ u/p/port"
-msgstr "samba delning w/ u/p/port"
+msgstr "samba delning med a/l/port"
 
 #: ../src/udevil.c:4862
 msgid "samba share w/ workgroup"
-msgstr "samba delning w/ workgroup"
+msgstr "samba delning med workgroup"
 
 #: ../src/udevil.c:4864
 msgid "samba share w/ smbfs"
-msgstr "samba delning w/ smbfs"
+msgstr "samba delning med smbfs"
 
 #: ../src/udevil.c:4865
 msgid "sshfs with user - "
@@ -931,7 +932,7 @@ msgstr "WebDAV - kräver davfs2"
 
 #: ../src/udevil.c:4869
 msgid "make a ram drive"
-msgstr ""
+msgstr "skapa en RAM-enhet"
 
 #: ../src/udevil.c:4870
 #, c-format
@@ -939,33 +940,33 @@ msgid ""
 "\n"
 "    WARNING !!! a password on the command line is UNSAFE - see filesystem docs\n"
 "\n"
-msgstr ""
+msgstr "\n      VARNING !!! ett lösenord på kommandoraden är OSÄKERT - se filsystem dokument\n\n"
 
 #: ../src/udevil.c:4871
 #, c-format
 msgid "UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:\n"
-msgstr ""
+msgstr "UNMOUNT  -  Avmontera ENHET eller KAT med UNMOUNT-ALTERNATIV:\n"
 
 #: ../src/udevil.c:4872
 #, c-format
 msgid "    udevil umount|unmount|--unmount|--umount [UNMOUNT-OPTIONS] \n"
-msgstr ""
+msgstr "    udevil umount|unmount|--unmount|--umount [UNMOUNT-ALTERNATIV]\n"
 
 #: ../src/udevil.c:4873
 #, c-format
 msgid ""
 "                                              {[-b|--block-device] "
 "DEVICE}|DIR\n"
-msgstr ""
+msgstr "                                              {[-b|--block-device] ENHET}|KAT\n"
 
 #: ../src/udevil.c:4874
 #, c-format
 msgid "    UNMOUNT-OPTIONS:\n"
-msgstr "UNMOUNT-ALTERNATIV:\n"
+msgstr "    UNMOUNT-ALTERNATIV:\n"
 
 #: ../src/udevil.c:4875 ../src/udevil.c:4887
 msgid "lazy unmount (see man umount)"
-msgstr ""
+msgstr "lazy avmontering (se man umount)"
 
 #: ../src/udevil.c:4876 ../src/udevil.c:4888
 msgid "force unmount (see man umount)"
@@ -980,18 +981,18 @@ msgstr "REMOVE  -  Avmontera alla partitioner på värd-enhet och förbered för
 #: ../src/udevil.c:4884
 #, c-format
 msgid "           removal (sync, stop, unbind driver, and power off):\n"
-msgstr ""
+msgstr "borttagning (synk, stopp, obunden drivrutin och avstängning):\n"
 
 #: ../src/udevil.c:4885
 #, c-format
 msgid ""
 "    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n"
-msgstr "udevil remove|--remove|--detach [ALTERNATIV] [-b|--block-device] ENHET\n"
+msgstr "      udevil remove|--remove|--detach [ALTERNATIV] [-b|--block-device] ENHET\n"
 
 #: ../src/udevil.c:4886
 #, c-format
 msgid "    OPTIONS:\n"
-msgstr "ALTERNATIV:\n"
+msgstr "    ALTERNATIV:\n"
 
 #: ../src/udevil.c:4890 ../src/udevil.c:4894 ../src/udevil.c:4897
 msgid "EXAMPLE"
@@ -1005,12 +1006,12 @@ msgstr "INFO  -  Visa information om ENHET emulera udisk v1 utmatning:\n"
 #: ../src/udevil.c:4893
 #, c-format
 msgid "    udevil info|--show-info|--info [-b|--block-device] DEVICE\n"
-msgstr ""
+msgstr "    udevil info|--show-info|--info [-b|--block-device] ENHET\n"
 
 #: ../src/udevil.c:4895
 #, c-format
 msgid "MONITOR  -  Display device events emulating udisks v1 output:\n"
-msgstr "MONITOR  -  Visa enhetshändelser emulera udisks v1 utgång:\n"
+msgstr "MONITOR  -  Visa enhetshändelser emulera udisks v1 utmatning:\n"
 
 #: ../src/udevil.c:4898
 #, c-format
@@ -1033,27 +1034,27 @@ msgstr "För automontering med udevil kör 'devmon --help'\n"
 
 #: ../src/udevil.c:5001
 msgid "udevil: read config /etc/udevil/udevil.conf\n"
-msgstr ""
+msgstr "udevil: läs konfig /etc/udevil/udevil.conf\n"
 
 #: ../src/udevil.c:5050
 msgid "udevil: error 138: argument is not valid UTF-8\n"
-msgstr ""
+msgstr "udevil: fel 138: argumentet är inte giltig UTF-8\n"
 
 #: ../src/udevil.c:5352
 msgid "udevil: error 139: too many arguments\n"
-msgstr ""
+msgstr "udevil: fel 139: för många argument\n"
 
 #: ../src/udevil.c:5355
 #, c-format
 msgid "udevil: error 140: option '%s' requires an argument\n"
-msgstr ""
+msgstr "udevil: fel 140: alternativet '%s' kräver ett argument\n"
 
 #: ../src/udevil.c:5359
 #, c-format
 msgid "udevil: error 141: invalid option '%s'\n"
-msgstr ""
+msgstr "udevil: fel 141: ogiltigt alternativ '%s'\n"
 
 #: ../src/udevil.c:5361
 #, c-format
 msgid "udevil: error 142: invalid or unexpected argument '%s'\n"
-msgstr ""
+msgstr "udevil: fel 142: ogiltig eller oväntat argument '%s'\n"
