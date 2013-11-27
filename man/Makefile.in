@@ -263,8 +263,6 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # Based off XFCE4 Terminal build system
-# WIP: What is the current directory here? srcdir was originally used but seems to be useless... I need a proper way to debug this
-# Debug code
 LINGUAS = $(shell cd $(srcdir)/po4a && echo `/bin/ls *.po | sed 's,[.]po,,g'`)
 all: all-am
 
