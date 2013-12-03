@@ -1,5 +1,5 @@
 /*
- * udevil.c    GPL v3  Copyright 2012
+ * udevil.c    GPL3+  Copyright 2013  IgnorantGuru <ignorantguru@gmx.com>
 */
 
 #include <stdio.h>
@@ -772,7 +772,7 @@ gboolean test_config( const char* var, const char* type )
     return FALSE;
 }
 
-static char* parse_config()
+static char* parse_config( int* config_warning )
 {
     FILE* file;
     char line[ 2048 ];
@@ -784,12 +784,14 @@ static char* parse_config()
     char* str;
     char* msg = NULL;
 
-    conf_path = g_strdup_printf( "%s/udevil/udevil-user-%s.conf", SYSCONFDIR, g_get_user_name() );
+    *config_warning = 0;
+    conf_path = g_strdup_printf( "%s/udevil/udevil-user-%s.conf", SYSCONFDIR,
+                                                        g_get_user_name() );
     file = fopen( conf_path, "r" );
     if ( !file )
     {
         g_free( conf_path );
-        conf_path = g_strdup_printf( SYSCONFDIR "/udevil/udevil.conf" );
+        conf_path = g_strdup_printf( "%s/udevil/udevil.conf", SYSCONFDIR );
         file = fopen( conf_path, "r" );
     }
     drop_privileges( 0 );  // file is open now so drop priv
@@ -802,14 +804,12 @@ static char* parse_config()
             if ( !g_utf8_validate( line, -1, NULL ) )
             {
                 fprintf( stderr, _("udevil: error 2: %s line %d is not valid UTF-8\n"), conf_path, lc );
-                fclose( file );
-                return NULL;
+                goto _parse_error;
             }
             if ( !g_str_has_suffix( line, "\n" ) )
             {
                 fprintf( stderr, _("udevil: error 3: %s line %d is too long\n"), conf_path, lc );
-                fclose( file );
-                return NULL;
+                goto _parse_error;
             }
             strtok( line, "\r\n" );
             g_strstrip( line );
@@ -819,8 +819,7 @@ static char* parse_config()
             {
                 fprintf( stderr, _("udevil: error 4: %s line %d syntax error:\n"), conf_path, lc );
                 fprintf( stderr, "               %s\n", line );
-                fclose( file );
-                return NULL;
+                goto _parse_error;
             }
             equal[0] = '\0';
             var = g_strdup( line );
@@ -832,16 +831,14 @@ static char* parse_config()
             {
                 fprintf( stderr, _("udevil: error 5: %s line %d syntax error:\n"), conf_path, lc );
                 fprintf( stderr, "               %s\n", line );
-                fclose( file );
-                return NULL;
+                goto _parse_error;
             }
             if ( read_config( var, NULL ) )
             {
                 fprintf( stderr, _("udevil: error 6: %s line %d duplicate assignment:\n"),
                                                                 conf_path, lc );
                 fprintf( stderr, "               %s\n", line );
-                fclose( file );
-                return NULL;
+                goto _parse_error;
             }
             if ( g_str_has_prefix( var, "allowed_media_dirs" ) ||
                                     g_str_has_prefix( var, "allowed_options" ) ||
@@ -900,9 +897,11 @@ static char* parse_config()
     }
     else
     {
-        msg = g_strdup_printf( _("udevil: warning 7: %s/udevil/udevil.conf could not be read\n"), SYSCONFDIR );
+        msg = g_strdup_printf( _("udevil: warning 7: cannot read config file %s\n"),
+                                                                conf_path );
         g_free( conf_path );
         conf_path = NULL;
+        *config_warning = 1;
     }
 
     if ( ( str = read_config( "log_file", NULL ) ) && str[0] != '\0' )
@@ -914,6 +913,13 @@ static char* parse_config()
         g_free( conf_path );
     }
     return msg;
+
+_parse_error:
+    restore_privileges();
+    fclose( file );
+    drop_privileges( 0 );    
+    g_free( conf_path );
+    return NULL;
 }
 
 static void wlog( const char* msg, const char* sub1, int volume )
@@ -4900,8 +4906,10 @@ static void show_help()
     printf( _("HELP  -  Show this help\n") );
     printf( "    udevil help|--help|-h\n" );
     printf( "\n" );
-    printf( "http://ignorantguru.github.com/udevil/  " );
-    printf( _("See %s/udevil/udevil.conf for config.\n"), SYSCONFDIR );
+    /* For config see /etc/udevil/udevil.conf */
+    printf( "http://ignorantguru.github.io/udevil/  %s %s/udevil/udevil.conf\n",
+                                               _("For config see"),
+                                               SYSCONFDIR );
     printf( _("For automounting with udevil run 'devmon --help'\n") );
 
     printf( "\n" );
@@ -4912,6 +4920,7 @@ int main( int argc, char **argv )
     struct stat statbuf;
     char* str;
     char* config_msg = NULL;
+    int config_warning = 0;
 
 #ifdef ENABLE_NLS
     //printf ("Locale is: %s\n", setlocale(LC_ALL,NULL) );
@@ -4944,7 +4953,7 @@ printf("\n-----------------------\n");
 //printf( "R=%d:%d E=%d:%d\n", getuid(), getgid(), geteuid(), getegid() );
 
     // read config
-    if ( !( config_msg = parse_config() ) )
+    if ( !( config_msg = parse_config( &config_warning ) ) )
         return 1;
 
     drop_privileges( 0 );
@@ -4999,11 +5008,8 @@ printf("\n-----------------------\n");
         g_free( str );
     }
 
-    // Configuration file path left out as it is dependent on SYSCONFDIR
-    if ( config_msg && strcmp( config_msg,
-                                _("udevil: read config ") ) )
-        // this only works for english
-        wlog( config_msg, NULL, strstr( config_msg, "warning:" ) ? 1 : 0 );
+    if ( config_warning == 1 )
+        wlog( config_msg, NULL, 1 );
     g_free( config_msg );
 
     // init data
