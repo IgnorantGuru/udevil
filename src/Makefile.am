@@ -1,4 +1,5 @@
-INCLUDES = -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
+INCLUDES = -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	-DSYSCONFDIR=\""$(sysconfdir)"\"
 
 noinst_PROGRAMS = udevil
 

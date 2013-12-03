@@ -5,13 +5,17 @@ EXTRA_DIST = udevil.conf
 endif
 
 install-data-hook:
-	test -d $(DESTDIR)/etc/udevil || mkdir -p -- $(DESTDIR)/etc/udevil
-	test -f $(DESTDIR)/etc/udevil/udevil.conf || $(INSTALL_DATA) \
-				$(srcdir)/udevil.conf $(DESTDIR)/etc/udevil/udevil.conf
+	test -d $(DESTDIR)$(sysconfdir)/udevil || mkdir -p -- \
+				$(DESTDIR)$(sysconfdir)/udevil
+	test -f $(DESTDIR)$(sysconfdir)/udevil/udevil.conf || $(INSTALL_DATA) \
+				$(srcdir)/udevil.conf \
+				$(DESTDIR)$(sysconfdir)/udevil/udevil.conf
 if ADD_SYSTEMD
-	test -d $(DESTDIR)/etc/conf.d || mkdir -p -- $(DESTDIR)/etc/conf.d
-	test -f $(DESTDIR)/etc/conf.d/devmon || $(INSTALL_DATA) \
-				$(srcdir)/systemd/devmon $(DESTDIR)/etc/conf.d/devmon
+	test -d $(DESTDIR)$(sysconfdir)/conf.d || mkdir -p -- \
+				$(DESTDIR)$(sysconfdir)/conf.d
+	test -f $(DESTDIR)$(sysconfdir)/conf.d/devmon || $(INSTALL_DATA) \
+				$(srcdir)/systemd/devmon \
+				$(DESTDIR)$(sysconfdir)/conf.d/devmon
 	test -d $(DESTDIR)/$(libdir)/systemd/system || \
 				mkdir -p -- $(DESTDIR)/$(libdir)/systemd/system
 	$(INSTALL_DATA) $(srcdir)/systemd/devmon@.service \
