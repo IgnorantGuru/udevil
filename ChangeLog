@@ -8,6 +8,7 @@
     default fmask=0133 for vfat ntfs msdos umsdos #25
     [devmon 1.1.7] support raid /dev/mda in partition detection #28
     fix identify empty optical drive
+    [devmon 1.1.7] add option --enumerate-device-files #26
 0.4.1   2013-03-17:
     update Russian translation
     added translation files to transifex.com

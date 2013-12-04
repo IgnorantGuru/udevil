@@ -55,6 +55,7 @@ MOUNT-OPTIONS:  (these can be used only in client mode)
 --mount DEVICE                Mount DEVICE
 --mount-options|--mount-fstype|--eject-options "OPTIONS"
                               These options will be passed to mount or eject
+--enumerate-device-files      List known devices
 
 UNIVERSAL OPTIONS:  (these can be used in both daemon and client modes)
 --ignore-device DEVICE        Ignore DEVICE (eg /dev/sdd1)
@@ -247,6 +248,39 @@ while [ "$1" != "" ]; do
 				iglab[$iglabx]="$2"
 				(( iglabx++ ))
 				shift
+				;;
+			--enumerate-device-files )
+				all=`grep " [ms]d[a-z0-9]*$" /proc/partitions | \
+									sed 's/.* \([ms]d[a-z0-9]*\)/\/dev\/\1/'`
+				n=$'\n'
+				if [ "$all" != "" ]; then
+					all="$all$n"
+				fi
+				for f in /dev/mapper/*; do
+					if [ -h "$f" ]; then
+						name="$(basename "$f")"
+						target="$(readlink "$f")"
+						target="$(basename "$target")"
+						if [ "$target" != "" ]; then
+							all="$all/dev/$target$n"
+							if [ "${name:0:4}" = "loop" ]; then
+								all="$all/dev/$name$n"
+							fi
+						fi
+					fi
+				done
+				# add mounted loop devices (attached requires losetup as root)
+				loop=`cat /proc/self/mountinfo 2>/dev/null | grep ' /dev/loop[0-9]* ' | cut -f9 -d ' ' 2>/dev/null`
+				if [ "$loop" != "" ]; then
+					loop="$loop$n"
+				fi
+				other=`/bin/ls -1 /dev/md[0-9]* /dev/dm-* /dev/sr* 2>/dev/null`
+				if [ "$other" != "" ]; then
+					other="$other$n"
+				fi
+				all="$all$loop$other"
+				echo -n "$all" | sort | uniq
+				exit
 				;;
 			--* )
 				unknown "$1";;
