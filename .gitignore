@@ -1,2 +1,11 @@
 */*.src.tar.gz
 */*.changes
+Makefile
+config.h
+config.log
+config.status
+etc/
+libtool
+man/
+po/
+src/
