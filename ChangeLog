@@ -1,4 +1,4 @@
-0.4.1+
+0.4.2   2013-12-04:
     move packages to pkg branch
     debian pkgs libudev0 | libudev1
     update translations; add es fr pl sv

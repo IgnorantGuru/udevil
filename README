@@ -1,14 +1,14 @@
-README for udevil v0.4.1+
+README for udevil v0.4.2
 
 
 Homepage:
-    http://ignorantguru.github.com/udevil/
+    http://ignorantguru.github.io/udevil/
 
 Downloads:
     https://github.com/IgnorantGuru/udevil/tree/pkg
 
-Official Forum:
-    http://forums.partedmagic.com/viewforum.php?f=15
+Official Forum (for udevil & SpaceFM):
+    https://sourceforge.net/p/spacefm/discussion/general/
 
 
 CONTENTS
@@ -57,7 +57,7 @@ PACKAGES
 INSTALLER
 
     A self-extracting installer is available (udevil-x.x.x-installer.sh):
-        https://github.com/IgnorantGuru/udevil/tree/master/packages
+        https://github.com/IgnorantGuru/udevil/tree/pkg
             (To save a file, click on its filename and click 'View Raw')
 
     The installer requires the build dependencies listed below in BUILD.  If
