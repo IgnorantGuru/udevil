@@ -31,6 +31,47 @@
 
 
 <!-- --------------------------------------------------------------------- -->
+<a name="0.4.2"></a>
+<big><b><a href="#0.4.2">0.4.2 released</a></b></big><br>
+2013-Dec-04
+
+<br><br>
+udevil 0.4.2 includes the following changes:
+<ul>
+    <li><b>Official source tarball</b> and other packages on Github are now located in the <a href="https://github.com/IgnorantGuru/udevil/tree/pkg">pkg branch</a>.<br><br>
+ 
+    <li>A problem which caused udevil to fail to identify an <i><b>empty</b></i> optical drive <i>as optical</i> has been corrected.  (This misidentification caused no known problems because it only affected drives with no media in them.)<br><br>
+    
+    <li>For <b>vfat, ntfs, msdos, and umsdos filesystems</b>, default option fmask=0133 is now used in the default <a href="udevil.conf.txt">udevil.conf</a> to improve default security.  (Upgrading will <b>not</b> automatically change your installed udevil.conf.)<br><br>
+    
+    <li>udevil 0.4.2 includes <b>devmon 1.1.7</b>:<br><br>
+    <ul>
+	<li>devmon option <b>--enumerate-device-files</b> has been added to list known devices<br><br>
+	<li>mounted partition detection now includes raid /dev/md* devices<br><br>
+    </ul>
+
+    <li><b>Translations have been updated</b>, and new translations have been added for Spanish, French, Polish, and Swedish.  Much thanks to translators!  You too can <a href="https://github.com/IgnorantGuru/spacefm/wiki/Translate">help to translate udevil</a>. <br><br>
+
+    <li>The provided <b>Debian build-from-source packages</b> now require <b>libudev0 OR libudev1</b> instead of just libudev0.  This allows them to work on older and newer versions of Debian (at least lenny and newer).<br><br>
+
+    <li>udevil's build system has been updated for automake 1.14<br><br>
+    
+</ul>
+
+<p><b>For <b>Debian/Ubuntu</b> users</b>, Mateusz Łukasik's <a href="https://launchpad.net/~mati75/+archive/spacefm/">SpaceFM PPA</a> includes udevil.  udevil is also waiting in Debian's '<a href="http://ftp-master.debian.org/new/udevil_0.4.1-1.html">new queue</a>' for eventual inclusion in Debian's repositories.  Much thanks to Mateusz Łukasik for his Debian packaging efforts.
+
+<p><b>Upcoming Changes:</b>
+<p>Thanks to some work by udevil and SpaceFM contributor OmegaPhil, udevil will soon have a manpage.  An incomplete PO template of this is already available on the <a href="https://github.com/IgnorantGuru/spacefm/wiki/Translate">Transifex server for translators</a>, and that will be updated in stages as the manual is completed.  The manpage is not quite in udevil's next branch, but you can follow the progress in <a href="https://github.com/IgnorantGuru/udevil/pull/33">this issue</a>, add your input, and report problems.  Thanks for translating!
+
+<br><br><hr>
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------------- -->
 <a name="0.4.1"></a>
 <big><b><a href="#0.4.1">0.4.1 released</a></b></big><br>
 2013-Mar-17
