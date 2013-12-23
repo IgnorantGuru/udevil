@@ -227,48 +227,53 @@ You can also limit users and groups by editing <a href="udevil.conf.txt">/etc/ud
 
 <p>You may need to enable kernel polling for device media to be detected by udevil.  For example, if you insert a CD and udevil's monitor command doesn't report a change to the device, or udevil doesn't see a filesystem on the device, this is a symptom that kernel polling is not enabled.
 
-<p>Kernel polling is a new feature of the Linux kernel and udev, so most distros don't yet have it enabled. Even if you are using udisks, enabling kernel polling is recommended to eliminate the need for udisks to do userspace polling. Kernel polling also corrects a common issue where the eject button on a drive won't respond with the newer udev.
+<p>Kernel polling is a newer feature of the Linux kernel and udev, so some distros don't yet have it enabled by default.  To use kernel polling, your Linux kernel may need to be <b>2.6.38 or newer</b>, and udev may need to be <b>version 173</b> or newer.
 
-<p>To use kernel polling, your Linux kernel may need to be <b>2.6.38 or newer</b>, and udev may need to be <b>version 173</b> or newer.
-
-<br>
-<p><b>Determine if kernel polling is enabled</b> by running these commands:
+<p>To determine if kernel polling is enabled:
 <pre>
     cat /sys/module/block/parameters/events_dfl_poll_msecs
     cat /sys/block/sr0/events_poll_msecs
 </pre>
 
-If you get 0 or -1 from both of those commands, then it's probably disabled.
+If you get 0 or -1 from both of those commands, kernel polling may be disabled.
 
-<p><b>To permanently enable polling</b> (survives a reboot), add the following command to your <b>/etc/rc.local</b> file (anywhere before the 'exit' line in that file):
+<p><b>To enable kernel polling permanently</b> (survives a reboot), add the following command to your <b>/etc/rc.local</b> file (anywhere before the 'exit' line in that file):
 <pre>
     echo 2000 > /sys/module/block/parameters/events_dfl_poll_msecs
 </pre>
 
 Any number between 2000 and 5000 (milliseconds) should be reasonable - the higher 5000 means poll every 5 seconds, which is less overhead but a little slower.
 
-<p><b>OR</b> you can pass this option to the kernel boot command line in grub:
+<p><b>OR</b> pass this option to the kernel boot command line in grub:
 <blockquote>
     <i>block.events_dfl_poll_msecs=2000</i>
 </blockquote>
 
-<br>
-<p><b>OR, to enable kernel polling temporarily</b>, enable common polling for the block module:
+<p><b>OR</b> add a udev rule to enable kernel polling on removable devices:<br>
+<blockquote><code>
+    echo 'ACTION=="add", ATTR{removable}=="1", ATTR{events_poll_msecs}=="-1", ATTR{events_poll_msecs}="2000"' > /etc/udev/rules.d/61-removable-storage-polling.rules
+</code></blockquote>
+
+<p>A reboot will be required for the above changes to take effect, or...
+
+<p><b>To enable kernel polling temporarily and immediately</b>, enable common polling for the block module:
 <pre>
     sudo bash -c 'echo 2000 > /sys/module/block/parameters/events_dfl_poll_msecs'
 </pre>
 
-<p><b>OR</b> you can temporarily enable polling just for a single device like this (/dev/sr0 in this example):
+<p><b>OR</b> you can enable polling just for a single device like this (/dev/sr0 in this example):
 <pre>
     sudo bash -c 'echo 2000 > /sys/block/sr0/events_poll_msecs'
 </pre>
 
-The change should be immediate - media will be detected and the eject button on the drive should work normally again.  However, these temporary changes will be lost when you reboot.
+This change should be immediate - media will be detected.  However, the above change will be lost when you reboot.
 
 <p>References:<br>
-<a href="http://www.mail-archive.com/lfs-dev@linuxfromscratch.org/msg15714.html">linuxfromscratch.org/msg15714.html</a><br>
+<a href="http://www.mail-archive.com/lfs-dev@linuxfromscratch.org/msg15714.html">linuxfromscratch.org</a><br>
 <a href="http://blogs.gentoo.org/mgorny/2011/06/20/uam-can-now-mount-cds-and-dvds/">uam-can-now-mount-cds-and-dvds</a><br>
 <a href="https://bugs.archlinux.org/task/25609">bugs.archlinux.org</a><br>
+<a href="http://unix.stackexchange.com/questions/38582/udev-triggers-are-not-firing-on-insert-of-cf-card-into-usb-card-reader-anymore">unix.stackexchange.com</a><br>
+
 
 
 </td></tr></table>
@@ -278,7 +283,7 @@ The change should be immediate - media will be detected and the eject button on 
 <table cellspacing="0" cellpadding="0" align="center" width="75%">
  <tr> 
 	<td>
-		<div align="left"><i>Updated 2013-Dec-04</i></div>
+		<div align="left"><i>Updated 2013-Dec-23</i></div>
 	</td>
 	<td>
 		<div align="left"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BN2HNPVPS2EFJ"><img style="border:0;" src="donate_button.gif" alt="Make A Donation" /></a><br><small><a href="http://igurublog.wordpress.com/donate/">Tips &amp; Donation Info</a></small></div>
