@@ -60,6 +60,9 @@
 
 #include "device-info.h"
 
+// use extended wildcard matching
+#include "wildmatch.h"
+
 
 #define ALLOWED_OPTIONS "nosuid,noexec,nodev,user=$USER,uid=$UID,gid=$GID"
 #define ALLOWED_TYPES "$KNOWN_FILESYSTEMS,smbfs,cifs,nfs,ftpfs,curlftpfs,sshfs,file,tmpfs,ramfs"
@@ -1191,7 +1194,7 @@ static gboolean validate_in_list( const char* name, const char* type, const char
             continue;
 //printf("    selement = {%s}\n", selement );
         if ( strcmp( selement, "*" ) == 0 ||
-                                fnmatch( selement, test, FNM_PATHNAME ) == 0 )
+                                wildmatch( selement, test, WM_PATHNAME, NULL ) == 0 )
         {
             g_free( element );
 //printf( "    MATCH\n" );
