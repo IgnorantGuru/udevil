@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-31 11:04+0000\n"
-"PO-Revision-Date: 2013-11-20 09:33+0000\n"
-"Last-Translator: ignorantguru <ignorantguru@gmx.com>\n"
+"PO-Revision-Date: 2013-12-31 10:01+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/udevil/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,12 +38,12 @@ msgstr "udevil: error 3: la línea %d en %s es muy larga\n"
 #: ../src/udevil.c:820
 #, c-format
 msgid "udevil: error 4: %s line %d syntax error:\n"
-msgstr ""
+msgstr "udevil: error 4: error de sintaxis %s, línea %d:\n"
 
 #: ../src/udevil.c:833
 #, c-format
 msgid "udevil: error 5: %s line %d syntax error:\n"
-msgstr ""
+msgstr "udevil: error 5: error de sintaxis %s, línea %d:\n"
 
 #: ../src/udevil.c:840
 #, c-format
@@ -53,7 +53,7 @@ msgstr ""
 #: ../src/udevil.c:903
 #, c-format
 msgid "udevil: warning 7: /etc/udevil/udevil.conf could not be read\n"
-msgstr ""
+msgstr "udevil: aviso 7: no se pudo leer /etc/udevil/udevil.conf\n"
 
 #: ../src/udevil.c:913
 #, c-format
@@ -63,7 +63,7 @@ msgstr "udevil: leer configuración %s\n"
 #: ../src/udevil.c:1152
 #, c-format
 msgid "udevil: error 8: failed writing to log file '%s'\n"
-msgstr ""
+msgstr "udevil: error 8: falló la escritura del archivo de registro «%s»\n"
 
 #: ../src/udevil.c:1488 ../src/udevil.c:1530 ../src/udevil.c:1592
 #: ../src/udevil.c:1635
@@ -73,7 +73,7 @@ msgstr "udevil: aviso 9: no se puede ejecutar losetup (%s)\n"
 
 #: ../src/udevil.c:1543
 msgid "udevil: error 147: unable to get free loop device\n"
-msgstr ""
+msgstr "udevil: error 147: no se pudo obtener dispositivo «loop» libre\n"
 
 #: ../src/udevil.c:1552
 msgid "udevil: error 150: path changed\n"
@@ -197,53 +197,53 @@ msgstr "udevil: aviso 25: falló setfacl en %s, alternando a «rwxr-xr-x»\n"
 #, c-format
 msgid ""
 "udevil: error 26: invalid type '%s' for SMB share - must be cifs or smbfs\n"
-msgstr ""
+msgstr "udevil: error 26: tipo «%s» no válido para recurso SMB: debe ser cifs o smbfs\n"
 
 #: ../src/udevil.c:2461
 #, c-format
 msgid ""
 "udevil: error 27: invalid type '%s' for NFS share - must be nfs or nfs4\n"
-msgstr ""
+msgstr "udevil: error 27: tipo «%s» no válido para recurso NFS: debe ser nfs o nfs4\n"
 
 #: ../src/udevil.c:2474
 #, c-format
 msgid ""
 "udevil: error 28: invalid type '%s' for curlftpfs share - must be "
 "curlftpfs\n"
-msgstr ""
+msgstr "udevil: error 28: tipo «%s» no válido para recurso curlftpfs: debe ser curlftpfs\n"
 
 #: ../src/udevil.c:2486
 #, c-format
 msgid ""
 "udevil: error 29: invalid type '%s' for FTP share - must be curlftpfs or "
 "ftpfs\n"
-msgstr ""
+msgstr "udevil: error 29: tipo «%s» no válido para recurso FTP: debe ser curlftpfs o ftpfs\n"
 
 #: ../src/udevil.c:2511
 #, c-format
 msgid "udevil: error 30: invalid type '%s' for sshfs share - must be sshfs\n"
-msgstr ""
+msgstr "udevil: error 30: tipo «%s» no válido para recurso sshfs: debe ser sshfs\n"
 
 #: ../src/udevil.c:2524
 #, c-format
 msgid "udevil: error 31: invalid type '%s' for sshfs share - must be sshfs\n"
-msgstr ""
+msgstr "udevil: error 31: tipo «%s» no válido para recurso sshfs: debe ser sshfs\n"
 
 #: ../src/udevil.c:2536
 #, c-format
 msgid "udevil: error 151: invalid type '%s' for WebDAV share - must be davfs\n"
-msgstr ""
+msgstr "udevil: error 151: tipo «%s» no válido para recurso WebDAV: debe ser davfs\n"
 
 #: ../src/udevil.c:2551
 #, c-format
 msgid "udevil: error 32: invalid type '%s' for sshfs share - must be sshfs\n"
-msgstr ""
+msgstr "udevil: error 32: tipo «%s» no válido para recurso sshfs: debe ser sshfs\n"
 
 #: ../src/udevil.c:2562
 #, c-format
 msgid ""
 "udevil: error 33: invalid type '%s' for NFS share - must be nfs or nfs4\n"
-msgstr ""
+msgstr "udevil: error 33: tipo «%s» no válido para recurso NFS: debe ser nfs o nfs4\n"
 
 #: ../src/udevil.c:2679
 #, c-format
@@ -257,7 +257,7 @@ msgstr "udevil: error 35: el url de red no es válido\n"
 #: ../src/udevil.c:2695
 #, c-format
 msgid "udevil: error 36: lookup host '%s' failed\n"
-msgstr ""
+msgstr "udevil: error 36: falló la búsqueda del equipo «%s»\n"
 
 #: ../src/udevil.c:2743
 #, c-format
@@ -274,11 +274,11 @@ msgstr "Para corregir este problema"
 
 #: ../src/udevil.c:2763
 msgid "udevil: error 38: mount requires DEVICE argument\n"
-msgstr ""
+msgstr "udevil: error 38: mount requiere el argumento DISPOSITIVO\n"
 
 #: ../src/udevil.c:2765
 msgid "udevil: error 39: unmount requires DEVICE argument\n"
-msgstr ""
+msgstr "udevil: error 39: unmount requiere el argumento DISPOSITIVO\n"
 
 #: ../src/udevil.c:2810
 #, c-format
@@ -320,7 +320,7 @@ msgstr ""
 #: ../src/udevil.c:2956
 #, c-format
 msgid "udevil: error 46: cannot find '%s' mounted in mtab\n"
-msgstr ""
+msgstr "udevil: error 46: no se encontró «%s» montado en mtab\n"
 
 #: ../src/udevil.c:2970
 msgid "udevil: error 47: cannot canonicalize attached loop device\n"
@@ -328,17 +328,17 @@ msgstr ""
 
 #: ../src/udevil.c:2976
 msgid "udevil: denied 48: 'file' is not an allowed type\n"
-msgstr ""
+msgstr "udevil: denegación 48: «archivo» no es de un tipo permitido\n"
 
 #: ../src/udevil.c:2984
 #, c-format
 msgid "udevil: denied 49: '%s' is not an allowed file\n"
-msgstr ""
+msgstr "udevil: denegación 49: «%s» no es un archivo permitido\n"
 
 #: ../src/udevil.c:2991
 #, c-format
 msgid "udevil: error 50: cannot find '%s' mounted in mtab\n"
-msgstr ""
+msgstr "udevil: error 50: no se encontró «%s» montado en mtab\n"
 
 #: ../src/udevil.c:3010
 #, c-format
@@ -377,7 +377,7 @@ msgstr ""
 #: ../src/udevil.c:3106
 #, c-format
 msgid "udevil: error 58: %s is not a block device\n"
-msgstr ""
+msgstr "udevil: error 58: %s no es un dispositivo de bloque\n"
 
 #: ../src/udevil.c:3115
 msgid "udevil: error 59: error initializing libudev\n"
@@ -414,7 +414,7 @@ msgstr ""
 #: ../src/udevil.c:3243
 #, c-format
 msgid "udevil: denied 65: device %s is not mounted\n"
-msgstr ""
+msgstr "udevil: denegación 65: el dispositivo %s no está montado\n"
 
 #: ../src/udevil.c:3246
 #, c-format
@@ -484,7 +484,7 @@ msgstr ""
 #: ../src/udevil.c:3413
 #, c-format
 msgid "udevil: denied 81: device %s is a forbidden device\n"
-msgstr ""
+msgstr "udevil: denegación 81: el dispositivo %s está prohibido\n"
 
 #: ../src/udevil.c:3429
 #, c-format
@@ -503,11 +503,11 @@ msgstr "udevil: denegación 145: no se puede abrir «%s»\n"
 
 #: ../src/udevil.c:3460
 msgid "udevil: error 146: path changed\n"
-msgstr ""
+msgstr "udevil: error 146: la ruta cambió\n"
 
 #: ../src/udevil.c:3468
 msgid "udevil: error 84: cannot specify mount point for directory\n"
-msgstr ""
+msgstr "udevil: error 84: no se puede definir punto de montaje para la cerpeta\n"
 
 #: ../src/udevil.c:3488
 #, c-format
@@ -517,12 +517,12 @@ msgstr "udevil: denegación 85: %s está adjunto a un archivo no válido\n"
 #: ../src/udevil.c:3496
 #, c-format
 msgid "udevil: denied 86: '%s' is not a permitted file\n"
-msgstr ""
+msgstr "udevil: denegación 86: «%s» no es un archivo permitido\n"
 
 #: ../src/udevil.c:3506
 #, c-format
 msgid "udevil: denied 87: '%s' is not an allowed file\n"
-msgstr ""
+msgstr "udevil: denegación 87: «%s» no es un archivo permitido\n"
 
 #: ../src/udevil.c:3527
 #, c-format
@@ -590,7 +590,7 @@ msgstr ""
 #: ../src/udevil.c:3860
 #, c-format
 msgid "udevil: denied 99: can't mount '%s' (not in fstab?)\n"
-msgstr ""
+msgstr "udevil: denegación 99: no se puede montar «%s» (¿está en fstab?)\n"
 
 #: ../src/udevil.c:3874
 msgid "udevil: denied 100: must specify device or network for remount\n"
@@ -833,7 +833,7 @@ msgstr ""
 msgid ""
 "    udevil mount|--mount [MOUNT-OPTIONS] [[-b|--block-device] DEVICE] "
 "[DIR]\n"
-msgstr ""
+msgstr "    udevil mount|--mount [OPCIONES-MONTAJE] [[-b|--dispositivo-bloque] DISPOSITIVO] [DIR]\n"
 
 #: ../src/udevil.c:4837
 #, c-format
@@ -871,7 +871,7 @@ msgstr "o"
 
 #: ../src/udevil.c:4851 ../src/udevil.c:4853
 msgid "ftp share with"
-msgstr ""
+msgstr "recurso ftp con"
 
 #: ../src/udevil.c:4852
 msgid "user and password"
@@ -895,11 +895,11 @@ msgstr "sitio ftp con curl u/p"
 
 #: ../src/udevil.c:4858 ../src/udevil.c:4859
 msgid "nfs share"
-msgstr ""
+msgstr "recurso nfs"
 
 #: ../src/udevil.c:4860 ../src/udevil.c:4863
 msgid "samba share w/ cifs"
-msgstr ""
+msgstr "recurso samba c/ cifs"
 
 #: ../src/udevil.c:4861
 msgid "samba share w/ u/p/port"
@@ -911,11 +911,11 @@ msgstr ""
 
 #: ../src/udevil.c:4864
 msgid "samba share w/ smbfs"
-msgstr ""
+msgstr "recurso samba c/ smbfs"
 
 #: ../src/udevil.c:4865
 msgid "sshfs with user - "
-msgstr ""
+msgstr "sshfs con usuario - "
 
 #: ../src/udevil.c:4866
 msgid "requires sshfs"
@@ -923,7 +923,7 @@ msgstr "requiere sshfs"
 
 #: ../src/udevil.c:4867
 msgid "sshfs with user"
-msgstr ""
+msgstr "sshfs con usuario"
 
 #: ../src/udevil.c:4868
 msgid "WebDAV - requires davfs2"

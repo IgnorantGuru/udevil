@@ -2,7 +2,7 @@ INCLUDES = -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 noinst_PROGRAMS = udevil
 
-udevil_SOURCES = udevil.c device-info.c canonicalize.c
+udevil_SOURCES = udevil.c device-info.c canonicalize.c wildmatch.c
 
 bin_SCRIPTS = devmon
 
