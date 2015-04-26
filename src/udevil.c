@@ -2627,7 +2627,7 @@ static int parse_network_url( const char* url, const char* fstype,
         {
             str[0] = '\0';
             if ( xurl[1] != '\0' )
-                nm->host = g_strdup( xurl + 1 );
+                nm->host = g_strdup_printf( "[%s]", xurl + 1 );
             if ( str[1] == ':' && str[2] != '\0' )
                 nm->port = g_strdup( str + 1 );
         }
@@ -2690,11 +2690,23 @@ static int parse_network_url( const char* url, const char* fstype,
     }
 
     // lookup ip
-    if ( !( nm->ip = get_ip( nm->host ) ) || ( nm->ip && nm->ip[0] == '\0' ) )
+    char* tmphost = g_strdup( nm->host );
+    if ( tmphost && tmphost[0] == '[' && strchr( tmphost, ':' ) &&
+                                         g_str_has_suffix( tmphost, "]" ) )
+    {
+        // ipv6 literal - strip [] for get_ip
+        str = tmphost;
+        tmphost = g_strdup( str + 1 );
+        g_free( str );
+        tmphost[strlen( tmphost ) - 1] = '\0';
+    }
+    if ( !( nm->ip = get_ip( tmphost ) ) || ( nm->ip && nm->ip[0] == '\0' ) )
     {
         wlog( _("udevil: error 36: lookup host '%s' failed\n"), nm->host, 2 );
+        g_free( tmphost );
         goto _net_free;
     }
+    g_free( tmphost );
 
     // valid
     *netmount = nm;
@@ -3769,6 +3781,23 @@ _get_type:
         fstype = g_strdup( "fuse" );
     }
 
+    // add option ip= for cifs ipv6 literal
+    if ( type == MOUNT_NET &&
+                ( !strcmp( fstype, "smbfs" ) || !strcmp( fstype, "cifs" ) ) )
+    {
+        if ( netmount->host && netmount->host[0] == '[' &&
+                                strchr( netmount->host, ':' ) &&
+                                g_str_has_suffix( netmount->host, "]" ) )
+        {
+            // ipv6 literal as host - cifs requires special ip= option
+            // This is done after valid options test since ip= should not be
+            // an allowed option
+            str = options;
+            options = g_strdup_printf( "%s,ip=%s", str, netmount->ip );
+            g_free( str );
+        }
+    }
+    
     // no point and not remount
     if ( !data->point && !remount )
     {

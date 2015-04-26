@@ -3,6 +3,7 @@
     [devmon 1.1.8] fix no error popup on --unmount-removable #42
     [devmon 1.1.8] improve --exec-on-unmount for mounted during startup
     [devmon 1.1.8] unset %d %l for --exec-on-unmount #56
+    special handling for cifs mount ipv6 literal #46; retain literal host
 0.4.3   2013-12-09:
     fix default udevil.conf allowed_options missing fmask=0133 #35
 0.4.2   2013-12-04:
