@@ -15,7 +15,7 @@ defaultmountoptions="noexec,nosuid,nodev,noatime"
 help()
 {
 	cat << EOF
-devmon version 1.1.7  (distributed with udevil)
+devmon version 1.1.8  (distributed with udevil)
 Automounts and unmounts optical and removable drives
 Requires:    udevil bash>=4        Also Recommended: eject spacefm|zenity
 Optional:    udisks v1 may be substituted for udevil
@@ -580,14 +580,14 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 unmountdev()   # $1=device
 {
 	if [ "$mount_cmd" = "$udisks2" ]; then
-		uerrmsg=`$mount_cmd unmount -b $1 2>&1`
 		echo "devmon: $mount_cmd unmount -b $1"
+		uerrmsg=`$mount_cmd unmount -b $1 2>&1`
 	elif [ "$mount_cmd" = "$pmount" ]; then
-		uerrmsg=`pumount $1 2>&1`
 		echo "devmon: pumount $1"
+		uerrmsg=`pumount $1 2>&1`
 	else
-		uerrmsg=`$mount_cmd --unmount $1 2>&1`
 		echo "devmon: $mount_cmd --unmount $1"
+		uerrmsg=`$mount_cmd --unmount $1 2>&1`
 	fi
 	umounterr="$?"
 	if [ "$mount_cmd" = "$udisks1" ] && [ "$uerrmsg" != "" ]; then
