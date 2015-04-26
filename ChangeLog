@@ -1,5 +1,5 @@
 0.4.3+
-    udevil.conf use nonempty option for exfat #52
+    udevil.conf new default/allowed options for exfat #52
     [devmon 1.1.8] fix no error popup on --unmount-removable #42
     [devmon 1.1.8] improve --exec-on-unmount for mounted during startup
     [devmon 1.1.8] unset %d %l for --exec-on-unmount #56
