@@ -3617,7 +3617,7 @@ _get_type:
         {
             // ftpfs
             // eg mount -n -t ftpfs none /mnt/ftpfs -o ip=192.168.1.100 user=jim pass=123abc port=21 root=/pub/updates
-            net_opts = g_strdup_printf( "ip=%s", netmount->ip );
+            net_opts = g_strdup( "" );
             if ( netmount->user )
             {
                 str = net_opts;
@@ -3782,6 +3782,8 @@ _get_type:
     }
 
     // add option ip= for cifs ipv6 literal
+    // This is done after valid options test since ip= should not be
+    // an allowed option
     if ( type == MOUNT_NET &&
                 ( !strcmp( fstype, "smbfs" ) || !strcmp( fstype, "cifs" ) ) )
     {
@@ -3790,12 +3792,24 @@ _get_type:
                                 g_str_has_suffix( netmount->host, "]" ) )
         {
             // ipv6 literal as host - cifs requires special ip= option
-            // This is done after valid options test since ip= should not be
-            // an allowed option
             str = options;
-            options = g_strdup_printf( "%s,ip=%s", str, netmount->ip );
+            options = g_strdup_printf( "%s%sip=%s", str && str[0] ? str : "",
+                                                str && str[0] ? "," : "",
+                                                netmount->ip );
             g_free( str );
         }
+    }
+
+    // add option ip= for ftpfs
+    // This is done after valid options test since ip= should not be
+    // an allowed option
+    if ( type == MOUNT_NET && !strcmp( fstype, "ftpfs" ) )
+    {
+        str = options;
+        options = g_strdup_printf( "%s%sip=%s", str && str[0] ? str : "",
+                                                str && str[0] ? "," : "",
+                                                netmount->ip );
+        g_free( str );
     }
     
     // no point and not remount
