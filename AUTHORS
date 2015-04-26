@@ -6,4 +6,5 @@ Source code taken from other projects:
  * pmount-jjk    (remove device code - modified)
  * udisks 1.0.4  (device info functions - modified)
  * pmount 0.99   (physical tty test function - modified)
+ * git           (extended wildcard matching)
 
