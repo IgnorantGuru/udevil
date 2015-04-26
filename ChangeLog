@@ -1,5 +1,5 @@
 0.4.3+
-
+    udevil.conf use nonempty option for exfat #52
 0.4.3   2013-12-09:
     fix default udevil.conf allowed_options missing fmask=0133 #35
 0.4.2   2013-12-04:
