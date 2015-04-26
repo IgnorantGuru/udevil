@@ -568,6 +568,13 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 		# no filesystem reported but successful mount
 		echo "$mntmsg"
 	fi
+	
+	# set devtag for recognizing mounted by devmon
+	devpath="$1"
+	devtag="${devpath#/dev/}"
+	devtag="${devtag//-/_}"
+	eval devmounted${devtag}=1
+	
 	echo "$umsg"
 	if [ "$point" = " " ]; then
 		# pmount doesn't output the mount point - get it now
@@ -1167,6 +1174,7 @@ while ps -p $COPROC_PID &>/dev/null; do
 						if (( execoux != 0 )); then
 							if ( ! ignoredevice "$devpath" ) && \
 												( ! ignorelabel "$label" ); then
+								unset lb point
 								dv="$devpath"
 								execcommands "exec on unmount" "${execou[@]}"
 							fi
