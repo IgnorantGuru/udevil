@@ -15,7 +15,7 @@ defaultmountoptions="noexec,nosuid,nodev,noatime"
 help()
 {
 	cat << EOF
-devmon version 1.1.7  (distributed with udevil)
+devmon version 1.1.8  (distributed with udevil)
 Automounts and unmounts optical and removable drives
 Requires:    udevil bash>=4        Also Recommended: eject spacefm|zenity
 Optional:    udisks v1 may be substituted for udevil
@@ -55,6 +55,7 @@ MOUNT-OPTIONS:  (these can be used only in client mode)
 --mount DEVICE                Mount DEVICE
 --mount-options|--mount-fstype|--eject-options "OPTIONS"
                               These options will be passed to mount or eject
+--enumerate-device-files      List known devices
 
 UNIVERSAL OPTIONS:  (these can be used in both daemon and client modes)
 --ignore-device DEVICE        Ignore DEVICE (eg /dev/sdd1)
@@ -247,6 +248,39 @@ while [ "$1" != "" ]; do
 				iglab[$iglabx]="$2"
 				(( iglabx++ ))
 				shift
+				;;
+			--enumerate-device-files )
+				all=`grep " [ms]d[a-z0-9]*$" /proc/partitions | \
+									sed 's/.* \([ms]d[a-z0-9]*\)/\/dev\/\1/'`
+				n=$'\n'
+				if [ "$all" != "" ]; then
+					all="$all$n"
+				fi
+				for f in /dev/mapper/*; do
+					if [ -h "$f" ]; then
+						name="$(basename "$f")"
+						target="$(readlink "$f")"
+						target="$(basename "$target")"
+						if [ "$target" != "" ]; then
+							all="$all/dev/$target$n"
+							if [ "${name:0:4}" = "loop" ]; then
+								all="$all/dev/$name$n"
+							fi
+						fi
+					fi
+				done
+				# add mounted loop devices (attached requires losetup as root)
+				loop=`cat /proc/self/mountinfo 2>/dev/null | grep ' /dev/loop[0-9]* ' | cut -f9 -d ' ' 2>/dev/null`
+				if [ "$loop" != "" ]; then
+					loop="$loop$n"
+				fi
+				other=`/bin/ls -1 /dev/md[0-9]* /dev/dm-* /dev/sr* 2>/dev/null`
+				if [ "$other" != "" ]; then
+					other="$other$n"
+				fi
+				all="$all$loop$other"
+				echo -n "$all" | sort | uniq
+				exit
 				;;
 			--* )
 				unknown "$1";;
@@ -534,6 +568,13 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 		# no filesystem reported but successful mount
 		echo "$mntmsg"
 	fi
+	
+	# set devtag for recognizing mounted by devmon
+	devpath="$1"
+	devtag="${devpath#/dev/}"
+	devtag="${devtag//-/_}"
+	eval devmounted${devtag}=1
+	
 	echo "$umsg"
 	if [ "$point" = " " ]; then
 		# pmount doesn't output the mount point - get it now
@@ -546,14 +587,14 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 unmountdev()   # $1=device
 {
 	if [ "$mount_cmd" = "$udisks2" ]; then
-		uerrmsg=`$mount_cmd unmount -b $1 2>&1`
 		echo "devmon: $mount_cmd unmount -b $1"
+		uerrmsg=`$mount_cmd unmount -b $1 2>&1`
 	elif [ "$mount_cmd" = "$pmount" ]; then
-		uerrmsg=`pumount $1 2>&1`
 		echo "devmon: pumount $1"
+		uerrmsg=`pumount $1 2>&1`
 	else
-		uerrmsg=`$mount_cmd --unmount $1 2>&1`
 		echo "devmon: $mount_cmd --unmount $1"
+		uerrmsg=`$mount_cmd --unmount $1 2>&1`
 	fi
 	umounterr="$?"
 	if [ "$mount_cmd" = "$udisks1" ] && [ "$uerrmsg" != "" ]; then
@@ -1133,6 +1174,7 @@ while ps -p $COPROC_PID &>/dev/null; do
 						if (( execoux != 0 )); then
 							if ( ! ignoredevice "$devpath" ) && \
 												( ! ignorelabel "$label" ); then
+								unset lb point
 								dv="$devpath"
 								execcommands "exec on unmount" "${execou[@]}"
 							fi

@@ -1,4 +1,13 @@
-0.4.1+
+0.4.3+
+    udevil.conf new default/allowed options for exfat #52
+    [devmon 1.1.8] fix no error popup on --unmount-removable #42
+    [devmon 1.1.8] improve --exec-on-unmount for mounted during startup
+    [devmon 1.1.8] unset %d %l for --exec-on-unmount #56
+    special handling for cifs mount ipv6 literal #46; retain literal host
+    udevil.conf allowed_options_ftpfs remove ip=*; add ip= after test #46
+0.4.3   2013-12-09:
+    fix default udevil.conf allowed_options missing fmask=0133 #35
+0.4.2   2013-12-04:
     move packages to pkg branch
     debian pkgs libudev0 | libudev1
     update translations; add es fr pl sv
@@ -8,6 +17,7 @@
     default fmask=0133 for vfat ntfs msdos umsdos #25
     [devmon 1.1.7] support raid /dev/mda in partition detection #28
     fix identify empty optical drive
+    [devmon 1.1.7] add option --enumerate-device-files #26
 0.4.1   2013-03-17:
     update Russian translation
     added translation files to transifex.com
