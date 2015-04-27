@@ -4952,7 +4952,7 @@ printf("\n-----------------------\n");
 
 //printf( "R=%d:%d E=%d:%d\n", getuid(), getgid(), geteuid(), getegid() );
 
-    // read config
+    // read config - success returns normal "read config" msg
     if ( !( config_msg = parse_config( &config_warning ) ) )
         return 1;
 

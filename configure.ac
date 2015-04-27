@@ -3,7 +3,7 @@ AC_PREREQ(2.52)
 AC_INIT(src/udevil.c)
 AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_SRCDIR(src)
-AM_INIT_AUTOMAKE(udevil, 0.4.1+)
+AM_INIT_AUTOMAKE(udevil, 0.4.3+etc)
 
 AC_PROG_INTLTOOL([0.21])
 
@@ -16,6 +16,8 @@ AC_PROG_INSTALL
 
 AC_DEFINE_UNQUOTED(UDEVIL_VERSION, "$VERSION", [udevil version])
 
+# sysconfdir defaults to /usr/local/etc if this is not done:
+test "$sysconfdir" = '${prefix}/etc' && sysconfdir=/etc
 
 dnl linker optimizations
 AC_MSG_CHECKING([whether $LD accepts --as-needed])
@@ -168,11 +170,12 @@ echo setfacl program.............................. : $setfaclprog
 else
 echo setfacl program.............................. : /usr/bin/setfacl
 fi
-echo install devmon systemd service............... : $use_systemd
-echo
+echo Install devmon systemd service files ?....... : $use_systemd
 echo Installation Prefix.......................... : $prefix
 echo "      The binary will be installed as $prefix/bin/udevil"
+echo sysconfdir................................... : $sysconfdir
+echo "      The configuration will be installed in $sysconfdir/udevil"
 echo
-echo 'Homepage: http://ignorantguru.github.com/udevil/'
+echo 'Homepage: http://ignorantguru.github.io/udevil/'
 echo
 
