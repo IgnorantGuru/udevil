@@ -65,6 +65,10 @@
 #define ALLOWED_TYPES "$KNOWN_FILESYSTEMS,smbfs,cifs,nfs,ftpfs,curlftpfs,sshfs,file,tmpfs,ramfs"
 #define MAX_LOG_DAYS 60   // don't set this too high
 
+// udisks2 changed its media dir from /run/media/$USER to /media/$USER
+// NOTE: parents not created
+#define AUTO_MEDIA_DIR "/media"
+
 //#define OPT_REMOVE   // build with under-development remove function
 
 static int command_clean();
@@ -2305,31 +2309,29 @@ static gboolean valid_mount_path( const char* path, char** errmsg )
     return !msg;
 }
 
-static gboolean create_run_media()
+static gboolean create_auto_media()
 {
     char* str;
     gboolean ret = FALSE;
     
-    // create /run/media/$USER
-    char* run_media = g_build_filename( "/run/media", g_get_user_name(), NULL );
+    // create /media/$USER
+    char* auto_media = g_build_filename( AUTO_MEDIA_DIR, g_get_user_name(), NULL );
     restore_privileges();
-    wlog( "udevil: mkdir %s\n", run_media, 0 );
-    mkdir( "/run", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
-    chown( "/run", 0, 0 );
-    mkdir( "/run/media", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
-    chown( "/run/media", 0, 0 );
-    mkdir( run_media, S_IRWXU );
-    chown( run_media, 0, 0 );
-    // set acl   /usr/bin/setfacl -m u:$USER:rx /run/media/$USER
+    wlog( "udevil: mkdir %s\n", auto_media, 0 );
+    mkdir( AUTO_MEDIA_DIR, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+    chown( AUTO_MEDIA_DIR, 0, 0 );
+    mkdir( auto_media, S_IRWXU );
+    chown( auto_media, 0, 0 );
+    // set acl   /usr/bin/setfacl -m u:$USER:rx /media/$USER
     gchar *argv[5] = { NULL };
     int a = 0;
     argv[a++] = g_strdup( read_config( "setfacl_program", NULL ) );
     argv[a++] = g_strdup( "-m" );
     argv[a++] = g_strdup_printf( "u:%s:rx", g_get_user_name() );
-    argv[a++] = g_strdup( run_media );
+    argv[a++] = g_strdup( auto_media );
     str = g_strdup_printf( "udevil: %s -m u:%s:rx %s\n",
                             read_config( "setfacl_program", NULL ),
-                            g_get_user_name(), run_media );
+                            g_get_user_name(), auto_media );
     wlog( str, NULL, 0 );
     g_free( str );
     if ( !g_spawn_sync( NULL, argv, NULL,
@@ -2339,20 +2341,20 @@ static gboolean create_run_media()
                             read_config( "setfacl_program", NULL ), 1 );
     drop_privileges( 0 );
     // test
-    if ( g_file_test( run_media, G_FILE_TEST_IS_DIR ) &&
-                    g_access( run_media, R_OK | X_OK ) != 0 )
+    if ( g_file_test( auto_media, G_FILE_TEST_IS_DIR ) &&
+                    g_access( auto_media, R_OK | X_OK ) != 0 )
     {
         // setfacl apparently failed so fallback to normal permissions
         wlog( _("udevil: warning 25: setfacl on %s failed, falling back to 'rwxr-xr-x'\n"),
-                                                            run_media, 1 );
+                                                            auto_media, 1 );
         restore_privileges();
-        chmod( run_media, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+        chmod( auto_media, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
         drop_privileges( 0 );
     }
-    if ( g_file_test( run_media, G_FILE_TEST_IS_DIR ) &&
-                g_access( run_media, R_OK | X_OK ) == 0 )
+    if ( g_file_test( auto_media, G_FILE_TEST_IS_DIR ) &&
+                g_access( auto_media, R_OK | X_OK ) == 0 )
         ret = TRUE;
-    g_free( run_media );
+    g_free( auto_media );
     return ret;
 }
 
@@ -2367,7 +2369,7 @@ static char* get_default_mount_dir( const char* type )
     if ( !( list = read_config( "allowed_media_dirs", type ) ) )
         return NULL;
 
-    char* run_media = g_build_filename( "/run/media", g_get_user_name(), NULL );
+    char* auto_media = g_build_filename( AUTO_MEDIA_DIR, g_get_user_name(), NULL );
     while ( list && list[0] )
     {
         if ( comma = strchr( list, ',' ) )
@@ -2391,20 +2393,20 @@ static char* get_default_mount_dir( const char* type )
         {
             str = g_strdup( selement );
             g_free( element );
-            g_free( run_media );
+            g_free( auto_media );
             return str;
         }
-        else if ( !g_strcmp0( selement, run_media ) )
+        else if ( !g_strcmp0( selement, auto_media ) )
         {
-            if ( create_run_media() )
+            if ( create_auto_media() )
             {
                 g_free( element );
-                return run_media;
+                return auto_media;
             }
         }
         g_free( element );
     }
-    g_free( run_media );
+    g_free( auto_media );
     return NULL;
 }
 
@@ -3298,15 +3300,15 @@ _get_type:
             }
             // get parent dir
             parent_dir = g_path_get_dirname( data->point );
-            // create parent dir /run/media/$USER ?
-            char* run_media = g_build_filename( "/run/media", g_get_user_name(), NULL );
-            if ( !g_strcmp0( parent_dir, run_media ) &&
+            // create parent dir /media/$USER ?
+            char* auto_media = g_build_filename( AUTO_MEDIA_DIR, g_get_user_name(), NULL );
+            if ( !g_strcmp0( parent_dir, auto_media ) &&
                     validate_in_list( "allowed_media_dirs", fstype, parent_dir ) &&
                     !g_file_test( parent_dir, G_FILE_TEST_EXISTS ) )
             {
-                create_run_media();
+                create_auto_media();
             }
-            g_free( run_media );
+            g_free( auto_media );
             // canonicalize parent
             if ( !get_realpath( &parent_dir ) )
             {
