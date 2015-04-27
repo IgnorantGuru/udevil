@@ -1,5 +1,5 @@
 /*
- * udevil.c    GPL3+  Copyright 2013  IgnorantGuru <ignorantguru@gmx.com>
+ * udevil.c    GPL3+  Copyright 2015  IgnorantGuru <ignorantguru@gmx.com>
 */
 
 #include <stdio.h>

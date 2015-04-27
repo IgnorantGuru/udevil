@@ -101,7 +101,7 @@ BUILD
         cd IgnorantGuru-udevil-*
 
         # Build & Install
-        ./configure
+        ./configure --prefix=/usr
         make
         sudo make install
 
@@ -135,7 +135,7 @@ BUILD NEXT
     cd IgnorantGuru-udevil-*
 
     # Build, & Install
-    ./configure
+    ./configure --prefix=/usr
     make
     sudo make install
 
@@ -329,7 +329,7 @@ TRANSLATE
 
 LICENSE
 
-    udevil - Copyright (C) 2014   GPL3+
+    udevil - Copyright (C) 2015   GPL3+
 
     This program is free software; you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
