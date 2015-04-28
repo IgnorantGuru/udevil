@@ -1391,7 +1391,7 @@ static char* get_ip( const char* hostname )
     struct addrinfo *result;
     char* ret = NULL;
 
-    if ( !hostname )
+    if ( !( hostname && hostname[0] ) )
         return NULL;
 
     memset( &hints, 0, sizeof( struct addrinfo ) );
@@ -3005,7 +3005,27 @@ _get_type:
                 {
                     if ( g_strcmp0( data->device_file, "tmpfs" ) &&
                                         g_strcmp0( data->device_file, "ramfs" ) )
+                    {
+                        // found device file of mountpoint
+                        if ( g_str_has_prefix( data->device_file, "//" ) &&
+                                    strchr( data->device_file, ':' ) &&
+                                    data->device_file[2] != '[' )
+                        {
+                            // unmounting mountpoint of cifs with ipv6 literal
+                            // cifs ipv6 mtab format: //::1/share
+                            // add literal brackets:  //[::1]/share
+                            str = g_strdup( data->device_file + 2 );
+                            if ( str2 = strchr( str, '/' ) )
+                                str2[0] = '\0';
+                            g_free( data->device_file );
+                            data->device_file = g_strdup_printf( "//[%s]%s%s",
+                                                    str,
+                                                    str2 ? "/" : "",
+                                                    str2 ? str2 + 1 : "" );
+                            g_free( str );
+                        }
                         goto _get_type;
+                    }
                 }
                 else
                 {
