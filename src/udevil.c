@@ -2380,11 +2380,12 @@ static gboolean create_auto_media()
     if ( g_file_test( auto_media, G_FILE_TEST_IS_DIR ) &&
                     g_access( auto_media, R_OK | X_OK ) != 0 )
     {
-        // setfacl apparently failed so fallback to normal permissions
-        wlog( _("udevil: warning 25: setfacl on %s failed, falling back to 'rwxr-xr-x'\n"),
+        // setfacl apparently failed so fallback to udisks2 fallback permissions
+        wlog( _("udevil: warning 25: setfacl on %s failed, falling back to 'user:root rwx------'\n"),
                                                             auto_media, 1 );
         restore_privileges();
-        chmod( auto_media, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+        chown( auto_media, orig_ruid, 0 );
+        chmod( auto_media, S_IRWXU );
         drop_privileges( 0 );
     }
     if ( g_file_test( auto_media, G_FILE_TEST_IS_DIR ) &&
