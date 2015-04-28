@@ -1172,7 +1172,6 @@ static void dump_log()
 static gboolean validate_in_list( const char* name, const char* type, const char* test )
 {
     char* list = NULL;
-    char* str;
     char* comma;
     char* element;
     char* selement;
@@ -1183,6 +1182,11 @@ static gboolean validate_in_list( const char* name, const char* type, const char
     if ( !( list = read_config( name, type ) ) )
         return FALSE;
 
+    // these names support git-style /** suffix for recursive match
+    gboolean depth = !strcmp( name, "allowed_files" ) ||
+                     !strcmp( name, "forbidden_files" ) ||
+                     !strcmp( name, "allowed_media_dirs" );
+    
 //printf("list[%s_%s] = {%s}\n", name, type, list );
     while ( list && list[0] )
     {
@@ -1198,9 +1202,41 @@ static gboolean validate_in_list( const char* name, const char* type, const char
         }
         selement = g_strstrip( element );
         if ( selement[0] == '\0' )
+        {
+            g_free( element );
             continue;
+        }
 //printf("    selement = {%s}\n", selement );
-        if ( strcmp( selement, "*" ) == 0 ||
+
+        if ( strstr( selement, "**" ) )
+        {
+            // test for valid git-style /** suffix
+            if ( depth && g_str_has_suffix( selement, "/**" ) )
+            {
+                selement[strlen( selement ) - 2] = '\0';
+                if ( !strchr( selement, '*' ) && !strchr( selement, '?' ) )
+                {
+                    if ( g_str_has_prefix( test, selement ) )
+                    {
+                        g_free( element );
+                        return TRUE;
+                    }
+                    else
+                    {
+                        g_free( element );
+                        continue;
+                    }
+                }
+            }
+            // fall thru means invalid use
+            if ( depth )
+                wlog( _("udevil: warning 124: invalid use of /** suffix in pattern '%s'\n"),
+                                                                selement, 1 );
+            else
+                wlog( _("udevil: warning 125: ** wildcard not allowed in %s\n"),
+                                                                name, 1 );
+        }
+        else if ( strcmp( selement, "*" ) == 0 ||
                                 fnmatch( selement, test, FNM_PATHNAME ) == 0 )
         {
             g_free( element );
