@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-31 11:04+0000\n"
-"PO-Revision-Date: 2014-03-11 13:38+0000\n"
-"Last-Translator: wandows <pressaperfeicao@yahoo.com.br>\n"
+"POT-Creation-Date: 2015-04-28 18:39+0000\n"
+"PO-Revision-Date: 2015-04-28 18:39+0000\n"
+"Last-Translator: IgnorantGuru <ignorantguru@gmx.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/udevil/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,828 +22,840 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/udevil.c:612
+#: ../src/udevil.c:616
 #, c-format
 msgid ""
 "udevil: error 1: unable to drop priviledges - please report this problem\n"
 msgstr "udevil: error 1: Impossível obter privilégios de administrador - por favor, relate este problema\n"
 
-#: ../src/udevil.c:804
+#: ../src/udevil.c:810
 #, c-format
 msgid "udevil: error 2: %s line %d is not valid UTF-8\n"
 msgstr "udevil: erro 2: %s linha %d UTF-8 não é um valor válido\n"
 
-#: ../src/udevil.c:810
+#: ../src/udevil.c:815
 #, c-format
 msgid "udevil: error 3: %s line %d is too long\n"
 msgstr "udevil: erro 3: %s linha %d é muito longa\n"
 
-#: ../src/udevil.c:820
+#: ../src/udevil.c:824
 #, c-format
 msgid "udevil: error 4: %s line %d syntax error:\n"
 msgstr "udevil: erro 4: %s erro de sintaxe na linha %d:\n"
 
-#: ../src/udevil.c:833
+#: ../src/udevil.c:836
 #, c-format
 msgid "udevil: error 5: %s line %d syntax error:\n"
 msgstr "udevil: erro 5: %s erro de sintaxe na linha %d:\n"
 
-#: ../src/udevil.c:840
+#: ../src/udevil.c:842
 #, c-format
 msgid "udevil: error 6: %s line %d duplicate assignment:\n"
 msgstr "udevil: erro 6: %s atribuição duplicaca na linha %d:\n"
 
-#: ../src/udevil.c:903
+#: ../src/udevil.c:904
 #, c-format
-msgid "udevil: warning 7: /etc/udevil/udevil.conf could not be read\n"
-msgstr "udevil: Alerta! 7: /etc/udevil/udevil.conf não pode ser lido\n"
+msgid "udevil: warning 7: cannot read config file %s\n"
+msgstr ""
 
-#: ../src/udevil.c:913
+#: ../src/udevil.c:916
 #, c-format
 msgid "udevil: read config %s\n"
 msgstr "udevil: ler configuração %s\n"
 
-#: ../src/udevil.c:1152
+#: ../src/udevil.c:1162
 #, c-format
 msgid "udevil: error 8: failed writing to log file '%s'\n"
 msgstr "udevil: erro 8: falha ao graavr arquivo de log '%s'\n"
 
-#: ../src/udevil.c:1488 ../src/udevil.c:1530 ../src/udevil.c:1592
-#: ../src/udevil.c:1635
+#: ../src/udevil.c:1233
+#, c-format
+msgid "udevil: warning 124: invalid use of /** suffix in pattern '%s'\n"
+msgstr ""
+
+#: ../src/udevil.c:1236
+#, c-format
+msgid "udevil: warning 125: ** wildcard not allowed in %s\n"
+msgstr ""
+
+#: ../src/udevil.c:1534 ../src/udevil.c:1576 ../src/udevil.c:1638
+#: ../src/udevil.c:1681
 #, c-format
 msgid "udevil: warning 9: unable to run losetup (%s)\n"
 msgstr "udevil: alerta! 9: impossível executar losetup (%s)\n"
 
-#: ../src/udevil.c:1543
+#: ../src/udevil.c:1589
 msgid "udevil: error 147: unable to get free loop device\n"
 msgstr "udevil: erro 147: impossível obter o ciclo de um dispositivo livre\n"
 
-#: ../src/udevil.c:1552
+#: ../src/udevil.c:1598
 msgid "udevil: error 150: path changed\n"
 msgstr "udevil: erro 150: caminho alterado\n"
 
-#: ../src/udevil.c:1692
+#: ../src/udevil.c:1738
 #, c-format
 msgid "udevil: warning 10: unable to run losetup (%s)\n"
 msgstr "udevil: alerta! 10: impossível executar losetup (%s)\n"
 
-#: ../src/udevil.c:1926
+#: ../src/udevil.c:1972
 #, c-format
 msgid "udevil: error 11: could not open %s\n"
 msgstr "udevil: erro 11: não pode abrir %s\n"
 
-#: ../src/udevil.c:1934
+#: ../src/udevil.c:1980
 #, c-format
 msgid "udevil: error 12: error writing to %s\n"
 msgstr "udevil: erro 12: erro ao escrever em %s\n"
 
-#: ../src/udevil.c:1984
+#: ../src/udevil.c:2030
 #, c-format
 msgid "udevil: error 13: unable to run %s\n"
 msgstr "udevil: erro 13: incapaz de executar %s\n"
 
-#: ../src/udevil.c:1996
+#: ../src/udevil.c:2042
 #, c-format
 msgid "      %s exit status = %d\n"
 msgstr "      %s status de saída = %d\n"
 
-#: ../src/udevil.c:2001
+#: ../src/udevil.c:2047
 #, c-format
 msgid "udevil: denied 14: %s returned exit status %d\n"
 msgstr "udevil: recusado 14: %s retornou estado de saída %d\n"
 
 #. log
-#: ../src/udevil.c:2039
+#: ../src/udevil.c:2085
 msgid "udevil: trying umount as current user\n"
 msgstr "udevil: tentando desmontar como usuário atual\n"
 
-#: ../src/udevil.c:2052
+#: ../src/udevil.c:2098
 #, c-format
 msgid "udevil: warning 15: unable to run umount (%s)\n"
 msgstr "udevil: alerta! 15: incapaz de executar umount (%s)\n"
 
-#: ../src/udevil.c:2057 ../src/udevil.c:2130
+#: ../src/udevil.c:2103 ../src/udevil.c:2176
 #, c-format
 msgid "      umount exit status = %d\n"
 msgstr "      status de saída ao desmontar = %d\n"
 
 #. success - show output
-#: ../src/udevil.c:2066
+#: ../src/udevil.c:2112
 msgid "udevil: success running umount as current user\n"
 msgstr "udevil: successo ao desmontar como usuário atual\n"
 
-#: ../src/udevil.c:2109 ../src/udevil.c:2181
+#: ../src/udevil.c:2155 ../src/udevil.c:2227
 msgid "udevil: error 144: invalid path\n"
 msgstr "udevil: erro 144: caminho inválido\n"
 
-#: ../src/udevil.c:2120
+#: ../src/udevil.c:2166
 #, c-format
 msgid "udevil: error 16: unable to run umount (%s)\n"
 msgstr "udevil: erro 16: impossível executar desmontagem (%s)\n"
 
-#: ../src/udevil.c:2193
+#: ../src/udevil.c:2239
 #, c-format
 msgid "udevil: error 17: unable to run mount (%s)\n"
 msgstr "udevil: erro 17: impossível executar montagem (%s)\n"
 
-#: ../src/udevil.c:2206
+#: ../src/udevil.c:2252
 #, c-format
 msgid "      mount exit status = %d\n"
 msgstr "      status de saída da montagem = %d\n"
 
-#: ../src/udevil.c:2220
+#: ../src/udevil.c:2266
 msgid "udevil: error 148: unable to attach file to loop device\n"
 msgstr "udevil: erro 148: impossível anexar arquivos a um dispositivo de ciclo\n"
 
-#: ../src/udevil.c:2264
+#: ../src/udevil.c:2310
 #, c-format
 msgid "udevil: warning 18: unable to run mount (%s)\n"
 msgstr "udevil: aviso 18: impossível executar montagem (%s)\n"
 
-#: ../src/udevil.c:2281
+#: ../src/udevil.c:2327
 #, c-format
 msgid "udevil: denied 19: Invalid path\n"
 msgstr "udevil: recusado 19: Caminho inválido\n"
 
-#: ../src/udevil.c:2287
+#: ../src/udevil.c:2333
 #, c-format
 msgid "udevil: denied 20: mount path '%s' is not a directory\n"
 msgstr "udevil: recusado 20: caminho de montagem '%s' não é um diretório\n"
 
-#: ../src/udevil.c:2289
+#: ../src/udevil.c:2335
 #, c-format
 msgid "udevil: denied 21: mount path '%s' is already mounted\n"
 msgstr "udevil: recusado 21: caminho de montagem '%s' já está montado\n"
 
-#: ../src/udevil.c:2293
+#: ../src/udevil.c:2339
 #, c-format
 msgid "udevil: denied 22: cannot stat '%s': %s\n"
 msgstr "udevil: recusado 22: impossível obter estatísticas '%s': %s\n"
 
-#: ../src/udevil.c:2295
+#: ../src/udevil.c:2341
 #, c-format
 msgid "udevil: denied 23: neither you nor root owns '%s'\n"
 msgstr "udevil: recusado 23: nem você nem o administrador possui '%s'\n"
 
-#: ../src/udevil.c:2332
+#: ../src/udevil.c:2376
 #, c-format
 msgid "udevil: warning 24: unable to run setfacl (%s)\n"
 msgstr "udevil: aviso 24: impossível executar setfacl (%s)\n"
 
-#. setfacl apparently failed so fallback to normal permissions
-#: ../src/udevil.c:2340
+#. setfacl apparently failed so fallback to udisks2 fallback permissions
+#: ../src/udevil.c:2384
 #, c-format
-msgid "udevil: warning 25: setfacl on %s failed, falling back to 'rwxr-xr-x'\n"
-msgstr "udevil: aviso 25: setfacl em %s falhou, voltando para 'rwxr-xr-x'\n"
+msgid ""
+"udevil: warning 25: setfacl on %s failed, falling back to 'user:root "
+"rwx------'\n"
+msgstr ""
 
-#: ../src/udevil.c:2446
+#: ../src/udevil.c:2491
 #, c-format
 msgid ""
 "udevil: error 26: invalid type '%s' for SMB share - must be cifs or smbfs\n"
 msgstr "udevil: erro 26: '%s' tipo inválido para SMB partes - deve ser cifs ou smbfs\n"
 
-#: ../src/udevil.c:2461
+#: ../src/udevil.c:2506
 #, c-format
 msgid ""
 "udevil: error 27: invalid type '%s' for NFS share - must be nfs or nfs4\n"
 msgstr "udevil: error 27: '%s' tipo inválido para NFS partes - deve ser nfs ou nfs4\n"
 
-#: ../src/udevil.c:2474
+#: ../src/udevil.c:2519
 #, c-format
 msgid ""
 "udevil: error 28: invalid type '%s' for curlftpfs share - must be "
 "curlftpfs\n"
 msgstr "udevil: error 28: tipo inválido '%s' para curlftpfs partes - deve ser curlftpfs\n"
 
-#: ../src/udevil.c:2486
+#: ../src/udevil.c:2531
 #, c-format
 msgid ""
 "udevil: error 29: invalid type '%s' for FTP share - must be curlftpfs or "
 "ftpfs\n"
 msgstr "udevil: error 29: '%s' tipo inválido para FTP partes - deve ser curlftpfs ou ftpfs\n"
 
-#: ../src/udevil.c:2511
+#: ../src/udevil.c:2556
 #, c-format
 msgid "udevil: error 30: invalid type '%s' for sshfs share - must be sshfs\n"
 msgstr "udevil: erro 30: '%s' tipo inválido para sshfs partes - deve ser sshfs\n"
 
-#: ../src/udevil.c:2524
+#: ../src/udevil.c:2569
 #, c-format
 msgid "udevil: error 31: invalid type '%s' for sshfs share - must be sshfs\n"
 msgstr "udevil: erro 31: '%s' tipo inválido para sshfs partes - deve ser sshfs\n"
 
-#: ../src/udevil.c:2536
+#: ../src/udevil.c:2581
 #, c-format
 msgid "udevil: error 151: invalid type '%s' for WebDAV share - must be davfs\n"
 msgstr "udevil: erro 151: '%s' tipo inválido para WebDAV partes - deve ser davfs\n"
 
-#: ../src/udevil.c:2551
+#: ../src/udevil.c:2596
 #, c-format
 msgid "udevil: error 32: invalid type '%s' for sshfs share - must be sshfs\n"
 msgstr "udevil: erro 32: '%s' tipo inválido para sshfs partes - deve ser sshfs\n"
 
-#: ../src/udevil.c:2562
+#: ../src/udevil.c:2607
 #, c-format
 msgid ""
 "udevil: error 33: invalid type '%s' for NFS share - must be nfs or nfs4\n"
 msgstr "udevil: erro 33: '%s' tipo inválido para NFS partes - deve ser nfs ou nfs4\n"
 
-#: ../src/udevil.c:2679
+#: ../src/udevil.c:2724
 #, c-format
 msgid "udevil: error 34: '%s' is not a recognized network url\n"
 msgstr "udevil: erro 34: '%s' não é uma url rede reconhecida\n"
 
-#: ../src/udevil.c:2688
+#: ../src/udevil.c:2733
 msgid "udevil: error 35: invalid network url\n"
 msgstr "udevil: erro 35: url rede inválida\n"
 
-#: ../src/udevil.c:2695
+#: ../src/udevil.c:2750
 #, c-format
 msgid "udevil: error 36: lookup host '%s' failed\n"
 msgstr "udevil: erro 36: pesquisar host '%s' falhou\n"
 
-#: ../src/udevil.c:2743
+#: ../src/udevil.c:2800
 #, c-format
 msgid "udevil: error 37: %s\n"
 msgstr "udevil: erro 37: %s\n"
 
-#: ../src/udevil.c:2744 ../src/udevil.c:4230 ../src/udevil.c:4553
+#: ../src/udevil.c:2801 ../src/udevil.c:4338 ../src/udevil.c:4661
 msgid "udevil was not run suid root"
 msgstr "udevil não foi executado como administrador suid"
 
-#: ../src/udevil.c:2749 ../src/udevil.c:4235 ../src/udevil.c:4558
+#: ../src/udevil.c:2806 ../src/udevil.c:4343 ../src/udevil.c:4666
 msgid "To correct this problem"
 msgstr "Para corrigir esse problema"
 
-#: ../src/udevil.c:2763
+#: ../src/udevil.c:2820
 msgid "udevil: error 38: mount requires DEVICE argument\n"
 msgstr "udevil: erro 38: montagem requer argumento DISPOSITIVO\n"
 
-#: ../src/udevil.c:2765
+#: ../src/udevil.c:2822
 msgid "udevil: error 39: unmount requires DEVICE argument\n"
 msgstr "udevil: erro 39: desmontagem requer argumento do DISPOSITIVO\n"
 
-#: ../src/udevil.c:2810
+#: ../src/udevil.c:2867
 #, c-format
 msgid "udevil: error 40: cannot stat %s: %s\n"
 msgstr "udevil: erro 40: impossível obter estado %s: %s\n"
 
-#: ../src/udevil.c:2822
+#: ../src/udevil.c:2879
 msgid "udevil: error 41: cannot canonicalize device path\n"
 msgstr "udevil: erro 41: impossível aceitar caminho do dispositivo\n"
 
-#: ../src/udevil.c:2829
+#: ../src/udevil.c:2886
 #, c-format
 msgid "udevil: error 42: cannot stat %s: %s\n"
 msgstr "udevil: erro 42: impossível obter estado %s: %s\n"
 
-#: ../src/udevil.c:2840
+#: ../src/udevil.c:2897
 #, c-format
 msgid "udevil: error 43: '%s' is not a regular file or directory\n"
 msgstr "udevil: erro 43: '%s' não é um arquivo regular ou diretório\n"
 
 #. mount knows (in fstab) so mount as normal user with only specified opts
-#: ../src/udevil.c:2879 ../src/udevil.c:3809
+#: ../src/udevil.c:2936 ../src/udevil.c:3917
 #, c-format
 msgid "udevil: %s is known to mount - running mount as current user\n"
 msgstr "udevil: %s é conhecido por montar - executando montagem como usuário atual\n"
 
-#: ../src/udevil.c:2882
+#: ../src/udevil.c:2939
 msgid ""
 "udevil: warning 44: fstype ignored for device in fstab (or specify mount "
 "point)\n"
 msgstr "udevil: aviso 44: tipo de sistema de arquivos ignorado para o dispositivo fstab (ou especificar o ponto de  montagem)\n"
 
-#: ../src/udevil.c:2885
+#: ../src/udevil.c:2942
 msgid ""
 "udevil: warning 45: options ignored for device in fstab (or specify mount "
 "point)\n"
 msgstr "udevil: aviso 45: opções ignoradas para o dispositivo em fstab (ou especificar o ponto de montagem)\n"
 
-#: ../src/udevil.c:2956
+#: ../src/udevil.c:3033
 #, c-format
 msgid "udevil: error 46: cannot find '%s' mounted in mtab\n"
 msgstr "udevil: erro 46: não pode encontrar '%s' montado em mtab\n"
 
-#: ../src/udevil.c:2970
+#: ../src/udevil.c:3047
 msgid "udevil: error 47: cannot canonicalize attached loop device\n"
 msgstr "udevil: erro 47: não pode aceitar ciclo do dispositivo em anexo\n"
 
-#: ../src/udevil.c:2976
+#: ../src/udevil.c:3053
 msgid "udevil: denied 48: 'file' is not an allowed type\n"
 msgstr "udevil: recusado 48: 'arquivo' não é um tipo permitido\n"
 
-#: ../src/udevil.c:2984
+#: ../src/udevil.c:3061
 #, c-format
 msgid "udevil: denied 49: '%s' is not an allowed file\n"
 msgstr "udevil: recusado 49: '%s' não é um arquivo permitido\n"
 
-#: ../src/udevil.c:2991
+#: ../src/udevil.c:3068
 #, c-format
 msgid "udevil: error 50: cannot find '%s' mounted in mtab\n"
 msgstr "udevil: error 50: não pode encontrar '%s' montado em mtab\n"
 
-#: ../src/udevil.c:3010
+#: ../src/udevil.c:3087
 #, c-format
 msgid "udevil: warning 51: attached device %s is not a loop device\n"
 msgstr "udevil: alerta 51: o dispositivo conectado %s não é um dispositivo de ciclo\n"
 
-#: ../src/udevil.c:3035
+#: ../src/udevil.c:3112
 #, c-format
 msgid "udevil: error 52: cannot stat %s: %s\n"
 msgstr "udevil: erro 52: impossível obter estado %s: %s\n"
 
-#: ../src/udevil.c:3054
+#: ../src/udevil.c:3131
 msgid "udevil: error 53: cannot canonicalize path\n"
 msgstr "udevil: erro 53: impossível aceitar caminho\n"
 
-#: ../src/udevil.c:3070
+#: ../src/udevil.c:3147
 #, c-format
 msgid "udevil: error 54: invalid path '%s'\n"
 msgstr "udevil: erro 54: inválido caminho '%s'\n"
 
-#: ../src/udevil.c:3079
+#: ../src/udevil.c:3156
 #, c-format
 msgid "udevil: error 55: cannot find '%s' mounted in mtab\n"
 msgstr "udevil: erro 55: não pode encontrar '%s' montado em mtab\n"
 
-#: ../src/udevil.c:3086
+#: ../src/udevil.c:3163
 #, c-format
 msgid "udevil: error 56: cannot find device %s fstype in mtab\n"
 msgstr "udevil: erro 56: impossível localizar o dispositivo %s tipo de sistema de arquivo em mtab\n"
 
-#: ../src/udevil.c:3097
+#: ../src/udevil.c:3174
 #, c-format
 msgid "udevil: error 57: cannot stat %s: %s\n"
 msgstr "udevil: erro 57: impossível encontrar o dispositivo %s: %s\n"
 
-#: ../src/udevil.c:3106
+#: ../src/udevil.c:3183
 #, c-format
 msgid "udevil: error 58: %s is not a block device\n"
 msgstr "udevil: erro 58: %s não é um dispositivo de bloco\n"
 
-#: ../src/udevil.c:3115
+#: ../src/udevil.c:3192
 msgid "udevil: error 59: error initializing libudev\n"
 msgstr "udevil: erro 59: erro ao inicializar libudev\n"
 
-#: ../src/udevil.c:3123
+#: ../src/udevil.c:3200
 #, c-format
 msgid "udevil: error 60: no udev device for device %s\n"
 msgstr "udevil: erro 60: nenhum dispositivo udev para o dispositivo %s\n"
 
-#: ../src/udevil.c:3134
+#: ../src/udevil.c:3211
 #, c-format
 msgid "udevil: error 61: unable to get device info for device %s\n"
 msgstr "udevil: erro 61: impossível obter informação do dispositivo para o dispositivo %s\n"
 
-#: ../src/udevil.c:3157
+#: ../src/udevil.c:3234
 #, c-format
 msgid "udevil: error 62: type %s is invalid for block device\n"
 msgstr "udevil: erro 62: tipo de %s é inválido para dispositivo de bloco\n"
 
-#: ../src/udevil.c:3177
+#: ../src/udevil.c:3254
 msgid "udevil: error 143: unable to determine device fstype\n"
 msgstr "udevil: erro 143: impossível determinar o sistema de arquivos do dispositivo tipo\n"
 
-#: ../src/udevil.c:3180
+#: ../src/udevil.c:3257
 #, c-format
 msgid "udevil: error 63: no media in device %s (or specify type with -t)\n"
 msgstr "udevil: erro 63: nenhuma mídia no dispositivo %s (ou especificar tipo com -t)\n"
 
-#: ../src/udevil.c:3183
+#: ../src/udevil.c:3260
 msgid "udevil: error 64: unable to determine device fstype - specify with -t\n"
 msgstr "udevil: erro 64:  impossível determinar dispositivo - especificar com -t\n"
 
-#: ../src/udevil.c:3243
+#: ../src/udevil.c:3320
 #, c-format
 msgid "udevil: denied 65: device %s is not mounted\n"
 msgstr "udevil: recusado 65: o dispositivo %s não está montado\n"
 
-#: ../src/udevil.c:3246
+#: ../src/udevil.c:3323
 #, c-format
 msgid "udevil: denied 66: could not find mount point for '%s'\n"
 msgstr "udevil: recusado 66: impossível encontrar o ponto de montagem para '%s'\n"
 
-#: ../src/udevil.c:3266
+#: ../src/udevil.c:3343
 msgid "udevil: error 67: cannot canonicalize mount point path\n"
 msgstr "udevil: erro 67: não pode aceitar o ponto de montagem para o caminho\n"
 
-#: ../src/udevil.c:3277
+#: ../src/udevil.c:3354
 #, c-format
 msgid "udevil: error 68: cannot stat '%s'\n"
 msgstr "udevil: erro 68: impossível obter estado '%s'\n"
 
-#: ../src/udevil.c:3295
+#: ../src/udevil.c:3372
 msgid "udevil: error 69: cannot canonicalize mount point path\n"
 msgstr "udevil: erro 69: não pode aceitar o ponto de montagem para o caminho\n"
 
-#: ../src/udevil.c:3306
+#: ../src/udevil.c:3383
 msgid "udevil: error 70: cannot canonicalize mount point path\n"
 msgstr "udevil: erro 70: não pode aceitar o ponto de montagem para o caminho\n"
 
-#: ../src/udevil.c:3316
+#: ../src/udevil.c:3393
 #, c-format
 msgid "udevil: denied 71: '%s' is not an allowed media directory\n"
 msgstr "udevil: recusado 71: '%s' não é um diretório de mídia permitido\n"
 
-#: ../src/udevil.c:3328
+#: ../src/udevil.c:3405
 msgid "udevil: error 72: multiple fstypes not allowed\n"
 msgstr "udevil: erro 72: vários tipos de sistema de arquivo não permitidos\n"
 
-#: ../src/udevil.c:3334
+#: ../src/udevil.c:3411
 #, c-format
 msgid "udevil: denied 73: fstype '%s' is not an allowed type\n"
 msgstr "udevil: recusado 73: sistema de arquivo '%s' não é um tipo permitido\n"
 
-#: ../src/udevil.c:3343
+#: ../src/udevil.c:3420
 msgid "udevil: error 74: could not get username\n"
 msgstr "udevil: erro 74: não foi possível obter nome do usuário\n"
 
-#: ../src/udevil.c:3351
+#: ../src/udevil.c:3428
 #, c-format
 msgid "udevil: denied 75: user '%s' (%s) is not in allowed users\n"
 msgstr "udevil: recusado 75: usuário '%s' (%s) não é em usuário autorizado\n"
 
-#: ../src/udevil.c:3373
+#: ../src/udevil.c:3450
 #, c-format
 msgid "udevil: denied 77: user %s is not in allowed groups\n"
 msgstr "udevil: recusado 77: usuário %s não é permitido em grupos\n"
 
-#: ../src/udevil.c:3385
+#: ../src/udevil.c:3462
 #, c-format
 msgid "udevil: denied 78: host '%s' (%s) is not an allowed network\n"
 msgstr "udevil: recusao 78: host '%s' (%s) não é uma rede permitida\n"
 
-#: ../src/udevil.c:3391
+#: ../src/udevil.c:3468
 #, c-format
 msgid "udevil: denied 79: host '%s' (%s) is a forbidden network\n"
 msgstr "udevil: recusado 79: host '%s' (%s) é uma rede proibida\n"
 
-#: ../src/udevil.c:3406
+#: ../src/udevil.c:3483
 #, c-format
 msgid "udevil: denied 80: device %s is not an allowed device\n"
 msgstr "udevil: recusado 80: dispositivo %s não é um dispositivo permitido\n"
 
-#: ../src/udevil.c:3413
+#: ../src/udevil.c:3490
 #, c-format
 msgid "udevil: denied 81: device %s is a forbidden device\n"
 msgstr "udevil: recusado 81: dispositivo %s é um dispositivo proibido\n"
 
-#: ../src/udevil.c:3429
+#: ../src/udevil.c:3506
 #, c-format
 msgid "udevil: denied 82: '%s' is not an allowed file\n"
 msgstr "udevil: recusado 82: '%s' não é um arquivo permitido\n"
 
-#: ../src/udevil.c:3436
+#: ../src/udevil.c:3513
 #, c-format
 msgid "udevil: denied 83: you don't have read permission for file '%s'\n"
 msgstr "udevil: recusado 83: você não tem permissão de leitura para o arquivo '%s'\n"
 
-#: ../src/udevil.c:3447
+#: ../src/udevil.c:3524
 #, c-format
 msgid "udevil: denied 145: cannot open '%s'\n"
 msgstr "udevil: recusado 145: não pode abrir '%s'\n"
 
-#: ../src/udevil.c:3460
+#: ../src/udevil.c:3537
 msgid "udevil: error 146: path changed\n"
 msgstr "udevil: erro 146: caminho alterado\n"
 
-#: ../src/udevil.c:3468
+#: ../src/udevil.c:3545
 msgid "udevil: error 84: cannot specify mount point for directory\n"
 msgstr "udevil: erro 84: impossível especificar o ponto de montagem para o diretório\n"
 
-#: ../src/udevil.c:3488
+#: ../src/udevil.c:3565
 #, c-format
 msgid "udevil: denied 85: %s is attached to an invalid file\n"
 msgstr "udevil: recusado 85: %s está ligado a um arquivo inválido\n"
 
-#: ../src/udevil.c:3496
+#: ../src/udevil.c:3573
 #, c-format
 msgid "udevil: denied 86: '%s' is not a permitted file\n"
 msgstr "udevil: recusado 86: '%s' não é um arquivo permitido\n"
 
-#: ../src/udevil.c:3506
+#: ../src/udevil.c:3583
 #, c-format
 msgid "udevil: denied 87: '%s' is not an allowed file\n"
 msgstr "udevil: recusado 87: '%s' não é um arquivo permitido\n"
 
-#: ../src/udevil.c:3527
+#: ../src/udevil.c:3604
 #, c-format
 msgid "udevil: denied 88: device %s is an internal device and you're not root\n"
 msgstr "udevil: recusado 88: dispositivo %s é um dispositivo interno e você não está como administrador\n"
 
-#: ../src/udevil.c:3729
+#: ../src/udevil.c:3806
 #, c-format
 msgid "udevil: error 89: options contain an invalid character ('%c')\n"
 msgstr "udevil: erro 89: opções contêm um caracter inválido ('%c')\n"
 
-#: ../src/udevil.c:3738
+#: ../src/udevil.c:3815
 #, c-format
 msgid "udevil: denied 90: option '%s' is not an allowed option\n"
 msgstr "udevil: recusado 90: opção '%s' não é uma opção permitida\n"
 
-#: ../src/udevil.c:3749
+#: ../src/udevil.c:3826
 msgid "udevil: denied 91: cannot use remount option with FTP or sshfs share\n"
 msgstr "udevil: recusado 91: impossível usar a opção com ação para remontar FTP ou sshfs\n"
 
-#: ../src/udevil.c:3758
+#: ../src/udevil.c:3835
 msgid "udevil: denied 149: cannot use remount option with file\n"
 msgstr "udevil: recusado 149: não pode usar a opção remontar com o arquivo\n"
 
-#: ../src/udevil.c:3777
+#: ../src/udevil.c:3885
 #, c-format
 msgid ""
 "udevil: denied 92: device %s is already mounted (or specify mount point)\n"
 msgstr "udevil: recusado 92: dispositivo %s já está montado (ou especificar o ponto de montagem)\n"
 
-#: ../src/udevil.c:3788
+#: ../src/udevil.c:3896
 #, c-format
 msgid ""
 "udevil: denied 93: file %s is already mounted at %s (or specify mount "
 "point)\n"
 msgstr "udevil: recusado 93: o arquivo %s já está montado em %s (ou especificar o ponto de montagem)\n"
 
-#: ../src/udevil.c:3792
+#: ../src/udevil.c:3900
 #, c-format
 msgid "udevil: denied 94: file %s is already attached to loop device\n"
 msgstr "udevil: negado 94: o arquivo %s já está anexado ao ciclo do dispositivo\n \n"
 
-#: ../src/udevil.c:3800
+#: ../src/udevil.c:3908
 #, c-format
 msgid "udevil: denied 95: %s is already mounted (or specify mount point)\n"
 msgstr "udevil: recusado 95: %s já está montado (ou especificar o ponto de montagem)\n"
 
-#: ../src/udevil.c:3812
+#: ../src/udevil.c:3920
 msgid ""
 "udevil: warning 96: fstype ignored for device in fstab (or specify mount "
 "point)\n"
 msgstr "udevil: alerta 96: tipo de sistema de arquivo ignorado para o dispositivo em fstab (ou especificar o ponto de montagem)\n"
 
-#: ../src/udevil.c:3815
+#: ../src/udevil.c:3923
 msgid ""
 "udevil: warning 97: options ignored for device in fstab (or specify mount "
 "point)\n"
 msgstr "udevil: alerta 97: ignorada as opções para o dispositivo em fstab (ou especificar o ponto de montagem)\n"
 
-#: ../src/udevil.c:3857
+#: ../src/udevil.c:3965
 #, c-format
 msgid "udevil: denied 98: '%s' is already mounted (or specify mount point)\n"
 msgstr "udevil: recusado 98: '%s' já está montado (ou especificar o ponto de montagem)\n"
 
-#: ../src/udevil.c:3860
+#: ../src/udevil.c:3968
 #, c-format
 msgid "udevil: denied 99: can't mount '%s' (not in fstab?)\n"
 msgstr "udevil: recusado 99: impossível montar '%s' (não está no fstab?)\n"
 
-#: ../src/udevil.c:3874
+#: ../src/udevil.c:3982
 msgid "udevil: denied 100: must specify device or network for remount\n"
 msgstr "udevil: recusado 100: deve especificar o dispositivo ou rede para remontar\n"
 
-#: ../src/udevil.c:3880
+#: ../src/udevil.c:3988
 msgid "udevil: warning 101: specified mount point with remount ignored\n"
 msgstr "udevil: recusado 101: ponto de montagem especificado com remontagem ignorado\n"
 
-#: ../src/udevil.c:3925
+#: ../src/udevil.c:4033
 #, c-format
 msgid "udevil: warning 102: device %s is already mounted on %s\n"
 msgstr "udevil: alerta 102: dispositivo %s já está montado em %s\n"
 
-#: ../src/udevil.c:3937
+#: ../src/udevil.c:4045
 msgid "udevil: error 103: no valid existing directory in allowed_media_dirs\n"
 msgstr "udevil: erro 103: nenhum diretório válido existente no allowed_media_dirs\n"
 
-#: ../src/udevil.c:4051
+#: ../src/udevil.c:4159
 #, c-format
 msgid "udevil: error 104: mount point '%s' is not a valid UTF8 string\n"
 msgstr "udevil: erro 104: ponto de montagem '%s' não contém uma sequência de caracteres UTF8 válido\n"
 
-#: ../src/udevil.c:4073
+#: ../src/udevil.c:4181
 #, c-format
 msgid "udevil: error 105: mkdir '%s' failed\n"
 msgstr "udevil: error 105: mkdir '%s' falhou\n"
 
 #. try cifs as guest first
-#: ../src/udevil.c:4106
+#: ../src/udevil.c:4214
 #, c-format
 msgid "udevil: trying %s as guest\n"
 msgstr "udevil: tentativa %s como convidado\n"
 
-#: ../src/udevil.c:4117
+#: ../src/udevil.c:4225
 #, c-format
 msgid "udevil: trying with %s\n"
 msgstr "udevil: tentando com %s\n"
 
-#: ../src/udevil.c:4164
+#: ../src/udevil.c:4272
 msgid ""
 "udevil: warning 106: invalid mount_point_mode in udevil.conf - using 0755\n"
 msgstr "udevil: alerta 106: inválido modo_ponto_montagem em udevil.conf - usando 0755\n"
 
-#: ../src/udevil.c:4229
+#: ../src/udevil.c:4337
 #, c-format
 msgid "udevil: error 107: %s\n"
 msgstr "udevil: erro 107: %s\n"
 
-#: ../src/udevil.c:4244
+#: ../src/udevil.c:4352
 msgid "udevil: error 108: remove requires DEVICE argument\n"
 msgstr "udevil: erro 108: remover requer argumento do DISPOSITIVO\n"
 
-#: ../src/udevil.c:4250
+#: ../src/udevil.c:4358
 #, c-format
 msgid "udevil: error 109: cannot stat %s: %s\n"
 msgstr "udevil: erro 109: impossível obter estado %s: %s\n"
 
-#: ../src/udevil.c:4258
+#: ../src/udevil.c:4366
 #, c-format
 msgid "udevil: error 110: %s is not a block device\n"
 msgstr "udevil: erro 110: %s não é um dispositivo de bloco\n"
 
-#: ../src/udevil.c:4265
+#: ../src/udevil.c:4373
 msgid "udevil: error 111: error initializing libudev\n"
 msgstr "udevil: erro 111: erro ao inicializar libudev\n"
 
-#: ../src/udevil.c:4272
+#: ../src/udevil.c:4380
 #, c-format
 msgid "udevil: error 112: no udev device for device %s\n"
 msgstr "udevil: erro 112: nenhum dispositivo udev para o dispositivo %s\n"
 
-#: ../src/udevil.c:4281
+#: ../src/udevil.c:4389
 msgid "udevil: error 113: unable to get device info\n"
 msgstr "udevil: erro 113: impossível obter informação do dispositivo\n"
 
-#: ../src/udevil.c:4293
+#: ../src/udevil.c:4401
 #, c-format
 msgid ""
 "udevil: warning 114: device %s is an internal device - not unbinding "
 "driver\n"
 msgstr "udevil: alerta 114: o dispositivo %s é um dispositivo interno - driver não desvinculado\n"
 
-#: ../src/udevil.c:4304
+#: ../src/udevil.c:4412
 msgid ""
 "udevil: warning 115: interface is not usb, firewire, sdio, esata - not "
 "unbinding driver\n"
 msgstr "udevil: alerta 115: interface não é usb, firewire, sdio, esata - driver não desvinculado\n"
 
-#: ../src/udevil.c:4312
+#: ../src/udevil.c:4420
 #, c-format
 msgid "udevil: denied 116: device %s is not an allowed device\n"
 msgstr "udevil: recusado 116: dispositivo %s não é um dispositivo permitido\n"
 
-#: ../src/udevil.c:4318
+#: ../src/udevil.c:4426
 #, c-format
 msgid "udevil: denied 117: device %s is a forbidden device\n"
 msgstr "udevil: recusado 117: dispositivo %s é um dispositivo ilegal\n"
 
-#: ../src/udevil.c:4356
+#: ../src/udevil.c:4464
 #, c-format
 msgid "udevil: unmount %s\n"
 msgstr "udevil: desmontar %s\n"
 
-#: ../src/udevil.c:4390
+#: ../src/udevil.c:4498
 #, c-format
 msgid "udevil: error 118: unable to access dir %s\n"
 msgstr "udevil: erro 118: impossível acessar o diretório %s\n"
 
-#: ../src/udevil.c:4415
+#: ../src/udevil.c:4523
 #, c-format
 msgid "udevil: examining partition %s\n"
 msgstr "udevil: verificando partição %s\n"
 
 #. unmount partition
-#: ../src/udevil.c:4420
+#: ../src/udevil.c:4528
 #, c-format
 msgid "udevil: unmount partition %s\n"
 msgstr "udevil: desmontar partição %s\n"
 
-#: ../src/udevil.c:4472
+#: ../src/udevil.c:4580
 #, c-format
 msgid "udevil: error 119: unable to find host for %s\n"
 msgstr "udevil: erro 119: incapaz de encontrar host para %s\n"
 
-#: ../src/udevil.c:4478
+#: ../src/udevil.c:4586
 #, c-format
 msgid "udevil: error 120: unable to find host for %s\n"
 msgstr "udevil: erro 120: incapaz de encontrar o host para %s\n"
 
-#: ../src/udevil.c:4487
+#: ../src/udevil.c:4595
 #, c-format
 msgid "udevil: error 121: unable to find last component for %s\n"
 msgstr "udevil: erro 121: impossível encontrar o último componente do %s\n"
 
-#: ../src/udevil.c:4511
+#: ../src/udevil.c:4619
 #, c-format
 msgid "udevil: warning 122: missing power autosuspend %s\n"
 msgstr "udevil: alerta 122: falta de energia suspensão automática %s\n"
 
-#: ../src/udevil.c:4523
+#: ../src/udevil.c:4631
 #, c-format
 msgid "udevil: warning 123: missing power control %s\n"
 msgstr "udevil: alerta 123: falta do controle de energia %s\n"
 
-#: ../src/udevil.c:4552
+#: ../src/udevil.c:4660
 #, c-format
 msgid "udevil: error 124: %s\n"
 msgstr "udevil: erro 124: %s\n"
 
-#: ../src/udevil.c:4633
+#: ../src/udevil.c:4741
 msgid "udevil: error 126: info requires DEVICE argument\n"
 msgstr "udevil: erro 126: informação requer argumento do DISPOSITIVO\n"
 
-#: ../src/udevil.c:4639
+#: ../src/udevil.c:4747
 #, c-format
 msgid "udevil: error 127: cannot stat %s: %s\n"
 msgstr "udevil: erro 127: impossível obter estado %s: %s\n"
 
-#: ../src/udevil.c:4647
+#: ../src/udevil.c:4755
 #, c-format
 msgid "udevil: error 128: %s is not a block device\n"
 msgstr "udevil: erro 128: %s não é um dispositivo de bloco\n"
 
-#: ../src/udevil.c:4654
+#: ../src/udevil.c:4762
 msgid "udevil: error 129: error initializing libudev\n"
 msgstr "udevil: erro 129: erro ao inicializar libudev\n"
 
-#: ../src/udevil.c:4661
+#: ../src/udevil.c:4769
 #, c-format
 msgid "udevil: error 130: no udev device for device %s\n"
 msgstr "udevil: erro 130: nenhum dispositivo udev para o dispositivo %s\n"
 
-#: ../src/udevil.c:4677
+#: ../src/udevil.c:4785
 msgid "udevil: error 131: unable to get device info\n"
 msgstr "udevil: erro 131: impossível recuperar informações do dispositivo\n"
 
-#: ../src/udevil.c:4729
+#: ../src/udevil.c:4837
 msgid "udevil: error 132: unable to initialize udev\n"
 msgstr "udevil: erro 132: impossível inicializar udev\n"
 
-#: ../src/udevil.c:4740
+#: ../src/udevil.c:4848
 msgid "udevil: error 133: cannot create udev monitor\n"
 msgstr "udevil: erro 133: impossível criar monitor udev\n"
 
-#: ../src/udevil.c:4745
+#: ../src/udevil.c:4853
 msgid "udevil: error 134: cannot enable udev monitor receiving\n"
 msgstr "udevil: erro 134: impossível permitir monitor receber udev\n"
 
-#: ../src/udevil.c:4750
+#: ../src/udevil.c:4858
 msgid "udevil: error 135: cannot set udev filter\n"
 msgstr "udevil: erro 135: impossível definir filtro udev\n"
 
-#: ../src/udevil.c:4757
+#: ../src/udevil.c:4865
 msgid "udevil: error 136: cannot get udev monitor socket file descriptor\n"
 msgstr "udevil: erro 136: não é possível obter udev monitor descritor de arquivo de soquete\n"
 
-#: ../src/udevil.c:4778
+#: ../src/udevil.c:4886
 #, c-format
 msgid "udevil: error 137: monitoring /proc/self/mountinfo: %s\n"
 msgstr "udevil: erro 137: monitorando /proc/self/mountinfo: %s\n"
 
-#: ../src/udevil.c:4829
+#: ../src/udevil.c:4937
 #, c-format
 msgid ""
 "Mounts and unmounts devices without password, shows device info, monitors\n"
 msgstr "Monta e desmonta dispositivos sem a necessiade de senha. Mostra informações e monitora\n"
 
-#: ../src/udevil.c:4830
+#: ../src/udevil.c:4938
 #, c-format
 msgid ""
 "device changes.  Emulates udisks1/2 command line usage and udisks1 output.\n"
 msgstr "alterações dos dispositivos.  Emula o uso de linha de comando udisks1/2 e saída de udisks1.\n"
 
-#: ../src/udevil.c:4831
+#: ../src/udevil.c:4939
 #, c-format
 msgid "Usage: udevil [OPTIONS] COMMAND [COMMAND-OPTIONS] [COMMAND-ARGUMENTS]\n"
 msgstr "Uso: udevil [OPÇÕES] COMANDO [OPÇÕES-DE-COMANDO] [ARGUMENTOS-DE-COMANDO]\n"
 
-#: ../src/udevil.c:4832
+#: ../src/udevil.c:4940
 #, c-format
 msgid "OPTIONS:\n"
 msgstr "OPÇÕES:\n"
 
-#: ../src/udevil.c:4833
+#: ../src/udevil.c:4941
 msgid "print details"
 msgstr "mostrar detalhes"
 
-#: ../src/udevil.c:4834
+#: ../src/udevil.c:4942
 msgid "minimal output"
 msgstr "saída mínima"
 
-#: ../src/udevil.c:4835
+#: ../src/udevil.c:4943
 #, c-format
 msgid "MOUNT  -  Mounts DEVICE to mount point DIR with MOUNT-OPTIONS:\n"
 msgstr "MOUNT  -  Monta o DISPOSITIVO no ponto de montagem DIR com OPÇÕES-DE-MONTAGEM:\n"
 
-#: ../src/udevil.c:4836
+#: ../src/udevil.c:4944
 #, c-format
 msgid ""
 "    udevil mount|--mount [MOUNT-OPTIONS] [[-b|--block-device] DEVICE] "
 "[DIR]\n"
 msgstr "    udevil mount|--mount [OPÇÕES-DE-MONTAGEM] [[-b|--block-device] DISPOSITIVO] [DIRETÓRIO]\n"
 
-#: ../src/udevil.c:4837
+#: ../src/udevil.c:4945
 #, c-format
 msgid "    MOUNT-OPTIONS:\n"
 msgstr "    OPÇÕES DE MONTAGEM:\n"
 
-#: ../src/udevil.c:4838 ../src/udevil.c:4839
+#: ../src/udevil.c:4946 ../src/udevil.c:4947
 msgid "see man mount"
 msgstr "ver man mount"
 
@@ -851,92 +863,92 @@ msgstr "ver man mount"
 #. label LABEL\n" );
 #. printf( "    -U UUID                                     mount device by
 #. UUID\n" );
-#: ../src/udevil.c:4842 ../src/udevil.c:4877 ../src/udevil.c:4889
+#: ../src/udevil.c:4950 ../src/udevil.c:4985 ../src/udevil.c:4997
 msgid "ignored (for compatibility)"
 msgstr "ignorado (para compatibilidade)"
 
-#: ../src/udevil.c:4843 ../src/udevil.c:4878
+#: ../src/udevil.c:4951 ../src/udevil.c:4986
 msgid "EXAMPLES"
 msgstr "EXEMPLOS"
 
 #. printf( "    udevil mount -L 'Disk Label'\n" );
-#: ../src/udevil.c:4848
+#: ../src/udevil.c:4956
 msgid "ISO file"
 msgstr "Arquivo ISO"
 
-#: ../src/udevil.c:4849
+#: ../src/udevil.c:4957
 msgid "ftp site - requires"
 msgstr "site FTP - necessário"
 
-#: ../src/udevil.c:4850
+#: ../src/udevil.c:4958
 msgid "or"
 msgstr "ou"
 
-#: ../src/udevil.c:4851 ../src/udevil.c:4853
+#: ../src/udevil.c:4959 ../src/udevil.c:4961
 msgid "ftp share with"
 msgstr "ftp partes com"
 
-#: ../src/udevil.c:4852
+#: ../src/udevil.c:4960
 msgid "user and password"
 msgstr "usuário e senha"
 
-#: ../src/udevil.c:4854
+#: ../src/udevil.c:4962
 msgid "port, user and password"
 msgstr "porta, usuário e senha"
 
-#: ../src/udevil.c:4855
+#: ../src/udevil.c:4963
 msgid "ftp site with ftpfs"
 msgstr "site ftp com ftpfs"
 
-#: ../src/udevil.c:4856
+#: ../src/udevil.c:4964
 msgid "ftp site with curl"
 msgstr "site ftp com ondulação"
 
-#: ../src/udevil.c:4857
+#: ../src/udevil.c:4965
 msgid "ftp site with curl u/p"
 msgstr "site ftp com ondulação u/p"
 
-#: ../src/udevil.c:4858 ../src/udevil.c:4859
+#: ../src/udevil.c:4966 ../src/udevil.c:4967
 msgid "nfs share"
 msgstr "compartilha nfs "
 
-#: ../src/udevil.c:4860 ../src/udevil.c:4863
+#: ../src/udevil.c:4968 ../src/udevil.c:4971
 msgid "samba share w/ cifs"
 msgstr "compartilha samba w/ cifs"
 
-#: ../src/udevil.c:4861
+#: ../src/udevil.c:4969
 msgid "samba share w/ u/p/port"
 msgstr "compartilha samba w/ u/p/port"
 
-#: ../src/udevil.c:4862
+#: ../src/udevil.c:4970
 msgid "samba share w/ workgroup"
 msgstr "compartilha samba w/ grupo de trabalho"
 
-#: ../src/udevil.c:4864
+#: ../src/udevil.c:4972
 msgid "samba share w/ smbfs"
 msgstr "compartilha samba w/ smbfs"
 
-#: ../src/udevil.c:4865
+#: ../src/udevil.c:4973
 msgid "sshfs with user - "
 msgstr "sshfs com o usuário - "
 
-#: ../src/udevil.c:4866
+#: ../src/udevil.c:4974
 msgid "requires sshfs"
 msgstr "necessário sshfs"
 
-#: ../src/udevil.c:4867
+#: ../src/udevil.c:4975
 msgid "sshfs with user"
 msgstr "sshfs com o usuário"
 
-#: ../src/udevil.c:4868
+#: ../src/udevil.c:4976
 msgid "WebDAV - requires davfs2"
 msgstr "WebDAV - necessário davfs2"
 
-#: ../src/udevil.c:4869
+#: ../src/udevil.c:4977
 msgid "make a ram drive"
 msgstr "criar uma unidade de RAM"
 
-#: ../src/udevil.c:4870
+#: ../src/udevil.c:4978
 #, c-format
 msgid ""
 "\n"
@@ -944,119 +956,115 @@ msgid ""
 "\n"
 msgstr "\n    ATENÇÃO !!! uso de senha em linha de comando NÃO É SEGURO - ver documentação do sistema de arquivos\n"
 
-#: ../src/udevil.c:4871
+#: ../src/udevil.c:4979
 #, c-format
 msgid "UNMOUNT  -  Unmount DEVICE or DIR with UNMOUNT-OPTIONS:\n"
 msgstr "UNMOUNT  -  Desmontar DISPOSITIVO ou DIRETÓRIO usando OPÇÕES-DESMONTAGEM:\n"
 
-#: ../src/udevil.c:4872
+#: ../src/udevil.c:4980
 #, c-format
 msgid "    udevil umount|unmount|--unmount|--umount [UNMOUNT-OPTIONS] \n"
 msgstr "    udevil umount|unmount|--unmount|--umount [OPÇÕES-DE-DESMONTAGEM] \n"
 
-#: ../src/udevil.c:4873
+#: ../src/udevil.c:4981
 #, c-format
 msgid ""
 "                                              {[-b|--block-device] "
 "DEVICE}|DIR\n"
 msgstr "                                              {[-b|--block-device] DISPOSITIVO}|DIRETÓRIO\n"
 
-#: ../src/udevil.c:4874
+#: ../src/udevil.c:4982
 #, c-format
 msgid "    UNMOUNT-OPTIONS:\n"
 msgstr "    OPÇÕES DE DESMONTAGENS:\n"
 
-#: ../src/udevil.c:4875 ../src/udevil.c:4887
+#: ../src/udevil.c:4983 ../src/udevil.c:4995
 msgid "lazy unmount (see man umount)"
 msgstr "desmontagem lenta (ver man umount)"
 
-#: ../src/udevil.c:4876 ../src/udevil.c:4888
+#: ../src/udevil.c:4984 ../src/udevil.c:4996
 msgid "force unmount (see man umount)"
 msgstr "forçar desmontagem (ver man umount)"
 
-#: ../src/udevil.c:4883
+#: ../src/udevil.c:4991
 #, c-format
 msgid ""
 "REMOVE  -  Unmount all partitions on host of DEVICE and prepare for safe\n"
 msgstr "REMOVE  -  Desmontar todas as partições no host do dispositivo e prepare-se para uma remoção\n"
 
-#: ../src/udevil.c:4884
+#: ../src/udevil.c:4992
 #, c-format
 msgid "           removal (sync, stop, unbind driver, and power off):\n"
 msgstr "           segura (sincronizar, parar, desvincular o driver e desligar):\n"
 
-#: ../src/udevil.c:4885
+#: ../src/udevil.c:4993
 #, c-format
 msgid ""
 "    udevil remove|--remove|--detach [OPTIONS] [-b|--block-device] DEVICE\n"
 msgstr "    udevil remove|--remove|--detach [OPÇÕES] [-b|--block-device] DISPOSITIVO\n"
 
-#: ../src/udevil.c:4886
+#: ../src/udevil.c:4994
 #, c-format
 msgid "    OPTIONS:\n"
 msgstr "    OPÇÕES:\n"
 
-#: ../src/udevil.c:4890 ../src/udevil.c:4894 ../src/udevil.c:4897
+#: ../src/udevil.c:4998 ../src/udevil.c:5002 ../src/udevil.c:5005
 msgid "EXAMPLE"
 msgstr "EXEMPLO"
 
-#: ../src/udevil.c:4892
+#: ../src/udevil.c:5000
 #, c-format
 msgid "INFO  -  Show information about DEVICE emulating udisks v1 output:\n"
 msgstr "INFO  -  Mostra informações do DISPOSITIVO emulando udisks v1 saída:\n"
 
-#: ../src/udevil.c:4893
+#: ../src/udevil.c:5001
 #, c-format
 msgid "    udevil info|--show-info|--info [-b|--block-device] DEVICE\n"
 msgstr "    udevil info|--show-info|--info [-b|--block-device] DISPOSITIVO\n"
 
-#: ../src/udevil.c:4895
+#: ../src/udevil.c:5003
 #, c-format
 msgid "MONITOR  -  Display device events emulating udisks v1 output:\n"
 msgstr "MONITORAR  -  Mostra eventos dos dispositivos emulando udisks v1 saída\n"
 
-#: ../src/udevil.c:4898
+#: ../src/udevil.c:5006
 #, c-format
 msgid "CLEAN  -  Remove unmounted udevil-created mount dirs in media dirs\n"
 msgstr "CLEAN  -  Remove pastas criadas por udevil desmontado as pastas de mídia\n"
 
-#: ../src/udevil.c:4900
+#: ../src/udevil.c:5008
 #, c-format
 msgid "HELP  -  Show this help\n"
 msgstr "HELP  -  Mostrar esta ajuda\n"
 
-#: ../src/udevil.c:4903
-msgid "See /etc/udevil/udevil.conf for config."
-msgstr "Ver /etc/udevil/udevil.conf para configuração."
+#: ../src/udevil.c:5013
+msgid "For config see"
+msgstr ""
 
-#: ../src/udevil.c:4904
+#: ../src/udevil.c:5015
 #, c-format
 msgid "For automounting with udevil run 'devmon --help'\n"
 msgstr "Para executar montagem automática com udevil 'devmon --help'\n"
 
-#: ../src/udevil.c:5001
-msgid "udevil: read config /etc/udevil/udevil.conf\n"
-msgstr "udevil: lendo configuração /etc/udevil/udevil.conf\n"
-
-#: ../src/udevil.c:5050
+#: ../src/udevil.c:5161
 msgid "udevil: error 138: argument is not valid UTF-8\n"
 msgstr "udevil: erro 138: argumento UTF-8 não é válido\n"
 
-#: ../src/udevil.c:5352
+#: ../src/udevil.c:5463
 msgid "udevil: error 139: too many arguments\n"
 msgstr "udevil: erro 139: muitos argumentos\n"
 
-#: ../src/udevil.c:5355
+#: ../src/udevil.c:5466
 #, c-format
 msgid "udevil: error 140: option '%s' requires an argument\n"
 msgstr "udevil: erro 140: a opção '%s' requer um argumento\n"
 
-#: ../src/udevil.c:5359
+#: ../src/udevil.c:5470
 #, c-format
 msgid "udevil: error 141: invalid option '%s'\n"
 msgstr "udevil: erro 141: a opção '%s' é inválida\n"
 
-#: ../src/udevil.c:5361
+#: ../src/udevil.c:5472
 #, c-format
 msgid "udevil: error 142: invalid or unexpected argument '%s'\n"
 msgstr "udevil: erro 142: o argumento '%s' é inválido ou inesperado\n"

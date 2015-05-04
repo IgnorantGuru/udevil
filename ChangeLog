@@ -1,4 +1,4 @@
-0.4.3+
+0.4.4   2015-05-04:
     udevil.conf new default/allowed options for exfat #52
     [devmon 1.1.8] fix no error popup on --unmount-removable #42
     [devmon 1.1.8] improve --exec-on-unmount for mounted during startup
@@ -7,6 +7,7 @@
     udevil.conf allowed_options_ftpfs remove ip=*; add ip= after test #46
     respect configure option --sysconfdir #31 #53
     udisks2 compatibility: replace /run/media/$USER with /media/$USER #47
+    no setfacl udisks2 fallback compat user:root 0700 on /media/$USER #47
     support git-style /** suffix for some udevil.conf patterns #37
 0.4.3   2013-12-09:
     fix default udevil.conf allowed_options missing fmask=0133 #35
