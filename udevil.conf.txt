@@ -84,24 +84,24 @@ allowed_groups = *
 # allowed_media_dirs specifies the media directories in which user mount points
 # may be located.  The first directory which exists and does not contain a
 # wildcard will be used as the default media directory (normally /media or
-# /run/media/$USER).
+# /media/$USER).
 # The $USER variable, if included, will be replaced with the username of the
 # user running udevil.  Wildcards may also be used in any directory EXCEPT the
-# default.  Wildcards will not match a /
+# default.  Wildcards will not match a /, except a /** suffix for recursion.
 # allowed_media_dirs_FSTYPE, if present, is used to override allowed_media_dirs
 # when mounting or unmounting a specific fstype (eg ext2, nfs).  For example,
 # to cause /media/network to be used as the default media directory for
 # nfs and ftpfs mounts, use these two lines:
-# allowed_media_dirs_nfs   = /media/network, /media, /run/media/$USER
-# allowed_media_dirs_ftpfs = /media/network, /media, /run/media/$USER
+# allowed_media_dirs_nfs   = /media/network, /media, /media/$USER
+# allowed_media_dirs_ftpfs = /media/network, /media, /media/$USER
 # NOTE: If you want only the user who mounted a device to have access to it
-# and be allowed to unmount it, specify /run/media/$USER as the first
-# allowed media directory.
+# and be allowed to unmount it, specify /media/$USER as the first
+# allowed media directory (only /media/$USER is created on demand).
 # IMPORTANT:  If an allowed file is mounted to a media directory, the user may
 # be permitted to unmount its associated loop device even though internal.
 # INCLUDING /MNT HERE IS NOT RECOMMENDED.  ALL ALLOWED MEDIA DIRECTORIES
 # SHOULD BE OWNED AND WRITABLE ONLY BY ROOT.
-allowed_media_dirs = /media, /run/media/$USER
+allowed_media_dirs = /media, /media/$USER, /run/media/$USER
 
 
 # allowed_devices is the first criteria for what block devices users may mount
@@ -184,9 +184,12 @@ forbidden_networks =
 # allowed_files is used to determine what files in what directories may be
 # un/mounted.  A user must also have read permission on a file to mount it.
 # Note: Wildcards may be used, but a wildcard will never match a /, except
-# for "allowed_files=*" which allows any file.  For example, to allow only
-# files in the /share directory to be mounted, use:
+# for "allowed_files=*" which allows any file, and a /** suffix, which matches
+# all files recursively.
+# For example, to allow only files in the /share directory to be mounted, use:
 # allowed_files = /share/*
+# To allow all files in the /share directory AND all subdirectories use:
+# allowed_files = /share/**
 # NOTE:  Specifying allowed_files_FSTYPE will NOT work because the fstype of
 # files is always 'file'.
 allowed_files = *
@@ -195,7 +198,7 @@ allowed_files = *
 # forbidden_files is used to specify files that are never allowed, even if
 # other settings allow them (except fstab).  Specify a full path.
 # Note: Wildcards may be used, but a wildcard will never match a /, except
-# for "forbidden_files = *".
+# for "forbidden_files = *", or a /** suffix, which matches all recursively.
 # NOTE: file paths are canonicalized before being tested, so forbidding
 # a link to a file will have no effect.
 forbidden_files = 
@@ -218,6 +221,7 @@ default_options_file      = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID, 
 default_options_iso9660   = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID, ro, utf8
 default_options_udf       = nosuid, noexec, nodev, noatime, uid=$UID, gid=$GID
 default_options_vfat      = nosuid, noexec, nodev, noatime, fmask=0133, dmask=0022, uid=$UID, gid=$GID, utf8
+default_options_exfat     = nosuid, noexec, nodev, noatime, umask=0077, uid=$UID, gid=$GID, iocharset=utf8, namecase=0, nonempty
 default_options_msdos     = nosuid, noexec, nodev, noatime, fmask=0133, dmask=0022, uid=$UID, gid=$GID
 default_options_umsdos    = nosuid, noexec, nodev, noatime, fmask=0133, dmask=0022, uid=$UID, gid=$GID
 default_options_ntfs      = nosuid, noexec, nodev, noatime, fmask=0133, uid=$UID, gid=$GID, utf8
@@ -247,7 +251,8 @@ allowed_options_cifs      = nosuid, noexec, nodev, ro, rw, remount, port=*, user
 allowed_options_smbfs     = nosuid, noexec, nodev, ro, rw, remount, port=*, user=*, username=*, pass=*, password=*, guest, domain=*, uid=$UID, gid=$GID, credentials=*
 allowed_options_sshfs     = nosuid, noexec, nodev, noatime, ro, rw, uid=$UID, gid=$GID, nonempty, allow_other, idmap=user, BatchMode=yes, port=*
 allowed_options_curlftpfs = nosuid, noexec, nodev, noatime, ro, rw, uid=$UID, gid=$GID, nonempty, allow_other, user=*
-allowed_options_ftpfs     = nosuid, noexec, nodev, noatime, ro, rw, port=*, user=*, pass=*, ip=*, root=*, uid=$UID, gid=$GID
+allowed_options_ftpfs     = nosuid, noexec, nodev, noatime, ro, rw, port=*, user=*, pass=*, root=*, uid=$UID, gid=$GID
+allowed_options_exfat     = nosuid, noexec, nodev, noatime, fmask=0133, dmask=0022, uid=$UID, gid=$GID, umask=0077, namecase=*, ro, rw, sync, flush, iocharset=*, remount, nonempty
 
 
 # mount_point_mode, if present and set to a non-empty value, will cause udevil

@@ -29,16 +29,28 @@
 	    
 	    
 <!-- --------------------------------------------------------------------- -->
-<br><a name="2015-03-02"></a>
-<big><b><a href="#2015-03-02">Slow Development Phase</a></b></big><br>
-2015-Mar-02
+<a name="0.4.4"></a>
+<big><b><a href="#0.4.4">0.4.4 released</a></b></big><br>
+2015-May-04
 
-<p>udevil has entered a <a href="http://ignorantguru.github.io/udevil/index.html#phase">slow development phase.</a>
+<p>udevil 0.4.4 has been released with the following changes:
 
-
-<br><br><br><hr>
-
-
+<ul>
+    <li><a href="udevil.conf.txt">udevil.conf</a> includes <b>new default/allowed options for exfat</b><br><br>
+    <li>udevil.conf <b>removes ip=*</b> from the default allowed_options_ftpfs setting.<br><br>
+    <li><b>git-style /** suffix is now supported</b> for some udevil.conf patterns.  This accepts a /** suffix (only) for the <i>allowed_files</i>, <i>forbidden_files</i>, and <i>allowed_media_dirs</i> patterns. No other wildcard may be used in the pattern when this suffix is used. No other use of ** (or */) is accepted.  See the updated comments in <a href="udevil.conf.txt">udevil.conf</a> for usage.  For input on this change see <a href="https://github.com/IgnorantGuru/udevil/issues/37">issue #37</a>.<br><br>
+    <li>IPV6 literal hosts (eg [::1]) now pass through the parsing with square brackets retained, and a problem <b>mounting cifs with an IPv6 literal host</b> has been corrected.<br><br>
+    <li>udevil's build system now accepts <b>configure option --sysconfdir</b> to change the location of /etc for the installation.  Note that this works independently of --prefix.  Thanks to <a href="mailto:OmegaPhil@startmail.com">OmegaPhil</a> for his work on this.<br><br>
+    <li>udisks2 compatibility: <b>replace use of /run/media/$USER with /media/$USER</b>.  udevil will now create /media/$USER on demand.  /run/media/$USER may still be used as a media dir, but will not be created automatically.<br><br>
+    <li>udisks2 compatibility: when setfacl fails when auto-creating /media/$USER, user:root 0700 permissions will be used as a fallback.<br><br>
+    <li>udevil 0.4.4 includes <b>devmon 1.1.8</b> with the following changes:<br><br>
+    <ul>
+	<li>A problem which caused no error popup to be shown when unmounting failed (eg when using --unmount-removable) has been corrected.<br><br>
+	<li>A problem which caused invalid values to be shown for %d %l in --exec-on-unmount commands has been corrected - these variables are now cleared.<br><br>
+	<li>--exec-on-unmount commands will now generally run for devices mounted by devmon during startup (but as before, not for devices mounted before devmon was started).<br><br>
+    </ul>
+</ul>
+<br><br><hr>
 
 
 
