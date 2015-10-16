@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: udevil 0.4.3+\n"
+"Project-Id-Version: udevil 0.4.4+\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-28 18:39+0000\n"
+"POT-Creation-Date: 2015-10-16 15:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: ../src/udevil.c:616
 #, c-format
 msgid ""
-"udevil: error 1: unable to drop priviledges - please report this problem\n"
+"udevil: error 1: unable to drop privileges - please report this problem\n"
 msgstr ""
 
 #: ../src/udevil.c:810
