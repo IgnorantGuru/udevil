@@ -15,7 +15,7 @@ defaultmountoptions="noexec,nosuid,nodev,noatime"
 help()
 {
 	cat << EOF
-devmon version 1.1.8  (distributed with udevil)
+devmon version 1.1.9  (distributed with udevil)
 Automounts and unmounts optical and removable drives
 Requires:    udevil bash>=4        Also Recommended: eject spacefm|zenity
 Optional:    udisks v1 may be substituted for udevil
@@ -64,6 +64,8 @@ UNIVERSAL OPTIONS:  (these can be used in both daemon and client modes)
                               flush for fat & vfat (slower writing but safer)
 --internal                    Also attempt to un/mount internal system drives
                               (this is mostly a fix for esata issues)
+--always-exec                 Also run --exec-on-XXX commands during startup or
+                              with --mount-all
 --no-gui | -g                 Do not show spacefm/zenity pop-up dialogs
 Instructions and updates:
   http://igurublog.wordpress.com/downloads/script-devmon/
@@ -230,9 +232,12 @@ while [ "$1" != "" ]; do
 				test2 "$1" "$2"
 				ejectoptions="$2"
 				shift
-				;;			
+				;;
 			--internal )
 				internal=1
+				;;
+			--always-exec )
+				alwaysexec=1
 				;;
 			--nogui | --no-gui )
 				nogui=1
@@ -732,7 +737,7 @@ mountdrive()   # $1=device $2=label  [$3=devtype or fstype]
 
 mountalldrives()
 {
-	# Mount all optical drives, no exec
+	# Mount all optical drives, optional exec
 	x=0
 	while [ -e /dev/sr$x ]; do
 		driveinfo /dev/sr$x
@@ -747,12 +752,22 @@ mountalldrives()
 				(( x++ ))
 				continue
 			fi
-			mountdev /dev/sr$x "$label"
+			if (( alwaysexec == 1 )); then
+				if [ "$media" = "optical_dvd" ]; then
+					mountdrive /dev/sr$x "$label" dvd
+				elif (( numaudiotracks > 0 )); then
+					mountdrive /dev/sr$x "$label" audiocd
+				else
+					mountdrive /dev/sr$x "$label" optical
+				fi
+			else
+				mountdev /dev/sr$x "$label"
+			fi
 			eval notejectedsr$x=1
 		fi
 		(( x++ ))
 	done
-	# Mount removable drives, no exec
+	# Mount removable drives, optional exec
 	IFSOLD="$IFS"
 	IFS=$'\n'
 	partlist=`grep " [ms]d[a-z0-9]*$" /proc/partitions | sed 's/.* \([ms]d[a-z0-9]*\)/\1/'`
@@ -766,10 +781,13 @@ mountalldrives()
 		else
 			if [ "$systeminternal" != "1" ] && [ "$opticaldisc" != "1" ] && \
 					   [ "$ismounted" = "0" ] && [ "$nopolicy" != "1" ]; then
-				if [ "$usage" = "filesystem" ]; then
-					mountdev /dev/$p "$label" "$type"
+				if [ "$usage" != "filesystem" ]; then
+					type="nofs"
+				fi
+				if (( alwaysexec == 1 )); then
+					mountdrive /dev/$p "$label" "$type"
 				else
-					mountdev /dev/$p "$label" nofs
+					mountdev /dev/$p "$label" "$type"
 				fi
 			fi
 		fi

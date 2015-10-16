@@ -1,5 +1,6 @@
 0.4.4+
     include sys/stat.h in device-info.h for gcc 5.x #59
+    add --always-exec option for exec during startup/--mount-all #48
 0.4.4   2015-05-04:
     udevil.conf new default/allowed options for exfat #52
     [devmon 1.1.8] fix no error popup on --unmount-removable #42
