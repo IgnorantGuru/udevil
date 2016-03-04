@@ -4,6 +4,7 @@
 ************************************************************************** */
 
 #include "device-info.h"
+#include <sys/stat.h>
 
 static char *
 _dupv8 (const char *s)
