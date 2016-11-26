@@ -344,6 +344,7 @@ udisks2=`which udisksctl 2>/dev/null`
 pmount=`which pmount 2>/dev/null`
 zenity=`which zenity 2>/dev/null`
 spacefm=`which spacefm 2>/dev/null`
+notify_send=`which notify-send 2>/dev/null`
 
 if [ "$udevil" != "" ] && [ -x "$udevil" ]; then
 	info_cmd="$udevil"
@@ -550,9 +551,11 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 					if (( nogui != 1 )); then
 						if [ "$spacefm" != "" ]; then
 							( sleep 3 && $spacefm -g --title "devmon error" --window-icon error --label "udisks functions are not authorized through policykit,\nso devmon cannot automount drives.\nPlease install udevil or see devmon's consolekit installation instructions:\n\nhttp://igurublog.wordpress.com/downloads/script-devmon/#install\n\n(To silence this pop-up add --no-gui to devmon's command line.)" --button "Open Website" xdg-open "http://igurublog.wordpress.com/downloads/script-devmon/#install" --button ok &> /dev/null ) &							
-						else
+						elif [ "$zenity" != "" ]; then
 							( sleep 3 && WINDOWID="" $zenity --error --no-wrap --title="devmon error" \
 							  --text="udisks functions are not authorized through policykit,\nso devmon cannot automount drives.\nPlease install udevil or see devmon's consolekit installation instructions:\n\nhttp://igurublog.wordpress.com/downloads/script-devmon/#install\n\n(To silence this pop-up add --no-gui to devmon's command line.)" &> /dev/null ) &
+						else
+							( sleep 3 && $notify_send --icon=dialog-error "devmon error" "udisks functions are not authorized through policykit,\nso devmon cannot automount drives.\nPlease install udevil or see devmon's consolekit installation instructions:\n\nhttp://igurublog.wordpress.com/downloads/script-devmon/#install\n\n(To silence this pop-up add --no-gui to devmon's command line.)" &> /dev/null ) &
 						fi
 					fi
 					echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" 1>&2
@@ -726,9 +729,12 @@ mountdrive()   # $1=device $2=label  [$3=devtype or fstype]
 				"The following device has been mounted:\n\n$(df -hT "$dv" | grep "$dv" | \
 				awk '{print "Device:\\t"$1"\x0AType:\\t"$2"\nSize:\\t\\t"$3"\nUsed:\\t"$4"\n""Avail:\\t"$5"\nUse%:\\t"$6"\nMount:\\t"$7,$8,$9,$10}')\nLabel:\\t$lb" \
 				--button open spacefm "$point" --button ok &>/dev/null &
-			else
+			elif [ "$zenity" != "" ]; then
 				WINDOWID="" $zenity --info --text="The following device has been mounted:\n\n$(df -hT "$dv" \
 			   | grep "$dv" | awk '{print "Device:\\t"$1"\x0AType:\\t"$2"\nSize:\\t\\t"$3"\nUsed:\\t"$4"\n""Avail:\\t"$5"\nUse%:\\t"$6"\nMount:\\t"$7,$8,$9,$10}')\nLabel:\\t$lb" --title="devmon mount" &
+			else
+				$notify_send --icon=media-removable "devmon mount" "The following device has been mounted:\n\n$(df -hT "$dv" \
+				 | grep "$dv" | awk '{print "Device:\\t"$1"\x0AType:\\t"$2"\nSize:\\t\\t"$3"\nUsed:\\t"$4"\n""Avail:\\t"$5"\nUse%:\\t"$6"\nMount:\\t"$7,$8,$9,$10}')\nLabel:\\t$lb" &
 			fi
 		fi
 		df -hT "$dv"
@@ -888,8 +894,10 @@ if (( mountmode != 0 )); then
 		if (( nogui != 1 )); then
 			if [ "$spacefm" != "" ]; then
 				spacefm -g --title "$msgtitle" --label "$msg" --button close &> /dev/null &
-			else
+			elif [ "$zenity" != "" ]; then
 				WINDOWID="" zenity --info --title="$msgtitle" --text="$msg" &> /dev/null &
+			else
+				"$notify_send" --icon=media-eject "$msgtitle" "$msg" &> /dev/null &
 			fi
 			zpid=$!
 		fi
@@ -909,8 +917,10 @@ if (( mountmode != 0 )); then
 					if [ "$spacefm" != "" ]; then
 						spacefm -g --title "$msgtitle" --window-icon error \
 						           --label "$msg" --button close &> /dev/null &
-					else
+					elif [ "$zenity" != "" ]; then
 						WINDOWID="" zenity --error --title="$msgtitle" --text="$msg" &> /dev/null &
+					else
+						"$notify_send" --icon=dialog-error "$msgtitle" "$msg" &> /dev/null &
 					fi
 				fi	
 			done
@@ -950,9 +960,11 @@ if (( mountmode != 0 )); then
 							spacefm -g --title "devmon unmount optical" \
 							           --window-icon error \
 							           --label "$msg" --button close &> /dev/null &
-						else
+						elif [ "$zenity" != "" ]; then
 							WINDOWID="" zenity --error --title="devmon unmount optical" \
 						                   --text="$msg" &> /dev/null &
+						else
+							"$notify_send" --icon=dialog_error "devmon unmount optical" "$msg"
 						fi
 					fi	
 				fi
