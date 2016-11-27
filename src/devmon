@@ -1146,7 +1146,7 @@ err=$?
 trap trapexit EXIT SIGINT SIGTERM SIGQUIT
 trap "echo devmon: ignored HUP" SIGHUP
 
-if [ $err != "0" ] || [ ! ps -p $COPROC_PID &>/dev/null ]; then
+if [ $err != "0" ] || ! ps -p $COPROC_PID &>/dev/null; then
 	echo "devmon: unable to start $info_cmd --monitor" 1>&2
 	exit 2
 fi
