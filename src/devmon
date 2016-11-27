@@ -736,8 +736,12 @@ mountdrive()   # $1=device $2=label  [$3=devtype or fstype]
 		echo "devmon: [info on mount] $dv"
 		if (( nogui != 1 )); then
 			msgtitle="devmon mount"
-			msg="The following device has been mounted:\n\n$(df -hT "$dv" | \
-				awk '$1 == "'$dv'" {print "Device:\t"$1"\x0AType:\t"$2"\nSize:\t"$3"\nUsed:\t"$4"\n""Avail:\t"$5"\nUse%:\t"$6"\nMount:\t"$7,$8,$9,$10}')\nLabel:\t$lb"
+			msg="$(df -hT "$dv" | awk '
+				BEGIN { l = 7; printf "The following device has been mounted:\n\n" }
+				NR == 1 { split($0, h); h[1] = "Device"; h[7] = "Mount"; delete h[8] }
+				NR == 2 { for (i = 1; i <= NF; i++) printf "%-*s\t%s\n", l, h[i]":", $i }
+				END { printf "%-*s\t%s", l, "Label:", "'$lb'" }
+			')"
 			if [ "$spacefm" != "" ]; then
 				$spacefm -g --title "$msgtitle" --window-icon drive-removable-media --label \
 				"$msg" \
