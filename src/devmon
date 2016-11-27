@@ -549,14 +549,25 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 				if (( mountmode == 0 )) && (( polkiterrgiven != 1 )) && \
 				           [ "$(echo "$umsg" | grep 'Not *Authorized')" != "" ]; then
 					if (( nogui != 1 )); then
+						msgtitle="devmon error"
+						read -rd'\0' msg <<-MSG
+	udisks functions are not authorized through policykit,
+	so devmon cannot automount drives.
+	Please install udevil or see devmon's consolekit installation instructions:
+	
+	http://igurublog.wordpress.com/downloads/script-devmon/#install
+	
+	(To silence this pop-up add --no-gui to devmon's command line.)
+						MSG
 						if [ "$spacefm" != "" ]; then
-							( sleep 3 && $spacefm -g --title "devmon error" --window-icon error --label "udisks functions are not authorized through policykit,\nso devmon cannot automount drives.\nPlease install udevil or see devmon's consolekit installation instructions:\n\nhttp://igurublog.wordpress.com/downloads/script-devmon/#install\n\n(To silence this pop-up add --no-gui to devmon's command line.)" --button "Open Website" xdg-open "http://igurublog.wordpress.com/downloads/script-devmon/#install" --button ok &> /dev/null ) &							
+							( sleep 3 && $spacefm -g --title "$msgtitle" --window-icon error --label "$msg" --button "Open Website" xdg-open "http://igurublog.wordpress.com/downloads/script-devmon/#install" --button ok &> /dev/null ) &
 						elif [ "$zenity" != "" ]; then
-							( sleep 3 && WINDOWID="" $zenity --error --no-wrap --title="devmon error" \
-							  --text="udisks functions are not authorized through policykit,\nso devmon cannot automount drives.\nPlease install udevil or see devmon's consolekit installation instructions:\n\nhttp://igurublog.wordpress.com/downloads/script-devmon/#install\n\n(To silence this pop-up add --no-gui to devmon's command line.)" &> /dev/null ) &
+							( sleep 3 && WINDOWID="" $zenity --error --no-wrap --title="$msgtitle" \
+							  --text="$msg" &> /dev/null ) &
 						else
-							( sleep 3 && $notify_send --icon=dialog-error "devmon error" "udisks functions are not authorized through policykit,\nso devmon cannot automount drives.\nPlease install udevil or see devmon's consolekit installation instructions:\n\nhttp://igurublog.wordpress.com/downloads/script-devmon/#install\n\n(To silence this pop-up add --no-gui to devmon's command line.)" &> /dev/null ) &
+							( sleep 3 && $notify_send --icon=dialog-error "$msgtitle" "$msg" &> /dev/null ) &
 						fi
+						unset msg msgtitle
 					fi
 					echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" 1>&2
 					echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" 1>&2
@@ -724,18 +735,19 @@ mountdrive()   # $1=device $2=label  [$3=devtype or fstype]
 		sleep .5
 		echo "devmon: [info on mount] $dv"
 		if (( nogui != 1 )); then
+			msgtitle="devmon mount"
+			msg="The following device has been mounted:\n\n$(df -hT "$dv" | \
+				awk '$1 == "'$dv'" {print "Device:\\t"$1"\x0AType:\\t"$2"\nSize:\\t\\t"$3"\nUsed:\\t"$4"\n""Avail:\\t"$5"\nUse%:\\t"$6"\nMount:\\t"$7,$8,$9,$10}')\nLabel:\\t$lb"
 			if [ "$spacefm" != "" ]; then
-				$spacefm -g --title "devmon mount" --window-icon drive-removable-media --label \
-				"The following device has been mounted:\n\n$(df -hT "$dv" | grep "$dv" | \
-				awk '{print "Device:\\t"$1"\x0AType:\\t"$2"\nSize:\\t\\t"$3"\nUsed:\\t"$4"\n""Avail:\\t"$5"\nUse%:\\t"$6"\nMount:\\t"$7,$8,$9,$10}')\nLabel:\\t$lb" \
+				$spacefm -g --title "$msgtitle" --window-icon drive-removable-media --label \
+				"$msg" \
 				--button open spacefm "$point" --button ok &>/dev/null &
 			elif [ "$zenity" != "" ]; then
-				WINDOWID="" $zenity --info --text="The following device has been mounted:\n\n$(df -hT "$dv" \
-			   | grep "$dv" | awk '{print "Device:\\t"$1"\x0AType:\\t"$2"\nSize:\\t\\t"$3"\nUsed:\\t"$4"\n""Avail:\\t"$5"\nUse%:\\t"$6"\nMount:\\t"$7,$8,$9,$10}')\nLabel:\\t$lb" --title="devmon mount" &
+				WINDOWID="" $zenity --info --text="$msg" --title="$msgtitle" &
 			else
-				$notify_send --icon=media-removable "devmon mount" "The following device has been mounted:\n\n$(df -hT "$dv" \
-				 | grep "$dv" | awk '{print "Device:\\t"$1"\x0AType:\\t"$2"\nSize:\\t\\t"$3"\nUsed:\\t"$4"\n""Avail:\\t"$5"\nUse%:\\t"$6"\nMount:\\t"$7,$8,$9,$10}')\nLabel:\\t$lb" &
+				$notify_send --icon=media-removable "$msgtitle" "$msg" &
 			fi
+			unset msgtitle msg
 		fi
 		df -hT "$dv"
 	fi
@@ -955,17 +967,19 @@ if (( mountmode != 0 )); then
 						else
 							lb=" ($label)"
 						fi
+						msgtitle="devmon unmount optical"
 						msg="Unmount error on /dev/sr$x$lb:\n\n$uerrmsg"
 						if [ "$spacefm" != "" ]; then
-							spacefm -g --title "devmon unmount optical" \
+							spacefm -g --title "$msgtitle" \
 							           --window-icon error \
 							           --label "$msg" --button close &> /dev/null &
 						elif [ "$zenity" != "" ]; then
-							WINDOWID="" zenity --error --title="devmon unmount optical" \
+							WINDOWID="" zenity --error --title="$msgtitle" \
 						                   --text="$msg" &> /dev/null &
 						else
-							"$notify_send" --icon=dialog_error "devmon unmount optical" "$msg"
+							"$notify_send" --icon=dialog-error "$msgtitle" "$msg"
 						fi
+						unset msgtitle msg
 					fi	
 				fi
 			fi
