@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script Name: devmon    http://igurublog.wordpress.com/downloads/script-devmon/ 
+# Script Name: devmon    http://igurublog.wordpress.com/downloads/script-devmon/
 # Requires:    udevil bash>=4        Recommended: eject spacefm|zenity
 # Optional:    udisks v1 may be substituted for udevil
 #              If udevil is not set suid, udisks v1/v2 or pmount is required
@@ -78,7 +78,7 @@ test2()
 	if [ "${2:0:1}" = "-" ] || [ "$2" = "" ]; then
 		echo "devmon: Option $1 requires an argument" 1>&2
 		exit 1
-	fi	
+	fi
 }
 
 test3()
@@ -87,7 +87,7 @@ test3()
 	   [ "${3:0:1}" = "-" ] || [ "$3" = "" ]; then
 		echo "devmon: Option $1 requires two arguments" 1>&2
 		exit 1
-	fi	
+	fi
 }
 
 unknown()
@@ -247,7 +247,7 @@ while [ "$1" != "" ]; do
 				igdev[$igdevx]="$2"
 				(( igdevx++ ))
 				shift
-				;;				
+				;;
 			--ignore-label )
 				test2 "$1" "$2"
 				iglab[$iglabx]="$2"
@@ -381,7 +381,7 @@ if [ "$mount_cmd" = "" ]; then
 fi
 
 
-driveinfo()    #$1=dev    #Optional $2=quiet 
+driveinfo()    #$1=dev    #Optional $2=quiet
 {
 	unset systeminternal usage ismounted presentationnopolicy hasmedia \
 			opticaldisc numaudiotracks type partition media blank label
@@ -519,9 +519,9 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 		mntmsg="devmon: $mount_cmd --mount $1 --mount-options \"$mopts\" $fst $mountfstype  $lblcmt"
 	fi
 	if [ "$3" != "nofs" ]; then
-		echo "$mntmsg" 
+		echo "$mntmsg"
 	fi
-	
+
 	# mount
 	if [ "$mount_cmd" = "$udisks2" ]; then
 		umsg=`$mount_cmd mount -b $1 -o "$mopts" $fst $mountfstype 2>&1`
@@ -539,7 +539,7 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 		point=" "
 	fi
 	if [ "$mounterr" != "0" ] || [ "$point" = "" ]; then
-		# if $3=nofs then there was no apparent filesystem but we tried to mount it 
+		# if $3=nofs then there was no apparent filesystem but we tried to mount it
 		# anyway in case it didn't report the filesystem accurately, so ignore the
 		# error
 		if [ "$3" != "nofs" ]; then
@@ -554,9 +554,9 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 	udisks functions are not authorized through policykit,
 	so devmon cannot automount drives.
 	Please install udevil or see devmon's consolekit installation instructions:
-	
+
 	http://igurublog.wordpress.com/downloads/script-devmon/#install
-	
+
 	(To silence this pop-up add --no-gui to devmon's command line.)
 						MSG
 						if [ "$spacefm" != "" ]; then
@@ -576,7 +576,7 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 					echo "Please see devmon's consolekit installation instructions:" 1>&2
 					echo "http://igurublog.wordpress.com/downloads/script-devmon/#install" 1>&2
 					echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" 1>&2
-					echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" 1>&2	
+					echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" 1>&2
 					polkiterrgiven=1
 				fi
 			fi
@@ -587,13 +587,13 @@ mountdev()   # $1=device  [$2=label]  [$3=devtype or fstype]
 		# no filesystem reported but successful mount
 		echo "$mntmsg"
 	fi
-	
+
 	# set devtag for recognizing mounted by devmon
 	devpath="$1"
 	devtag="${devpath#/dev/}"
 	devtag="${devtag//-/_}"
 	eval devmounted${devtag}=1
-	
+
 	echo "$umsg"
 	if [ "$point" = " " ]; then
 		# pmount doesn't output the mount point - get it now
@@ -617,13 +617,13 @@ unmountdev()   # $1=device
 	fi
 	umounterr="$?"
 	if [ "$mount_cmd" = "$udisks1" ] && [ "$uerrmsg" != "" ]; then
-		# bug: udisks v1 returns $?==0 when unmount fails	
+		# bug: udisks v1 returns $?==0 when unmount fails
 		umounterr=1
 	fi
 	if [ "$uerrmsg" != "" ]; then
 		echo "$uerrmsg"
 	fi
-	if [ $umounterr -ne 0 ]; then 
+	if [ $umounterr -ne 0 ]; then
 		uerr=3
 		return 3
 	fi
@@ -810,7 +810,7 @@ mountalldrives()
 			fi
 		fi
 	done
-	IFS="$IFSOLD"	
+	IFS="$IFSOLD"
 }
 
 trapexit()
@@ -934,7 +934,7 @@ if (( mountmode != 0 )); then
 					else
 						"$notify_send" --icon=dialog-error "$msgtitle" "$msg" &> /dev/null &
 					fi
-				fi	
+				fi
 			done
 			echo "devmon: sync"
 			sync
@@ -980,7 +980,7 @@ if (( mountmode != 0 )); then
 							"$notify_send" --icon=dialog-error "$msgtitle" "$msg"
 						fi
 						unset msgtitle msg
-					fi	
+					fi
 				fi
 			fi
 			(( x++ ))
@@ -1077,7 +1077,7 @@ if (( mountmode != 0 )); then
 			(( x++ ))
 		done
 	fi
-	
+
 	# Mount DEVICE
 	if (( mntx > 0 )); then
 		x=0
@@ -1097,7 +1097,7 @@ if (( mountmode != 0 )); then
 				mountdev $d "$label" "$type"
 			fi
 			(( x++ ))
-		done	
+		done
 	fi
 
 	# Mount All Unmounted
