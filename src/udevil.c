@@ -3517,7 +3517,7 @@ _get_type:
                 }
                 // test for race conditions
                 restore_privileges();
-                fd = open( data->device_file, O_RDWR );
+                fd = open( data->device_file, O_RDONLY );
                 drop_privileges( 0 );
                 if ( fd == -1 )
                 {
