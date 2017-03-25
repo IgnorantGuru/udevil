@@ -6,7 +6,7 @@
 # wandows <pressaperfeicao@yahoo.com.br>, 2013
 # wandows <pressaperfeicao@yahoo.com.br>, 2013
 # wandows <pressaperfeicao@yahoo.com.br>, 2013
-# wandows <pressaperfeicao@yahoo.com.br>, 2014-2015
+# wandows <pressaperfeicao@yahoo.com.br>, 2014-2016
 # wandows <pressaperfeicao@yahoo.com.br>, 2013
 # wandows <pressaperfeicao@yahoo.com.br>, 2013
 msgid ""
@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-16 15:19+0000\n"
-"PO-Revision-Date: 2015-10-16 15:21+0000\n"
-"Last-Translator: IgnorantGuru <ignorantguru@gmx.com>\n"
+"PO-Revision-Date: 2016-08-31 16:20+0000\n"
+"Last-Translator: wandows <pressaperfeicao@yahoo.com.br>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/ignorantguru/udevil/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgstr ""
 #, c-format
 msgid ""
 "udevil: error 1: unable to drop privileges - please report this problem\n"
-msgstr ""
+msgstr "udevil: erro 1: Não é possível desconectar privilégios - informe este problema\n"
 
 #: ../src/udevil.c:810
 #, c-format
@@ -981,11 +981,11 @@ msgstr "    OPÇÕES DE DESMONTAGENS:\n"
 
 #: ../src/udevil.c:4983 ../src/udevil.c:4995
 msgid "lazy unmount (see man umount)"
-msgstr "desmontagem lenta (ver man umount)"
+msgstr "desmontagem lenta (veja: man umount)"
 
 #: ../src/udevil.c:4984 ../src/udevil.c:4996
 msgid "force unmount (see man umount)"
-msgstr "forçar desmontagem (ver man umount)"
+msgstr "forçar desmontagem (veja: man umount)"
 
 #: ../src/udevil.c:4991
 #, c-format
@@ -1026,12 +1026,12 @@ msgstr "    udevil info|--show-info|--info [-b|--block-device] DISPOSITIVO\n"
 #: ../src/udevil.c:5003
 #, c-format
 msgid "MONITOR  -  Display device events emulating udisks v1 output:\n"
-msgstr "MONITORAR  -  Mostra eventos dos dispositivos emulando udisks v1 saída\n"
+msgstr "MONITOR  -  Mostra eventos dos dispositivos emulando udisks v1 saída\n"
 
 #: ../src/udevil.c:5006
 #, c-format
 msgid "CLEAN  -  Remove unmounted udevil-created mount dirs in media dirs\n"
-msgstr "CLEAN  -  Remove pastas criadas por udevil desmontado as pastas de mídia\n"
+msgstr "CLEAN  -  Remove as pastas criadas por udevil desmontando as pastas de mídia\n"
 
 #: ../src/udevil.c:5008
 #, c-format

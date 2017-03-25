@@ -6,7 +6,7 @@
 # wandows <pressaperfeicao@yahoo.com.br>, 2013
 # wandows <pressaperfeicao@yahoo.com.br>, 2013
 # Vladimir Kudrya <vladimir-csp@yandex.ru>, 2012
-# Vladimir Kudrya <vladimir-csp@yandex.ru>, 2012
+# Vladimir Kudrya <vladimir-csp@yandex.ru>, 2012,2016
 # irk.translator <irk.translator@gmail.com>, 2012
 # Vladimir Lomov <irk.translator@yandex.ru>, 2012-2013
 msgid ""
@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-16 15:19+0000\n"
-"PO-Revision-Date: 2015-10-16 15:21+0000\n"
-"Last-Translator: IgnorantGuru <ignorantguru@gmx.com>\n"
+"PO-Revision-Date: 2016-02-14 10:57+0000\n"
+"Last-Translator: Vladimir Kudrya <vladimir-csp@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/ignorantguru/udevil/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgstr ""
 #, c-format
 msgid ""
 "udevil: error 1: unable to drop privileges - please report this problem\n"
-msgstr ""
+msgstr "udevil: ошибка 1: невозможно сбросить привилегии - сообщите об этой проблеме разработчику\n"
 
 #: ../src/udevil.c:810
 #, c-format
@@ -57,7 +57,7 @@ msgstr "udevil: ошибка 6: %s строка %d повторяющийся п
 #: ../src/udevil.c:904
 #, c-format
 msgid "udevil: warning 7: cannot read config file %s\n"
-msgstr ""
+msgstr "udevil: предупреждение 7: невозможно прочитать конфигурационный файл %s\n"
 
 #: ../src/udevil.c:916
 #, c-format
@@ -72,12 +72,12 @@ msgstr "udevil: ошибка 8: ошибка записи в файл журна
 #: ../src/udevil.c:1233
 #, c-format
 msgid "udevil: warning 124: invalid use of /** suffix in pattern '%s'\n"
-msgstr ""
+msgstr "udevil: предупреждение 124: некорректное использование суффикса /** в шаблоне '%s'\n"
 
 #: ../src/udevil.c:1236
 #, c-format
 msgid "udevil: warning 125: ** wildcard not allowed in %s\n"
-msgstr ""
+msgstr "udevil: предупреждение 125: групповой символ ** недопустим в %s\n"
 
 #: ../src/udevil.c:1534 ../src/udevil.c:1576 ../src/udevil.c:1638
 #: ../src/udevil.c:1681
@@ -207,7 +207,7 @@ msgstr "udevil: предупреждение 24: невозможно выпол
 msgid ""
 "udevil: warning 25: setfacl on %s failed, falling back to 'user:root "
 "rwx------'\n"
-msgstr ""
+msgstr "udevil: предупреждение 25: выполнение setfacl на %s неуспешно, откат к применению прав 'user:root rwx------'\n"
 
 #: ../src/udevil.c:2491
 #, c-format
@@ -1040,7 +1040,7 @@ msgstr "HELP  —  показать эту справку\n"
 
 #: ../src/udevil.c:5013
 msgid "For config see"
-msgstr ""
+msgstr "См. конфигурацию в"
 
 #: ../src/udevil.c:5015
 #, c-format

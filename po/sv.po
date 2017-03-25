@@ -3,16 +3,16 @@
 # package.
 # 
 # Translators:
-# IgnorantGuru <ignorantguru@gmx.com>, 2013
-# IgnorantGuru <ignorantguru@gmx.com>, 2013
+# IgnorantGuru <ignorantguru@openmailbox.org>, 2013
+# IgnorantGuru <ignorantguru@openmailbox.org>, 2013
 # Ingemar Karlsson <ingemar@ingk.se>, 2013,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: udevil\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-16 15:19+0000\n"
-"PO-Revision-Date: 2015-10-16 15:21+0000\n"
-"Last-Translator: IgnorantGuru <ignorantguru@gmx.com>\n"
+"PO-Revision-Date: 2015-10-16 16:37+0000\n"
+"Last-Translator: Ingemar Karlsson <ingemar@ingk.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/ignorantguru/udevil/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 #, c-format
 msgid ""
 "udevil: error 1: unable to drop privileges - please report this problem\n"
-msgstr ""
+msgstr "udevil: error 1: det går inte att släppa privilegier - var vänlig rapportera detta problem\n"
 
 #: ../src/udevil.c:810
 #, c-format
