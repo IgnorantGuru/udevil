@@ -1,0 +1,237 @@
+'\" t
+.\"     Title: udevil
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets v1.78.1 <http://docbook.sf.net/>
+.\"      Date: 11/27/2013
+.\"    Manual: udevil Manual
+.\"    Source: udevil 0.4.1+
+.\"  Language: English
+.\"
+.TH "UDEVIL" "1" "11/27/2013" "udevil 0\&.4\&.1+" "udevil Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+udevil \- mount, unmount, and monitor devices as a normal user
+.SH "SYNOPSIS"
+.sp
+\fBudevil\fR [\fIOPTIONS\fR] \fICOMMAND\fR [\fICOMMAND\-OPTIONS\fR] [\fICOMMAND\-ARGUMENTS\fR]
+.SH "DESCRIPTION"
+.sp
+udevil(1) mounts and unmounts devices without password, shows device info, monitors device changes\&. Emulates udisks1/2 command line usage and udisks1 output\&.
+.SH "OPTIONS"
+.PP
+\fB\-\-verbose\fR
+.RS 4
+Print details\&.
+.RE
+.PP
+\fB\-\-quiet\fR
+.RS 4
+Minimal output\&.
+.RE
+.SH "MOUNT"
+.sp
+\fBudevil mount\fR|\fB\-\-mount\fR [\fIMOUNT\-OPTIONS\fR] [[\fB\-b\fR|\fB\-\-block\-device\fR] \fIDEVICE\fR] [\fIDIR\fR]
+.sp
+Mounts \fIDEVICE\fR to mount point \fIDIR\fR with \fIMOUNT\-OPTIONS\fR:
+.PP
+\fB\-t|\-\-types|\-\-filesystem\-type|\-\-mount\-fstype\fR \fITYPE\fR
+.RS 4
+See man mount\&.
+.RE
+.PP
+\fB\-o|\-\-options|\-\-mount\-options\fR \fIOPT\fR,\&...
+.RS 4
+See man mount\&.
+.RE
+.PP
+\fB\-\-no\-user\-interaction\fR
+.RS 4
+Ignored (for compatibility)\&.
+.RE
+.SS "EXAMPLES"
+.sp
+\fBudevil mount /dev/sdd1\fR
+.sp
+\fBudevil mount \-o ro,noatime /dev/sdd1\fR
+.sp
+\fBudevil mount \-o ro,noatime /dev/sdd1 /media/custom\fR
+.PP
+\fBudevil mount /tmp/example\&.iso\fR
+.RS 4
+ISO file
+.RE
+.PP
+\fBudevil mount \fR\fBftp://sys\&.domain\fR
+.RS 4
+FTP site requires curlftpfs or ftpfs
+.RE
+.PP
+\fBudevil mount \fR\fBftp://user:pass@sys\&.domain/share\fR
+.RS 4
+FTP share with user and password
+.RE
+.PP
+\fBudevil mount \fR\fBftp://user:pass@sys\&.domain:21/share\fR
+.RS 4
+FTP share with port, user and password
+.RE
+.PP
+\fBudevil mount \-t ftpfs sys\&.domain\fR
+.RS 4
+FTP site with ftpfs
+.RE
+.PP
+\fBudevil mount \-t curlftpfs sys\&.domain\fR
+.RS 4
+FTP site with curl
+.RE
+.PP
+\fBudevil mount \-t curlftpfs user:pass@sys\&.domain\fR
+.RS 4
+FTP site with curl u/p
+.RE
+.PP
+\fBudevil mount nfs://sys\&.domain:/share\fR
+.RS 4
+NFS share
+.RE
+.PP
+\fBudevil mount sys\&.domain:/share\fR
+.RS 4
+NFS share
+.RE
+.PP
+\fBudevil mount smb://sys\&.domain/share\fR
+.RS 4
+Samba share w/ cifs
+.RE
+.PP
+\fBudevil mount smb://user:pass@10\&.0\&.0\&.1:50/share\fR
+.RS 4
+Samba share w/ u/p/port
+.RE
+.PP
+\fBudevil mount smb://WORKGROUP/user@sys\&.domain\fR
+.RS 4
+Samba share w/ workgroup
+.RE
+.PP
+\fBudevil mount //sys\&.domain/share\fR
+.RS 4
+Samba share w/ cifs
+.RE
+.PP
+\fBudevil mount //sys\&.domain/share \-t smbfs\fR
+.RS 4
+Samba share w/ smbfs
+.RE
+.PP
+\fBudevil mount ssh://user@sys\&.domain\fR
+.RS 4
+sshfs with user \- requires sshfs
+.RE
+.PP
+\fBudevil mount \-t sshfs \fR\fBuser@sys\fR\fB\&.domain\fR
+.RS 4
+sshfs with user
+.RE
+.PP
+\fBudevil mount \fR\fBhttp://sys\&.domain/dav/\fR
+.RS 4
+WebDAV \- requires davfs2
+.RE
+.PP
+\fBudevil mount tmpfs\fR
+.RS 4
+Make a RAM drive
+.RE
+.sp
+\fBWARNING !!!\fR a password on the command line is \fB\fIUNSAFE\fR\fR \- see filesystem docs
+.SH "UNMOUNT"
+.sp
+\fBudevil umount\fR|\fBunmount\fR|\fB\-\-unmount\fR|\fB\-\-umount\fR [\fIUNMOUNT\-OPTIONS\fR] {[\fB\-b\fR|\fB\-\-block\-device\fR] \fIDEVICE\fR}|\fIDIR\fR
+.sp
+Unmount \fIDEVICE\fR or \fIDIR\fR with \fIUNMOUNT\-OPTIONS\fR:
+.PP
+\fB\-l\fR
+.RS 4
+Lazy unmount (see man umount)\&.
+.RE
+.PP
+\fB\-f\fR
+.RS 4
+Force unmount (see man umount)\&.
+.RE
+.PP
+\fB\-\-no\-user\-interaction\fR
+.RS 4
+Ignored (for compatibility)\&.
+.RE
+.SS "EXAMPLES"
+.sp
+\fBudevil umount /dev/sdd1\fR
+.sp
+\fBudevil umount /media/disk\fR
+.sp
+\fBudevil umount \-l /media/disk\fR
+.sp
+\fBudevil umount /tmp/example\&.iso\fR
+.SH "INFO"
+.sp
+\fBudevil info\fR|\fB\-\-show\-info\fR|\fB\-\-info\fR [\fB\-b\fR|\fB\-\-block\-device\fR] \fIDEVICE\fR
+.sp
+Show information about \fIDEVICE\fR emulating udisks v1 output\&.
+.SS "EXAMPLE"
+.sp
+\fBudevil info /dev/sdd1\fR
+.SH "MONITOR"
+.sp
+\fBudevil monitor\fR|\fB\-\-monitor\fR
+.sp
+Display device events emulating udisks v1 output\&.
+.SS "EXAMPLE"
+.sp
+\fBudevil monitor\fR
+.SH "CLEAN"
+.sp
+\fBudevil clean\fR
+.sp
+Remove unmounted udevil\-created mount dirs in media dirs\&.
+.SH "HELP"
+.sp
+\fBudevil help\fR|\fB\-\-help\fR|\fB\-h\fR
+.sp
+Show help very similar to this manpage\&.
+.SH "AUTOMOUNTING"
+.sp
+For automounting with udevil run \*(Aq\fBdevmon \-\-help\fR\*(Aq\&.
+.SH "FILES"
+.PP
+\fB/etc/udevil/udevil\&.conf\fR
+.RS 4
+Configuration file\&.
+.RE
+.SH "HOMEPAGE"
+.sp
+http://ignorantguru\&.github\&.io/udevil/
+.SH "AUTHOR"
+.sp
+\fBudevil\fR is developed and maintained by IgnorantGuru <ignorantguru@gmx\&.com>\&. This manual page was adapted from udevil\(cqs \-\-help output by Omega Weapon <OmegaPhil+udevil@gmail\&.com>\&.
