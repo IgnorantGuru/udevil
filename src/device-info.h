@@ -15,6 +15,7 @@
 #include <libudev.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <sys/stat.h>
 
 // intltool
 #include <glib/gi18n.h>
