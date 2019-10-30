@@ -4053,12 +4053,8 @@ _get_type:
         char* bdev = g_path_get_basename( data->device_file );
         if ( type == MOUNT_BLOCK )
         {
-            if ( device->id_label && device->id_label[0] != '\0'
-                                && device->id_label[0] != ' '
-                                && g_utf8_validate( device->id_label, -1, NULL )
-                                && !strchr( device->id_label, '/' ) )
-                mname = g_strdup_printf( "%.20s", device->id_label );
-            else if ( device->device_by_id && device->device_by_id[0] != '\0'
+            
+            if ( device->device_by_id && device->device_by_id[0] != '\0'
                                 && g_utf8_validate( device->device_by_id, -1, NULL ) )
             {
                 str = g_path_get_basename( device->device_by_id );
@@ -4067,6 +4063,11 @@ _get_type:
             }
             else if ( device->id_uuid && device->id_uuid[0] != '\0' )
                 mname = g_strdup_printf( "%s-%s", bdev, device->id_uuid );
+            else if ( device->id_label && device->id_label[0] != '\0'
+                                && device->id_label[0] != ' '
+                                && g_utf8_validate( device->id_label, -1, NULL )
+                                && !strchr( device->id_label, '/' ) )
+                mname = g_strdup_printf( "%.20s", device->id_label );
             else
                 mname = g_strdup( bdev );
         }
