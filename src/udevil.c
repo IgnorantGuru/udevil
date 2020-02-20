@@ -5175,7 +5175,8 @@ printf("\n-----------------------\n");
                     }
                 }
                 else if ( !strcmp( arg, "unmount" ) || !strcmp( arg, "--unmount" )
-                           || !strcmp( arg, "umount" ) || !strcmp( arg, "--umount" ) )
+                                                    || !strcmp( arg, "umount" )
+                                                    || !strcmp( arg, "--umount" ) )
                 {
                     data->cmd_type = CMD_UNMOUNT;
                     if ( arg_next )
@@ -5203,7 +5204,7 @@ printf("\n-----------------------\n");
                     }
                 }
                 else if ( !strcmp( arg, "info" ) || !strcmp( arg, "--show-info" )
-                                                    || !strcmp( arg, "--info" ) )
+                                                 || !strcmp( arg, "--info" ) )
                 {
                     data->cmd_type = CMD_INFO;
                     if ( arg_next )
@@ -5229,7 +5230,7 @@ printf("\n-----------------------\n");
                 else if ( !strcmp( arg, "--quiet" ) )
                     verbose = 2;
                 else if ( !strcmp( arg, "help" ) || !strcmp( arg, "--help" )
-                                                    || !strcmp( arg, "-h" ) )
+                                                 || !strcmp( arg, "-h" ) )
                 {
                     dump_log();
                     drop_privileges( 1 );
@@ -5250,8 +5251,8 @@ printf("\n-----------------------\n");
                     ac += next_inc;
                 }
                 else if ( !strcmp( arg, "-t" ) || !strcmp( arg, "--filesystem-type" )
-                                                || !strcmp( arg, "--types" )
-                                                || !strcmp( arg, "--mount-fstype" ) )
+                                               || !strcmp( arg, "--types" )
+                                               || !strcmp( arg, "--mount-fstype" ) )
                 {
                     if ( !arg_next )
                         goto _reject_missing_arg;
@@ -5261,7 +5262,7 @@ printf("\n-----------------------\n");
                     ac += next_inc;
                 }
                 else if ( !strcmp( arg, "-o" ) || !strcmp( arg, "--options" )
-                                        || !strcmp( arg, "--mount-options" ) )
+                                               || !strcmp( arg, "--mount-options" ) )
                 {
                     if ( !arg_next )
                         goto _reject_missing_arg;
@@ -5286,6 +5287,24 @@ printf("\n-----------------------\n");
                     if ( data->uuid )
                         goto _reject_too_many;
                     data->uuid = g_strdup( arg_next );
+                    ac += next_inc;
+                }
+                else if ( !strcmp( arg, "--source" ) )
+                {
+                    if ( !arg_next )
+                        goto _reject_missing_arg;
+                    if ( data->device_file )
+                        goto _reject_too_many;
+                    data->device_file = g_strdup( arg_next );
+                    ac += next_inc;
+                }
+                else if ( !strcmp( arg, "--target" ) )
+                {
+                    if ( !arg_next )
+                        goto _reject_missing_arg;
+                    if ( data->point )
+                        goto _reject_too_many;
+                    data->point = g_strdup( arg_next );
                     ac += next_inc;
                 }
                 else if ( !strcmp( arg, "--no-user-interaction" ) )
