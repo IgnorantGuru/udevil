@@ -62,7 +62,7 @@
 
 
 #define ALLOWED_OPTIONS "nosuid,noexec,nodev,user=$USER,uid=$UID,gid=$GID"
-#define ALLOWED_TYPES "$KNOWN_FILESYSTEMS,smbfs,cifs,nfs,ftpfs,curlftpfs,sshfs,file,tmpfs,ramfs"
+#define ALLOWED_TYPES "$KNOWN_FILESYSTEMS,smbfs,cifs,nfs,ftpfs,curlftpfs,sshfs,file,tmpfs,ramfs,overlay"
 #define MAX_LOG_DAYS 60   // don't set this too high
 
 // udisks2 changed its media dir from /run/media/$USER to /media/$USER
@@ -1789,7 +1789,11 @@ static gboolean device_is_mounted_mtab( const char* device_file, char** mount_po
             continue;
         }
 
-        file = g_strcompress( encoded_file );
+        if ( g_strcmp0( "overlay", encoded_file ) )
+            file = g_strcompress( encoded_file );
+        else
+            file = g_strcompress( encoded_point );
+
         if ( !g_strcmp0( device_file, file ) )
         {
             if ( mount_point )
@@ -2395,6 +2399,109 @@ static gboolean create_auto_media()
     return ret;
 }
 
+
+static int create_media_dir( const char* path, gboolean* created )
+{
+    int ret = 0;
+    char* str = NULL;
+    *created = FALSE;
+
+    if ( !g_utf8_validate( path, -1, NULL ) )
+    {
+        wlog( _("udevil: error 104: mount point '%s' is not a valid UTF8 string\n"), path, 2 );
+        ret = 1;
+    }
+    else
+    {
+        if ( g_file_test( path, G_FILE_TEST_EXISTS ) )
+        {
+            if ( !valid_mount_path( path, &str ) )
+            {
+                printf( str, NULL );
+                g_free( str );
+                ret = 2;
+            }
+        }
+        else
+        {
+            restore_privileges();
+            // mkdir
+            if ( mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH ) != 0 )
+            {
+                drop_privileges( 0 );
+                str = g_strdup_printf( _("udevil: error 105: mkdir '%s' failed\n"), path );
+                wlog( str, NULL, 2 );
+                g_free( str );
+                ret = 1;
+            }
+            else
+            {
+                *created = TRUE;
+                chown( path, orig_ruid, 0 );
+
+                // tag mount point created by udevil
+                str = g_build_filename( path, ".udevil-mount-point", NULL );
+                FILE* file = fopen( str, "w" );
+                fclose( file );
+                g_free( str );
+                drop_privileges( 0 );
+            }
+        }
+    }
+
+    return ret;
+}
+
+
+static void remove_mount_point( const char* path, gboolean* created )
+{
+    if ( path && *created )
+    {
+        char* str = g_build_filename( path, ".udevil-mount-point", NULL );
+        restore_privileges();
+        unlink ( str );
+        g_free( str );
+        rmdir( path );
+        drop_privileges( 0 );
+
+        *created = FALSE;
+    }
+}
+
+
+static void recursive_remove_dir( const gchar* path )
+{
+    GDir* dir;
+    gchar* entry;
+    const gchar* name;
+
+    if ( g_file_test( path, G_FILE_TEST_IS_DIR ) )
+    {
+        dir = g_dir_open( path, 0, NULL );
+        if ( dir )
+        {
+            while ( name = g_dir_read_name( dir ) )
+            {
+                entry = g_build_filename( path, name, NULL );
+                if ( g_file_test( path, G_FILE_TEST_IS_DIR ) )
+                {
+                    recursive_remove_dir( entry );  // Note recursive call
+                    wlog( "udevil: removed '%s'\n", entry, 0 );
+                }
+                else
+                {
+                    unlink( entry );
+                }
+                g_free( entry );
+            }
+
+            g_dir_close( dir );
+            rmdir( path );
+        }
+    }
+}
+
+
 static char* get_default_mount_dir( const char* type )
 {
     char* list = NULL;
@@ -2777,6 +2884,7 @@ static int command_mount( CommandData* data )
         MOUNT_BLOCK,
         MOUNT_NET,
         MOUNT_FILE,
+        MOUNT_OVERLAY,
         MOUNT_MISSING
     };
     struct stat64 statbuf;
@@ -2788,6 +2896,8 @@ static int command_mount( CommandData* data )
     char* fstype = NULL;
     char* options = NULL;
     char* point = NULL;
+    char* upperdir = NULL;
+    char* workdir = NULL;
     device_t *device = NULL;
     netmount_t *netmount = NULL;
     int ret = 0;
@@ -2859,6 +2969,8 @@ _get_type:
         {
             if ( data->cmd_type == CMD_UNMOUNT )
                 type = MOUNT_MISSING;
+            else if ( !g_strcmp0( data->device_file, "overlay" ) )
+                type = MOUNT_OVERLAY;
             else if ( !g_strcmp0( data->device_file, "tmpfs" ) || 
                                     !g_strcmp0( data->device_file, "ramfs" ) )
                 type = MOUNT_FILE;
@@ -3005,7 +3117,8 @@ _get_type:
                             && !g_file_test( data->device_file, G_FILE_TEST_IS_DIR ) )
                 {
                     if ( g_strcmp0( data->device_file, "tmpfs" ) &&
-                                        g_strcmp0( data->device_file, "ramfs" ) )
+                                        g_strcmp0( data->device_file, "ramfs" ) &&
+                                        g_strcmp0( data->device_file, "overlay" ) )
                     {
                         // found device file of mountpoint
                         if ( g_str_has_prefix( data->device_file, "//" ) &&
@@ -3103,7 +3216,8 @@ _get_type:
     else if ( type == MOUNT_FILE )
     {
         if ( !g_strcmp0( data->device_file, "tmpfs" ) ||
-                                    !g_strcmp0( data->device_file, "ramfs" ) )
+                                    !g_strcmp0( data->device_file, "ramfs" ) ||
+                                    !g_strcmp0( data->device_file, "overlay" ) )
             fstype = g_strdup( data->device_file );
         else
         {
@@ -3121,6 +3235,57 @@ _get_type:
             else
                 fstype = g_strdup( "file" );
         }
+    }
+    else if ( type == MOUNT_OVERLAY )
+    {
+        options = str = g_strdup ( data->options );
+        for( char* path = strsep(&str, ","); path != NULL; path = strsep(&str, ",") )
+        {
+            // check that all "lowerdir"(s) exist and are directories
+            if ( !strncmp( path, "lowerdir=", 9 ) )
+            {
+                char* str2 = path + 9;
+                for( path = strsep( &str2, ":" ); path != NULL; path = strsep( &str2, ":" ) )
+                {
+                    if ( !g_file_test( path, G_FILE_TEST_IS_DIR ) )
+                    {
+                        wlog( _("udevil: error XX: lowerdir '%s' does not exist, or is not a directory\n"), path, 2 );
+                        ret = 1;
+                        g_free( options );
+                        goto _finish;
+                    }
+                }
+            }
+            // check that "upperdir" is not a file, if missing it will be auto-created as a directory
+            else if ( !strncmp( path, "upperdir=", 9 ) )
+            {
+                path += strlen( "upperdir=" );
+                if ( g_file_test( path, G_FILE_TEST_EXISTS ) && !g_file_test( path, G_FILE_TEST_IS_DIR ) )
+                {
+                    wlog( _("udevil: error XX: upperdir '%s' is a file, not a directory\n"), path, 2 );
+                    ret = 1;
+                    g_free( options );
+                    goto _finish;
+                }
+                upperdir = g_strdup( path );
+            }
+            // check that "workdir" is not a file, if missing it will be auto-created as a directory
+            else if ( !strncmp( path, "workdir=", 8 ) )
+            {
+                path += strlen( "workdir=" );
+                if ( g_file_test( path, G_FILE_TEST_EXISTS ) && !g_file_test( path, G_FILE_TEST_IS_DIR ) )
+                {
+                    wlog( _("udevil: error XX: workdir '%s' is a file, not a directory\n"), path, 2 );
+                    ret = 1;
+                    g_free( options );
+                    goto _finish;
+                }
+                workdir = g_strdup( path );
+            }
+        }
+
+        g_free( options );
+        fstype = g_strdup( data->fstype );
     }
     else if ( type == MOUNT_MISSING )
     {
@@ -3334,14 +3499,14 @@ _get_type:
         // remove trailing slashes
         while ( ( g_str_has_suffix( data->point, "/" ) && data->point[1] != '\0' ) )
             data->point[ strlen( data->point ) - 1] = '\0';
-    
+
         // canonicalize
         if ( stat64( data->point, &statbuf ) == 0 )
         {
             if ( !get_realpath( &data->point ) )
             {
                 wlog( _("udevil: error 67: cannot canonicalize mount point path\n"), NULL, 2 );
-                
+
                 ret = 1;
                 goto _finish;
             }
@@ -3498,7 +3663,8 @@ _get_type:
         if ( !g_file_test( data->device_file, G_FILE_TEST_IS_DIR ) )
         {
             if ( g_strcmp0( data->device_file, "tmpfs" ) &&
-                                        g_strcmp0( data->device_file, "ramfs" ) )
+                                        g_strcmp0( data->device_file, "ramfs" ) &&
+                                        g_strcmp0( data->device_file, "overlay" ) )
             {
                 if ( !validate_in_list( "allowed_files", "file", data->device_file )
                      || validate_in_list( "forbidden_files", "file", data->device_file ) )
@@ -4154,42 +4320,31 @@ _get_type:
 
     // validate mount point
     gboolean made_point = FALSE;
-    if ( !g_utf8_validate( point, -1, NULL ) )
+    if ( (ret = create_media_dir( point, &made_point ) ) != 0 )
     {
-        wlog( _("udevil: error 104: mount point '%s' is not a valid UTF8 string\n"), point, 2 );
-        ret = 1;
         goto _finish;
     }
-    if ( g_file_test( point, G_FILE_TEST_EXISTS ) )
+
+    // validate upperdir & workdir
+    gboolean made_upperdir = FALSE;
+    gboolean made_workdir = FALSE;
+    if ( type == MOUNT_OVERLAY )
     {
-        if ( !valid_mount_path( point, &str ) )
+        if ( upperdir )
         {
-            printf( str, NULL );
-            g_free( str );
-            ret = 2;
-            goto _finish;
+            if ( (ret = create_media_dir( upperdir, &made_upperdir ) ) != 0 )
+            {
+                goto _finish;
+            }
         }
-    }
-    else
-    {
-        made_point = TRUE;
-        restore_privileges();
-        // mkdir
-        if ( mkdir( point, S_IRWXU ) != 0 )
+
+        if ( workdir )
         {
-            drop_privileges( 0 );
-            str = g_strdup_printf( _("udevil: error 105: mkdir '%s' failed\n"), point );
-            wlog( str, NULL, 2 );
-            g_free( str );
-            ret = 1;
-            goto _finish;
+            if ( (ret = create_media_dir( workdir, &made_workdir ) ) != 0 )
+            {
+                goto _finish;
+            }
         }
-        // tag mount point created by udevil
-        str = g_build_filename( point, ".udevil-mount-point", NULL );
-        FILE* file = fopen( str, "w" );
-        fclose( file );
-        g_free( str );
-        drop_privileges( 0 );
     }
 
     // validate exec
@@ -4249,15 +4404,13 @@ _get_type:
     if ( ret )
     {
         // remove mount point on error
-        if ( made_point )
-        {
-            str = g_build_filename( point, ".udevil-mount-point", NULL );
-            restore_privileges();
-            unlink ( str );
-            g_free( str );
-            rmdir( point );
-            drop_privileges( 0 );
-        }
+        remove_mount_point( point, &made_point );
+
+        // remove upperdir error
+        remove_mount_point( upperdir, &made_upperdir );
+
+        // remove workdir error
+        remove_mount_point( workdir, &made_workdir );
     }
     else
     {
@@ -4313,6 +4466,8 @@ _finish:
     device_free( device );
     g_free( options );
     g_free( point );
+    g_free( upperdir );
+    g_free( workdir );
     if ( fd != -1 )
     {
         restore_privileges();
@@ -4650,7 +4805,7 @@ static int command_clean()
     char* element;
     char* selement;
     GDir* dir;
-    char* path;
+    gchar* path;
     const char* name;
     struct stat statbuf;
 
@@ -4714,7 +4869,7 @@ static int command_clean()
                         unlink( path );
                         g_free( path );
                         path = g_build_filename( selement, name, NULL );
-                        rmdir( path );
+                        recursive_remove_dir( path );
                         // no translate
                         wlog( "udevil: cleaned '%s'\n", path, 0 );
                     }
