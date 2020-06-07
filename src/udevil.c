@@ -632,7 +632,7 @@ void restore_privileges()
 char* get_known_filesystems()
 {
     // common types
-    char* list = g_strdup( "btrfs,ext2,ext3,ext4,udf,iso9660,xfs,jfs,nilfs,reiserfs,reiser4,msdos,umsdos,vfat,exfat,ntfs" );
+    char* list = g_strdup( "btrfs,ext2,ext3,ext4,udf,iso9660,xfs,jfs,nilfs,reiserfs,reiser4,msdos,umsdos,vfat,exfat,ntfs,hfsplus" );
 
     // get additional types from files
     static const char *type_files[] = { "/proc/filesystems", "/etc/filesystems", NULL };
